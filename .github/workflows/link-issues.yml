@@ -1,4 +1,4 @@
-name: Link Issues
+name: Add commit comment to issue
 
 on:
   push:
@@ -7,13 +7,28 @@ on:
       - develop
 
 jobs:
-  link-issues:
+  comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Link commits to issues
-        uses: peter-evans/link-issue@v1
+      - name: Extract commit messages
+        uses: actions/github-script@v7
         with:
-          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          script: |
+            const commits = context.payload.commits;
+            const issuePattern = /#(\d+)/g;
 
-
-
+            for (const commit of commits) {
+              const message = commit.message;
+              const matches = [...message.matchAll(issuePattern)];
+              for (const match of matches) {
+                const issueNumber = match[1];
+                const commentBody = `💬 커밋 [\`${commit.id.substring(0, 7)}\`](${commit.url}) 가 이슈에 추가되었습니다.\n\n> ${message}`;
+                
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  body: commentBody
+                });
+              }
+            }
