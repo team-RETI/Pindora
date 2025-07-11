@@ -34,6 +34,7 @@
 		DF5FFE3F2E20B48400C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3E2E20B48400C07AD3 /* .gitkeep */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
+		DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */; };
 		DFA6891A2E2109C6000EC0BA /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DFA689182E2109C6000EC0BA /* .gitkeep */; };
 		DFA6892D2E2110F7000EC0BA /* issue.md in Resources */ = {isa = PBXBuildFile; fileRef = DFA689272E2110F7000EC0BA /* issue.md */; };
 		DFA6892E2E2110F7000EC0BA /* main.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFA689292E2110F7000EC0BA /* main.yml */; };
@@ -71,6 +72,7 @@
 		DF5FFE3E2E20B48400C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE412E20B9BE00C07AD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DF5FFE432E20BBB300C07AD3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "issue-project-tracker.yml"; sourceTree = "<group>"; };
 		DFA689182E2109C6000EC0BA /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DFA689272E2110F7000EC0BA /* issue.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = issue.md; sourceTree = "<group>"; };
 		DFA689292E2110F7000EC0BA /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = main.yml; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				DFA689292E2110F7000EC0BA /* main.yml */,
+				DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */,
 			);
 			path = workflows;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF5FFE312E20B47C00C07AD3 /* .gitkeep in Resources */,
+				DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */,
 				A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */,
 				DF5FFE352E20B47E00C07AD3 /* .gitkeep in Resources */,
 				DFA6891A2E2109C6000EC0BA /* .gitkeep in Resources */,
