@@ -9,13 +9,14 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Group pushed commits by issue and comment once per issue
+      - name: Group commits by issue and comment once per issue
         uses: actions/github-script@v7
         with:
           script: |
             const commits = context.payload.commits;
             const issuePattern = /#(\d+)/g;
 
+            // Map<issueNumber, commit[]>
             const issueCommitsMap = {};
 
             for (const commit of commits) {
@@ -24,7 +25,6 @@ jobs:
 
               for (const match of matches) {
                 const issueNumber = match[1];
-
                 if (!issueCommitsMap[issueNumber]) {
                   issueCommitsMap[issueNumber] = [];
                 }
@@ -37,21 +37,22 @@ jobs:
               }
             }
 
-            // 이슈별로 한 번만 댓글 달기
+            // 이슈별로 한 번만 댓글 작성
             for (const issueNumber in issueCommitsMap) {
-              const commitList = issueCommitsMap[issueNumber]
-                .map(c => `- [\`${c.sha}\`](${c.url}): ${c.message}`)
+              const commitsText = issueCommitsMap[issueNumber]
+                .map(commit => `- [\`${commit.sha}\`](${commit.url}): ${commit.message}`)
                 .join('\n');
 
-              const comment = `🚀 이번 푸시에서 포함된 커밋 목록입니다:\n\n${commitList}`;
+              const body = `📦 이번 푸시에 포함된 커밋 목록입니다:\n\n${commitsText}`;
 
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issueNumber,
-                body: comment
+                body
               });
             }
+
 
 #name: Add commit comment to issue
 #
