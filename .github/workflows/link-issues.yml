@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Link commits to issues
-        uses: peter-evans/link-issues@v1
+        uses: peter-evans/link-issue@v1
         with:
           repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+
 
