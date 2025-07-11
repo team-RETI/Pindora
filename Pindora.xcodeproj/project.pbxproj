@@ -34,6 +34,7 @@
 		DF5FFE3F2E20B48400C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3E2E20B48400C07AD3 /* .gitkeep */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
+		DFA6891A2E2109C6000EC0BA /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DFA689182E2109C6000EC0BA /* .gitkeep */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,12 +67,13 @@
 		DF5FFE3E2E20B48400C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE412E20B9BE00C07AD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DF5FFE432E20BBB300C07AD3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DFA689182E2109C6000EC0BA /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		DF5FFE282E20B3C400C07AD3 /* Fonts */ = {
+		DFA6891B2E210A94000EC0BA /* .github */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Fonts;
+			path = .github;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -90,6 +92,7 @@
 		A7C1AB502E20022D00B8B9E1 = {
 			isa = PBXGroup;
 			children = (
+				DFA6891B2E210A94000EC0BA /* .github */,
 				DF5FFE412E20B9BE00C07AD3 /* .gitignore */,
 				DF5FFE432E20BBB300C07AD3 /* README.md */,
 				A7F2E16A2E2007630045D175 /* Pindora */,
@@ -134,7 +137,7 @@
 		A7F2E1712E2007840045D175 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				DF5FFE282E20B3C400C07AD3 /* Fonts */,
+				DFA689192E2109C6000EC0BA /* Fonts */,
 				A7F2E1992E200A640045D175 /* DesignSystem */,
 			);
 			path = Resource;
@@ -291,6 +294,14 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		DFA689192E2109C6000EC0BA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DFA689182E2109C6000EC0BA /* .gitkeep */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -307,7 +318,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				DF5FFE282E20B3C400C07AD3 /* Fonts */,
+				DFA6891B2E210A94000EC0BA /* .github */,
 			);
 			name = Pindora;
 			packageProductDependencies = (
@@ -358,6 +369,7 @@
 				DF5FFE312E20B47C00C07AD3 /* .gitkeep in Resources */,
 				A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */,
 				DF5FFE352E20B47E00C07AD3 /* .gitkeep in Resources */,
+				DFA6891A2E2109C6000EC0BA /* .gitkeep in Resources */,
 				DF5FFE3D2E20B48200C07AD3 /* .gitkeep in Resources */,
 				DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */,
 				DF5FFE372E20B47F00C07AD3 /* .gitkeep in Resources */,
