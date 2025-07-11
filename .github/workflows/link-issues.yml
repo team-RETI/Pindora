@@ -3,33 +3,88 @@ name: Add commit comment to issue
 on:
   push:
     branches:
-      - '**'  # 모든 브랜치에서 작동
-#      - main
-#      - develop
+      - '**'
 
 jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Extract commit messages
+      - name: Group pushed commits by issue and comment once per issue
         uses: actions/github-script@v7
         with:
           script: |
             const commits = context.payload.commits;
             const issuePattern = /#(\d+)/g;
 
+            const issueCommitsMap = {};
+
             for (const commit of commits) {
               const message = commit.message;
               const matches = [...message.matchAll(issuePattern)];
+
               for (const match of matches) {
                 const issueNumber = match[1];
-                const commentBody = `💬 커밋 [\`${commit.id.substring(0, 7)}\`](${commit.url}) 가 이슈에 추가되었습니다.\n\n> ${message}`;
-                
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issueNumber,
-                  body: commentBody
+
+                if (!issueCommitsMap[issueNumber]) {
+                  issueCommitsMap[issueNumber] = [];
+                }
+
+                issueCommitsMap[issueNumber].push({
+                  sha: commit.id.substring(0, 7),
+                  url: commit.url,
+                  message
                 });
               }
             }
+
+            // 이슈별로 한 번만 댓글 달기
+            for (const issueNumber in issueCommitsMap) {
+              const commitList = issueCommitsMap[issueNumber]
+                .map(c => `- [\`${c.sha}\`](${c.url}): ${c.message}`)
+                .join('\n');
+
+              const comment = `🚀 이번 푸시에서 포함된 커밋 목록입니다:\n\n${commitList}`;
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: comment
+              });
+            }
+
+#name: Add commit comment to issue
+#
+#on:
+#  push:
+#    branches:
+#      - '**'  # 모든 브랜치에서 작동
+##      - main
+##      - develop
+#
+#jobs:
+#  comment:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Extract commit messages
+#        uses: actions/github-script@v7
+#        with:
+#          script: |
+#            const commits = context.payload.commits;
+#            const issuePattern = /#(\d+)/g;
+#
+#            for (const commit of commits) {
+#              const message = commit.message;
+#              const matches = [...message.matchAll(issuePattern)];
+#              for (const match of matches) {
+#                const issueNumber = match[1];
+#                const commentBody = `💬 커밋 [\`${commit.id.substring(0, 7)}\`](${commit.url}) 가 이슈에 추가되었습니다.\n\n> ${message}`;
+#                
+#                await github.rest.issues.createComment({
+#                  owner: context.repo.owner,
+#                  repo: context.repo.repo,
+#                  issue_number: issueNumber,
+#                  body: commentBody
+#                });
+#              }
+#            }
