@@ -29,3 +29,12 @@
 // Xcode에서 커밋 Example
 [#163]: 로그인 기능 구현
 ```
+
+## 🍎 Code Convention
+- final 키워드 사용: 성능 최적화를 위해 더 이상 상속되지 않는 class에는 꼭 final 키워드를 붙입니다.
+- private 키워드: 가능한 class에서 사용되는 property는 모두 private로 선언합니다. 
+- 명시적 타입 선언: 타입을 명시적으로 선언합니다(ex: `var groupName: String = "RETIA"`)
+- 옵셔널 처리: 런타입 에러를 방지하기 위해 강제 언래핑(!)을 사용하지 않고 `guard let`, `if let`, `옵셔널 체이닝`을 사용합니다
+
+
+
