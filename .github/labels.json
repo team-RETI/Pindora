@@ -1,0 +1,32 @@
+[
+  {
+    "name": "✨ Feature",
+    "color": "a2eeef",
+    "description": "새로운 기능 개발을 위한 이슈"
+  },
+  {
+    "name": "🐞 BugFix",
+    "color": "d73a4a",
+    "description": "Something isn't working"
+  },
+  {
+    "name": "🔨 refactor",
+    "color": "C5DEF5",
+    "description": "코드 리팩토링 작업 이슈"
+  },
+  {
+    "name": "📃 Docs",
+    "color": "1D76DB",
+    "description": "문서 작성 및 수정 관련 이슈(README.md 등)"
+  },
+  {
+    "name": "⚙️ chore",
+    "color": "D4C5F9",
+    "description": "기타 작업 관련 이슈"
+  },
+  {
+    "name": "✅ Test",
+    "color": "ccffc4",
+    "description": "테스트 코드 작성 관련 이슈"
+  }
+]
