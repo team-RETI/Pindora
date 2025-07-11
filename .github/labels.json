@@ -7,7 +7,7 @@
   {
     "name": "🐞 bug",
     "color": "d73a4a",
-    "description": "Something isn't working"
+    "description": "버그 수정 작업을 위한 이슈"
   },
   {
     "name": "⚙️ chore",
