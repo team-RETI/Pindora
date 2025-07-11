@@ -64,7 +64,7 @@ jobs:
       - name: PR을 프로젝트 보드에 추가
         uses: actions/add-to-project@v1.0.2
         with:
-          project-url: "https://github.com/orgs/team-RETI/projects/1"
+          project-url: "https://github.com/orgs/team-RETI/projects/2"
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: 🔄 PR 상태를 In Review로 설정
