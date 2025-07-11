@@ -33,6 +33,7 @@
 		DF5FFE3D2E20B48200C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3C2E20B48200C07AD3 /* .gitkeep */; };
 		DF5FFE3F2E20B48400C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3E2E20B48400C07AD3 /* .gitkeep */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
+		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		DF5FFE3C2E20B48200C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE3E2E20B48400C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE412E20B9BE00C07AD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DF5FFE432E20BBB300C07AD3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				DF5FFE412E20B9BE00C07AD3 /* .gitignore */,
+				DF5FFE432E20BBB300C07AD3 /* README.md */,
 				A7F2E16A2E2007630045D175 /* Pindora */,
 				A7C1AB5A2E20022D00B8B9E1 /* Products */,
 			);
@@ -358,6 +361,7 @@
 				DF5FFE3D2E20B48200C07AD3 /* .gitkeep in Resources */,
 				DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */,
 				DF5FFE372E20B47F00C07AD3 /* .gitkeep in Resources */,
+				DF5FFE442E20BBB300C07AD3 /* README.md in Resources */,
 				DF5FFE332E20B47D00C07AD3 /* .gitkeep in Resources */,
 				DF5FFE3F2E20B48400C07AD3 /* .gitkeep in Resources */,
 				DF5FFE392E20B48000C07AD3 /* .gitkeep in Resources */,
