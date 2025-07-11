@@ -35,3 +35,15 @@
 - private: 가능한 class에서 사용되는 property는 모두 private로 선언합니다. 
 - 명시적 타입 선언: 타입을 명시적으로 선언합니다(ex: `var groupName: String = "RETIA"`)
 - 옵셔널 처리: 런타입 에러를 방지하기 위해 강제 언래핑(!)을 사용하지 않고 `guard let`, `if let`, `옵셔널 체이닝`을 사용합니다
+
+
+
+
+
+
+
+
+
+
+
+
