@@ -40,6 +40,7 @@
 		DFA6892E2E2110F7000EC0BA /* main.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFA689292E2110F7000EC0BA /* main.yml */; };
 		DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */ = {isa = PBXBuildFile; fileRef = DFA6892B2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md */; };
 		DFA689342E211752000EC0BA /* issue-branch.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFA689332E211752000EC0BA /* issue-branch.yml */; };
+		DFEC21242E21463000C4E22D /* link-issues.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFEC21232E21463000C4E22D /* link-issues.yml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		DFA6892B2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PULL_REQUEST_TEMPLATE.md; sourceTree = "<group>"; };
 		DFA689322E21163A000EC0BA /* labels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = labels.json; sourceTree = "<group>"; };
 		DFA689332E211752000EC0BA /* issue-branch.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "issue-branch.yml"; sourceTree = "<group>"; };
+		DFEC21232E21463000C4E22D /* link-issues.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "link-issues.yml"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -317,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				DFA689292E2110F7000EC0BA /* main.yml */,
+				DFEC21232E21463000C4E22D /* link-issues.yml */,
 				DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */,
 			);
 			path = workflows;
@@ -409,6 +412,7 @@
 				DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */,
 				DF5FFE442E20BBB300C07AD3 /* README.md in Resources */,
 				DF5FFE332E20B47D00C07AD3 /* .gitkeep in Resources */,
+				DFEC21242E21463000C4E22D /* link-issues.yml in Resources */,
 				DF5FFE3F2E20B48400C07AD3 /* .gitkeep in Resources */,
 				DF5FFE392E20B48000C07AD3 /* .gitkeep in Resources */,
 				DF5FFE3B2E20B48100C07AD3 /* .gitkeep in Resources */,
