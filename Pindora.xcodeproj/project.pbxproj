@@ -24,6 +24,14 @@
 		A7F2E1972E200A2E0045D175 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E1962E200A2E0045D175 /* ProfileViewModel.swift */; };
 		A7F2E19B2E200A790045D175 /* ColorSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19A2E200A790045D175 /* ColorSystem.swift */; };
 		A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19C2E200A830045D175 /* FontSystem.swift */; };
+		DF5FFE312E20B47C00C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE302E20B47C00C07AD3 /* .gitkeep */; };
+		DF5FFE332E20B47D00C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE322E20B47D00C07AD3 /* .gitkeep */; };
+		DF5FFE352E20B47E00C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE342E20B47E00C07AD3 /* .gitkeep */; };
+		DF5FFE372E20B47F00C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE362E20B47F00C07AD3 /* .gitkeep */; };
+		DF5FFE392E20B48000C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE382E20B48000C07AD3 /* .gitkeep */; };
+		DF5FFE3B2E20B48100C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3A2E20B48100C07AD3 /* .gitkeep */; };
+		DF5FFE3D2E20B48200C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3C2E20B48200C07AD3 /* .gitkeep */; };
+		DF5FFE3F2E20B48400C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3E2E20B48400C07AD3 /* .gitkeep */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +54,23 @@
 		A7F2E1962E200A2E0045D175 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		A7F2E19A2E200A790045D175 /* ColorSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSystem.swift; sourceTree = "<group>"; };
 		A7F2E19C2E200A830045D175 /* FontSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSystem.swift; sourceTree = "<group>"; };
+		DF5FFE302E20B47C00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF5FFE322E20B47D00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF5FFE342E20B47E00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF5FFE362E20B47F00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF5FFE382E20B48000C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF5FFE3A2E20B48100C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF5FFE3C2E20B48200C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF5FFE3E2E20B48400C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		DF5FFE282E20B3C400C07AD3 /* Fonts */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A7C1AB562E20022D00B8B9E1 /* Frameworks */ = {
@@ -92,7 +116,7 @@
 		A7F2E1702E20077F0045D175 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				A7F2E1722E2007B30045D175 /* App */,
+				DF5FFE2F2E20B47000C07AD3 /* App */,
 				A7F2E1752E2007E80045D175 /* Data */,
 				A7F2E1732E2007C10045D175 /* Domain */,
 				A7F2E1742E2007D80045D175 /* Presentation */,
@@ -104,22 +128,16 @@
 		A7F2E1712E2007840045D175 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				DF5FFE282E20B3C400C07AD3 /* Fonts */,
 				A7F2E1992E200A640045D175 /* DesignSystem */,
-				A7F2E1982E200A420045D175 /* Fonts */,
 			);
 			path = Resource;
-			sourceTree = "<group>";
-		};
-		A7F2E1722E2007B30045D175 /* App */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = App;
 			sourceTree = "<group>";
 		};
 		A7F2E1732E2007C10045D175 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				DF5FFE342E20B47E00C07AD3 /* .gitkeep */,
 				A7F2E17B2E2008600045D175 /* DTO */,
 				A7F2E17A2E20084F0045D175 /* RepositoryProtocol */,
 				A7F2E1792E2008450045D175 /* Usecase */,
@@ -144,6 +162,7 @@
 		A7F2E1752E2007E80045D175 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DF5FFE322E20B47D00C07AD3 /* .gitkeep */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -159,6 +178,7 @@
 		A7F2E1772E2008220045D175 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				DF5FFE3E2E20B48400C07AD3 /* .gitkeep */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -166,6 +186,7 @@
 		A7F2E1782E2008360045D175 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				DF5FFE3C2E20B48200C07AD3 /* .gitkeep */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -173,6 +194,7 @@
 		A7F2E1792E2008450045D175 /* Usecase */ = {
 			isa = PBXGroup;
 			children = (
+				DF5FFE3A2E20B48100C07AD3 /* .gitkeep */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -180,6 +202,7 @@
 		A7F2E17A2E20084F0045D175 /* RepositoryProtocol */ = {
 			isa = PBXGroup;
 			children = (
+				DF5FFE382E20B48000C07AD3 /* .gitkeep */,
 			);
 			path = RepositoryProtocol;
 			sourceTree = "<group>";
@@ -187,6 +210,7 @@
 		A7F2E17B2E2008600045D175 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				DF5FFE362E20B47F00C07AD3 /* .gitkeep */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -244,13 +268,6 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		A7F2E1982E200A420045D175 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Fonts;
-			sourceTree = "<group>";
-		};
 		A7F2E1992E200A640045D175 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +275,14 @@
 				A7F2E19C2E200A830045D175 /* FontSystem.swift */,
 			);
 			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		DF5FFE2F2E20B47000C07AD3 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				DF5FFE302E20B47C00C07AD3 /* .gitkeep */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +299,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DF5FFE282E20B3C400C07AD3 /* Fonts */,
 			);
 			name = Pindora;
 			packageProductDependencies = (
@@ -321,7 +349,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF5FFE312E20B47C00C07AD3 /* .gitkeep in Resources */,
 				A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */,
+				DF5FFE352E20B47E00C07AD3 /* .gitkeep in Resources */,
+				DF5FFE3D2E20B48200C07AD3 /* .gitkeep in Resources */,
+				DF5FFE372E20B47F00C07AD3 /* .gitkeep in Resources */,
+				DF5FFE332E20B47D00C07AD3 /* .gitkeep in Resources */,
+				DF5FFE3F2E20B48400C07AD3 /* .gitkeep in Resources */,
+				DF5FFE392E20B48000C07AD3 /* .gitkeep in Resources */,
+				DF5FFE3B2E20B48100C07AD3 /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
