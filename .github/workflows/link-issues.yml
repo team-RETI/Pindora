@@ -3,8 +3,9 @@ name: Add commit comment to issue
 on:
   push:
     branches:
-      - main
-      - develop
+      - '**'  # 모든 브랜치에서 작동
+#      - main
+#      - develop
 
 jobs:
   comment:
