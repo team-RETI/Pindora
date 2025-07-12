@@ -10,29 +10,33 @@ name: Email Notifications
 
 on:
   issues:
-    types: [opened]             # ✅ 이슈 생성 포함
+    types: [opened]
+  push:
+    branches: [develop]
   pull_request:
-    types: [opened, closed]     # ✅ PR 생성 및 병합
+    types: [opened, closed]
+  issue_comment:
+    types: [created]
   pull_request_review_comment:
-    types: [created]            # ✅ PR 코드 라인 리뷰 댓글
+    types: [created]
 
 jobs:
   notify_by_email:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set Event Label and Email Body
-        id: build_body
+      - name: Set Custom Event Name and Build Body
+        id: set_event_name
         run: |
           EVENT_LABEL=""
-          TITLE=""
-          LINK=""
-          COMMENT=""
-          FILE=""
-          LINE=""
           BODY=""
 
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            EVENT_LABEL="커밋"
+            TITLE="${{ github.event.head_commit.message }}"
+            LINK="${{ github.event.head_commit.url }}"
+
+          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
             if [[ "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
               EVENT_LABEL="PR Merge"
             else
@@ -40,6 +44,19 @@ jobs:
             fi
             TITLE="${{ github.event.pull_request.title }}"
             LINK="${{ github.event.pull_request.html_url }}"
+
+          elif [[ "${{ github.event_name }}" == "issue_comment" ]]; then
+            if [[ "${{ toJson(github.event.issue.pull_request) }}" != "null" ]]; then
+              EVENT_LABEL="PR 댓글"
+              TITLE="${{ github.event.issue.title }}"
+              LINK="${{ github.event.comment.html_url }}"
+              COMMENT="${{ github.event.comment.body }}"
+              FILE="${{ github.event.comment.path }}"
+              LINE="${{ github.event.comment.line }}"
+            else
+              echo "💡 이슈 댓글은 무시됨"
+              exit 0
+            fi
 
           elif [[ "${{ github.event_name }}" == "pull_request_review_comment" ]]; then
             EVENT_LABEL="PR 코드리뷰 댓글"
@@ -53,22 +70,25 @@ jobs:
             EVENT_LABEL="이슈"
             TITLE="${{ github.event.issue.title }}"
             LINK="${{ github.event.issue.html_url }}"
+          else
+            EVENT_LABEL="기타"
+            TITLE="N/A"
+            LINK=""
           fi
 
           echo "event_label=$EVENT_LABEL" >> $GITHUB_OUTPUT
 
-          echo "📌 이벤트 종류: $EVENT_LABEL" >> body.txt
-          echo "📁 리포지토리: ${{ github.repository }}" >> body.txt
-          echo "🛠️ 액션: ${{ github.event.action || 'N/A' }}" >> body.txt
-          echo "📝 제목: ${TITLE:-N/A}" >> body.txt
-          echo "🙋 작성자: ${{ github.actor }}" >> body.txt
-          echo "🔗 링크: ${LINK:-해당 없음}" >> body.txt
+          BODY+="📌 이벤트 종류: $EVENT_LABEL"$'\n'
+          BODY+="📁 리포지토리: ${{ github.repository }}"$'\n'
+          BODY+="🛠️ 액션: ${{ github.event.action || 'N/A' }}"$'\n'
+          BODY+="📝 제목: ${TITLE:-N/A}"$'\n'
+          BODY+="🙋 작성자: ${{ github.actor }}"$'\n'
+          [[ -n "$LINK" ]] && BODY+="🔗 링크: $LINK"$'\n'
+          [[ -n "$COMMENT" ]] && BODY+="🗨️ 댓글 내용: $COMMENT"$'\n'
+          [[ -n "$FILE" ]] && BODY+="📄 파일: $FILE"$'\n'
+          [[ -n "$LINE" ]] && BODY+="📌 위치: Line $LINE"$'\n'
 
-          if [[ -n "$COMMENT" ]]; then echo "🗨️ 댓글 내용: $COMMENT" >> body.txt; fi
-          if [[ -n "$FILE" ]]; then echo "📄 파일: $FILE" >> body.txt; fi
-          if [[ -n "$LINE" ]]; then echo "📌 위치: Line $LINE" >> body.txt; fi
-
-          BODY="$(cat body.txt)"
+          # encode for GitHub output
           BODY_ESCAPED="${BODY//'%'/'%25'}"
           BODY_ESCAPED="${BODY_ESCAPED//$'\n'/'%0A'}"
           BODY_ESCAPED="${BODY_ESCAPED//$'\r'/'%0D'}"
@@ -82,7 +102,7 @@ jobs:
           server_port: 465
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: GitHub 알림 - ${{ steps.build_body.outputs.event_label }} 발생!
-          body: ${{ steps.build_body.outputs.body }} # ✅ 문자열로 전달
-          to: indextrown@gmail.com
+          subject: GitHub 알림 - ${{ steps.set_event_name.outputs.event_label }} 발생!
+          body: ${{ steps.set_event_name.outputs.body }}
+          to: indextrown@gmail.com, youbizone@gmail.com
           from: GitHub Notifier <${{ secrets.MAIL_USERNAME }}>
