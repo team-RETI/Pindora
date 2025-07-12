@@ -10,11 +10,11 @@ name: Email Notifications
 
 on:
   issues:
-    types: [opened]
+    types: [opened]             # ✅ 이슈 생성 포함
   pull_request:
-    types: [opened, closed]
+    types: [opened, closed]     # ✅ PR 생성 및 병합
   pull_request_review_comment:
-    types: [created]
+    types: [created]            # ✅ PR 코드 라인 리뷰 댓글
 
 jobs:
   notify_by_email:
