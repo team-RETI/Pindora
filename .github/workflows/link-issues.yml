@@ -3,7 +3,14 @@ name: Add commit comment to issue
 on:
   push:
     branches:
-      - '**'  # 모든 브랜치에서 작동
+      - 'develop'
+      - 'feature/**'
+      - 'chore/**'
+      - 'test/**'
+      - 'bug/**'
+      - 'docs/**'
+      - 'refactor/**'
+      # - '**'  # 모든 브랜치에서 작동
 
 jobs:
   comment:
