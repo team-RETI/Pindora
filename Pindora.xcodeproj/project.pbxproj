@@ -24,14 +24,6 @@
 		A7F2E1972E200A2E0045D175 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E1962E200A2E0045D175 /* ProfileViewModel.swift */; };
 		A7F2E19B2E200A790045D175 /* ColorSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19A2E200A790045D175 /* ColorSystem.swift */; };
 		A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19C2E200A830045D175 /* FontSystem.swift */; };
-		DF5FFE312E20B47C00C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE302E20B47C00C07AD3 /* .gitkeep */; };
-		DF5FFE332E20B47D00C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE322E20B47D00C07AD3 /* .gitkeep */; };
-		DF5FFE352E20B47E00C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE342E20B47E00C07AD3 /* .gitkeep */; };
-		DF5FFE372E20B47F00C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE362E20B47F00C07AD3 /* .gitkeep */; };
-		DF5FFE392E20B48000C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE382E20B48000C07AD3 /* .gitkeep */; };
-		DF5FFE3B2E20B48100C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3A2E20B48100C07AD3 /* .gitkeep */; };
-		DF5FFE3D2E20B48200C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3C2E20B48200C07AD3 /* .gitkeep */; };
-		DF5FFE3F2E20B48400C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3E2E20B48400C07AD3 /* .gitkeep */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
 		DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */; };
@@ -422,14 +414,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF5FFE312E20B47C00C07AD3 /* .gitkeep in Resources */,
 				DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */,
 				A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */,
-				DF5FFE352E20B47E00C07AD3 /* .gitkeep in Resources */,
 				DFA689342E211752000EC0BA /* issue-branch.yml in Resources */,
-				DF5FFE3D2E20B48200C07AD3 /* .gitkeep in Resources */,
 				DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */,
-				DF5FFE372E20B47F00C07AD3 /* .gitkeep in Resources */,
 				DFA6892D2E2110F7000EC0BA /* issue.md in Resources */,
 				DFA6892E2E2110F7000EC0BA /* main.yml in Resources */,
 				DFF67EA82E219AE800676213 /* Pretendard-Light.otf in Resources */,
@@ -443,11 +431,7 @@
 				DFF67EB02E219AE800676213 /* Pretendard-SemiBold.otf in Resources */,
 				DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */,
 				DF5FFE442E20BBB300C07AD3 /* README.md in Resources */,
-				DF5FFE332E20B47D00C07AD3 /* .gitkeep in Resources */,
 				DFEC21242E21463000C4E22D /* link-issues.yml in Resources */,
-				DF5FFE3F2E20B48400C07AD3 /* .gitkeep in Resources */,
-				DF5FFE392E20B48000C07AD3 /* .gitkeep in Resources */,
-				DF5FFE3B2E20B48100C07AD3 /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
