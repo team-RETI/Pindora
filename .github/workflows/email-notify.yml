@@ -9,26 +9,25 @@
 name: Email Notifications
 
 on:
-  # ✅ 이슈가 생성되었을 때 이메일 알림 트리거
+  # ✅ 이슈가 생성되었을 때 알림
   issues:
     types: [opened]
 
-  # ❌ 커밋(push) 알림은 원하지 않으므로 비활성화 (필요시 주석 해제)
+  # ❌ 커밋 알림은 제외 (원할 경우 아래 주석 해제)
   # push:
   #   branches: [develop]
 
-  # ✅ PR 생성 및 병합(닫힘) 시 알림 트리거
+  # ✅ PR 생성 및 병합 시 알림
   pull_request:
     types: [opened, closed]
 
-  # ✅ PR에 일반 댓글이 달렸을 때 (issue_comment이지만 PR인지 확인 후 필터링함)
+  # ✅ PR에 달린 일반 댓글 알림
   issue_comment:
     types: [created]
 
-  # ✅ PR 코드 라인에 리뷰 댓글이 달렸을 때
+  # ✅ PR 코드 라인에 달린 리뷰 댓글 알림
   pull_request_review_comment:
     types: [created]
-
 
 jobs:
   notify_by_email:
@@ -41,12 +40,7 @@ jobs:
           EVENT_LABEL=""
           BODY=""
 
-          if [[ "${{ github.event_name }}" == "push" ]]; then
-            EVENT_LABEL="커밋"
-            TITLE="${{ github.event.head_commit.message }}"
-            LINK="${{ github.event.head_commit.url }}"
-
-          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             if [[ "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
               EVENT_LABEL="PR Merge"
             else
@@ -64,7 +58,9 @@ jobs:
               FILE="${{ github.event.comment.path }}"
               LINE="${{ github.event.comment.line }}"
             else
-              echo "💡 이슈 댓글은 무시됨"
+              # ❌ 이슈 댓글은 감지되더라도 무시
+              echo "event_label=무시됨" >> $GITHUB_OUTPUT
+              echo "body=이슈 댓글이므로 알림 제외됨" >> $GITHUB_OUTPUT
               exit 0
             fi
 
@@ -80,10 +76,11 @@ jobs:
             EVENT_LABEL="이슈"
             TITLE="${{ github.event.issue.title }}"
             LINK="${{ github.event.issue.html_url }}"
+
           else
-            EVENT_LABEL="기타"
-            TITLE="N/A"
-            LINK=""
+            echo "event_label=무시됨" >> $GITHUB_OUTPUT
+            echo "body=지원되지 않는 이벤트입니다." >> $GITHUB_OUTPUT
+            exit 0
           fi
 
           echo "event_label=$EVENT_LABEL" >> $GITHUB_OUTPUT
@@ -98,12 +95,13 @@ jobs:
           [[ -n "$FILE" ]] && BODY+="📄 파일: $FILE"$'\n'
           [[ -n "$LINE" ]] && BODY+="📌 위치: Line $LINE"$'\n'
 
-          # ✅ 줄바꿈 유지한 멀티라인 출력 방식
+          # 멀티라인 값을 GITHUB_OUTPUT에 전달
           echo "body<<EOF" >> $GITHUB_OUTPUT
           echo "$BODY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Send Email Notification
+        if: steps.set_event_name.outputs.event_label != '무시됨'
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -112,5 +110,5 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: GitHub 알림 - ${{ steps.set_event_name.outputs.event_label }} 발생!
           body: ${{ steps.set_event_name.outputs.body }}
-          to: indextrown@gmail.com, youbizone@gmail.com
+          to: indextrown@gmail.com
           from: GitHub Notifier <${{ secrets.MAIL_USERNAME }}>
