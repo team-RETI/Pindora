@@ -88,12 +88,10 @@ jobs:
           [[ -n "$FILE" ]] && BODY+="📄 파일: $FILE"$'\n'
           [[ -n "$LINE" ]] && BODY+="📌 위치: Line $LINE"$'\n'
 
-          # encode for GitHub output
-          BODY_ESCAPED="${BODY//'%'/'%25'}"
-          BODY_ESCAPED="${BODY_ESCAPED//$'\n'/'%0A'}"
-          BODY_ESCAPED="${BODY_ESCAPED//$'\r'/'%0D'}"
-
-          echo "body=$BODY_ESCAPED" >> $GITHUB_OUTPUT
+          # ✅ 줄바꿈 유지한 멀티라인 출력 방식
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Send Email Notification
         uses: dawidd6/action-send-mail@v3
