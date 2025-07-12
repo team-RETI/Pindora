@@ -1,0 +1,86 @@
+# ✅ 기능 요약
+#
+# PR 생성 시 이메일 발송
+# PR 병합 시 이메일 발송
+# PR 코드리뷰(라인 댓글) 시 이메일 발송
+# 이슈 생성 시 이메일 발송
+# 불필요한 항목은 출력하지 않음
+
+name: Email Notifications
+
+on:
+  issues:
+    types: [opened]                   # ✅ 이슈 생성 포함
+  pull_request:
+    types: [opened, closed]          # ✅ PR 생성 및 병합
+  pull_request_review_comment:
+    types: [created]                 # ✅ PR 코드 라인 리뷰 댓글
+
+jobs:
+  notify_by_email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Event Label and Build Email Body
+        id: build_body
+        run: |
+          EVENT_LABEL=""
+          TITLE=""
+          LINK=""
+          COMMENT=""
+          FILE=""
+          LINE=""
+
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            if [[ "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
+              EVENT_LABEL="PR Merge"
+            else
+              EVENT_LABEL="PR"
+            fi
+            TITLE="${{ github.event.pull_request.title }}"
+            LINK="${{ github.event.pull_request.html_url }}"
+
+          elif [[ "${{ github.event_name }}" == "pull_request_review_comment" ]]; then
+            EVENT_LABEL="PR 코드리뷰 댓글"
+            TITLE="${{ github.event.pull_request.title }}"
+            LINK="${{ github.event.comment.html_url }}"
+            COMMENT="${{ github.event.comment.body }}"
+            FILE="${{ github.event.comment.path }}"
+            LINE="${{ github.event.comment.line }}"
+
+          elif [[ "${{ github.event_name }}" == "issues" ]]; then
+            EVENT_LABEL="이슈"
+            TITLE="${{ github.event.issue.title }}"
+            LINK="${{ github.event.issue.html_url }}"
+          fi
+
+          echo "event_label=$EVENT_LABEL" >> $GITHUB_OUTPUT
+
+          echo "📌 이벤트 종류: $EVENT_LABEL" > body.txt
+          echo "📁 리포지토리: ${{ github.repository }}" >> body.txt
+          echo "🛠️ 액션: ${{ github.event.action || 'N/A' }}" >> body.txt
+          echo "📝 제목: ${TITLE:-N/A}" >> body.txt
+          echo "🙋 작성자: ${{ github.actor }}" >> body.txt
+          echo "🔗 링크: ${LINK:-해당 없음}" >> body.txt
+
+          if [[ -n "$COMMENT" ]]; then
+            echo "🗨️ 댓글 내용: $COMMENT" >> body.txt
+          fi
+          if [[ -n "$FILE" ]]; then
+            echo "📄 파일: $FILE" >> body.txt
+          fi
+          if [[ -n "$LINE" ]]; then
+            echo "📌 위치: Line $LINE" >> body.txt
+          fi
+
+      - name: Send Email Notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: GitHub 알림 - ${{ steps.build_body.outputs.event_label }} 발생!
+          body_file: ./body.txt
+          to: indextrown@gmail.com
+          from: GitHub Notifier <${{ secrets.MAIL_USERNAME }}>
