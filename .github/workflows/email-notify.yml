@@ -10,18 +10,18 @@ name: Email Notifications
 
 on:
   issues:
-    types: [opened]                   # ✅ 이슈 생성 포함
+    types: [opened]
   pull_request:
-    types: [opened, closed]          # ✅ PR 생성 및 병합
+    types: [opened, closed]
   pull_request_review_comment:
-    types: [created]                 # ✅ PR 코드 라인 리뷰 댓글
+    types: [created]
 
 jobs:
   notify_by_email:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set Event Label and Build Email Body
+      - name: Set Event Label and Email Body
         id: build_body
         run: |
           EVENT_LABEL=""
@@ -30,6 +30,7 @@ jobs:
           COMMENT=""
           FILE=""
           LINE=""
+          BODY=""
 
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             if [[ "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
@@ -56,22 +57,23 @@ jobs:
 
           echo "event_label=$EVENT_LABEL" >> $GITHUB_OUTPUT
 
-          echo "📌 이벤트 종류: $EVENT_LABEL" > body.txt
+          echo "📌 이벤트 종류: $EVENT_LABEL" >> body.txt
           echo "📁 리포지토리: ${{ github.repository }}" >> body.txt
           echo "🛠️ 액션: ${{ github.event.action || 'N/A' }}" >> body.txt
           echo "📝 제목: ${TITLE:-N/A}" >> body.txt
           echo "🙋 작성자: ${{ github.actor }}" >> body.txt
           echo "🔗 링크: ${LINK:-해당 없음}" >> body.txt
 
-          if [[ -n "$COMMENT" ]]; then
-            echo "🗨️ 댓글 내용: $COMMENT" >> body.txt
-          fi
-          if [[ -n "$FILE" ]]; then
-            echo "📄 파일: $FILE" >> body.txt
-          fi
-          if [[ -n "$LINE" ]]; then
-            echo "📌 위치: Line $LINE" >> body.txt
-          fi
+          if [[ -n "$COMMENT" ]]; then echo "🗨️ 댓글 내용: $COMMENT" >> body.txt; fi
+          if [[ -n "$FILE" ]]; then echo "📄 파일: $FILE" >> body.txt; fi
+          if [[ -n "$LINE" ]]; then echo "📌 위치: Line $LINE" >> body.txt; fi
+
+          BODY="$(cat body.txt)"
+          BODY_ESCAPED="${BODY//'%'/'%25'}"
+          BODY_ESCAPED="${BODY_ESCAPED//$'\n'/'%0A'}"
+          BODY_ESCAPED="${BODY_ESCAPED//$'\r'/'%0D'}"
+
+          echo "body=$BODY_ESCAPED" >> $GITHUB_OUTPUT
 
       - name: Send Email Notification
         uses: dawidd6/action-send-mail@v3
@@ -81,6 +83,6 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: GitHub 알림 - ${{ steps.build_body.outputs.event_label }} 발생!
-          body_file: ./body.txt
+          body: ${{ steps.build_body.outputs.body }} # ✅ 문자열로 전달
           to: indextrown@gmail.com
           from: GitHub Notifier <${{ secrets.MAIL_USERNAME }}>
