@@ -9,16 +9,26 @@
 name: Email Notifications
 
 on:
+  # ✅ 이슈가 생성되었을 때 이메일 알림 트리거
   issues:
     types: [opened]
-  push:
-    branches: [develop]
+
+  # ❌ 커밋(push) 알림은 원하지 않으므로 비활성화 (필요시 주석 해제)
+  # push:
+  #   branches: [develop]
+
+  # ✅ PR 생성 및 병합(닫힘) 시 알림 트리거
   pull_request:
     types: [opened, closed]
+
+  # ✅ PR에 일반 댓글이 달렸을 때 (issue_comment이지만 PR인지 확인 후 필터링함)
   issue_comment:
     types: [created]
+
+  # ✅ PR 코드 라인에 리뷰 댓글이 달렸을 때
   pull_request_review_comment:
     types: [created]
+
 
 jobs:
   notify_by_email:
