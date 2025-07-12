@@ -24,23 +24,23 @@
 		A7F2E1972E200A2E0045D175 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E1962E200A2E0045D175 /* ProfileViewModel.swift */; };
 		A7F2E19B2E200A790045D175 /* ColorSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19A2E200A790045D175 /* ColorSystem.swift */; };
 		A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19C2E200A830045D175 /* FontSystem.swift */; };
-		DF5FFE312E20B47C00C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE302E20B47C00C07AD3 /* .gitkeep */; };
-		DF5FFE332E20B47D00C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE322E20B47D00C07AD3 /* .gitkeep */; };
-		DF5FFE352E20B47E00C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE342E20B47E00C07AD3 /* .gitkeep */; };
-		DF5FFE372E20B47F00C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE362E20B47F00C07AD3 /* .gitkeep */; };
-		DF5FFE392E20B48000C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE382E20B48000C07AD3 /* .gitkeep */; };
-		DF5FFE3B2E20B48100C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3A2E20B48100C07AD3 /* .gitkeep */; };
-		DF5FFE3D2E20B48200C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3C2E20B48200C07AD3 /* .gitkeep */; };
-		DF5FFE3F2E20B48400C07AD3 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE3E2E20B48400C07AD3 /* .gitkeep */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
 		DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */; };
-		DFA6891A2E2109C6000EC0BA /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DFA689182E2109C6000EC0BA /* .gitkeep */; };
 		DFA6892D2E2110F7000EC0BA /* issue.md in Resources */ = {isa = PBXBuildFile; fileRef = DFA689272E2110F7000EC0BA /* issue.md */; };
 		DFA6892E2E2110F7000EC0BA /* main.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFA689292E2110F7000EC0BA /* main.yml */; };
 		DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */ = {isa = PBXBuildFile; fileRef = DFA6892B2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md */; };
 		DFA689342E211752000EC0BA /* issue-branch.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFA689332E211752000EC0BA /* issue-branch.yml */; };
 		DFEC21242E21463000C4E22D /* link-issues.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFEC21232E21463000C4E22D /* link-issues.yml */; };
+		DFF67EA82E219AE800676213 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA32E219AE800676213 /* Pretendard-Light.otf */; };
+		DFF67EA92E219AE800676213 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67E9F2E219AE800676213 /* Pretendard-Black.otf */; };
+		DFF67EAA2E219AE800676213 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA72E219AE800676213 /* Pretendard-Thin.otf */; };
+		DFF67EAB2E219AE800676213 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA52E219AE800676213 /* Pretendard-Regular.otf */; };
+		DFF67EAC2E219AE800676213 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA12E219AE800676213 /* Pretendard-ExtraBold.otf */; };
+		DFF67EAD2E219AE800676213 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA42E219AE800676213 /* Pretendard-Medium.otf */; };
+		DFF67EAE2E219AE800676213 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA02E219AE800676213 /* Pretendard-Bold.otf */; };
+		DFF67EAF2E219AE800676213 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA22E219AE800676213 /* Pretendard-ExtraLight.otf */; };
+		DFF67EB02E219AE800676213 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA62E219AE800676213 /* Pretendard-SemiBold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,13 +74,21 @@
 		DF5FFE412E20B9BE00C07AD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DF5FFE432E20BBB300C07AD3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "issue-project-tracker.yml"; sourceTree = "<group>"; };
-		DFA689182E2109C6000EC0BA /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DFA689272E2110F7000EC0BA /* issue.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = issue.md; sourceTree = "<group>"; };
 		DFA689292E2110F7000EC0BA /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = main.yml; sourceTree = "<group>"; };
 		DFA6892B2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PULL_REQUEST_TEMPLATE.md; sourceTree = "<group>"; };
 		DFA689322E21163A000EC0BA /* labels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = labels.json; sourceTree = "<group>"; };
 		DFA689332E211752000EC0BA /* issue-branch.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "issue-branch.yml"; sourceTree = "<group>"; };
 		DFEC21232E21463000C4E22D /* link-issues.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "link-issues.yml"; sourceTree = "<group>"; };
+		DFF67E9F2E219AE800676213 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
+		DFF67EA02E219AE800676213 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		DFF67EA12E219AE800676213 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		DFF67EA22E219AE800676213 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		DFF67EA32E219AE800676213 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
+		DFF67EA42E219AE800676213 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		DFF67EA52E219AE800676213 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		DFF67EA62E219AE800676213 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		DFF67EA72E219AE800676213 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,7 +310,15 @@
 		DFA689192E2109C6000EC0BA /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				DFA689182E2109C6000EC0BA /* .gitkeep */,
+				DFF67E9F2E219AE800676213 /* Pretendard-Black.otf */,
+				DFF67EA02E219AE800676213 /* Pretendard-Bold.otf */,
+				DFF67EA12E219AE800676213 /* Pretendard-ExtraBold.otf */,
+				DFF67EA22E219AE800676213 /* Pretendard-ExtraLight.otf */,
+				DFF67EA32E219AE800676213 /* Pretendard-Light.otf */,
+				DFF67EA42E219AE800676213 /* Pretendard-Medium.otf */,
+				DFF67EA52E219AE800676213 /* Pretendard-Regular.otf */,
+				DFF67EA62E219AE800676213 /* Pretendard-SemiBold.otf */,
+				DFF67EA72E219AE800676213 /* Pretendard-Thin.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -398,24 +414,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF5FFE312E20B47C00C07AD3 /* .gitkeep in Resources */,
 				DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */,
 				A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */,
-				DF5FFE352E20B47E00C07AD3 /* .gitkeep in Resources */,
-				DFA6891A2E2109C6000EC0BA /* .gitkeep in Resources */,
 				DFA689342E211752000EC0BA /* issue-branch.yml in Resources */,
-				DF5FFE3D2E20B48200C07AD3 /* .gitkeep in Resources */,
 				DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */,
-				DF5FFE372E20B47F00C07AD3 /* .gitkeep in Resources */,
 				DFA6892D2E2110F7000EC0BA /* issue.md in Resources */,
 				DFA6892E2E2110F7000EC0BA /* main.yml in Resources */,
+				DFF67EA82E219AE800676213 /* Pretendard-Light.otf in Resources */,
+				DFF67EA92E219AE800676213 /* Pretendard-Black.otf in Resources */,
+				DFF67EAA2E219AE800676213 /* Pretendard-Thin.otf in Resources */,
+				DFF67EAB2E219AE800676213 /* Pretendard-Regular.otf in Resources */,
+				DFF67EAC2E219AE800676213 /* Pretendard-ExtraBold.otf in Resources */,
+				DFF67EAD2E219AE800676213 /* Pretendard-Medium.otf in Resources */,
+				DFF67EAE2E219AE800676213 /* Pretendard-Bold.otf in Resources */,
+				DFF67EAF2E219AE800676213 /* Pretendard-ExtraLight.otf in Resources */,
+				DFF67EB02E219AE800676213 /* Pretendard-SemiBold.otf in Resources */,
 				DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */,
 				DF5FFE442E20BBB300C07AD3 /* README.md in Resources */,
-				DF5FFE332E20B47D00C07AD3 /* .gitkeep in Resources */,
 				DFEC21242E21463000C4E22D /* link-issues.yml in Resources */,
-				DF5FFE3F2E20B48400C07AD3 /* .gitkeep in Resources */,
-				DF5FFE392E20B48000C07AD3 /* .gitkeep in Resources */,
-				DF5FFE3B2E20B48100C07AD3 /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
