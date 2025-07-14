@@ -31,7 +31,8 @@
 ```
 
 ## 🍎 Code Convention
-[📖RETIA Code Convention📖](https://github.com/team-RETI/Pindora/blob/develop/CodeConvention.md)
+[📖RETIA Code Convention📖](https://github.com/team-RETI/Pindora/blob/develop/CodeConvention.md)  
+
 네이밍 규칙
 - 변수/상수: 카멜케이스 (ex: `groupName`)
 - 클래스/구조체: 파스칼케이스 (ex: `LoginView`)
