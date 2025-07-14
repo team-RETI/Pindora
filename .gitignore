@@ -3,3 +3,6 @@
 *.xcuserstate
 *.xcconfig
 .env
+*.ipa
+*.dSYM.zip
+*.dSYM
