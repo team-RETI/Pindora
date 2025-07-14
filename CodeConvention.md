@@ -71,7 +71,7 @@ let retia = ["Ray", "Evan", "Triple", "Index", "Alex"].map { $0.lowercased() }
 - 가능한 class에서 사용되는 property는 모두 private로 선언합니다.
 - 하나의 파일에서 뷰 계층을 구분할 때는 아래와 같이 주석을 구분합니다.
     - 구조체나 클래스로 나눌 경우: `// MARK: -(S)` 사용
-    - 메서드형 UI 구성 요소: `// MARKL \(F)` 사용
+    - 메서드형 UI 구성 요소: `// MARK - (F)` 사용
 ```swift
 import UIKit
 
@@ -100,7 +100,7 @@ final class ProfileViewController: UIViewController {
         setupUI()
     }
 
-    // MARK: (F)setupUI
+    // MARK - (F)setupUI
     private func setupUI() {
         [nameLabel, logoutButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -118,7 +118,7 @@ final class ProfileViewController: UIViewController {
         logoutButton.addTarget(self, action: #selector(didTapLogout), for: .touchUpInside)
     }
 
-    // MARK: (F)didTapLogout
+    // MARK - (F)didTapLogout
     @objc private func didTapLogout() {
         print("로그아웃 버튼 탭됨")
     }
