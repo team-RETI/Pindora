@@ -53,10 +53,13 @@
 - 필수 개발 도구 설치: `Homebrew`, `SwiftLint`, `Fastlane`  
 - 인증서 다운로드: `Fastlane Match`를 통해 `Provisioning Profile` 및 인증서 자동 설정  
 
-> 🔐 **주의:** 최초 1회 실행 시 아래 **2가지 인증 정보 입력이 필요**합니다.  
-> 1. **GitHub Personal Access Token** – private 파일 다운로드 용도  
+> 🔐 **주의:**  
+> 이 프로젝트를 실행하는 데 필요한 두 가지 인증 정보는 아래와 같습니다:  
+> 1. **GitHub Personal Access Token** – Private 파일 다운로드 용도  
 > 2. **Fastlane Match 암호 (MATCH_PASSWORD)** – 인증서 복호화 용도  
-> 👉 두 정보 모두 팀 노션에 공유되어 있습니다.
+>  
+> 이 두 정보는 `.env` 파일에 모두 포함되어 있으며, **팀 노션에 업로드되어 있습니다.**  
+> 실행 전 `.env` 파일을 **프로젝트 루트 경로에 복사**해 주세요.
 
 ### 💻 실행 방법
 ```bash
