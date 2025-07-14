@@ -5,10 +5,9 @@
 사용자의 위치와 취향을 기반으로, 낯선 도시에서도 어울리는 공간을 찾아드립니다.
 
 </div>
+<br/><br/>
 
-## 📚 Git 컨벤션 가이드
-
-### 🔀 Branch Convention
+## 🔀 Branch Convention
 1. **기본 브랜치 설정**
 - develop: 기능을 개발하는 브랜치
 
@@ -30,7 +29,7 @@
 [#163]: 로그인 기능 구현
 ```
 
-### 🍎 Code Convention
+## 🍎 Code Convention
 [📖RETIA Code Convention📖](https://github.com/team-RETI/Pindora/blob/develop/CodeConvention.md)  
 
 네이밍 규칙
