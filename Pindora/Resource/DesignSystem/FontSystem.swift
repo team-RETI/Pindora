@@ -22,7 +22,7 @@ extension UIFont {
 }
 
 extension UIFont {
-    
+
     /// Pretendard 커스텀 폰트륿 반환합니다.
     /// - Parameters:
     ///   - weight: Pretendard enum
@@ -35,11 +35,11 @@ extension UIFont {
 
 // Pindora 프리셋 폰트
 extension UIFont {
-    
+
     static var logoFont: UIFont {
         customFont(.bold, size: 24)
     }
-    
+
     static var titleFont: UIFont {
         customFont(.bold, size: 20)
     }
@@ -57,7 +57,7 @@ extension UIFont {
 // 앱 출시 시 포함되지 않도록 DEBUG 빌드에서만 컴파일되도록 설정합니다.
 #if DEBUG
 final class FontView: UIView {
-    
+
     // MARK: - UI Component
     private lazy var logoLabel: UILabel = {
         let label = UILabel()
@@ -68,7 +68,7 @@ final class FontView: UIView {
         label.text = "logo size 24"
         return label
     }()
-    
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .titleFont
@@ -78,7 +78,7 @@ final class FontView: UIView {
         label.text = "title size 20"
         return label
     }()
-    
+
     private lazy var bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .bodyFont

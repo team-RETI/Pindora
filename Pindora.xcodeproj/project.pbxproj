@@ -27,6 +27,7 @@
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
 		DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */ = {isa = PBXBuildFile; fileRef = DF899B452E24DD9C006BE87D /* CodeConvention.md */; };
+		DF899C712E24F834006BE87D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF899C702E24F834006BE87D /* .swiftlint.yml */; };
 		DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */; };
 		DFA6892D2E2110F7000EC0BA /* issue.md in Resources */ = {isa = PBXBuildFile; fileRef = DFA689272E2110F7000EC0BA /* issue.md */; };
 		DFA6892E2E2110F7000EC0BA /* main.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFA689292E2110F7000EC0BA /* main.yml */; };
@@ -76,6 +77,8 @@
 		DF5FFE412E20B9BE00C07AD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DF5FFE432E20BBB300C07AD3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DF899B452E24DD9C006BE87D /* CodeConvention.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CodeConvention.md; sourceTree = "<group>"; };
+		DF899C702E24F834006BE87D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		DF899C742E24FE5D006BE87D /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "issue-project-tracker.yml"; sourceTree = "<group>"; };
 		DFA689272E2110F7000EC0BA /* issue.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = issue.md; sourceTree = "<group>"; };
 		DFA689292E2110F7000EC0BA /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = main.yml; sourceTree = "<group>"; };
@@ -109,6 +112,7 @@
 		A7C1AB502E20022D00B8B9E1 = {
 			isa = PBXGroup;
 			children = (
+				DF899C702E24F834006BE87D /* .swiftlint.yml */,
 				DFA6892C2E2110F7000EC0BA /* .github */,
 				DF5FFE412E20B9BE00C07AD3 /* .gitignore */,
 				DF5FFE432E20BBB300C07AD3 /* README.md */,
@@ -189,6 +193,7 @@
 		A7F2E1752E2007E80045D175 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DF899C732E24FE5A006BE87D /* RepositoryImpl */,
 				DF5FFE322E20B47D00C07AD3 /* .gitkeep */,
 			);
 			path = Data;
@@ -312,6 +317,14 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		DF899C732E24FE5A006BE87D /* RepositoryImpl */ = {
+			isa = PBXGroup;
+			children = (
+				DF899C742E24FE5D006BE87D /* .gitkeep */,
+			);
+			path = RepositoryImpl;
+			sourceTree = "<group>";
+		};
 		DFA689192E2109C6000EC0BA /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -366,6 +379,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7C1AB6C2E20022D00B8B9E1 /* Build configuration list for PBXNativeTarget "Pindora" */;
 			buildPhases = (
+				DF899C6F2E24F7D4006BE87D /* SwiftLint Script */,
 				A7C1AB552E20022D00B8B9E1 /* Sources */,
 				A7C1AB562E20022D00B8B9E1 /* Frameworks */,
 				A7C1AB572E20022D00B8B9E1 /* Resources */,
@@ -423,6 +437,7 @@
 				DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */,
 				A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */,
 				DFA689342E211752000EC0BA /* issue-branch.yml in Resources */,
+				DF899C712E24F834006BE87D /* .swiftlint.yml in Resources */,
 				DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */,
 				DFA6892D2E2110F7000EC0BA /* issue.md in Resources */,
 				DFA6892E2E2110F7000EC0BA /* main.yml in Resources */,
@@ -444,6 +459,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DF899C6F2E24F7D4006BE87D /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A7C1AB552E20022D00B8B9E1 /* Sources */ = {
@@ -479,6 +516,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pindora/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -510,6 +548,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pindora/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
