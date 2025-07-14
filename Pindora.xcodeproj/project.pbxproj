@@ -26,6 +26,7 @@
 		A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19C2E200A830045D175 /* FontSystem.swift */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
+		DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */ = {isa = PBXBuildFile; fileRef = DF899B452E24DD9C006BE87D /* CodeConvention.md */; };
 		DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */; };
 		DFA6892D2E2110F7000EC0BA /* issue.md in Resources */ = {isa = PBXBuildFile; fileRef = DFA689272E2110F7000EC0BA /* issue.md */; };
 		DFA6892E2E2110F7000EC0BA /* main.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFA689292E2110F7000EC0BA /* main.yml */; };
@@ -74,6 +75,7 @@
 		DF5FFE3E2E20B48400C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE412E20B9BE00C07AD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DF5FFE432E20BBB300C07AD3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DF899B452E24DD9C006BE87D /* CodeConvention.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CodeConvention.md; sourceTree = "<group>"; };
 		DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "issue-project-tracker.yml"; sourceTree = "<group>"; };
 		DFA689272E2110F7000EC0BA /* issue.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = issue.md; sourceTree = "<group>"; };
 		DFA689292E2110F7000EC0BA /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = main.yml; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				DFA6892C2E2110F7000EC0BA /* .github */,
 				DF5FFE412E20B9BE00C07AD3 /* .gitignore */,
 				DF5FFE432E20BBB300C07AD3 /* README.md */,
+				DF899B452E24DD9C006BE87D /* CodeConvention.md */,
 				A7F2E16A2E2007630045D175 /* Pindora */,
 				A7C1AB5A2E20022D00B8B9E1 /* Products */,
 			);
@@ -435,6 +438,7 @@
 				DFF67EB02E219AE800676213 /* Pretendard-SemiBold.otf in Resources */,
 				DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */,
 				DF5FFE442E20BBB300C07AD3 /* README.md in Resources */,
+				DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */,
 				DFEC21242E21463000C4E22D /* link-issues.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
