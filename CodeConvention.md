@@ -3,13 +3,13 @@
 
 # 네이밍
 
-## 변수
+### 변수
 - 변수 이름은 `lowerCamelCase`를 사용해주세요.
 ```swift
 var groupName: String = "RETIA"
 ```
 
-## 함수
+### 함수
 - 함수 이름은 `lowerCamelCase`를 사용해주세요.
 - 함수는 일반적으로 동사원형으로 시작해주세요.
 - 데이터를 가져오는 함수인 경우 `get` 사용을 지양하고 `fetch`를 사용해주세요.
@@ -17,7 +17,7 @@ var groupName: String = "RETIA"
 func fetchData() {}
 ```
 
-## 열거형
+### 열거형
 - 열거형의 이름은 `UpperCamelCase`를 사용해주세요.
 - 열거형의 각 case에는 `lowerCamelCase`를 사용해주세요.
 ```swift
@@ -29,7 +29,7 @@ enum Result {
 
 # 주석
 
-## 문서화 주석
+### 문서화 주석
 - 프로토콜에서는 무조건 Swift 문서화 주석 형식을 사용해주세요.
 - 문서화 주석 단축키: command[⌘] + option[⌥] + [/]
 ```swift
@@ -46,7 +46,7 @@ func updateProfile(name: String, age: Int) -> Bool {
 
 # 스타일
 
-## 들여쓰기 & 띄어쓰기
+### 들여쓰기 & 띄어쓰기
 - 인텐트는 스페이스바 4개로 통일해주세요.(탭1 = 스페이스바4)
 ```swift
 func fetchData() {
@@ -54,19 +54,19 @@ func fetchData() {
 }
 ```
 
-## 후행 클로저
+### 후행 클로저
 - 인자가 한 개일 경우에만 $0를 허용하고, 복잡한 로직 또는 가독성이 떨어질 경우 명시적으로 `element in` 같은 이름을 사용합니다.
 ```swift
 let retia = ["Ray", "Evan", "Triple", "Index", "Alex"].map { $0.lowercased() }
 ```
 
-## 옵셔널
+### 옵셔널
 - 강제 언래핑 (`!`) 은 절대 사용하지 않습니다.
 - 옵셔널 바인딩 (`if let`, `guard let`) 또는 nil-coalescing(`??`)를 사용해주세요.
 
 # UIKit
 
-## ViewController 선언
+### ViewController 선언
 - 성능 최적화를 위해 더 이상 상속되지 않는 class에는 꼭 final 키워드를 붙입니다.
 - 가능한 class에서 사용되는 property는 모두 private로 선언합니다.
 - 하나의 파일 이내에서 `UIView`, `UIViewController`, `UITableViewCell` 등에서 뷰 계층을 구분하는 경우
