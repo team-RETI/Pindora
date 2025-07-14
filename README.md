@@ -28,6 +28,7 @@
 // Xcode에서 커밋 Example
 [#163]: 로그인 기능 구현
 ```
+<br/><br/>
 
 ## 🍎 Code Convention
 [📖RETIA Code Convention📖](https://github.com/team-RETI/Pindora/blob/develop/CodeConvention.md)  
@@ -42,7 +43,7 @@
 - 옵셔널 처리: 런타입 에러를 방지하기 위해 강제 언래핑(!)을 사용하지 않고 `guard let`, `if let`, `옵셔널 체이닝`을 사용합니다.
 - private: 가능한 class에서 사용되는 property는 모두 private로 선언합니다. 
 - final: 성능 최적화를 위해 더 이상 상속되지 않는 class에는 꼭 final 키워드를 붙입니다.
-
+<br/><br/>
 
 ## 🚀 Getting Started
 공개하지 않아야 하는 파일들은 Private 레포지토리에 있으며, 이 저장소에 초대된 팀원이라면 **명령어 한 줄로 전체 환경을 자동 구성할 수 있습니다.**
