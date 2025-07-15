@@ -107,5 +107,5 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: GitHub 알림 - ${{ steps.set_event_name.outputs.event_label }} 발생!
           body: ${{ steps.set_event_name.outputs.body }}
-          to: indextrown@gmail.com
+          to: indextrown@gmail.com, ghddpgml@gmail.com, youbizone@gmail.com, ijn9907@gmail.com, dongchankim1999@gmail.com
           from: GitHub Notifier <${{ secrets.MAIL_USERNAME }}>
