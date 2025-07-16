@@ -1,4 +1,4 @@
-//  HomeViewController.swift
+//  LoginViewController.swift
 //  Pindora
 //
 //  Created by 김동현 on 7/16/25.
@@ -6,12 +6,12 @@
 
 import UIKit
 
-final class HomeViewController: UIViewController {
-     private let viewModel: HomeViewModel
-    private let customView = HomeView()
+final class LoginViewController: UIViewController {
+    private let viewModel: LoginViewModel
+    private let customView = LoginView()
     
     // MARK: - Initializer
-    init(viewModel: HomeViewModel) {
+    init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -28,11 +28,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bindViewModel()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("HomeViewController")
+        print("로그인 화면")
     }
 
     // MARK: - Bindings
@@ -42,5 +38,5 @@ final class HomeViewController: UIViewController {
 }
 
 #Preview {
-    HomeViewController(viewModel: HomeViewModel())
+    LoginViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl()))
 }
