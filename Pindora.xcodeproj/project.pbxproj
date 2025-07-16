@@ -28,6 +28,10 @@
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
 		DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C22E27783F00378AC3 /* Coordinator.swift */; };
 		DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C82E27786300378AC3 /* DIContainer.swift */; };
+		DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */; };
+		DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */; };
+		DF7A8B9E2E27804600378AC3 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B9D2E27804600378AC3 /* AuthRepository.swift */; };
+		DF7A8BA02E27806800378AC3 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B9F2E27806800378AC3 /* AuthRepositoryImpl.swift */; };
 		DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */ = {isa = PBXBuildFile; fileRef = DF899B452E24DD9C006BE87D /* CodeConvention.md */; };
 		DF899C712E24F834006BE87D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF899C702E24F834006BE87D /* .swiftlint.yml */; };
 		DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */; };
@@ -71,17 +75,18 @@
 		DF5FFE322E20B47D00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE342E20B47E00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE362E20B47F00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		DF5FFE382E20B48000C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		DF5FFE3A2E20B48100C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE3C2E20B48200C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE3E2E20B48400C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE412E20B9BE00C07AD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DF5FFE432E20BBB300C07AD3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DF7A87C22E27783F00378AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DF7A87C82E27786300378AC3 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
+		DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
+		DF7A8B9D2E27804600378AC3 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		DF7A8B9F2E27806800378AC3 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
 		DF899B452E24DD9C006BE87D /* CodeConvention.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CodeConvention.md; sourceTree = "<group>"; };
 		DF899C702E24F834006BE87D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		DF899C742E24FE5D006BE87D /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF899D982E24FF79006BE87D /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "issue-project-tracker.yml"; sourceTree = "<group>"; };
 		DFA689272E2110F7000EC0BA /* issue.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = issue.md; sourceTree = "<group>"; };
@@ -175,9 +180,10 @@
 			children = (
 				DF5FFE342E20B47E00C07AD3 /* .gitkeep */,
 				A7F2E17B2E2008600045D175 /* DTO */,
-				A7F2E17A2E20084F0045D175 /* RepositoryProtocol */,
-				A7F2E1792E2008450045D175 /* Usecase */,
 				A7F2E1782E2008360045D175 /* Entity */,
+				A7F2E17A2E20084F0045D175 /* Repository */,
+				A7F2E1792E2008450045D175 /* UseCase */,
+				DF7A8B982E277C9600378AC3 /* UseCaseImpl */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -228,20 +234,20 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		A7F2E1792E2008450045D175 /* Usecase */ = {
+		A7F2E1792E2008450045D175 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				DF5FFE3A2E20B48100C07AD3 /* .gitkeep */,
+				DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */,
 			);
-			path = Usecase;
+			path = UseCase;
 			sourceTree = "<group>";
 		};
-		A7F2E17A2E20084F0045D175 /* RepositoryProtocol */ = {
+		A7F2E17A2E20084F0045D175 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				DF5FFE382E20B48000C07AD3 /* .gitkeep */,
+				DF7A8B9D2E27804600378AC3 /* AuthRepository.swift */,
 			);
-			path = RepositoryProtocol;
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		A7F2E17B2E2008600045D175 /* DTO */ = {
@@ -339,10 +345,18 @@
 			path = DIConatiner;
 			sourceTree = "<group>";
 		};
+		DF7A8B982E277C9600378AC3 /* UseCaseImpl */ = {
+			isa = PBXGroup;
+			children = (
+				DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */,
+			);
+			path = UseCaseImpl;
+			sourceTree = "<group>";
+		};
 		DF899C732E24FE5A006BE87D /* RepositoryImpl */ = {
 			isa = PBXGroup;
 			children = (
-				DF899C742E24FE5D006BE87D /* .gitkeep */,
+				DF7A8B9F2E27806800378AC3 /* AuthRepositoryImpl.swift */,
 			);
 			path = RepositoryImpl;
 			sourceTree = "<group>";
@@ -519,12 +533,16 @@
 				A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */,
 				A7F2E1832E20091B0045D175 /* HomeViewController.swift in Sources */,
 				A7F2E18D2E2009EF0045D175 /* MapViewController.swift in Sources */,
+				DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */,
 				DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */,
 				A7F2E16C2E2007630045D175 /* SceneDelegate.swift in Sources */,
+				DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */,
 				A7F2E19B2E200A790045D175 /* ColorSystem.swift in Sources */,
+				DF7A8BA02E27806800378AC3 /* AuthRepositoryImpl.swift in Sources */,
 				A7F2E1852E2009280045D175 /* HomeViewModel.swift in Sources */,
 				A7F2E1952E200A250045D175 /* ProfileViewController.swift in Sources */,
 				A7F2E16D2E2007630045D175 /* ViewController.swift in Sources */,
+				DF7A8B9E2E27804600378AC3 /* AuthRepository.swift in Sources */,
 				DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */,
 				A7F2E1892E2009850045D175 /* LoginViewModel.swift in Sources */,
 			);
