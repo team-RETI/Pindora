@@ -173,7 +173,7 @@ final class MainTabCoordinator: Coordinator {
         // tabBarItem 설정
         homeNav.tabBarItem = UITabBarItem(title: "홈", image: UIImage(systemName: "house"), tag: 0)
         mapNav.tabBarItem = UITabBarItem(title: "지도", image: UIImage(systemName: "map"), tag: 1)
-        myPlaceNav.tabBarItem = UITabBarItem(title: "내 장소", image: UIImage(systemName: "star"), tag: 2)
+        myPlaceNav.tabBarItem = UITabBarItem(title: "내 장소", image: UIImage(systemName: "bookmark"), tag: 2)
         profileNav.tabBarItem = UITabBarItem(title: "프로필", image: UIImage(systemName: "person"), tag: 3)
         
         let home = HomeCoordinator(navigationController: homeNav)
