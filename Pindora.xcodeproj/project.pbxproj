@@ -26,7 +26,8 @@
 		A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19C2E200A830045D175 /* FontSystem.swift */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
-		DF7A87C02E2777C600378AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87BF2E2777C600378AC3 /* Coordinator.swift */; };
+		DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C22E27783F00378AC3 /* Coordinator.swift */; };
+		DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C82E27786300378AC3 /* DIContainer.swift */; };
 		DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */ = {isa = PBXBuildFile; fileRef = DF899B452E24DD9C006BE87D /* CodeConvention.md */; };
 		DF899C712E24F834006BE87D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF899C702E24F834006BE87D /* .swiftlint.yml */; };
 		DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */; };
@@ -76,7 +77,8 @@
 		DF5FFE3E2E20B48400C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE412E20B9BE00C07AD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DF5FFE432E20BBB300C07AD3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		DF7A87BF2E2777C600378AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		DF7A87C22E27783F00378AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		DF7A87C82E27786300378AC3 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		DF899B452E24DD9C006BE87D /* CodeConvention.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CodeConvention.md; sourceTree = "<group>"; };
 		DF899C702E24F834006BE87D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DF899C742E24FE5D006BE87D /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -315,9 +317,26 @@
 		DF5FFE2F2E20B47000C07AD3 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				DF7A87BF2E2777C600378AC3 /* Coordinator.swift */,
+				DF7A87C92E27786300378AC3 /* DIConatiner */,
+				DF7A87C32E27783F00378AC3 /* Coordinator */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		DF7A87C32E27783F00378AC3 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				DF7A87C22E27783F00378AC3 /* Coordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		DF7A87C92E27786300378AC3 /* DIConatiner */ = {
+			isa = PBXGroup;
+			children = (
+				DF7A87C82E27786300378AC3 /* DIContainer.swift */,
+			);
+			path = DIConatiner;
 			sourceTree = "<group>";
 		};
 		DF899C732E24FE5A006BE87D /* RepositoryImpl */ = {
@@ -500,12 +519,13 @@
 				A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */,
 				A7F2E1832E20091B0045D175 /* HomeViewController.swift in Sources */,
 				A7F2E18D2E2009EF0045D175 /* MapViewController.swift in Sources */,
-				DF7A87C02E2777C600378AC3 /* Coordinator.swift in Sources */,
+				DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */,
 				A7F2E16C2E2007630045D175 /* SceneDelegate.swift in Sources */,
 				A7F2E19B2E200A790045D175 /* ColorSystem.swift in Sources */,
 				A7F2E1852E2009280045D175 /* HomeViewModel.swift in Sources */,
 				A7F2E1952E200A250045D175 /* ProfileViewController.swift in Sources */,
 				A7F2E16D2E2007630045D175 /* ViewController.swift in Sources */,
+				DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */,
 				A7F2E1892E2009850045D175 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
