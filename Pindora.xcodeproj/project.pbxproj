@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A7F2E16B2E2007630045D175 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E1652E2007630045D175 /* AppDelegate.swift */; };
-		A7F2E16C2E2007630045D175 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E1682E2007630045D175 /* SceneDelegate.swift */; };
 		A7F2E16D2E2007630045D175 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E1692E2007630045D175 /* ViewController.swift */; };
 		A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F2E1662E2007630045D175 /* Assets.xcassets */; };
 		A7F2E1832E20091B0045D175 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E1822E20091B0045D175 /* HomeViewController.swift */; };
@@ -24,6 +22,8 @@
 		A7F2E1972E200A2E0045D175 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E1962E200A2E0045D175 /* ProfileViewModel.swift */; };
 		A7F2E19B2E200A790045D175 /* ColorSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19A2E200A790045D175 /* ColorSystem.swift */; };
 		A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19C2E200A830045D175 /* FontSystem.swift */; };
+		DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E752E27859B00BE27AC /* AppDelegate.swift */; };
+		DF1F3E792E27859B00BE27AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
 		DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C22E27783F00378AC3 /* Coordinator.swift */; };
@@ -54,10 +54,8 @@
 
 /* Begin PBXFileReference section */
 		A7C1AB592E20022D00B8B9E1 /* Pindora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pindora.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A7F2E1652E2007630045D175 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7F2E1662E2007630045D175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7F2E1672E2007630045D175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A7F2E1682E2007630045D175 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A7F2E1692E2007630045D175 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A7F2E1822E20091B0045D175 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A7F2E1842E2009280045D175 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -72,6 +70,8 @@
 		A7F2E1962E200A2E0045D175 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		A7F2E19A2E200A790045D175 /* ColorSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSystem.swift; sourceTree = "<group>"; };
 		A7F2E19C2E200A830045D175 /* FontSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSystem.swift; sourceTree = "<group>"; };
+		DF1F3E752E27859B00BE27AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DF5FFE322E20B47D00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE342E20B47E00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE362E20B47F00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -147,8 +147,6 @@
 				A7F2E1702E20077F0045D175 /* Source */,
 				A7F2E1662E2007630045D175 /* Assets.xcassets */,
 				A7F2E1672E2007630045D175 /* Info.plist */,
-				A7F2E1652E2007630045D175 /* AppDelegate.swift */,
-				A7F2E1682E2007630045D175 /* SceneDelegate.swift */,
 				A7F2E1692E2007630045D175 /* ViewController.swift */,
 			);
 			path = Pindora;
@@ -320,9 +318,19 @@
 			path = DesignSystem;
 			sourceTree = "<group>";
 		};
+		DF1F3E772E27859B00BE27AC /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				DF1F3E752E27859B00BE27AC /* AppDelegate.swift */,
+				DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
 		DF5FFE2F2E20B47000C07AD3 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				DF1F3E772E27859B00BE27AC /* Delegate */,
 				DF7A87C92E27786300378AC3 /* DIConatiner */,
 				DF7A87C32E27783F00378AC3 /* Coordinator */,
 			);
@@ -526,7 +534,6 @@
 				A7F2E1872E2009740045D175 /* LoginViewController.swift in Sources */,
 				A7F2E18F2E2009FD0045D175 /* MapViewModel.swift in Sources */,
 				A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */,
-				A7F2E16B2E2007630045D175 /* AppDelegate.swift in Sources */,
 				A7F2E1932E200A1C0045D175 /* MyPlaceViewModel.swift in Sources */,
 				A7F2E1912E200A0F0045D175 /* MyPlaceViewController.swift in Sources */,
 				A7F2E1972E200A2E0045D175 /* ProfileViewModel.swift in Sources */,
@@ -535,7 +542,6 @@
 				A7F2E18D2E2009EF0045D175 /* MapViewController.swift in Sources */,
 				DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */,
 				DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */,
-				A7F2E16C2E2007630045D175 /* SceneDelegate.swift in Sources */,
 				DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */,
 				A7F2E19B2E200A790045D175 /* ColorSystem.swift in Sources */,
 				DF7A8BA02E27806800378AC3 /* AuthRepositoryImpl.swift in Sources */,
@@ -544,6 +550,8 @@
 				A7F2E16D2E2007630045D175 /* ViewController.swift in Sources */,
 				DF7A8B9E2E27804600378AC3 /* AuthRepository.swift in Sources */,
 				DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */,
+				DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */,
+				DF1F3E792E27859B00BE27AC /* SceneDelegate.swift in Sources */,
 				A7F2E1892E2009850045D175 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
