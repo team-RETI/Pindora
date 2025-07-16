@@ -1,6 +1,6 @@
 default: all
 
-all: ensure-homebrew ensure-swiftlint ensure-fastlane lint-fix download-privates fetch-certificates
+all: ensure-homebrew ensure-swiftlint ensure-fastlane lint-fix download-privates fetch-certificates install-templates
 
 
 # -----------------------------
@@ -89,6 +89,17 @@ fetch-certificates:
 	bundle exec fastlane match development --readonly && \
 	bundle exec fastlane match appstore --readonly
 	@echo ""
+	
+# -----------------------------
+# 🧩 Xcode 커스텀 템플릿 설치
+# -----------------------------
+install-templates:
+	@echo "🧩 Installing Xcode custom templates..."
+	@TEMPLATE_DIR="$$HOME/Library/Developer/Xcode/Templates/File Templates/Custom Templates"; \
+	mkdir -p "$$TEMPLATE_DIR"; \
+	cp -R ./FileTemplates/* "$$TEMPLATE_DIR"; \
+	echo "✅ 템플릿이 성공적으로 설치되었습니다."
+
 
 # x
 # bundle exec fastlane match development \
