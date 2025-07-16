@@ -6,6 +6,6 @@
 
 import UIKit
 
-final class HomeViewModel: ViewModel {
+final class HomeViewModel {
     
 }

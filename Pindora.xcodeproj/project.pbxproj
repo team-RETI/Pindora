@@ -14,7 +14,6 @@
 		A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19C2E200A830045D175 /* FontSystem.swift */; };
 		DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E752E27859B00BE27AC /* AppDelegate.swift */; };
 		DF1F3E792E27859B00BE27AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */; };
-		DF1F3E7B2E2788A900BE27AC /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E7A2E2788A900BE27AC /* ViewModelFactory.swift */; };
 		DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3FB42E279C4100BE27AC /* HomeViewModel.swift */; };
 		DF1F3FB62E279C4100BE27AC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */; };
 		DF1F3FB72E279C4100BE27AC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3FB22E279C4100BE27AC /* HomeView.swift */; };
@@ -43,6 +42,7 @@
 		DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */ = {isa = PBXBuildFile; fileRef = DF899B452E24DD9C006BE87D /* CodeConvention.md */; };
 		DF899C712E24F834006BE87D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF899C702E24F834006BE87D /* .swiftlint.yml */; };
 		DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */; };
+		DFA2CB392E27C7B000C4F32B /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA2CB382E27C7B000C4F32B /* ModuleFactory.swift */; };
 		DFA6892D2E2110F7000EC0BA /* issue.md in Resources */ = {isa = PBXBuildFile; fileRef = DFA689272E2110F7000EC0BA /* issue.md */; };
 		DFA6892E2E2110F7000EC0BA /* main.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFA689292E2110F7000EC0BA /* main.yml */; };
 		DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */ = {isa = PBXBuildFile; fileRef = DFA6892B2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md */; };
@@ -70,7 +70,6 @@
 		A7F2E19C2E200A830045D175 /* FontSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSystem.swift; sourceTree = "<group>"; };
 		DF1F3E752E27859B00BE27AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DF1F3E7A2E2788A900BE27AC /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
 		DF1F3FB22E279C4100BE27AC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		DF1F3FB42E279C4100BE27AC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -105,6 +104,7 @@
 		DF899C702E24F834006BE87D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DF899D982E24FF79006BE87D /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "issue-project-tracker.yml"; sourceTree = "<group>"; };
+		DFA2CB382E27C7B000C4F32B /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
 		DFA689272E2110F7000EC0BA /* issue.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = issue.md; sourceTree = "<group>"; };
 		DFA689292E2110F7000EC0BA /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = main.yml; sourceTree = "<group>"; };
 		DFA6892B2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PULL_REQUEST_TEMPLATE.md; sourceTree = "<group>"; };
@@ -388,7 +388,7 @@
 			isa = PBXGroup;
 			children = (
 				DF7A87C82E27786300378AC3 /* DIContainer.swift */,
-				DF1F3E7A2E2788A900BE27AC /* ViewModelFactory.swift */,
+				DFA2CB382E27C7B000C4F32B /* ModuleFactory.swift */,
 			);
 			path = DIConatiner;
 			sourceTree = "<group>";
@@ -593,7 +593,7 @@
 				DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */,
 				A7F2E19B2E200A790045D175 /* ColorSystem.swift in Sources */,
 				DF7A8BA02E27806800378AC3 /* AuthRepositoryImpl.swift in Sources */,
-				DF1F3E7B2E2788A900BE27AC /* ViewModelFactory.swift in Sources */,
+				DFA2CB392E27C7B000C4F32B /* ModuleFactory.swift in Sources */,
 				A7F2E16D2E2007630045D175 /* ViewController.swift in Sources */,
 				DF7A8B9E2E27804600378AC3 /* AuthRepository.swift in Sources */,
 				DF1F40DE2E279E7F00BE27AC /* OneTimeAskView.swift in Sources */,

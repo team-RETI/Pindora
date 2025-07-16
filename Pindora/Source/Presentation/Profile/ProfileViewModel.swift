@@ -6,6 +6,6 @@
 
 import UIKit
 
-final class ProfileViewModel: ViewModel {
+final class ProfileViewModel {
     
 }

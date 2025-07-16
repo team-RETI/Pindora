@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class LoginViewModel: ViewModel {
+final class LoginViewModel {
     private let authUseCase: AuthUseCase
     
     init(authUseCase: AuthUseCase) {

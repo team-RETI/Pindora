@@ -12,13 +12,18 @@ final class DIContainer {
     private init() {}
     private var dependencies: [String: Any] = [:]
     
-    // 메서드로 의존성을 등록
+    /// 타입을 키로 하여 의존성을 등록합니다.
+    /// - Parameters:
+    ///   - type: 등록할 타입 (예: AuthUseCase.self)
+    ///   - dependency: 실제 의존성 인스턴스 (예: AuthUseCaseImpl(...))
     func register<T>(_ type: T.Type, dependency: T) {
         let key = String(describing: type)
         dependencies[key] = dependency
     }
     
-    // 메서드로 등록된 의존성을 가져오기
+    /// 등록된 의존성을 꺼냅니다. 존재하지 않으면 앱을 중단시킵니다.
+    /// - Parameter type: 꺼내고 싶은 타입
+    /// - Returns: 등록된 의존성 인스턴스
     func resolve<T>(_ type: T.Type) -> T {
         let key = String(describing: type)
         guard let dependency = dependencies[key] as? T else {
@@ -28,38 +33,11 @@ final class DIContainer {
     }
 }
 
-
-/// DIContainer에서 자동으로 의존성을 주입받는 속성 래퍼입니다.
-/// ex: @Dependency var service: SomeService
-/// -> 내부적으로는 DIContainer.shared.resolve(SomeService.self)를 호출한 것과 동일합니다.
-///
-/// - T: 의존성 타입(ex: SomeService.self)
-/// - resolve 시점에 등록되지 않은 경우 preconditionFailure로 앱이 중단될 수 있으므로,
-///   사용 전에 DIContainer에 해당 타입을 register 해두어야 합니다.
-/*
- 사용 예시
- // ✅ 먼저 DIContainer에 의존성 등록
- DIContainer.shared.register(AuthService.self, dependency: RealAuthService())
-
- // ✅ 그리고 아래처럼 사용 가능
- final class LoginViewModel {
-     // 이 속성은 DIContainer에서 자동으로 주입됩니다.
-     @Dependency var authService: AuthService
- }
- */
-@propertyWrapper
-final class Dependency<T> {
-    
-    // DIConatiner에서 resolve된 인스턴스를 자동으로 가져옵니다
-    let wrappedValue: T
-    
-    // 생성 시점에 DIContainer로부터 의존성을 꺼내옵니다.
-    init() {
-        self.wrappedValue = DIContainer.shared.resolve(T.self)
-    }
-}
-
 extension DIContainer {
+    /// 앱 시작 시 의존성들을 한 번에 등록해주는 메서드입니다.
+    /// AppDelegate 또는 SceneDelegate에서 앱 초기화 시 호출해야 합니다.
+    ///
+    /// 이 메서드에서 Repository → UseCase 순으로 필요한 객체들을 생성하여 등록합니다.
     static func config() {
         // MARK: - Repository 생성
         let authRepository = AuthRepositoryImpl()
@@ -69,5 +47,9 @@ extension DIContainer {
             AuthUseCase.self,
             dependency: AuthUseCaseImpl(authRepository: authRepository)
         )
+        
+        // 필요한 의존성들은 여기에 등록하시면 됩니다
+        // 예: UserUseCase, AnalyticsService 등
+        #warning("필요한 의존성 추가")
     }
 }

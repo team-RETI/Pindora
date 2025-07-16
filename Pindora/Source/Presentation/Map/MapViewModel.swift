@@ -6,6 +6,6 @@
 
 import UIKit
 
-final class MapViewModel: ViewModel {
+final class MapViewModel {
     
 }

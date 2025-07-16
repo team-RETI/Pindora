@@ -6,6 +6,6 @@
 
 import UIKit
 
-final class MyPlaceViewModel: ViewModel {
+final class MyPlaceViewModel {
     
 }

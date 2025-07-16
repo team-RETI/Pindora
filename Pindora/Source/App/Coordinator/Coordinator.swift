@@ -92,14 +92,8 @@ final class LoginCoordinator: Coordinator {
     }
     
     func start() {
-        let factory = ViewModelFactory.shared
-        
-        // ViewModelProvider로 LoginViewModel 생성
-        guard let loginVM = ViewModelProvider.shared.resolve(factory: factory, type: LoginViewModel.self) else {
-            fatalError("LoginViewModel 생성 실패")
-        }
 
-        let vc = LoginViewController(viewModel: loginVM)
+        let vc = ModuleFactory.shared.makeLoginVC()
         navigationController.pushViewController(vc, animated: true)
     }
 
@@ -141,14 +135,8 @@ final class LoginFlowCoordinator: Coordinator {
     private func navigate(to route: Route) {
         switch route {
         case .oneTimeAsk:
-            let factory = ViewModelFactory.shared
-            
-            // ViewModelProvider로 LoginViewModel 생성
-            guard let loginVM = ViewModelProvider.shared.resolve(factory: factory, type: LoginViewModel.self) else {
-                fatalError("LoginViewModel 생성 실패")
-            }
 
-            let vc = OneTimeAskViewController(viewModel: loginVM)
+            let vc = ModuleFactory.shared.makeOneTimeAskVC()
             navigationController.setViewControllers([vc], animated: false)
         }
     }
@@ -212,13 +200,7 @@ final class HomeCoordinator: Coordinator {
     private func navigate(to route: Route) {
         switch route {
         case .home:
-            let factory = ViewModelFactory.shared
-            
-            // ViewModelProvider로 HomeViewModel 생성
-            guard let homeVM = ViewModelProvider.shared.resolve(factory: factory, type: HomeViewModel.self) else {
-                fatalError("LoginViewModel 생성 실패")
-            }
-            let vc = HomeViewController(viewModel: homeVM)
+            let vc = ModuleFactory.shared.makeHomeVC()
             navigationController.setViewControllers([vc], animated: false)
         }
     }
@@ -244,13 +226,7 @@ final class MapCoordinator: Coordinator {
     private func navigate(to route: Route) {
         switch route {
         case .home:
-            let factory = ViewModelFactory.shared
-            
-            // ViewModelProvider로 HomeViewModel 생성
-            guard let mapVM = ViewModelProvider.shared.resolve(factory: factory, type: MapViewModel.self) else {
-                fatalError("LoginViewModel 생성 실패")
-            }
-            let vc = MapViewController(viewModel: mapVM)
+            let vc = ModuleFactory.shared.makeMapVC()
             navigationController.setViewControllers([vc], animated: false)
         }
     }
@@ -276,13 +252,7 @@ final class MyPlaceCoordinator: Coordinator {
     private func navigate(to route: Route) {
         switch route {
         case .home:
-            let factory = ViewModelFactory.shared
-            
-            // ViewModelProvider로 HomeViewModel 생성
-            guard let myPlaceVM = ViewModelProvider.shared.resolve(factory: factory, type: MyPlaceViewModel.self) else {
-                fatalError("LoginViewModel 생성 실패")
-            }
-            let vc = MyPlaceViewController(viewModel: myPlaceVM)
+            let vc = ModuleFactory.shared.makeMyPlaceVC()
             navigationController.setViewControllers([vc], animated: false)
         }
     }
@@ -308,13 +278,7 @@ final class ProfileCoordinator: Coordinator {
     private func navigate(to route: Route) {
         switch route {
         case .home:
-            let factory = ViewModelFactory.shared
-            
-            // ViewModelProvider로 HomeViewModel 생성
-            guard let profileVM = ViewModelProvider.shared.resolve(factory: factory, type: ProfileViewModel.self) else {
-                fatalError("LoginViewModel 생성 실패")
-            }
-            let vc = ProfileViewController(viewModel: profileVM)
+            let vc = ModuleFactory.shared.makeProfileVC()
             navigationController.setViewControllers([vc], animated: false)
         }
     }
