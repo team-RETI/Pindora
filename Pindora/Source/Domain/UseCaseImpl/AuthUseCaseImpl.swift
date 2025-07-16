@@ -14,3 +14,7 @@ final class AuthUseCaseImpl: AuthUseCase {
         self.authRepository = authRepository
     }
 }
+
+final class StubAuthUseCaseImpl: AuthUseCase {
+    
+}
