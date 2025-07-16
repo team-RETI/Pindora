@@ -139,15 +139,15 @@
 		A7C1AB502E20022D00B8B9E1 = {
 			isa = PBXGroup;
 			children = (
-				DF899C702E24F834006BE87D /* .swiftlint.yml */,
-				DFA2CB3C2E27DC8E00C4F32B /* Documentation.docc */,
-				DF899D982E24FF79006BE87D /* Makefile */,
 				DFA6892C2E2110F7000EC0BA /* .github */,
 				DF5FFE412E20B9BE00C07AD3 /* .gitignore */,
-				DF5FFE432E20BBB300C07AD3 /* README.md */,
+				DF899C702E24F834006BE87D /* .swiftlint.yml */,
 				DF899B452E24DD9C006BE87D /* CodeConvention.md */,
+				DFA2CB3C2E27DC8E00C4F32B /* Documentation.docc */,
+				DF899D982E24FF79006BE87D /* Makefile */,
 				A7F2E16A2E2007630045D175 /* Pindora */,
 				A7C1AB5A2E20022D00B8B9E1 /* Products */,
+				DF5FFE432E20BBB300C07AD3 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
