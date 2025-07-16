@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA262E27E2BB009EB6BF /* CategoryCellListView.swift */; };
+		A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA252E27E2BB009EB6BF /* CardCellView.swift */; };
+		A732BA2B2E27E2BB009EB6BF /* CategoryCellVeiw.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA272E27E2BB009EB6BF /* CategoryCellVeiw.swift */; };
+		A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA242E27E2BB009EB6BF /* CardCellListView.swift */; };
+		A732BA2E2E27E2D4009EB6BF /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */; };
+		A732BA302E27E9D0009EB6BF /* Inter 24pt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A732BA2F2E27E9D0009EB6BF /* Inter 24pt.ttf */; };
 		A7F2E16D2E2007630045D175 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E1692E2007630045D175 /* ViewController.swift */; };
 		A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F2E1662E2007630045D175 /* Assets.xcassets */; };
 		A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */; };
@@ -16,7 +22,6 @@
 		DF1F3E792E27859B00BE27AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */; };
 		DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3FB42E279C4100BE27AC /* HomeViewModel.swift */; };
 		DF1F3FB62E279C4100BE27AC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */; };
-		DF1F3FB72E279C4100BE27AC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3FB22E279C4100BE27AC /* HomeView.swift */; };
 		DF1F40DE2E279E7F00BE27AC /* OneTimeAskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40DB2E279E7F00BE27AC /* OneTimeAskView.swift */; };
 		DF1F40DF2E279E7F00BE27AC /* OneTimeAskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40DC2E279E7F00BE27AC /* OneTimeAskViewController.swift */; };
 		DF1F40E42E279E8200BE27AC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40E02E279E8200BE27AC /* LoginView.swift */; };
@@ -62,6 +67,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A732BA242E27E2BB009EB6BF /* CardCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCellListView.swift; sourceTree = "<group>"; };
+		A732BA252E27E2BB009EB6BF /* CardCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCellView.swift; sourceTree = "<group>"; };
+		A732BA262E27E2BB009EB6BF /* CategoryCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellListView.swift; sourceTree = "<group>"; };
+		A732BA272E27E2BB009EB6BF /* CategoryCellVeiw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellVeiw.swift; sourceTree = "<group>"; };
+		A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		A732BA2F2E27E9D0009EB6BF /* Inter 24pt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter 24pt.ttf"; sourceTree = "<group>"; };
 		A7C1AB592E20022D00B8B9E1 /* Pindora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pindora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F2E1662E2007630045D175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7F2E1672E2007630045D175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,7 +82,6 @@
 		A7F2E19C2E200A830045D175 /* FontSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSystem.swift; sourceTree = "<group>"; };
 		DF1F3E752E27859B00BE27AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DF1F3FB22E279C4100BE27AC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		DF1F3FB42E279C4100BE27AC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		DF1F40DB2E279E7F00BE27AC /* OneTimeAskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeAskView.swift; sourceTree = "<group>"; };
@@ -136,6 +146,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A732BA282E27E2BB009EB6BF /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				A732BA242E27E2BB009EB6BF /* CardCellListView.swift */,
+				A732BA252E27E2BB009EB6BF /* CardCellView.swift */,
+				A732BA262E27E2BB009EB6BF /* CategoryCellListView.swift */,
+				A732BA272E27E2BB009EB6BF /* CategoryCellVeiw.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
 		A7C1AB502E20022D00B8B9E1 = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +229,7 @@
 		A7F2E1742E2007D80045D175 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				A732BA282E27E2BB009EB6BF /* Custom */,
 				A7F2E17C2E2008780045D175 /* Home */,
 				A7F2E17D2E20089F0045D175 /* Login */,
 				A7F2E17F2E2008BB0045D175 /* MainTab */,
@@ -278,9 +300,9 @@
 		A7F2E17C2E2008780045D175 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				DF1F3FB22E279C4100BE27AC /* HomeView.swift */,
 				DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */,
 				DF1F3FB42E279C4100BE27AC /* HomeViewModel.swift */,
+				A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -424,6 +446,7 @@
 				DFF67EA52E219AE800676213 /* Pretendard-Regular.otf */,
 				DFF67EA62E219AE800676213 /* Pretendard-SemiBold.otf */,
 				DFF67EA72E219AE800676213 /* Pretendard-Thin.otf */,
+				A732BA2F2E27E9D0009EB6BF /* Inter 24pt.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -541,6 +564,7 @@
 				DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */,
 				DF5FFE442E20BBB300C07AD3 /* README.md in Resources */,
 				DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */,
+				A732BA302E27E9D0009EB6BF /* Inter 24pt.ttf in Resources */,
 				DFEC21242E21463000C4E22D /* link-issues.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -591,13 +615,17 @@
 				DF1F40F12E279F6600BE27AC /* MyPlaceViewController.swift in Sources */,
 				DF1F40F22E279F6600BE27AC /* MyPlaceView.swift in Sources */,
 				DF1F3FB62E279C4100BE27AC /* HomeViewController.swift in Sources */,
-				DF1F3FB72E279C4100BE27AC /* HomeView.swift in Sources */,
 				DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */,
 				DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */,
 				A7F2E19B2E200A790045D175 /* ColorSystem.swift in Sources */,
 				DF7A8BA02E27806800378AC3 /* AuthRepositoryImpl.swift in Sources */,
 				DFA2CB392E27C7B000C4F32B /* ModuleFactory.swift in Sources */,
 				DFA2CB3D2E27DC8E00C4F32B /* Documentation.docc in Sources */,
+				A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */,
+				A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */,
+				A732BA2B2E27E2BB009EB6BF /* CategoryCellVeiw.swift in Sources */,
+				A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */,
+				A732BA2E2E27E2D4009EB6BF /* SearchBarView.swift in Sources */,
 				A7F2E16D2E2007630045D175 /* ViewController.swift in Sources */,
 				DF7A8B9E2E27804600378AC3 /* AuthRepository.swift in Sources */,
 				DF1F40DE2E279E7F00BE27AC /* OneTimeAskView.swift in Sources */,
