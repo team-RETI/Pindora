@@ -48,7 +48,7 @@ final class DIContainer {
  }
  */
 @propertyWrapper
-class Dependency<T> {
+final class Dependency<T> {
     
     // DIConatiner에서 resolve된 인스턴스를 자동으로 가져옵니다
     let wrappedValue: T
