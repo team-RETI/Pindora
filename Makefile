@@ -1,6 +1,6 @@
 default: all
 
-all: ensure-homebrew ensure-swiftlint ensure-fastlane lint-fix download-privates fetch-certificates
+all: ensure-homebrew ensure-gem ensure-bundler ensure-bundle-install ensure-swiftlint ensure-fastlane lint-fix download-privates fetch-certificates install-templates
 
 
 # -----------------------------
@@ -13,6 +13,43 @@ ensure-homebrew:
 		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
 		echo "✅ Homebrew installed."; \
 	}
+	@echo ""
+
+# -----------------------------
+# 💎 RubyGems 설치 확인
+# -----------------------------
+ensure-gem:
+	@echo "🔍 Checking for RubyGems..."
+	@command -v gem >/dev/null 2>&1 && echo "✅ gem already installed." || { \
+		echo "❌ gem not found. Ruby가 시스템에 설치되어 있어야 합니다."; \
+		echo "➡️  macOS라면: Xcode Command Line Tools를 설치하세요 (xcode-select --install)"; \
+		exit 1; \
+	}
+	@echo ""
+
+# -----------------------------
+# 📦 Bundler 설치 확인
+# -----------------------------
+ensure-bundler: ensure-gem
+	@echo "🔍 Checking for Bundler..."
+	@command -v bundle >/dev/null 2>&1 && echo "✅ Bundler already installed." || { \
+		echo "📦 Bundler not found. Installing..."; \
+		sudo gem install bundler; \
+		echo "✅ Bundler installed."; \
+	}
+	@echo ""
+
+# -----------------------------
+# 📦 bundle install 자동 실행
+# -----------------------------
+ensure-bundle-install: ensure-bundler
+	@if [ -f "Gemfile" ]; then \
+		echo "📦 Running bundle install..."; \
+		bundle check >/dev/null 2>&1 || bundle install; \
+		echo "✅ Bundle install complete."; \
+	else \
+		echo "ℹ️  No Gemfile found. Skipping bundle install."; \
+	fi
 	@echo ""
 
 # -----------------------------
@@ -92,6 +129,17 @@ fetch-certificates:
 	bundle exec fastlane match development --readonly && \
 	bundle exec fastlane match appstore --readonly
 	@echo ""
+	
+# -----------------------------
+# 🧩 Xcode 커스텀 템플릿 설치
+# -----------------------------
+install-templates:
+	@echo "🧩 Installing Xcode custom templates..."
+	@TEMPLATE_DIR="$$HOME/Library/Developer/Xcode/Templates/File Templates/Custom Templates"; \
+	mkdir -p "$$TEMPLATE_DIR"; \
+	cp -R ./FileTemplates/* "$$TEMPLATE_DIR"; \
+	echo "✅ 템플릿이 성공적으로 설치되었습니다."
+
 
 # x
 # bundle exec fastlane match development \
