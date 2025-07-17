@@ -9,6 +9,8 @@ import UIKit
 
 class CategoryCellListView: UIScrollView {
     
+    // MARK: - UI Component
+    // 더미 데이터 (ViewModel 구현후 없앨예정)
     private let categories = ["도서관", "카페", "관광지", "식당", "숙소", "기타", "도서관", "카페", "관광지", "식당", "숙소", "기타"]
 
     private let stackView: UIStackView = {
@@ -17,7 +19,8 @@ class CategoryCellListView: UIScrollView {
         sv.spacing = 12
         return sv
     }()
-
+    
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         showsHorizontalScrollIndicator = false
@@ -27,7 +30,8 @@ class CategoryCellListView: UIScrollView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    // MARK: - (F)UI Setup
     private func setup() {
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false

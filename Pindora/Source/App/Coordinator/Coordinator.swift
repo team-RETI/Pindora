@@ -174,7 +174,8 @@ final class MainTabCoordinator: Coordinator {
             $0.parentCoordinator = self
             $0.start()
         }
-        
+        tabbarController.tabBar.tintColor = .gray
+        tabbarController.tabBar.unselectedItemTintColor = .lightGray
         tabbarController.setViewControllers([homeNav, mapNav, myPlaceNav, profileNav], animated: false)
         navigationController.setViewControllers([tabbarController], animated: true)
     }

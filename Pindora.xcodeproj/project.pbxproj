@@ -13,6 +13,7 @@
 		A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA242E27E2BB009EB6BF /* CardCellListView.swift */; };
 		A732BA2E2E27E2D4009EB6BF /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */; };
 		A732BA302E27E9D0009EB6BF /* Inter 24pt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A732BA2F2E27E9D0009EB6BF /* Inter 24pt.ttf */; };
+		A778D2E12E28F212006B3309 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E02E28F212006B3309 /* HomeView.swift */; };
 		A7F2E16D2E2007630045D175 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E1692E2007630045D175 /* ViewController.swift */; };
 		A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F2E1662E2007630045D175 /* Assets.xcassets */; };
 		A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */; };
@@ -73,6 +74,7 @@
 		A732BA272E27E2BB009EB6BF /* CategoryCellVeiw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellVeiw.swift; sourceTree = "<group>"; };
 		A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		A732BA2F2E27E9D0009EB6BF /* Inter 24pt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter 24pt.ttf"; sourceTree = "<group>"; };
+		A778D2E02E28F212006B3309 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A7C1AB592E20022D00B8B9E1 /* Pindora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pindora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F2E1662E2007630045D175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7F2E1672E2007630045D175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 		A7F2E17C2E2008780045D175 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				A778D2E02E28F212006B3309 /* HomeView.swift */,
 				DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */,
 				DF1F3FB42E279C4100BE27AC /* HomeViewModel.swift */,
 				A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */,
@@ -607,6 +610,7 @@
 				DF1F40FA2E279F9000BE27AC /* ProfileViewController.swift in Sources */,
 				DF1F40EC2E279F5400BE27AC /* MapView.swift in Sources */,
 				DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */,
+				A778D2E12E28F212006B3309 /* HomeView.swift in Sources */,
 				DF1F40E42E279E8200BE27AC /* LoginView.swift in Sources */,
 				DF1F40E52E279E8200BE27AC /* LoginViewController.swift in Sources */,
 				DF1F40E62E279E8200BE27AC /* LoginViewModel.swift in Sources */,

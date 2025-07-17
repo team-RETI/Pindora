@@ -8,7 +8,9 @@
 import UIKit
 
 class CardCellListView: UITableView, UITableViewDataSource, UITableViewDelegate {
-
+    
+    // MARK: - UI Component
+    // 더미데이터 (ViewModel 구현후 없앨예정)
     private let dummyData: [(title: String, description: String, imageName: String)] = [
         ("카페 드롭탑", "분위기 좋은 루프탑 카페", "경복궁"),
         ("연남동 돈까스", "수요미식회에도 나온 맛집", "경복궁고화질"),
@@ -16,18 +18,18 @@ class CardCellListView: UITableView, UITableViewDataSource, UITableViewDelegate 
         ("서울숲 카페", "분위기 좋은 루프탑 카페", "남산타워"),
     ]
 
-    // MARK: - 초기화
+    // MARK: - Initializer
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
-        setup()
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - 셋업
-    private func setup() {
+    // MARK: - (F)UI Setup
+    private func setupUI() {
         self.dataSource = self
         self.delegate = self
         self.separatorStyle = .none
@@ -37,7 +39,8 @@ class CardCellListView: UITableView, UITableViewDataSource, UITableViewDelegate 
 //        self.rowHeight = 210
     }
 
-    // MARK: - 데이터소스
+    // MARK: - Bindings
+    // ViewModel 구현후 없앨예정
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dummyData.count
     }

@@ -40,7 +40,3 @@ final class MapViewController: UIViewController {
 
     }
 }
-
-#Preview {
-    MapViewController(viewModel: MapViewModel())
-}

@@ -9,6 +9,7 @@ import UIKit
 
 class CategoryCellVeiw: UIView {
     
+    // MARK: - UI Component
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
@@ -17,7 +18,7 @@ class CategoryCellVeiw: UIView {
         return label
     }()
     
-    // Init
+    // MARK: - Initializer
     init(title: String) {
         super.init(frame: .zero)
         titleLabel.text = title
@@ -29,13 +30,12 @@ class CategoryCellVeiw: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // UI Setup
+    // MARK: - (F)UI Setup
     private func setupUI() {
         backgroundColor = .white
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 0.5
         clipsToBounds = true
-        
         addSubview(titleLabel)
     }
     
