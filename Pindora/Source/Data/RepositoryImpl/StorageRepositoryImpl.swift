@@ -8,7 +8,7 @@
 import FirebaseStorage
 import UIKit
 
-final class StroageRepeatedlyImpl: StorageRepositoryProtocol {
+final class StorageRepositoryImpl: StorageRepositoryProtocol {
     func uploadImage(_ image: UIImage, to folder: String, with fileName: String, completion: @escaping (Result<URL, any Error>) -> Void) {
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {
             return completion(.failure(NSError(domain: "ImageError", code: -1, userInfo: [NSLocalizedDescriptionKey: "이미지 변환 실패"])))
@@ -28,6 +28,21 @@ final class StroageRepeatedlyImpl: StorageRepositoryProtocol {
                         completion(.failure(error))
                     }
                 }
+            }
+        }
+    }
+    
+    func downloadImage(from path: String, completion: @escaping (Result<UIImage, any Error>) -> Void) {
+        let storageRef = Storage.storage().reference()
+        let imageRef = storageRef.child(path)
+        
+        imageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+            if let error {
+                completion(.failure(error))
+            } else if let data, let image = UIImage(data: data) {
+                completion(.success(image))
+            } else {
+                completion(.failure(NSError(domain: "DownloadError", code: -1, userInfo: nil)))
             }
         }
     }
