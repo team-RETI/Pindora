@@ -49,7 +49,6 @@
 		DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */ = {isa = PBXBuildFile; fileRef = DFA6892B2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md */; };
 		DFA689342E211752000EC0BA /* issue-branch.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFA689332E211752000EC0BA /* issue-branch.yml */; };
 		DFB9A41B2E22BB9500BD0E51 /* email-notify.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFB9A41A2E22BB9500BD0E51 /* email-notify.yml */; };
-		DFEC21242E21463000C4E22D /* link-issues.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFEC21232E21463000C4E22D /* link-issues.yml */; };
 		DFF67EA82E219AE800676213 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA32E219AE800676213 /* Pretendard-Light.otf */; };
 		DFF67EA92E219AE800676213 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67E9F2E219AE800676213 /* Pretendard-Black.otf */; };
 		DFF67EAA2E219AE800676213 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA72E219AE800676213 /* Pretendard-Thin.otf */; };
@@ -113,7 +112,6 @@
 		DFA689322E21163A000EC0BA /* labels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = labels.json; sourceTree = "<group>"; };
 		DFA689332E211752000EC0BA /* issue-branch.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "issue-branch.yml"; sourceTree = "<group>"; };
 		DFB9A41A2E22BB9500BD0E51 /* email-notify.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "email-notify.yml"; sourceTree = "<group>"; };
-		DFEC21232E21463000C4E22D /* link-issues.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "link-issues.yml"; sourceTree = "<group>"; };
 		DFF67E9F2E219AE800676213 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		DFF67EA02E219AE800676213 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		DFF67EA12E219AE800676213 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
@@ -440,7 +438,6 @@
 			isa = PBXGroup;
 			children = (
 				DFA689292E2110F7000EC0BA /* main.yml */,
-				DFEC21232E21463000C4E22D /* link-issues.yml */,
 				DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */,
 				DFB9A41A2E22BB9500BD0E51 /* email-notify.yml */,
 			);
@@ -541,7 +538,6 @@
 				DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */,
 				DF5FFE442E20BBB300C07AD3 /* README.md in Resources */,
 				DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */,
-				DFEC21242E21463000C4E22D /* link-issues.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
