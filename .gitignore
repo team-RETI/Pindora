@@ -6,6 +6,7 @@
 *.ipa
 *.dSYM.zip
 *.dSYM
+*.xcuserstate
 
 # SwiftPM
 .build/
