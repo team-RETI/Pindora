@@ -92,7 +92,7 @@ final class HomeView: UIView {
             blackHeaderContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             blackHeaderContainerView.bottomAnchor.constraint(equalTo: categoryListView.bottomAnchor, constant: 20),
             
-            headerLabel.topAnchor.constraint(equalTo: blackHeaderContainerView.topAnchor, constant: 65),
+            headerLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             headerLabel.centerXAnchor.constraint(equalTo: blackHeaderContainerView.centerXAnchor),
             
             searchBarView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 19),

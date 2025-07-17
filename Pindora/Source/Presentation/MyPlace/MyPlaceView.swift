@@ -35,7 +35,6 @@ final class MyPlaceView: UIView {
         stack.axis = .horizontal
         stack.distribution = .equalSpacing
         stack.alignment = .center
-        stack.backgroundColor = .yellow
         return stack
     }()
     

@@ -30,12 +30,16 @@ class CardCellListView: UITableView, UITableViewDataSource, UITableViewDelegate 
 
     // MARK: - (F)UI Setup
     private func setupUI() {
+        let cardWidth: CGFloat = UIScreen.main.bounds.width * 0.88
+        let cardHeight: CGFloat = cardWidth * 0.58
+        
         self.dataSource = self
         self.delegate = self
         self.separatorStyle = .none
         self.showsVerticalScrollIndicator = false
         self.register(CardCellView.self, forCellReuseIdentifier: "CardCellView")
         self.backgroundColor = .white
+        self.rowHeight = cardHeight
     }
 
     // MARK: - Bindings

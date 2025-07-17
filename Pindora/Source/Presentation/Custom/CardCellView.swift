@@ -8,7 +8,7 @@
 import UIKit
 
 class CardCellView: UITableViewCell {
-
+    
     // MARK: - UI Component
     private let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
@@ -32,7 +32,7 @@ class CardCellView: UITableViewCell {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         return view
     }()
-
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 18)
@@ -55,11 +55,11 @@ class CardCellView: UITableViewCell {
         setupUI()
         setupConstraints()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - (F)UI Setup
     private func setupUI() {
         contentView.addSubview(thumbnailContainerView)
@@ -68,49 +68,48 @@ class CardCellView: UITableViewCell {
         thumbnailImageView.addSubview(titleLabel)
         thumbnailImageView.addSubview(descriptionLabel)
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0))
     }
-
+    
     // MARK: - (F)Constraints
     private func setupConstraints() {
+
         thumbnailContainerView.translatesAutoresizingMaskIntoConstraints = false
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
-            // 그림자 컨테이너 뷰
-            thumbnailContainerView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.88),
-            thumbnailContainerView.heightAnchor.constraint(equalTo: thumbnailContainerView.widthAnchor, multiplier: 0.58),
-            thumbnailContainerView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            thumbnailContainerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            thumbnailContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            thumbnailContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 26),
+            thumbnailContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -26),
+            thumbnailContainerView.topAnchor.constraint(equalTo: topAnchor),
+            thumbnailContainerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             
             // 이미지 뷰
             thumbnailImageView.leadingAnchor.constraint(equalTo: thumbnailContainerView.leadingAnchor),
             thumbnailImageView.trailingAnchor.constraint(equalTo: thumbnailContainerView.trailingAnchor),
             thumbnailImageView.topAnchor.constraint(equalTo: thumbnailContainerView.topAnchor),
             thumbnailImageView.bottomAnchor.constraint(equalTo: thumbnailContainerView.bottomAnchor),
-
+            
             // 오버레이
             overlayView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor),
             overlayView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor),
             overlayView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor),
             overlayView.bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor),
-
+            
             // 타이틀, 설명
             titleLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 12),
             titleLabel.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -4),
-
+            
             descriptionLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 12),
             descriptionLabel.bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: -12)
         ])
     }
-
+    
     // 데이터 연결 (viewModel 구현 후 지울예정)
     func configure(with place: PlaceModel) {
         thumbnailImageView.image = UIImage(named: place.imageName)
