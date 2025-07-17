@@ -31,6 +31,9 @@
 		DF1F40F82E279F9000BE27AC /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40F72E279F9000BE27AC /* ProfileViewModel.swift */; };
 		DF1F40F92E279F9000BE27AC /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40F52E279F9000BE27AC /* ProfileView.swift */; };
 		DF1F40FA2E279F9000BE27AC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40F62E279F9000BE27AC /* ProfileViewController.swift */; };
+		DF27D9B32E28C25C00D0D8BE /* SwiftParser in Frameworks */ = {isa = PBXBuildFile; productRef = DF27D9B22E28C25C00D0D8BE /* SwiftParser */; };
+		DF27D9B52E28C25C00D0D8BE /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = DF27D9B42E28C25C00D0D8BE /* SwiftSyntax */; };
+		DF27D9B72E28C25C00D0D8BE /* SwiftSyntaxBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = DF27D9B62E28C25C00D0D8BE /* SwiftSyntaxBuilder */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
 		DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C22E27783F00378AC3 /* Coordinator.swift */; };
@@ -130,6 +133,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF27D9B32E28C25C00D0D8BE /* SwiftParser in Frameworks */,
+				DF27D9B72E28C25C00D0D8BE /* SwiftSyntaxBuilder in Frameworks */,
+				DF27D9B52E28C25C00D0D8BE /* SwiftSyntax in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +153,7 @@
 				DF5FFE432E20BBB300C07AD3 /* README.md */,
 				DF899B452E24DD9C006BE87D /* CodeConvention.md */,
 				A7F2E16A2E2007630045D175 /* Pindora */,
+				DF27D9B82E28C2C400D0D8BE /* Frameworks */,
 				A7C1AB5A2E20022D00B8B9E1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -369,6 +376,13 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		DF27D9B82E28C2C400D0D8BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DF5FFE2F2E20B47000C07AD3 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,6 +481,7 @@
 			buildConfigurationList = A7C1AB6C2E20022D00B8B9E1 /* Build configuration list for PBXNativeTarget "Pindora" */;
 			buildPhases = (
 				DF899C6F2E24F7D4006BE87D /* SwiftLint Script */,
+				DF27D9B92E28C3D200D0D8BE /* ShellScript */,
 				A7C1AB552E20022D00B8B9E1 /* Sources */,
 				A7C1AB562E20022D00B8B9E1 /* Frameworks */,
 				A7C1AB572E20022D00B8B9E1 /* Resources */,
@@ -477,6 +492,9 @@
 			);
 			name = Pindora;
 			packageProductDependencies = (
+				DF27D9B22E28C25C00D0D8BE /* SwiftParser */,
+				DF27D9B42E28C25C00D0D8BE /* SwiftSyntax */,
+				DF27D9B62E28C25C00D0D8BE /* SwiftSyntaxBuilder */,
 			);
 			productName = Pindora;
 			productReference = A7C1AB592E20022D00B8B9E1 /* Pindora.app */;
@@ -506,6 +524,9 @@
 			);
 			mainGroup = A7C1AB502E20022D00B8B9E1;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DF27D9B12E28C25C00D0D8BE /* XCRemoteSwiftPackageReference "swift-syntax" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A7C1AB5A2E20022D00B8B9E1 /* Products */;
 			projectDirPath = "";
@@ -548,6 +569,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		DF27D9B92E28C3D200D0D8BE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# 🚀 ProtocolDocChecker 실행 및 자동 빌드 (macOS 명시)\necho \"🛠 ProtocolDocChecker 검사 시작...\"\n\nTOOL_NAME=\"ProtocolDocChecker\"\nTOOL_PATH=\"${SRCROOT}/.build/debug/$TOOL_NAME\"\nTARGET_PATH=\"${SRCROOT}/Pindora\"\n\n# 1. macOS 툴체인으로 강제 빌드\ncd \"${SRCROOT}\"\necho \"🔨 빌드 중: $TOOL_NAME ...\"\nxcrun --sdk macosx swift build --product \"$TOOL_NAME\"\n\n# 2. 빌드 성공 시 검사 실행\nif [ -x \"$TOOL_PATH\" ]; then\n  \"$TOOL_PATH\" \"$TARGET_PATH\"\nelse\n  echo \"❌ 빌드 실패 또는 실행파일 없음: $TOOL_PATH\"\n  exit 1\nfi\n";
+		};
 		DF899C6F2E24F7D4006BE87D /* SwiftLint Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -828,6 +867,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DF27D9B12E28C25C00D0D8BE /* XCRemoteSwiftPackageReference "swift-syntax" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftlang/swift-syntax.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 601.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DF27D9B22E28C25C00D0D8BE /* SwiftParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF27D9B12E28C25C00D0D8BE /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftParser;
+		};
+		DF27D9B42E28C25C00D0D8BE /* SwiftSyntax */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF27D9B12E28C25C00D0D8BE /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntax;
+		};
+		DF27D9B62E28C25C00D0D8BE /* SwiftSyntaxBuilder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF27D9B12E28C25C00D0D8BE /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntaxBuilder;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A7C1AB512E20022D00B8B9E1 /* Project object */;
 }
