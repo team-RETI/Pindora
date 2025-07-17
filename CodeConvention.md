@@ -67,15 +67,15 @@ let retia = ["Ray", "Evan", "Triple", "Index", "Alex"].map { $0.lowercased() }
 # UIKit
 
 ### ViewController 선언
-- 성능 최적화를 위해 더 이상 상속되지 않는 class에는 꼭 final 키워드를 붙입니다.
-- 가능한 class에서 사용되는 property는 모두 private로 선언합니다.
-- 하나의 파일에서 뷰 계층을 구분할 때는 아래와 같이 주석을 구분합니다.
-    - 구조체나 클래스로 나눌 경우: `// MARK: -(S)` 사용
-    - 메서드형 UI 구성 요소: `// MARK - (F)` 사용
+- 성능 최적화를 위해 더 이상 상속되지 않는 `class`에는 꼭 `final` 키워드를 붙입니다.
+- 가능한 `class`에서 사용되는 `property`는 모두 `private`로 선언합니다.
+- UI 관련 코드에서 뷰 계층을 구분할 때는 아래와 같이 주석을 구분합니다:
+    - **UI 관련 클래스**: `// MARK: -(C)` 사용
+    - **UI 관련 메서드**: `// MARK - (F)` 사용
 ```swift
 import UIKit
 
-// MARK: - (S)ProfileViewController
+// MARK: - (C)ProfileViewController
 final class ProfileViewController: UIViewController {
 
     // MARK: UI

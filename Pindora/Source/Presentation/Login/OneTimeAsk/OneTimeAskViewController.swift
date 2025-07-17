@@ -1,4 +1,4 @@
-//  HomeViewController.swift
+//  OneTimeAskViewController.swift
 //  Pindora
 //
 //  Created by 김동현 on 7/16/25.
@@ -6,12 +6,12 @@
 
 import UIKit
 
-final class HomeViewController: UIViewController {
-     private let viewModel: HomeViewModel
-    private let customView = HomeView()
+final class OneTimeAskViewController: UIViewController {
+    private let viewModel: LoginViewModel
+    private let customView = OneTimeAskView()
     
     // MARK: - Initializer
-    init(viewModel: HomeViewModel) {
+    init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -29,11 +29,6 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         bindViewModel()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("HomeViewController")
-    }
 
     // MARK: - Bindings
     private func bindViewModel() {
@@ -42,5 +37,5 @@ final class HomeViewController: UIViewController {
 }
 
 #Preview {
-    HomeViewController(viewModel: HomeViewModel())
+    OneTimeAskViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl()))
 }
