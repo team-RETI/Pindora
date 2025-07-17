@@ -36,7 +36,6 @@ class CardCellListView: UITableView, UITableViewDataSource, UITableViewDelegate 
         self.showsVerticalScrollIndicator = false
         self.register(CardCellView.self, forCellReuseIdentifier: "CardCellView")
         self.backgroundColor = .white
-//        self.rowHeight = 210
     }
 
     // MARK: - Bindings

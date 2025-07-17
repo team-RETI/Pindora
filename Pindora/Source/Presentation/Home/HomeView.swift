@@ -24,7 +24,7 @@ final class HomeView: UIView {
         label.font = UIFont(name: "Inter 24pt", size: 24)
         label.textColor = .white
         label.textAlignment = .center
-        label.numberOfLines = 0 // 줄바꿈 허용 (Line height가 Auto인 경우 필요)
+        label.numberOfLines = 0
         return label
     }()
     
