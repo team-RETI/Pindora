@@ -164,7 +164,6 @@
 			children = (
 				A7F2E1712E2007840045D175 /* Resource */,
 				A7F2E1702E20077F0045D175 /* Source */,
-				A7F2E1662E2007630045D175 /* Assets.xcassets */,
 				A7F2E1672E2007630045D175 /* Info.plist */,
 				A7F2E1692E2007630045D175 /* ViewController.swift */,
 			);
@@ -188,6 +187,7 @@
 			children = (
 				DFA689192E2109C6000EC0BA /* Fonts */,
 				A7F2E1992E200A640045D175 /* DesignSystem */,
+				A7F2E1662E2007630045D175 /* Assets.xcassets */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
