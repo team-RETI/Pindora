@@ -55,8 +55,10 @@ ensure-fastlane:
 # 🔐 Private 파일 다운로드
 # -----------------------------
 # 🔐 private 저장소 정보
-Private_Repository=team-RETI/Pindora-Private/main
-BASE_URL=https://raw.githubusercontent.com/$(Private_Repository)
+Private_Repository=team-RETI/Pindora-Private
+Private_Branch=main
+BASE_URL=https://raw.githubusercontent.com/$(Private_Repository)/$(Private_Branch)
+
 
 # ✅ 파일 다운로드 함수 (Authorization 헤더에 Bearer 적용)
 define download_file
@@ -79,6 +81,7 @@ download-privates:
 _download-privates-real:
 	$(call download_file,.,$(GITHUB_ACCESS_TOKEN),Config.xcconfig)
 	$(call download_file,Pindora/Resource,$(GITHUB_ACCESS_TOKEN),GoogleService-Info.plist)
+	$(call download_file,Pindora,$(GITHUB_ACCESS_TOKEN),Info.plist)
 
 # -----------------------------
 # 🔐 인증서 불러오기 
