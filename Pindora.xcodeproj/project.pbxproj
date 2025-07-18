@@ -21,6 +21,7 @@
 		A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F2E1662E2007630045D175 /* Assets.xcassets */; };
 		A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */; };
 		A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19C2E200A830045D175 /* FontSystem.swift */; };
+		DF118A0E2E2AB59C0040E670 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF118A0D2E2AB59C0040E670 /* UserDefaultsManager.swift */; };
 		DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E752E27859B00BE27AC /* AppDelegate.swift */; };
 		DF1F3E792E27859B00BE27AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */; };
 		DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3FB42E279C4100BE27AC /* HomeViewModel.swift */; };
@@ -111,6 +112,7 @@
 		A7F2E1692E2007630045D175 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		A7F2E19C2E200A830045D175 /* FontSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSystem.swift; sourceTree = "<group>"; };
+		DF118A0D2E2AB59C0040E670 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		DF1F3E752E27859B00BE27AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 		A7F2E1762E2007F70045D175 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				DF118A0D2E2AB59C0040E670 /* UserDefaultsManager.swift */,
 				A7F2E1772E2008220045D175 /* Extension */,
 			);
 			path = Util;
@@ -732,6 +735,7 @@
 				DF1F40EA2E279F5400BE27AC /* MapViewModel.swift in Sources */,
 				A7D418C12E2A364D00B17044 /* UIView+.swift in Sources */,
 				DF1F40EB2E279F5400BE27AC /* MapViewController.swift in Sources */,
+				DF118A0E2E2AB59C0040E670 /* UserDefaultsManager.swift in Sources */,
 				DF1F40F82E279F9000BE27AC /* ProfileViewModel.swift in Sources */,
 				DF1F40F92E279F9000BE27AC /* ProfileView.swift in Sources */,
 				A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */,

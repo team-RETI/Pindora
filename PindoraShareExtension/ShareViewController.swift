@@ -29,6 +29,7 @@ class ShareViewController: SLComposeServiceViewController {
         // ✅ 사용자 입력 텍스트 출력
         if let text = contentText, !text.isEmpty {
             print("✅ 공유된 텍스트: \(text)")
+            UserDefaultsManager.save(text, for: .sharedText)
         }
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
@@ -50,7 +51,9 @@ extension ShareViewController {
                 if provider.hasItemConformingToTypeIdentifier("public.url") {
                     provider.loadItem(forTypeIdentifier: "public.url", options: nil) { (data, error) in
                         if let url = data as? URL {
-                            print("✅ 공유된 URL: \(url.absoluteString)")
+                            let urlString = url.absoluteString
+                            print("✅ 공유된 URL: \(urlString)")
+                            UserDefaultsManager.save(urlString, for: .sharedURL)
                         } else if let str = data as? String {
                             print("✅ 공유된 문자열 URL: \(str)")
                         } else {
