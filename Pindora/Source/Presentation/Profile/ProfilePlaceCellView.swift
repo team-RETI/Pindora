@@ -8,6 +8,7 @@
 import UIKit
 
 final class ProfilePlaceCellView: UICollectionViewCell {
+    
     // MARK: - UI Component
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -25,6 +26,7 @@ final class ProfilePlaceCellView: UICollectionViewCell {
         view.layer.masksToBounds = false
         return view
     }()
+    
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,8 +44,10 @@ final class ProfilePlaceCellView: UICollectionViewCell {
         contentView.addSubview(containerView)
         containerView.addSubview(imageView)
     }
+    
     // MARK: - (F)Constraints
     private func setupConstraints() {
+        backgroundColor = .white
         containerView.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CardCellListView: UITableView, UITableViewDataSource, UITableViewDelegate {
+final class CardCellListView: UITableView, UITableViewDelegate {
     
     // MARK: - UI Component
     // 더미데이터 (ViewModel 구현후 없앨예정)
@@ -41,8 +41,9 @@ class CardCellListView: UITableView, UITableViewDataSource, UITableViewDelegate 
         self.backgroundColor = .white
         self.rowHeight = cardHeight
     }
+}
 
-    // MARK: - Bindings
+extension CardCellListView: UITableViewDataSource {
     // ViewModel 구현후 없앨예정
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dummyData.count

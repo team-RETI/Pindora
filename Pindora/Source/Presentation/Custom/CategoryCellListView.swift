@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CategoryCellListView: UIScrollView {
+final class CategoryCellListView: UIScrollView {
     
     // MARK: - UI Component
     // 더미 데이터 (ViewModel 구현후 없앨예정)
@@ -24,7 +24,7 @@ class CategoryCellListView: UIScrollView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         showsHorizontalScrollIndicator = false
-        setup()
+        setUI()
     }
 
     required init?(coder: NSCoder) {
@@ -32,7 +32,7 @@ class CategoryCellListView: UIScrollView {
     }
     
     // MARK: - (F)UI Setup
-    private func setup() {
+    private func setUI() {
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
 

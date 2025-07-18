@@ -51,7 +51,7 @@ final class MyPlaceView: UIView {
 
     // MARK: - (F)UI Setup
     private func setupUI() {
-        backgroundColor = .systemBackground
+        backgroundColor = .white
         headerStack.addArrangedSubview(headerLabel)
         headerStack.addArrangedSubview(addButton)
 

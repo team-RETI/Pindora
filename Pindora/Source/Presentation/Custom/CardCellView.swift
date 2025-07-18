@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CardCellView: UITableViewCell {
+final class CardCellView: UITableViewCell {
     
     // MARK: - UI Component
     private let thumbnailImageView: UIImageView = {

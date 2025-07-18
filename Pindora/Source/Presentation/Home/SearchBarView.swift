@@ -9,7 +9,7 @@ import UIKit
 
 final class SearchBarView: UIView {
 
-    /// UI Components
+    // MARK: - UI Component
     private let iconImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
         imageView.tintColor = .systemGray
@@ -24,6 +24,7 @@ final class SearchBarView: UIView {
         tf.clearButtonMode = .whileEditing
         tf.textColor = .black
         tf.font = .systemFont(ofSize: 16)
+        
         return tf
     }()
 
@@ -34,11 +35,11 @@ final class SearchBarView: UIView {
         return button
     }()
 
-    // Init
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        setupLayout()
+        setupConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -56,7 +57,7 @@ final class SearchBarView: UIView {
         addSubview(micButton)
     }
 
-    private func setupLayout() {
+    private func setupConstraints() {
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         textField.translatesAutoresizingMaskIntoConstraints = false
         micButton.translatesAutoresizingMaskIntoConstraints = false

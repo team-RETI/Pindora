@@ -7,23 +7,26 @@
 
 import UIKit
 
-class CategoryCellVeiw: UIView {
+final class CategoryCellVeiw: UIView {
     
     // MARK: - UI Component
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .black
-        label.textAlignment = .center
-        return label
+    private let button: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .white
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1
+        button.clipsToBounds = true
+        return button
     }()
     
     // MARK: - Initializer
     init(title: String) {
         super.init(frame: .zero)
-        titleLabel.text = title
+        button.setTitle(title, for: .normal)
         setupUI()
-        setupLayout()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -32,18 +35,16 @@ class CategoryCellVeiw: UIView {
     
     // MARK: - (F)UI Setup
     private func setupUI() {
-        backgroundColor = .white
-        layer.borderColor = UIColor.black.cgColor
-        layer.borderWidth = 0.5
-        clipsToBounds = true
-        addSubview(titleLabel)
+        addSubview(button)
     }
     
-    private func setupLayout() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func setupConstraints() {
+        button.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            button.topAnchor.constraint(equalTo: topAnchor),
+            button.bottomAnchor.constraint(equalTo: bottomAnchor),
+            button.leadingAnchor.constraint(equalTo: leadingAnchor),
+            button.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
     
@@ -55,6 +56,15 @@ class CategoryCellVeiw: UIView {
     //CornerRadius 적용
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = bounds.height / 2
+        button.layer.cornerRadius = bounds.height / 2
+    }
+    
+    func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) {
+        button.addTarget(target, action: action, for: controlEvents)
+    }
+
+    func setSelected(_ selected: Bool) {
+        button.backgroundColor = selected ? .black : .white
+        button.setTitleColor(selected ? .white : .black, for: .normal)
     }
 }
