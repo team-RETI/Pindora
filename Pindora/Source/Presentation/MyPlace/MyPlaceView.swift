@@ -67,14 +67,14 @@ final class MyPlaceView: UIView {
         placeListView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            headerStack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            headerStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            headerStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            headerStack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
+            headerStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 26),
+            headerStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -26),
 
-            addButton.widthAnchor.constraint(equalToConstant: 28),
-            addButton.heightAnchor.constraint(equalToConstant: 28),
+            addButton.widthAnchor.constraint(equalToConstant: 35),
+            addButton.heightAnchor.constraint(equalToConstant: 35),
 
-            placeListView.topAnchor.constraint(equalTo: headerStack.bottomAnchor, constant: 12),
+            placeListView.topAnchor.constraint(equalTo: headerStack.bottomAnchor, constant: 17),
             placeListView.leadingAnchor.constraint(equalTo: leadingAnchor),
             placeListView.trailingAnchor.constraint(equalTo: trailingAnchor),
             placeListView.bottomAnchor.constraint(equalTo: bottomAnchor)

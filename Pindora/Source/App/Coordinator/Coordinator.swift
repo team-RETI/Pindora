@@ -285,7 +285,7 @@ final class ProfileCoordinator: Coordinator {
         case .home:
             let vc = ModuleFactory.shared.makeProfileVC()
             navigationController.setViewControllers([vc], animated: false)
-            navigationController.isNavigationBarHidden = true // ✅ 요거 추가
+            navigationController.isNavigationBarHidden = true  //✅ 요거 추가
         }
     }
 }

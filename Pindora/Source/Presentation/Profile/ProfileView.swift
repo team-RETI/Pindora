@@ -13,7 +13,7 @@ final class ProfileView: UIView {
     
     // MARK: - UI Component
     private let profileImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "profileMemoji"))
+        let imageView = UIImageView(image: UIImage(named: "아바타"))
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -22,18 +22,25 @@ final class ProfileView: UIView {
     private let profileTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "즉흥적인 도시 탐험가"
-        label.font = .boldSystemFont(ofSize: 18)
-        label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 16)
+        label.textAlignment = .left
         return label
     }()
     
     private let profileDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "조용한 카페를 선호하고 감각스럽게 화장실을 자주가며 고즈넉한 장소를 자주 방문하여 쉬어가는 라이프 스타일을 가지고 있어요"
-        label.font = .systemFont(ofSize: 14)
-        label.textAlignment = .center
+        label.text = "조용한 카페를 선호하고 감각스럽게 화장실을 자주가며 고즈넉한 장소를 자주 방문하여 쉬어 가는 라이프 스타일을 가지고 있어요"
+        label.font = .systemFont(ofSize: 12)
+        label.textAlignment = .left
         label.numberOfLines = 0
         return label
+    }()
+    
+    private lazy var profileStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [profileTitleLabel, profileDescriptionLabel])
+        stack.axis = .vertical
+        stack.spacing = 16
+        return stack
     }()
     
     private lazy var statsStackView: UIStackView = {
@@ -45,7 +52,9 @@ final class ProfileView: UIView {
         let stack = UIStackView(arrangedSubviews: labels)
         stack.axis = .horizontal
         stack.distribution = .fillEqually
-        stack.spacing = 8
+        stack.layer.borderColor = UIColor.black.cgColor
+        stack.layer.borderWidth = 0.5
+        stack.layer.cornerRadius = 18
         return stack
     }()
     
@@ -59,6 +68,8 @@ final class ProfileView: UIView {
         label.backgroundColor = .black
         label.textColor = .white
         label.textAlignment = .center
+        label.layer.shadowOpacity = 0.25
+        label.layer.shadowOffset = CGSize(width: 0, height: 4)
         return label
     }()
     
@@ -73,7 +84,9 @@ final class ProfileView: UIView {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(ProfilePlaceCellView.self, forCellWithReuseIdentifier: "PlaceCell")
-        collectionView.backgroundColor = .white
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        collectionView.scrollIndicatorInsets = collectionView.contentInset
+        collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
     
@@ -94,64 +107,71 @@ final class ProfileView: UIView {
     
     // MARK: - (F)UI Setup
     private func setupUI() {
+        addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        [profileImageView, profileTitleLabel, profileDescriptionLabel, profileStackView, statsStackView,
+         editProfileButton, settingsButton, sectionTitleLabel]
+            .forEach { contentView.addSubview($0); $0.translatesAutoresizingMaskIntoConstraints = false }
+
         addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(contentView)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        [profileImageView, profileTitleLabel, profileDescriptionLabel, statsStackView,
-         editProfileButton, settingsButton, sectionTitleLabel, collectionView]
-            .forEach { contentView.addSubview($0); $0.translatesAutoresizingMaskIntoConstraints = false }
-        
-        
+        scrollView.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     // MARK: - (F)Constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            contentView.topAnchor.constraint(equalTo: topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            contentView.bottomAnchor.constraint(equalTo: sectionTitleLabel.topAnchor),
+            
+            profileImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            profileImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 7),
+            profileImageView.widthAnchor.constraint(equalToConstant: 82.75),
+            profileImageView.heightAnchor.constraint(equalToConstant: 82.75),
+            
+            profileStackView.topAnchor.constraint(equalTo: profileImageView.topAnchor),
+            profileStackView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 10),
+            profileStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -7),
+            
+            profileTitleLabel.topAnchor.constraint(equalTo: profileStackView.topAnchor),
+            profileTitleLabel.leadingAnchor.constraint(equalTo: profileStackView.leadingAnchor),
+            profileTitleLabel.trailingAnchor.constraint(equalTo: profileStackView.trailingAnchor),
+            
+            profileDescriptionLabel.topAnchor.constraint(equalTo: profileTitleLabel.bottomAnchor, constant: 5),
+            profileDescriptionLabel.leadingAnchor.constraint(equalTo: profileStackView.leadingAnchor),
+            profileDescriptionLabel.trailingAnchor.constraint(equalTo: profileStackView.trailingAnchor),
+                        
+            statsStackView.topAnchor.constraint(equalTo: profileDescriptionLabel.bottomAnchor, constant: 20),
+            statsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            statsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            statsStackView.heightAnchor.constraint(equalToConstant: 72),
+            
+            editProfileButton.topAnchor.constraint(equalTo: statsStackView.bottomAnchor, constant: 15),
+            editProfileButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            editProfileButton.trailingAnchor.constraint(equalTo: settingsButton.leadingAnchor, constant: -10),
+            editProfileButton.widthAnchor.constraint(equalTo: settingsButton.widthAnchor),
+          
+            settingsButton.topAnchor.constraint(equalTo: statsStackView.bottomAnchor, constant: 15),
+            settingsButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+
+            sectionTitleLabel.topAnchor.constraint(equalTo: editProfileButton.bottomAnchor, constant: 20),
+            sectionTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            sectionTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            sectionTitleLabel.heightAnchor.constraint(equalToConstant: 43),
+            
+            
+            scrollView.topAnchor.constraint(equalTo: sectionTitleLabel.bottomAnchor, constant: 8),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            
-            profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            profileImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            profileImageView.widthAnchor.constraint(equalToConstant: 70),
-            profileImageView.heightAnchor.constraint(equalToConstant: 70),
-            
-            profileTitleLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 12),
-            profileTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            profileTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            
-            profileDescriptionLabel.topAnchor.constraint(equalTo: profileTitleLabel.bottomAnchor, constant: 8),
-            profileDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            profileDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            
-            statsStackView.topAnchor.constraint(equalTo: profileDescriptionLabel.bottomAnchor, constant: 20),
-            statsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            statsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            statsStackView.heightAnchor.constraint(equalToConstant: 60),
-            
-            editProfileButton.topAnchor.constraint(equalTo: statsStackView.bottomAnchor, constant: 20),
-            editProfileButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
-            
-            settingsButton.topAnchor.constraint(equalTo: editProfileButton.topAnchor),
-            settingsButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
-            
-            sectionTitleLabel.topAnchor.constraint(equalTo: editProfileButton.bottomAnchor, constant: 32),
-            sectionTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            sectionTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            sectionTitleLabel.heightAnchor.constraint(equalToConstant: 36),
-            
-            collectionView.topAnchor.constraint(equalTo: sectionTitleLabel.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 700),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            collectionView.topAnchor.constraint(equalTo: sectionTitleLabel.bottomAnchor, constant: 5),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
@@ -161,20 +181,22 @@ final class ProfileView: UIView {
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         button.backgroundColor = .black
         button.tintColor = .white
-        button.layer.cornerRadius = 14
-        button.frame = button.frame.inset(by: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
+        button.layer.cornerRadius = 15
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.25
+        button.layer.shadowOffset = CGSize(width: 0, height: 4)
         return button
     }
 
     private func makeStatView(title: String, count: Int) -> UIView {
         let countLabel = UILabel()
         countLabel.text = "\(count)"
-        countLabel.font = .boldSystemFont(ofSize: 17)
+        countLabel.font = .systemFont(ofSize: 13)
         countLabel.textAlignment = .center
 
         let titleLabel = UILabel()
         titleLabel.text = title
-        titleLabel.font = .systemFont(ofSize: 13)
+        titleLabel.font = .boldSystemFont(ofSize: 13)
         titleLabel.textAlignment = .center
 
         let stack = UIStackView(arrangedSubviews: [countLabel, titleLabel])
@@ -182,17 +204,12 @@ final class ProfileView: UIView {
         stack.spacing = 4
 
         let container = UIView()
-        container.layer.borderColor = UIColor.black.cgColor
-        container.layer.borderWidth = 1
-        container.layer.cornerRadius = 16
         container.addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: container.topAnchor, constant: 8),
-            stack.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -8),
-            stack.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 8),
-            stack.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -8)
+            stack.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+            stack.centerYAnchor.constraint(equalTo: container.centerYAnchor)
         ])
 
         return container
@@ -207,10 +224,8 @@ extension ProfileView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlaceCell", for: indexPath) as? ProfilePlaceCellView else {
-            print("여기 오나요?2")
             return UICollectionViewCell()
         }
-        print("여기 오나요?")
         cell.configure(with: savedPlaceImages[indexPath.item])
         return cell
     }
