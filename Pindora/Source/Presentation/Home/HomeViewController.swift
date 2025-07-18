@@ -7,7 +7,7 @@
 import UIKit
 
 final class HomeViewController: UIViewController {
-     private let viewModel: HomeViewModel
+    private let viewModel: HomeViewModel
     private let customView = HomeView()
     
     // MARK: - Initializer
@@ -19,12 +19,12 @@ final class HomeViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - LifeCycle
     override func loadView() {
         self.view = customView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bindViewModel()
@@ -34,13 +34,9 @@ final class HomeViewController: UIViewController {
         super.viewDidAppear(animated)
         print("HomeViewController")
     }
-
+    
     // MARK: - Bindings
     private func bindViewModel() {
 
     }
-}
-
-#Preview {
-    HomeViewController(viewModel: HomeViewModel())
 }

@@ -174,9 +174,11 @@ final class MainTabCoordinator: Coordinator {
             $0.parentCoordinator = self
             $0.start()
         }
-        
         tabbarController.setViewControllers([homeNav, mapNav, myPlaceNav, profileNav], animated: false)
         navigationController.setViewControllers([tabbarController], animated: true)
+        navigationController.isNavigationBarHidden = true // ✅ 요거 추가
+        tabbarController.tabBar.tintColor = .gray
+        tabbarController.tabBar.unselectedItemTintColor = .lightGray
     }
 }
 
@@ -202,6 +204,7 @@ final class HomeCoordinator: Coordinator {
         case .home:
             let vc = ModuleFactory.shared.makeHomeVC()
             navigationController.setViewControllers([vc], animated: false)
+            navigationController.isNavigationBarHidden = true // ✅ 요거 추가
         }
     }
 }
@@ -228,6 +231,7 @@ final class MapCoordinator: Coordinator {
         case .home:
             let vc = ModuleFactory.shared.makeMapVC()
             navigationController.setViewControllers([vc], animated: false)
+            navigationController.isNavigationBarHidden = true // ✅ 요거 추가
         }
     }
 }
@@ -254,6 +258,7 @@ final class MyPlaceCoordinator: Coordinator {
         case .home:
             let vc = ModuleFactory.shared.makeMyPlaceVC()
             navigationController.setViewControllers([vc], animated: false)
+            navigationController.isNavigationBarHidden = true // ✅ 요거 추가
         }
     }
 }
@@ -280,6 +285,7 @@ final class ProfileCoordinator: Coordinator {
         case .home:
             let vc = ModuleFactory.shared.makeProfileVC()
             navigationController.setViewControllers([vc], animated: false)
+            navigationController.isNavigationBarHidden = true  //✅ 요거 추가
         }
     }
 }

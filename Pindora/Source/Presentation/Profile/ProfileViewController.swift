@@ -9,7 +9,7 @@ import UIKit
 final class ProfileViewController: UIViewController {
     private let viewModel: ProfileViewModel
     private let customView = ProfileView()
-    
+
     // MARK: - Initializer
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
@@ -27,6 +27,7 @@ final class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         bindViewModel()
     }
     
@@ -41,6 +42,4 @@ final class ProfileViewController: UIViewController {
     }
 }
 
-#Preview {
-    ProfileViewController(viewModel: ProfileViewModel())
-}
+
