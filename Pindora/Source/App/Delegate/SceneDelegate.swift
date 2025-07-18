@@ -12,7 +12,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
 
+    // 앱 실행 직후 (Scene 연결 시 호출됨)
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        
+        // 0. 공유된 값을 가져오기
+        checkSharedContent()
         
         // 0. DIContainer 초기 설정
         DIContainer.config()
@@ -55,9 +59,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This may occur due to temporary interruptions (ex. an incoming phone call).
     }
 
+    // 백그라운드 → 포그라운드 진입 시 호출
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        // 0. 공유된 값을 가져오기
+        checkSharedContent()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -69,3 +76,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+extension SceneDelegate {
+    // ✅ 공유된 값을 가져오는 공통 함수
+    private func checkSharedContent() {
+        if let sharedText = UserDefaultsManager.get(for: .sharedText) {
+            print("✅ 공유된 텍스트: \(sharedText)")
+        }
+
+        if let sharedURL = UserDefaultsManager.get(for: .sharedURL) {
+            print("✅ 공유된 URL: \(sharedURL)")
+        }
+    }
+}

@@ -8,7 +8,7 @@
 import Foundation
 
 final class UserDefaultsManager {
-    private static let sharedDefaults = UserDefaults(suiteName: "group.com.RETIA.pindora")
+    private static let sharedDefaults = UserDefaults(suiteName: "group.com.RETIA.Pindora")
     
     enum Key: String {
         case sharedText
