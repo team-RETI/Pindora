@@ -169,22 +169,9 @@
 		DFF67EA72E219AE800676213 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		DF7EB0A32E2A8CA700E1E8B4 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DF7EB0942E2A8CA700E1E8B4 /* PindoraShareExtension */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		DF7EB0962E2A8CA700E1E8B4 /* PindoraShareExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				DF7EB0A32E2A8CA700E1E8B4 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */,
-			);
 			path = PindoraShareExtension;
 			sourceTree = "<group>";
 		};

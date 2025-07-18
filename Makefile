@@ -119,6 +119,7 @@ _download-privates-real:
 	$(call download_file,.,$(GITHUB_ACCESS_TOKEN),Config.xcconfig)
 	$(call download_file,Pindora/Resource,$(GITHUB_ACCESS_TOKEN),GoogleService-Info.plist)
 	$(call download_file,Pindora,$(GITHUB_ACCESS_TOKEN),Info.plist)
+	$(call download_file,PindoraShareExtension,$(GITHUB_ACCESS_TOKEN),Info.plist)
 
 # -----------------------------
 # 🔐 인증서 불러오기 
