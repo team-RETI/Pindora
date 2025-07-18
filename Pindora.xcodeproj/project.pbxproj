@@ -16,6 +16,7 @@
 		89567A1E2E27B57D00B047C0 /* StorageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892258882E27B0AA007F7584 /* StorageRepositoryImpl.swift */; };
 		897FCD8B2E28974900A8F5D1 /* StorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897FCD8A2E28974000A8F5D1 /* StorageRepository.swift */; };
 		897FCD8D2E28988400A8F5D1 /* ImageUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897FCD8C2E28988400A8F5D1 /* ImageUsecase.swift */; };
+		897FCD902E2A7A6700A8F5D1 /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897FCD8F2E2A7A6700A8F5D1 /* FirebaseStorageManager.swift */; };
 		89A81A7C2E2677BA00B5A99C /* .env in Resources */ = {isa = PBXBuildFile; fileRef = 89A81A7B2E2677BA00B5A99C /* .env */; };
 		A7F2E16B2E2007630045D175 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		A7F2E16C2E2007630045D175 /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -78,6 +79,7 @@
 		892258882E27B0AA007F7584 /* StorageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepositoryImpl.swift; sourceTree = "<group>"; };
 		897FCD8A2E28974000A8F5D1 /* StorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepository.swift; sourceTree = "<group>"; };
 		897FCD8C2E28988400A8F5D1 /* ImageUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUsecase.swift; sourceTree = "<group>"; };
+		897FCD8F2E2A7A6700A8F5D1 /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
 		89A81A7B2E2677BA00B5A99C /* .env */ = {isa = PBXFileReference; lastKnownFileType = text; path = .env; sourceTree = "<group>"; };
 		A7C1AB592E20022D00B8B9E1 /* Pindora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pindora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F2E1662E2007630045D175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -158,6 +160,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		897FCD8E2E2A7A3E00A8F5D1 /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				897FCD8F2E2A7A6700A8F5D1 /* FirebaseStorageManager.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
 		A7C1AB502E20022D00B8B9E1 = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				DF899C732E24FE5A006BE87D /* RepositoryImpl */,
+				897FCD8E2E2A7A3E00A8F5D1 /* Remote */,
 				DF5FFE322E20B47D00C07AD3 /* .gitkeep */,
 			);
 			path = Data;
@@ -617,6 +628,7 @@
 				A7F2E16C2E2007630045D175 /* (null) in Sources */,
 				A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */,
 				DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */,
+				897FCD902E2A7A6700A8F5D1 /* FirebaseStorageManager.swift in Sources */,
 				DF1F3FB62E279C4100BE27AC /* HomeViewController.swift in Sources */,
 				897FCD8B2E28974900A8F5D1 /* StorageRepository.swift in Sources */,
 				DF1F3FB72E279C4100BE27AC /* HomeView.swift in Sources */,

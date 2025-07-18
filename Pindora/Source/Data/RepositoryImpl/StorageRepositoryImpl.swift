@@ -10,39 +10,26 @@ import UIKit
 
 final class StorageRepositoryImpl: StorageRepositoryProtocol {
     func uploadImage(_ image: UIImage, to folder: String, with fileName: String, completion: @escaping (Result<URL, any Error>) -> Void) {
-        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
-            return completion(.failure(NSError(domain: "ImageError", code: -1, userInfo: [NSLocalizedDescriptionKey: "이미지 변환 실패"])))
+        guard let data = image.jpegData(compressionQuality: 0.8) else {
+            completion(.failure(NSError(domain: "ImageError", code: -1)))
+            return
         }
         
-        let storageRef = Storage.storage().reference()
-        let imageRef = storageRef.child("\(folder)/\(fileName).jpg")
-        
-        imageRef.putData(imageData, metadata: nil) { _, error in
-            if let error {
-                return completion(.failure(error))
-            } else {
-                imageRef.downloadURL { url, error in
-                    if let url {
-                        completion(.success(url))
-                    } else if let error {
-                        completion(.failure(error))
-                    }
-                }
-            }
-        }
+        let path = "\(folder)/\(fileName).jpg"
+        FirebaseStorageManager.shared.uploadImage(data, to: path, completion: completion)
     }
     
     func downloadImage(from path: String, completion: @escaping (Result<UIImage, any Error>) -> Void) {
-        let storageRef = Storage.storage().reference()
-        let imageRef = storageRef.child(path)
-        
-        imageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-            if let error {
+        FirebaseStorageManager.shared.downloadImage(from: path) { result in
+            switch result {
+            case .success(let data):
+                if let image = UIImage(data: data) {
+                    completion(.success(image))
+                } else {
+                    completion(.failure(NSError(domain: "InvaildImage", code: -1)))
+                }
+            case .failure(let error):
                 completion(.failure(error))
-            } else if let data, let image = UIImage(data: data) {
-                completion(.success(image))
-            } else {
-                completion(.failure(NSError(domain: "DownloadError", code: -1, userInfo: nil)))
             }
         }
     }
