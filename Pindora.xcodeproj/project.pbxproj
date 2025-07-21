@@ -15,6 +15,7 @@
 		8911412C2E2E1D390094D909 /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8911412B2E2E1D390094D909 /* UserUseCase.swift */; };
 		8911412E2E2E24F20094D909 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8911412D2E2E24F20094D909 /* GoogleService-Info.plist */; };
 		891141302E2E315A0094D909 /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8911412F2E2E315A0094D909 /* UserUseCaseImpl.swift */; };
+		891141322E2E3A540094D909 /* ImageUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891141312E2E3A540094D909 /* ImageUseCaseImpl.swift */; };
 		8922587E2E27AC36007F7584 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8922587D2E27AC36007F7584 /* FirebaseAnalytics */; };
 		892258802E27AC36007F7584 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8922587F2E27AC36007F7584 /* FirebaseAuth */; };
 		892258822E27AC36007F7584 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 892258812E27AC36007F7584 /* FirebaseCore */; };
@@ -89,6 +90,7 @@
 		8911412B2E2E1D390094D909 /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		8911412D2E2E24F20094D909 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8911412F2E2E315A0094D909 /* UserUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImpl.swift; sourceTree = "<group>"; };
+		891141312E2E3A540094D909 /* ImageUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCaseImpl.swift; sourceTree = "<group>"; };
 		892258882E27B0AA007F7584 /* StorageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepositoryImpl.swift; sourceTree = "<group>"; };
 		897FCD8A2E28974000A8F5D1 /* StorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepository.swift; sourceTree = "<group>"; };
 		897FCD8C2E28988400A8F5D1 /* ImageUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUsecase.swift; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 			children = (
 				DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */,
 				8911412F2E2E315A0094D909 /* UserUseCaseImpl.swift */,
+				891141312E2E3A540094D909 /* ImageUseCaseImpl.swift */,
 			);
 			path = UseCaseImpl;
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 				89567A1E2E27B57D00B047C0 /* StorageRepositoryImpl.swift in Sources */,
 				A7F2E16B2E2007630045D175 /* (null) in Sources */,
 				891141242E2E15EE0094D909 /* DatabaseRepository.swift in Sources */,
+				891141322E2E3A540094D909 /* ImageUseCaseImpl.swift in Sources */,
 				A7F2E16C2E2007630045D175 /* (null) in Sources */,
 				A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */,
 				891141262E2E17000094D909 /* DatabaseRepositoryImpl.swift in Sources */,
