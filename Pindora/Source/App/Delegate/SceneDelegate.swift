@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController()
         
         // 3. 로그인 여부 확인(일단 하드코딩)
-        let isLoggedIn: Bool = true
+        let isLoggedIn: Bool = false
         let coordinator = AppCoordinator(navigationController: navigationController, isLoggedIn: isLoggedIn)
         self.appCoordinator = coordinator
         coordinator.start()
