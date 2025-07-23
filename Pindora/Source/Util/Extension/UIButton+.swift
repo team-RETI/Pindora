@@ -19,4 +19,14 @@ extension UIButton {
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
         return button
     }
+    
+    static func settingListButtonStyle(title: String) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)
+        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 12
+        button.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        return button
+    }
 }

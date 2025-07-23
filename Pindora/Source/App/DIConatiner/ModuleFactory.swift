@@ -16,6 +16,9 @@ enum ModuleKey: String {
     case map
     case myPlace
     case profile
+    case editProfile
+    case setting
+    case accountSetting
 }
 
 // MARK: - ModuleFactory
@@ -64,12 +67,34 @@ final class ModuleFactory {
         return MyPlaceViewController(viewModel: viewModel)
     }
     
-    func makeProfileVC() -> UIViewController {
+    func makeProfileVC() -> ProfileViewController {
         let viewModel: ProfileViewModel = getOrCreateViewModel(for: .profile) {
             ProfileViewModel()
         }
         return ProfileViewController(viewModel: viewModel)
     }
+    
+    func makeProfileEditVC() -> ProfileEditViewController {
+        let viewModel: ProfileEditViewModel = getOrCreateViewModel(for: .editProfile) {
+            ProfileEditViewModel()
+        }
+        return ProfileEditViewController(viewModel: viewModel)
+    }
+    
+    func makeSettingVC() -> SettingListViewController {
+        let viewModel: SettingListViewModel = getOrCreateViewModel(for: .setting) {
+            SettingListViewModel()
+        }
+        return SettingListViewController(viewModel: viewModel)
+    }
+    
+    func makeAccountSettingVC() -> AccountSettingViewController {
+        let viewModel: AccountSettingViewModel = getOrCreateViewModel(for: .accountSetting) {
+            AccountSettingViewModel()
+        }
+        return AccountSettingViewController(viewModel: viewModel)
+    }
+
     
     /// 이미 생성된 ViewModel이 있다면 반환하고,
     /// 없으면 factory 클로저를 실행해 새로 만들고 캐시에 저장한 후 반환합니다.

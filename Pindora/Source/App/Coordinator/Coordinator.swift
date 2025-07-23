@@ -173,6 +173,7 @@ final class MainTabCoordinator: Coordinator {
         coordinators.forEach {
             $0.parentCoordinator = self
             $0.start()
+            self.childCoordinators.append($0) // ✅ 여기
         }
         tabbarController.setViewControllers([homeNav, mapNav, myPlaceNav, profileNav], animated: false)
         navigationController.setViewControllers([tabbarController], animated: true)
@@ -263,9 +264,47 @@ final class MyPlaceCoordinator: Coordinator {
     }
 }
 
-final class ProfileCoordinator: Coordinator {
+final class ProfileCoordinator: Coordinator, ProfileViewControllerDelegate, ProfileEditViewControllerDelegate, SettingListViewControllerDelegate, AccountSettingViewControllerDelegate {
+    func didTapLogout() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func didTapDeleteAccount() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func backButtonTapped() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func didTapRegisterButton() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func didTapAccountSetting() {
+        navigate(to: .accountSetting)
+    }
+    
+    func didTapTermsOfService() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func didTapPrivacyPolicy() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func didTapEditProfile() {
+        navigate(to: .editProfile)
+    }
+    func didTapSetting() {
+        navigate(to: .setting)
+    }
+    
     private enum Route {
         case home
+        case editProfile
+        case setting
+        case accountSetting
     }
 
     var parentCoordinator: Coordinator?
@@ -284,8 +323,30 @@ final class ProfileCoordinator: Coordinator {
         switch route {
         case .home:
             let vc = ModuleFactory.shared.makeProfileVC()
-            navigationController.setViewControllers([vc], animated: false)
+            vc.delegate = self
+            navigationController.pushViewController(vc, animated: true)
             navigationController.isNavigationBarHidden = true  //✅ 요거 추가
+            
+        case .editProfile:
+            let vc = ModuleFactory.shared.makeProfileEditVC()
+            vc.delegate = self
+            vc.hidesBottomBarWhenPushed = true
+            navigationController.pushViewController(vc, animated: true)
+            navigationController.isNavigationBarHidden = true
+            
+        case .setting:
+            let vc = ModuleFactory.shared.makeSettingVC()
+            vc.delegate = self
+            vc.hidesBottomBarWhenPushed = true
+            navigationController.pushViewController(vc, animated: true)
+            navigationController.isNavigationBarHidden = true
+            
+        case .accountSetting:
+            let vc = ModuleFactory.shared.makeAccountSettingVC()
+            vc.delegate = self
+            vc.hidesBottomBarWhenPushed = true
+            navigationController.pushViewController(vc, animated: true)
+            navigationController.isNavigationBarHidden = true
         }
     }
 }

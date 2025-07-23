@@ -6,7 +6,16 @@
 //
 import UIKit
 
+protocol ProfileEditViewControllerDelegate: AnyObject {
+    ///화면이동
+    func backButtonTapped()
+    /// 화면이동
+    func didTapRegisterButton()
+}
+
 final class ProfileEditViewController: UIViewController {
+    weak var delegate: ProfileEditViewControllerDelegate?
+    
     private let viewModel: ProfileEditViewModel
     private let customView = ProfileEditView()
 
@@ -27,7 +36,8 @@ final class ProfileEditViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        customView.navigationBarView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        customView.registerButton.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
         bindViewModel()
     }
     
@@ -39,5 +49,13 @@ final class ProfileEditViewController: UIViewController {
     // MARK: - Bindings
     private func bindViewModel() {
 
+    }
+    
+    @objc private func didTapRegisterButton() {
+        delegate?.didTapRegisterButton()
+    }
+    
+    @objc private func backButtonTapped() {
+        delegate?.backButtonTapped()
     }
 }

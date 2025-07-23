@@ -6,7 +6,16 @@
 
 import UIKit
 
+protocol ProfileViewControllerDelegate: AnyObject {
+    /// 화면이동
+    func didTapEditProfile()
+    /// 화면이동
+    func didTapSetting()
+}
+
 final class ProfileViewController: UIViewController {
+    weak var delegate: ProfileViewControllerDelegate?
+    
     private let viewModel: ProfileViewModel
     private let customView = ProfileView()
 
@@ -27,7 +36,8 @@ final class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        customView.editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
+        customView.settingsButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         bindViewModel()
     }
     
@@ -40,6 +50,15 @@ final class ProfileViewController: UIViewController {
     private func bindViewModel() {
 
     }
+    
+    // 버튼 탭 처리
+    @objc private func editProfileButtonTapped() {
+            delegate?.didTapEditProfile()
+    }
+    @objc private func settingsButtonTapped() {
+            delegate?.didTapSetting()
+    }
+
 }
 
 

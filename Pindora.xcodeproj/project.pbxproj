@@ -15,6 +15,11 @@
 		A725E9AF2E2FA52900EEA3F5 /* PersonaInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9AE2E2FA52900EEA3F5 /* PersonaInfoCardView.swift */; };
 		A725E9B12E2FA53A00EEA3F5 /* ImageSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9B02E2FA53A00EEA3F5 /* ImageSelectorView.swift */; };
 		A725E9B32E2FA5CA00EEA3F5 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9B22E2FA5CA00EEA3F5 /* ProfileEditViewController.swift */; };
+		A725E9B52E2FE60900EEA3F5 /* SettingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9B42E2FE60900EEA3F5 /* SettingListViewModel.swift */; };
+		A725E9B72E2FE6A800EEA3F5 /* AccountSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9B62E2FE6A800EEA3F5 /* AccountSettingViewModel.swift */; };
+		A725E9B92E2FE6CF00EEA3F5 /* SettingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9B82E2FE6CF00EEA3F5 /* SettingListViewController.swift */; };
+		A725E9BB2E2FE6E100EEA3F5 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9BA2E2FE6E100EEA3F5 /* AccountSettingViewController.swift */; };
+		A725E9BD2E30A89C00EEA3F5 /* CustomNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9BC2E30A89C00EEA3F5 /* CustomNavBarView.swift */; };
 		A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA262E27E2BB009EB6BF /* CategoryCellListView.swift */; };
 		A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA252E27E2BB009EB6BF /* CardCellView.swift */; };
 		A732BA2B2E27E2BB009EB6BF /* CategoryCellVeiw.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA272E27E2BB009EB6BF /* CategoryCellVeiw.swift */; };
@@ -85,6 +90,11 @@
 		A725E9AE2E2FA52900EEA3F5 /* PersonaInfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonaInfoCardView.swift; sourceTree = "<group>"; };
 		A725E9B02E2FA53A00EEA3F5 /* ImageSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectorView.swift; sourceTree = "<group>"; };
 		A725E9B22E2FA5CA00EEA3F5 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		A725E9B42E2FE60900EEA3F5 /* SettingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListViewModel.swift; sourceTree = "<group>"; };
+		A725E9B62E2FE6A800EEA3F5 /* AccountSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewModel.swift; sourceTree = "<group>"; };
+		A725E9B82E2FE6CF00EEA3F5 /* SettingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListViewController.swift; sourceTree = "<group>"; };
+		A725E9BA2E2FE6E100EEA3F5 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
+		A725E9BC2E30A89C00EEA3F5 /* CustomNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavBarView.swift; sourceTree = "<group>"; };
 		A732BA242E27E2BB009EB6BF /* CardCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCellListView.swift; sourceTree = "<group>"; };
 		A732BA252E27E2BB009EB6BF /* CardCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCellView.swift; sourceTree = "<group>"; };
 		A732BA262E27E2BB009EB6BF /* CategoryCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellListView.swift; sourceTree = "<group>"; };
@@ -173,9 +183,9 @@
 				A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */,
 				A725E9AA2E2FA4E300EEA3F5 /* ProfileEditViewModel.swift */,
 				A725E9B22E2FA5CA00EEA3F5 /* ProfileEditViewController.swift */,
-				A725E9AC2E2FA4FB00EEA3F5 /* PersonaPreviewView.swift */,
-				A725E9AE2E2FA52900EEA3F5 /* PersonaInfoCardView.swift */,
 				A725E9B02E2FA53A00EEA3F5 /* ImageSelectorView.swift */,
+				A725E9AE2E2FA52900EEA3F5 /* PersonaInfoCardView.swift */,
+				A725E9AC2E2FA4FB00EEA3F5 /* PersonaPreviewView.swift */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -184,7 +194,11 @@
 			isa = PBXGroup;
 			children = (
 				A725E9A82E2FA36300EEA3F5 /* SettingListView.swift */,
+				A725E9B82E2FE6CF00EEA3F5 /* SettingListViewController.swift */,
+				A725E9B42E2FE60900EEA3F5 /* SettingListViewModel.swift */,
 				A725E9A62E2FA32000EEA3F5 /* AccountSettingView.swift */,
+				A725E9BA2E2FE6E100EEA3F5 /* AccountSettingViewController.swift */,
+				A725E9B62E2FE6A800EEA3F5 /* AccountSettingViewModel.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -196,6 +210,7 @@
 				A732BA252E27E2BB009EB6BF /* CardCellView.swift */,
 				A732BA262E27E2BB009EB6BF /* CategoryCellListView.swift */,
 				A732BA272E27E2BB009EB6BF /* CategoryCellVeiw.swift */,
+				A725E9BC2E30A89C00EEA3F5 /* CustomNavBarView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -676,6 +691,7 @@
 				A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */,
 				A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */,
 				A725E9A52E2FA30300EEA3F5 /* ProfileEditView.swift in Sources */,
+				A725E9B72E2FE6A800EEA3F5 /* AccountSettingViewModel.swift in Sources */,
 				A7D418BD2E2A281200B17044 /* ProfilePlaceCellListView.swift in Sources */,
 				DF1F40EA2E279F5400BE27AC /* MapViewModel.swift in Sources */,
 				A7D418C12E2A364D00B17044 /* UIView+.swift in Sources */,
@@ -686,6 +702,7 @@
 				A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */,
 				DF1F40FA2E279F9000BE27AC /* ProfileViewController.swift in Sources */,
 				DF1F40EC2E279F5400BE27AC /* MapView.swift in Sources */,
+				A725E9BD2E30A89C00EEA3F5 /* CustomNavBarView.swift in Sources */,
 				DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */,
 				A778D2E12E28F212006B3309 /* HomeView.swift in Sources */,
 				A725E9A72E2FA32000EEA3F5 /* AccountSettingView.swift in Sources */,
@@ -697,14 +714,17 @@
 				DF1F40F02E279F6600BE27AC /* MyPlaceViewModel.swift in Sources */,
 				A725E9AD2E2FA4FB00EEA3F5 /* PersonaPreviewView.swift in Sources */,
 				DF1F40F12E279F6600BE27AC /* MyPlaceViewController.swift in Sources */,
+				A725E9B92E2FE6CF00EEA3F5 /* SettingListViewController.swift in Sources */,
 				A778D2E32E29756E006B3309 /* ProfilePlaceCellView.swift in Sources */,
 				DF1F40F22E279F6600BE27AC /* MyPlaceView.swift in Sources */,
 				A725E9B12E2FA53A00EEA3F5 /* ImageSelectorView.swift in Sources */,
+				A725E9B52E2FE60900EEA3F5 /* SettingListViewModel.swift in Sources */,
 				DF1F3FB62E279C4100BE27AC /* HomeViewController.swift in Sources */,
 				A725E9AB2E2FA4E300EEA3F5 /* ProfileEditViewModel.swift in Sources */,
 				DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */,
 				DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */,
 				DF7A8BA02E27806800378AC3 /* AuthRepositoryImpl.swift in Sources */,
+				A725E9BB2E2FE6E100EEA3F5 /* AccountSettingViewController.swift in Sources */,
 				DFA2CB392E27C7B000C4F32B /* ModuleFactory.swift in Sources */,
 				DFA2CB3D2E27DC8E00C4F32B /* Documentation.docc in Sources */,
 				A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */,
