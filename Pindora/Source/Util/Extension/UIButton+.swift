@@ -20,6 +20,7 @@ extension UIButton {
         return button
     }
     
+    
     static func settingListButtonStyle(title: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
