@@ -6,3 +6,10 @@
 *.ipa
 *.dSYM.zip
 *.dSYM
+*.xcuserstate
+
+# SwiftPM
+.build/
+.swiftpm/
+Package.resolved
+.vscode
