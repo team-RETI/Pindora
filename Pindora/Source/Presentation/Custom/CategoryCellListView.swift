@@ -24,7 +24,7 @@ final class CategoryCellListView: UIScrollView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         showsHorizontalScrollIndicator = false
-        setUI()
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
@@ -32,7 +32,7 @@ final class CategoryCellListView: UIScrollView {
     }
     
     // MARK: - (F)UI Setup
-    private func setUI() {
+    private func setupUI() {
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
 

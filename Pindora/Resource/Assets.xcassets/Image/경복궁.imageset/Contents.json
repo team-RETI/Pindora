@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "경복궁 1.jpg",
+      "filename" : "경복궁.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "경복궁 2.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "경복궁.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }

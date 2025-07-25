@@ -61,8 +61,8 @@ final class ProfileView: UIView {
         return stack
     }()
     
-    private let editProfileButton = UIButton.setRoundedStyle(title: "프로필 수정")
-    private let settingsButton = UIButton.setRoundedStyle(title: "사용자 설정")
+    let editProfileButton = UIButton.setRoundedStyle(title: "프로필 수정")
+    let settingsButton = UIButton.setRoundedStyle(title: "사용자 설정")
     
     private let sectionTitleLabel: UILabel = {
         let label = UILabel()
