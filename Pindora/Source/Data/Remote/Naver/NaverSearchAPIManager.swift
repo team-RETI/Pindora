@@ -85,8 +85,8 @@ final class NaverSearchAPIManager {
     static let shared = NaverSearchAPIManager()
     private init() {}
     
-    private let clientId = "nmTYcs90s7w9BlN4Q8i6"
-    private let clientSecret = "jWAsz5N8cm"
+    private let clientId = ""
+    private let clientSecret = ""
     
     func searchEscaping(keyword: String, completion: @escaping (Place?) -> Void) {
         guard let encoded = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
