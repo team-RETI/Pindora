@@ -115,10 +115,11 @@ download-privates:
 	@echo ""
 
 # ✅ 실제 다운로드 로직 (여러 파일 추가 가능)
+# $(call download_file,.,$(GITHUB_ACCESS_TOKEN),Config.xcconfig)
 _download-privates-real:
-	$(call download_file,.,$(GITHUB_ACCESS_TOKEN),Config.xcconfig)
 	$(call download_file,Pindora/Resource,$(GITHUB_ACCESS_TOKEN),GoogleService-Info.plist)
 	$(call download_file,Pindora,$(GITHUB_ACCESS_TOKEN),Info.plist)
+	$(call download_file,Pindora,$(GITHUB_ACCESS_TOKEN),Config.xcconfig)
 
 # -----------------------------
 # 🔐 인증서 불러오기 
