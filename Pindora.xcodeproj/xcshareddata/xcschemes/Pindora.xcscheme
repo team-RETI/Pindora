@@ -30,7 +30,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Pindora.xctestplan"
+            reference = "container:../Pindora.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

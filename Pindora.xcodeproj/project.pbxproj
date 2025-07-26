@@ -53,6 +53,8 @@
 		DF1F40F82E279F9000BE27AC /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40F72E279F9000BE27AC /* ProfileViewModel.swift */; };
 		DF1F40F92E279F9000BE27AC /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40F52E279F9000BE27AC /* ProfileView.swift */; };
 		DF1F40FA2E279F9000BE27AC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40F62E279F9000BE27AC /* ProfileViewController.swift */; };
+		DF38C6212E34E4B40011DFE7 /* ManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF38C61E2E34E4B40011DFE7 /* ManagerTest.swift */; };
+		DF38C6222E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF38C61F2E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
 		DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C22E27783F00378AC3 /* Coordinator.swift */; };
@@ -125,6 +127,7 @@
 		A7F2E1692E2007630045D175 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		A7F2E19C2E200A830045D175 /* FontSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSystem.swift; sourceTree = "<group>"; };
+		DF18A7782E34E59900956881 /* Pindora.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Pindora.xctestplan; path = ../Pindora.xctestplan; sourceTree = "<group>"; };
 		DF1F3E752E27859B00BE27AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +146,8 @@
 		DF1F40F52E279F9000BE27AC /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DF1F40F62E279F9000BE27AC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DF1F40F72E279F9000BE27AC /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		DF38C61E2E34E4B40011DFE7 /* ManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerTest.swift; sourceTree = "<group>"; };
+		DF38C61F2E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPIManagerTest.swift; sourceTree = "<group>"; };
 		DF5FFE342E20B47E00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE362E20B47F00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE3C2E20B48200C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -184,14 +189,6 @@
 		DFF67EA62E219AE800676213 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		DFF67EA72E219AE800676213 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		DF8840302E34CD5200F67BF9 /* ManagerTest */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ManagerTest;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A7C1AB562E20022D00B8B9E1 /* Frameworks */ = {
@@ -259,9 +256,10 @@
 				DFA2CB3C2E27DC8E00C4F32B /* Documentation.docc */,
 				DF899D982E24FF79006BE87D /* Makefile */,
 				A7F2E16A2E2007630045D175 /* Pindora */,
-				DF8840302E34CD5200F67BF9 /* ManagerTest */,
+				DF38C6202E34E4B40011DFE7 /* ManagerTest */,
 				DF27D9B82E28C2C400D0D8BE /* Frameworks */,
 				A7C1AB5A2E20022D00B8B9E1 /* Products */,
+				DF18A7782E34E59900956881 /* Pindora.xctestplan */,
 				DF5FFE432E20BBB300C07AD3 /* README.md */,
 			);
 			sourceTree = "<group>";
@@ -491,6 +489,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DF38C6202E34E4B40011DFE7 /* ManagerTest */ = {
+			isa = PBXGroup;
+			children = (
+				DF38C61E2E34E4B40011DFE7 /* ManagerTest.swift */,
+				DF38C61F2E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift */,
+			);
+			path = ManagerTest;
+			sourceTree = "<group>";
+		};
 		DF5FFE2F2E20B47000C07AD3 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -679,9 +686,6 @@
 			);
 			dependencies = (
 				DF8840342E34CD5200F67BF9 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				DF8840302E34CD5200F67BF9 /* ManagerTest */,
 			);
 			name = ManagerTest;
 			packageProductDependencies = (
@@ -874,6 +878,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF38C6212E34E4B40011DFE7 /* ManagerTest.swift in Sources */,
+				DF38C6222E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1091,6 +1097,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LGX4B4WC66;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.indextrown..ManagerTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1109,6 +1116,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LGX4B4WC66;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.indextrown..ManagerTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
