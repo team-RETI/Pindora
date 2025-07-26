@@ -65,6 +65,7 @@
 		DF883ACD2E34B5CA00F67BF9 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF883ACC2E34B5CA00F67BF9 /* .gitkeep */; };
 		DF883ACF2E34B5CB00F67BF9 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF883ACE2E34B5CB00F67BF9 /* .gitkeep */; };
 		DF883AD12E34B5CC00F67BF9 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF883AD02E34B5CC00F67BF9 /* .gitkeep */; };
+		DF883AD32E34B67800F67BF9 /* NaverSearchAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF883AD22E34B67800F67BF9 /* NaverSearchAPIManager.swift */; };
 		DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */ = {isa = PBXBuildFile; fileRef = DF899B452E24DD9C006BE87D /* CodeConvention.md */; };
 		DF899C712E24F834006BE87D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF899C702E24F834006BE87D /* .swiftlint.yml */; };
 		DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */; };
@@ -153,6 +154,7 @@
 		DF883ACC2E34B5CA00F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF883ACE2E34B5CB00F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF883AD02E34B5CC00F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF883AD22E34B67800F67BF9 /* NaverSearchAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPIManager.swift; sourceTree = "<group>"; };
 		DF899B452E24DD9C006BE87D /* CodeConvention.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CodeConvention.md; sourceTree = "<group>"; };
 		DF899C702E24F834006BE87D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DF899D982E24FF79006BE87D /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -535,6 +537,7 @@
 			isa = PBXGroup;
 			children = (
 				DF883AD02E34B5CC00F67BF9 /* .gitkeep */,
+				DF883AD22E34B67800F67BF9 /* NaverSearchAPIManager.swift */,
 			);
 			path = Naver;
 			sourceTree = "<group>";
@@ -776,6 +779,7 @@
 				A725E9A72E2FA32000EEA3F5 /* AccountSettingView.swift in Sources */,
 				DF1F40E42E279E8200BE27AC /* LoginView.swift in Sources */,
 				DF1F40E52E279E8200BE27AC /* LoginViewController.swift in Sources */,
+				DF883AD32E34B67800F67BF9 /* NaverSearchAPIManager.swift in Sources */,
 				A725E9AF2E2FA52900EEA3F5 /* PersonaInfoCardView.swift in Sources */,
 				DF1F40E62E279E8200BE27AC /* LoginViewModel.swift in Sources */,
 				DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */,
