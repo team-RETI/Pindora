@@ -31,7 +31,6 @@
 		A7D418BD2E2A281200B17044 /* ProfilePlaceCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BC2E2A281200B17044 /* ProfilePlaceCellListView.swift */; };
 		A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BE2E2A344700B17044 /* UIButton+.swift */; };
 		A7D418C12E2A364D00B17044 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418C02E2A364D00B17044 /* UIView+.swift */; };
-		A7F2E16D2E2007630045D175 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E1692E2007630045D175 /* ViewController.swift */; };
 		A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F2E1662E2007630045D175 /* Assets.xcassets */; };
 		A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */; };
 		A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19C2E200A830045D175 /* FontSystem.swift */; };
@@ -126,7 +125,6 @@
 		A7D418C02E2A364D00B17044 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		A7F2E1662E2007630045D175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7F2E1672E2007630045D175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A7F2E1692E2007630045D175 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		A7F2E19C2E200A830045D175 /* FontSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSystem.swift; sourceTree = "<group>"; };
 		DF18A7782E34E59900956881 /* Pindora.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Pindora.xctestplan; path = ../Pindora.xctestplan; sourceTree = "<group>"; };
@@ -284,7 +282,6 @@
 				A7F2E1712E2007840045D175 /* Resource */,
 				A7F2E1702E20077F0045D175 /* Source */,
 				A7F2E1672E2007630045D175 /* Info.plist */,
-				A7F2E1692E2007630045D175 /* ViewController.swift */,
 			);
 			path = Pindora;
 			sourceTree = "<group>";
@@ -879,7 +876,6 @@
 				A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */,
 				DF5A0BB12E350D9100CF61BF /* Constants.swift in Sources */,
 				A732BA2E2E27E2D4009EB6BF /* SearchBarView.swift in Sources */,
-				A7F2E16D2E2007630045D175 /* ViewController.swift in Sources */,
 				DF7A8B9E2E27804600378AC3 /* AuthRepository.swift in Sources */,
 				DF1F40DE2E279E7F00BE27AC /* OneTimeAskView.swift in Sources */,
 				A725E9A92E2FA36300EEA3F5 /* SettingListView.swift in Sources */,
