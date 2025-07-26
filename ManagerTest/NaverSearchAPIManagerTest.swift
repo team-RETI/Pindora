@@ -30,11 +30,18 @@ struct NaverSearchAPIManagerTest {
     
     @Test("API Key가 잘 로드되는지 확인")
     func test_constants_apiKey() throws {
-        #expect(!Constants.NaverAPI.clientID.isEmpty, "❌ clientID가 비어 있습니다")
-        #expect(!Constants.NaverAPI.clientSecret.isEmpty, "❌ clientSecret이 비어 있습니다")
         
-        print("✅ clientID: \(Constants.NaverAPI.clientID)")
-        print("✅ clientSecret: \(Constants.NaverAPI.clientSecret)")
+        let isClientIDValid: Bool = !Constants.NaverAPI.clientID.isEmpty
+        let isClientSecretValid: Bool = !Constants.NaverAPI.clientSecret.isEmpty
+        
+        #expect(isClientIDValid, "❌ clientID가 비어 있습니다")
+        #expect(isClientSecretValid, "❌ clientSecret이 비어 있습니다")
+        
+        print("🟦 [API Key 로드 확인]")
+        // print("   ✅ clientID: \(Constants.NaverAPI.clientID)")
+        // print("   ✅ clientSecret: \(Constants.NaverAPI.clientSecret)")
+        print("   \(isClientIDValid ? "✅ clientID: 성공" : "❌ clientID: 실패")")
+        print("   \(isClientSecretValid ? "✅ clientSecret: 성공" : "❌ clientSecret: 실패")")
     }
     
     @Test("네이버 검색 API @escaping 테스트")
@@ -57,11 +64,11 @@ struct NaverSearchAPIManagerTest {
         #expect(!place.name.isEmpty, "⚠️ 장소가 비어 있습니다")
         #expect(!place.address.isEmpty, "⚠️ 주소가 비어 있습니다")
         print("🟦 [Escaping API 결과]")
-        print("✅ 검색어: \("마초스테이크 부산")")
-        print("✅ 이름: \(place.name)")
-        print("✅ 주소: \(place.address)")
-        print("✅ 위도: \(place.latitude)")
-        print("✅ 경도: \(place.longitude)")
+        print("   ✅ 검색어: \("마초스테이크 부산")")
+        print("   ✅ 이름: \(place.name)")
+        print("   ✅ 주소: \(place.address)")
+        print("   ✅ 위도: \(place.latitude)")
+        print("   ✅ 경도: \(place.longitude)")
     }
     
     @Test("네이버 검색 API Combine 테스트")
@@ -87,11 +94,11 @@ struct NaverSearchAPIManagerTest {
                     #expect(!place.name.isEmpty)
                     #expect(!place.address.isEmpty)
                     print("🟦 [Combine API 결과]")
-                    print("✅ 검색어: \("마초스테이크 부산")")
-                    print("✅ 이름: \(place.name)")
-                    print("✅ 주소: \(place.address)")
-                    print("✅ 위도: \(place.latitude)")
-                    print("✅ 경도: \(place.longitude)")
+                    print("   ✅ 검색어: \("마초스테이크 부산")")
+                    print("   ✅ 이름: \(place.name)")
+                    print("   ✅ 주소: \(place.address)")
+                    print("   ✅ 위도: \(place.latitude)")
+                    print("   ✅ 경도: \(place.longitude)")
                     
                     continuation.resume() // Void 리턴
                 })
@@ -100,3 +107,8 @@ struct NaverSearchAPIManagerTest {
         }
     }
 }
+
+
+
+
+
