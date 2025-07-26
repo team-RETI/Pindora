@@ -85,20 +85,19 @@ final class NaverSearchAPIManager {
     static let shared = NaverSearchAPIManager()
     private init() {}
     
-    private let clientId = ""
-    private let clientSecret = ""
+
     
     func searchEscaping(keyword: String, completion: @escaping (Place?) -> Void) {
         guard let encoded = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: "https://openapi.naver.com/v1/search/local.json?query=\(encoded)&display=1&start=1&sort=random") else {
+              let url = URL(string: "\(Constants.NaverAPI.searchURL)?query=\(encoded)&display=1&start=1&sort=random") else {
             completion(nil)
             return
         }
         
         
         var request = URLRequest(url: url)
-        request.setValue(clientId, forHTTPHeaderField: "X-Naver-Client-Id")
-        request.setValue(clientSecret, forHTTPHeaderField: "X-Naver-Client-Secret")
+        request.setValue(Constants.NaverAPI.clientID, forHTTPHeaderField: "X-Naver-Client-Id")
+        request.setValue(Constants.NaverAPI.clientSecret, forHTTPHeaderField: "X-Naver-Client-Secret")
         
         URLSession.shared.dataTask(with: request) { data, _, error in
             guard let data = data else {
@@ -127,7 +126,7 @@ final class NaverSearchAPIManager {
                 completion(place)
                 
             } catch {
-                print("파싱 실패ㅣ \(error)")
+                print("파싱 실패: \(error)")
                 completion(nil)
             }
         }.resume()
@@ -140,8 +139,8 @@ final class NaverSearchAPIManager {
         }
         
         var request = URLRequest(url: url)
-        request.setValue(clientId, forHTTPHeaderField: "X-Naver-Client-Id")
-        request.setValue(clientSecret, forHTTPHeaderField: "X-Naver-Client-Secret")
+        request.setValue(Constants.NaverAPI.clientID, forHTTPHeaderField: "X-Naver-Client-Id")
+        request.setValue(Constants.NaverAPI.clientSecret, forHTTPHeaderField: "X-Naver-Client-Secret")
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { result in
                 let response = try JSONDecoder().decode(NaverResponse.self, from: result.data)

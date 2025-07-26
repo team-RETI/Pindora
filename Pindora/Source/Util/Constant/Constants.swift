@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+enum Constants {
+    enum NaverAPI {
+        static let clientID = Bundle.main.infoDictionary?["NAVER_CLIENT_ID"] as? String ?? ""
+        static let clientSecret = Bundle.main.infoDictionary?["NAVER_CLIENT_SECRET"] as? String ?? ""
+        static let searchURL = "https://openapi.naver.com/v1/search/local.json"
+    }
+}
