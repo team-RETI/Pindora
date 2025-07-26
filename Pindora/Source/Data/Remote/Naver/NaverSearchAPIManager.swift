@@ -34,30 +34,37 @@ enum NaverSearchAPIError: Error {
 }
 
 // MARK: - Naver DTO
-struct NaverItem: Decodable {
-    let title: String
-    let roadAddress: String
+struct NaverPlaceDTO: Decodable {
+    let placeName: String
+    let placeAddress: String
     let mapX: String
     let mapY: String
     let category: String?
     
     enum CodingKeys: String, CodingKey {
-        case title
-        case roadAddress
+        case placeName = "title"
+        case placeAddress = "roadAddress"
         case mapX = "mapx"
         case mapY = "mapy"
         case category
     }
 }
 
-extension NaverItem {
+extension NaverPlaceDTO {
     func toPlace() -> Place? {
         guard let x = Double(mapX), let y = Double(mapY) else { return nil }
-        return Place(name: title.stripHTML(),
-                     address: roadAddress.stripHTML(),
-                     latitude: y / 1_000_000,
-                     longitude: x / 1_000_000,
-                     category: category ?? "기타"
+        
+        let latitude = y / 1_000_000
+        let longitude = x / 1_000_000
+        let name = placeName.stripHTML()
+        
+        return Place(placeId: Place.generateId(name: name, latitude: latitude, longitude: longitude),
+                     placeName: name,
+                     placeAddress: placeAddress,
+                     latitude: latitude,
+                     longitude: longitude,
+                     category: category ?? "기타",
+                     addedDate: .now
         )
     }
 }
@@ -68,24 +75,13 @@ extension String {
     }
 }
 
-struct NaverResponse: Decodable {
-    let items: [NaverItem]
-}
-
-// MARK: - Naver Entity(개발완료시 Entity로 이동 예정)
-struct Place {
-    let name: String
-    let address: String
-    let latitude: Double
-    let longitude: Double
-    let category: String
+struct NaverSearchResponse: Decodable {
+    let items: [NaverPlaceDTO]
 }
 
 final class NaverSearchAPIManager {
     static let shared = NaverSearchAPIManager()
     private init() {}
-    
-
     
     func searchEscaping(keyword: String, completion: @escaping (Place?) -> Void) {
         guard let encoded = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -106,7 +102,7 @@ final class NaverSearchAPIManager {
             }
             
             do {
-                let decoded = try JSONDecoder().decode(NaverResponse.self, from: data)
+                let decoded = try JSONDecoder().decode(NaverSearchResponse.self, from: data)
                 
                 /*
                 guard let item = decoded.items.first,
@@ -132,9 +128,9 @@ final class NaverSearchAPIManager {
         }.resume()
     }
     
-    func searh(keyword: String) -> AnyPublisher<Place?, Error> {
-        guard let encoded = keyword.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
-              let url = URL(string: "https://openapi.naver.com/v1/search/local.json?query=\(encoded)&display=1&start=1&sort=random") else {
+    func search(keyword: String) -> AnyPublisher<Place?, Error> {
+        guard let encoded = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: "\(Constants.NaverAPI.searchURL)?query=\(encoded)&display=1&start=1&sort=random") else {
             return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
         }
         
@@ -143,7 +139,7 @@ final class NaverSearchAPIManager {
         request.setValue(Constants.NaverAPI.clientSecret, forHTTPHeaderField: "X-Naver-Client-Secret")
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { result in
-                let response = try JSONDecoder().decode(NaverResponse.self, from: result.data)
+                let response = try JSONDecoder().decode(NaverSearchResponse.self, from: result.data)
                 return response.items.first?.toPlace()
             }
             .receive(on: RunLoop.main)

@@ -51,7 +51,7 @@ struct NaverSearchAPIManagerTest {
         
         // 비동기 awaitable 형태로 변환 필요
         let place = try await withCheckedThrowingContinuation { continuation in
-            manager.searchEscaping(keyword: "마초스테이크 부산") { result in
+            manager.searchEscaping(keyword: "톤쇼우 부산") { result in
                 if let place = result {
                     continuation.resume(returning: place)
                 } else {
@@ -61,14 +61,16 @@ struct NaverSearchAPIManagerTest {
         }
         
         // 검증
-        #expect(!place.name.isEmpty, "⚠️ 장소가 비어 있습니다")
-        #expect(!place.address.isEmpty, "⚠️ 주소가 비어 있습니다")
+        #expect(!place.placeName.isEmpty, "⚠️ 장소가 비어 있습니다")
+        #expect(!place.placeAddress.isEmpty, "⚠️ 주소가 비어 있습니다")
         print("🟦 [Escaping API 결과]")
-        print("   ✅ 검색어: \("마초스테이크 부산")")
-        print("   ✅ 이름: \(place.name)")
-        print("   ✅ 주소: \(place.address)")
+        print("   ✅ 검색어: \("톤쇼우 부산")")
+        print("   ✅ 이름: \(place.placeName)")
+        print("   ✅ 주소: \(place.placeAddress)")
         print("   ✅ 위도: \(place.latitude)")
         print("   ✅ 경도: \(place.longitude)")
+        print("   ✅ 고유키: \(place.placeId)")
+        print("   ✅ 카테고리: \(place.category)")
     }
     
     @Test("네이버 검색 API Combine 테스트")
@@ -79,7 +81,7 @@ struct NaverSearchAPIManagerTest {
         var cancellable: AnyCancellable?
         
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            cancellable = manager.searh(keyword: keyword)
+            cancellable = manager.search(keyword: keyword)
                 .sink(receiveCompletion: { completion in
                     if case let .failure(error) = completion {
                         continuation.resume(throwing: error)
@@ -91,14 +93,16 @@ struct NaverSearchAPIManagerTest {
                     }
                     
                     // 검증
-                    #expect(!place.name.isEmpty)
-                    #expect(!place.address.isEmpty)
+                    #expect(!place.placeName.isEmpty, "⚠️ 장소가 비어 있습니다")
+                    #expect(!place.placeAddress.isEmpty, "⚠️ 주소가 비어 있습니다")
                     print("🟦 [Combine API 결과]")
                     print("   ✅ 검색어: \("마초스테이크 부산")")
-                    print("   ✅ 이름: \(place.name)")
-                    print("   ✅ 주소: \(place.address)")
+                    print("   ✅ 이름: \(place.placeName)")
+                    print("   ✅ 주소: \(place.placeAddress)")
                     print("   ✅ 위도: \(place.latitude)")
                     print("   ✅ 경도: \(place.longitude)")
+                    print("   ✅ 고유키: \(place.placeId)")
+                    print("   ✅ 카테고리: \(place.category)")
                     
                     continuation.resume() // Void 리턴
                 })
