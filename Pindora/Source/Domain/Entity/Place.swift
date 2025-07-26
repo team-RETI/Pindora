@@ -23,10 +23,10 @@ struct Place: Hashable {
     let addedDate: Date         // 추가된 날짜
     
     // 옵셔널 속성들
-    var likedCount: Int?
-    var naviLink: String?
-    var instaLink: String?
-    var bookLink: String?
+    var likedCount: Int?        // 좋아요
+    var naviLink: String?       // 장소링크
+    var instaLink: String?      // 인스타링크
+    var bookLink: String?       // 예약링크
 }
 
 // MARK: - DTO로 변환

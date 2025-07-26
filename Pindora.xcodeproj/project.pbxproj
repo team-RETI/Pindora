@@ -77,6 +77,7 @@
 		DFB9A41B2E22BB9500BD0E51 /* email-notify.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFB9A41A2E22BB9500BD0E51 /* email-notify.yml */; };
 		DFE0388B2E351A4300A2060D /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE0388A2E351A4300A2060D /* Place.swift */; };
 		DFE039B02E352B7500A2060D /* PlaceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE039AF2E352B7500A2060D /* PlaceDTO.swift */; };
+		DFE039B42E3532CB00A2060D /* NaverPlaceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */; };
 		DFF67EA82E219AE800676213 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA32E219AE800676213 /* Pretendard-Light.otf */; };
 		DFF67EA92E219AE800676213 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67E9F2E219AE800676213 /* Pretendard-Black.otf */; };
 		DFF67EAA2E219AE800676213 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA72E219AE800676213 /* Pretendard-Thin.otf */; };
@@ -184,6 +185,7 @@
 		DFB9A41A2E22BB9500BD0E51 /* email-notify.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "email-notify.yml"; sourceTree = "<group>"; };
 		DFE0388A2E351A4300A2060D /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		DFE039AF2E352B7500A2060D /* PlaceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDTO.swift; sourceTree = "<group>"; };
+		DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverPlaceDTO.swift; sourceTree = "<group>"; };
 		DFF67E9F2E219AE800676213 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		DFF67EA02E219AE800676213 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		DFF67EA12E219AE800676213 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 			isa = PBXGroup;
 			children = (
 				DF883ACC2E34B5CA00F67BF9 /* .gitkeep */,
+				DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */,
 				DFE039AF2E352B7500A2060D /* PlaceDTO.swift */,
 			);
 			path = DTO;
@@ -861,6 +864,7 @@
 				A725E9B52E2FE60900EEA3F5 /* SettingListViewModel.swift in Sources */,
 				DF1F3FB62E279C4100BE27AC /* HomeViewController.swift in Sources */,
 				A725E9AB2E2FA4E300EEA3F5 /* ProfileEditViewModel.swift in Sources */,
+				DFE039B42E3532CB00A2060D /* NaverPlaceDTO.swift in Sources */,
 				DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */,
 				DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */,
 				A725E9BB2E2FE6E100EEA3F5 /* AccountSettingViewController.swift in Sources */,

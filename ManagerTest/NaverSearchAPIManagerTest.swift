@@ -71,6 +71,7 @@ struct NaverSearchAPIManagerTest {
         print("   ✅ 경도: \(place.longitude)")
         print("   ✅ 고유키: \(place.placeId)")
         print("   ✅ 카테고리: \(place.category)")
+        print("   ✅ 추가된 시간: \(place.addedDate)")
     }
     
     @Test("네이버 검색 API Combine 테스트")
@@ -103,6 +104,7 @@ struct NaverSearchAPIManagerTest {
                     print("   ✅ 경도: \(place.longitude)")
                     print("   ✅ 고유키: \(place.placeId)")
                     print("   ✅ 카테고리: \(place.category)")
+                    print("   ✅ 추가된 시간: \(place.addedDate)")
                     
                     continuation.resume() // Void 리턴
                 })
