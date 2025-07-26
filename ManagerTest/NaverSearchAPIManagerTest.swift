@@ -11,6 +11,7 @@ import Testing
 @testable import Pindora
 
 /*
+ MARK: - Command + U로 실행 가능합니다
  📌 이 파일은 네이버 장소 검색 API의 응답을 테스트하는 유닛 테스트입니다.
  
  ✅ Swift 5.9+에서 새롭게 도입된 매크로 기반 테스트 프레임워크인 `Testing`을 사용합니다.
@@ -29,6 +30,9 @@ struct NaverSearchAPIManagerTest {
     
     @Test("네이버 검색 API @escaping 테스트")
     func test_naverAPI_escaping() async throws {
+        print("✅ clientID: \(Constants.NaverAPI.clientID)")
+        print("✅ clientSecret: \(Constants.NaverAPI.clientSecret)")
+
         let manager = NaverSearchAPIManager.shared
         
         // 비동기 awaitable 형태로 변환 필요

@@ -6,6 +6,7 @@
 //
 
 /*
+ [생성시 디폴트 코드]
 import Testing
 
 struct ManagerTest {
