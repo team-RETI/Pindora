@@ -28,10 +28,17 @@ enum TestError: Error {
 
 struct NaverSearchAPIManagerTest {
     
-    @Test("네이버 검색 API @escaping 테스트")
-    func test_naverAPI_escaping() async throws {
+    @Test("API Key가 잘 로드되는지 확인")
+    func test_constants_apiKey() throws {
+        #expect(!Constants.NaverAPI.clientID.isEmpty, "❌ clientID가 비어 있습니다")
+        #expect(!Constants.NaverAPI.clientSecret.isEmpty, "❌ clientSecret이 비어 있습니다")
+        
         print("✅ clientID: \(Constants.NaverAPI.clientID)")
         print("✅ clientSecret: \(Constants.NaverAPI.clientSecret)")
+    }
+    
+    @Test("네이버 검색 API @escaping 테스트")
+    func test_naverAPI_escaping() async throws {
 
         let manager = NaverSearchAPIManager.shared
         
@@ -47,8 +54,8 @@ struct NaverSearchAPIManagerTest {
         }
         
         // 검증
-        #expect(!place.name.isEmpty)
-        #expect(!place.address.isEmpty)
+        #expect(!place.name.isEmpty, "⚠️ 장소가 비어 있습니다")
+        #expect(!place.address.isEmpty, "⚠️ 주소가 비어 있습니다")
         print("🟦 [Escaping API 결과]")
         print("✅ 검색어: \("마초스테이크 부산")")
         print("✅ 이름: \(place.name)")
