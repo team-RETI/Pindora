@@ -60,7 +60,11 @@
 		DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */; };
 		DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */; };
 		DF7A8B9E2E27804600378AC3 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B9D2E27804600378AC3 /* AuthRepository.swift */; };
-		DF7A8BA02E27806800378AC3 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B9F2E27806800378AC3 /* AuthRepositoryImpl.swift */; };
+		DF883AC92E34B5C200F67BF9 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF883AC52E34B5C200F67BF9 /* AuthRepositoryImpl.swift */; };
+		DF883ACB2E34B5C700F67BF9 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF883ACA2E34B5C700F67BF9 /* .gitkeep */; };
+		DF883ACD2E34B5CA00F67BF9 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF883ACC2E34B5CA00F67BF9 /* .gitkeep */; };
+		DF883ACF2E34B5CB00F67BF9 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF883ACE2E34B5CB00F67BF9 /* .gitkeep */; };
+		DF883AD12E34B5CC00F67BF9 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DF883AD02E34B5CC00F67BF9 /* .gitkeep */; };
 		DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */ = {isa = PBXBuildFile; fileRef = DF899B452E24DD9C006BE87D /* CodeConvention.md */; };
 		DF899C712E24F834006BE87D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF899C702E24F834006BE87D /* .swiftlint.yml */; };
 		DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */; };
@@ -132,7 +136,6 @@
 		DF1F40F52E279F9000BE27AC /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DF1F40F62E279F9000BE27AC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DF1F40F72E279F9000BE27AC /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		DF5FFE322E20B47D00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE342E20B47E00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE362E20B47F00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE3C2E20B48200C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -144,7 +147,12 @@
 		DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
 		DF7A8B9D2E27804600378AC3 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
-		DF7A8B9F2E27806800378AC3 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
+		DF883AC52E34B5C200F67BF9 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
+		DF883AC72E34B5C200F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF883ACA2E34B5C700F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF883ACC2E34B5CA00F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF883ACE2E34B5CB00F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF883AD02E34B5CC00F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF899B452E24DD9C006BE87D /* CodeConvention.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CodeConvention.md; sourceTree = "<group>"; };
 		DF899C702E24F834006BE87D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DF899D982E24FF79006BE87D /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -256,7 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				DF5FFE2F2E20B47000C07AD3 /* App */,
-				A7F2E1752E2007E80045D175 /* Data */,
+				DF883AC82E34B5C200F67BF9 /* Data */,
 				A7F2E1732E2007C10045D175 /* Domain */,
 				A7F2E1742E2007D80045D175 /* Presentation */,
 				A7F2E1762E2007F70045D175 /* Util */,
@@ -299,15 +307,6 @@
 				A7F2E1812E2008E00045D175 /* Profile */,
 			);
 			path = Presentation;
-			sourceTree = "<group>";
-		};
-		A7F2E1752E2007E80045D175 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				DF899C732E24FE5A006BE87D /* RepositoryImpl */,
-				DF5FFE322E20B47D00C07AD3 /* .gitkeep */,
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 		A7F2E1762E2007F70045D175 /* Util */ = {
@@ -501,12 +500,73 @@
 			path = UseCaseImpl;
 			sourceTree = "<group>";
 		};
-		DF899C732E24FE5A006BE87D /* RepositoryImpl */ = {
+		DF883ABF2E34B5C200F67BF9 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
-				DF7A8B9F2E27806800378AC3 /* AuthRepositoryImpl.swift */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		DF883AC02E34B5C200F67BF9 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				DF883ACA2E34B5C700F67BF9 /* .gitkeep */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		DF883AC12E34B5C200F67BF9 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				DF883ACC2E34B5CA00F67BF9 /* .gitkeep */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		DF883AC22E34B5C200F67BF9 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				DF883ACE2E34B5CB00F67BF9 /* .gitkeep */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		DF883AC32E34B5C200F67BF9 /* Naver */ = {
+			isa = PBXGroup;
+			children = (
+				DF883AD02E34B5CC00F67BF9 /* .gitkeep */,
+			);
+			path = Naver;
+			sourceTree = "<group>";
+		};
+		DF883AC42E34B5C200F67BF9 /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				DF883AC12E34B5C200F67BF9 /* DTO */,
+				DF883AC22E34B5C200F67BF9 /* Firebase */,
+				DF883AC32E34B5C200F67BF9 /* Naver */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		DF883AC62E34B5C200F67BF9 /* RepositoryImpl */ = {
+			isa = PBXGroup;
+			children = (
+				DF883AC52E34B5C200F67BF9 /* AuthRepositoryImpl.swift */,
 			);
 			path = RepositoryImpl;
+			sourceTree = "<group>";
+		};
+		DF883AC82E34B5C200F67BF9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				DF883ABF2E34B5C200F67BF9 /* Infrastructure */,
+				DF883AC02E34B5C200F67BF9 /* Local */,
+				DF883AC42E34B5C200F67BF9 /* Remote */,
+				DF883AC62E34B5C200F67BF9 /* RepositoryImpl */,
+				DF883AC72E34B5C200F67BF9 /* .gitkeep */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		DFA689192E2109C6000EC0BA /* Fonts */ = {
@@ -627,15 +687,19 @@
 				DF899C712E24F834006BE87D /* .swiftlint.yml in Resources */,
 				DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */,
 				DFA6892D2E2110F7000EC0BA /* issue.md in Resources */,
+				DF883ACB2E34B5C700F67BF9 /* .gitkeep in Resources */,
 				DFA6892E2E2110F7000EC0BA /* main.yml in Resources */,
 				DFF67EA82E219AE800676213 /* Pretendard-Light.otf in Resources */,
 				DFF67EA92E219AE800676213 /* Pretendard-Black.otf in Resources */,
 				DFF67EAA2E219AE800676213 /* Pretendard-Thin.otf in Resources */,
 				DFB9A41B2E22BB9500BD0E51 /* email-notify.yml in Resources */,
 				DFF67EAB2E219AE800676213 /* Pretendard-Regular.otf in Resources */,
+				DF883ACD2E34B5CA00F67BF9 /* .gitkeep in Resources */,
 				DFF67EAC2E219AE800676213 /* Pretendard-ExtraBold.otf in Resources */,
+				DF883AD12E34B5CC00F67BF9 /* .gitkeep in Resources */,
 				DFF67EAD2E219AE800676213 /* Pretendard-Medium.otf in Resources */,
 				DFF67EAE2E219AE800676213 /* Pretendard-Bold.otf in Resources */,
+				DF883ACF2E34B5CB00F67BF9 /* .gitkeep in Resources */,
 				DFF67EAF2E219AE800676213 /* Pretendard-ExtraLight.otf in Resources */,
 				DFF67EB02E219AE800676213 /* Pretendard-SemiBold.otf in Resources */,
 				DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */,
@@ -727,11 +791,11 @@
 				A725E9AB2E2FA4E300EEA3F5 /* ProfileEditViewModel.swift in Sources */,
 				DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */,
 				DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */,
-				DF7A8BA02E27806800378AC3 /* AuthRepositoryImpl.swift in Sources */,
 				A725E9BB2E2FE6E100EEA3F5 /* AccountSettingViewController.swift in Sources */,
 				DFA2CB392E27C7B000C4F32B /* ModuleFactory.swift in Sources */,
 				DFA2CB3D2E27DC8E00C4F32B /* Documentation.docc in Sources */,
 				A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */,
+				DF883AC92E34B5C200F67BF9 /* AuthRepositoryImpl.swift in Sources */,
 				A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */,
 				A732BA2B2E27E2BB009EB6BF /* CategoryCellVeiw.swift in Sources */,
 				A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */,
