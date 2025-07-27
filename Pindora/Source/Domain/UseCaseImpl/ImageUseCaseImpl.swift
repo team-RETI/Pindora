@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class ImageUsecaseImpl: ImageUsecaseProtocol {
     private let storageRepository: StorageRepositoryProtocol
@@ -14,11 +15,11 @@ final class ImageUsecaseImpl: ImageUsecaseProtocol {
         self.storageRepository = storageRepository
     }
     
-    func upload(image: UIImage, folder: String, fileName: String, completion: @escaping (Result<URL, Error>) -> Void) {
-        storageRepository.uploadImage(image, to: folder, with: fileName, completion: completion)
+    func upload(image: UIImage, folder: String, fileName: String) -> AnyPublisher<URL, any Error> {
+        return storageRepository.uploadImage(image, to: folder, with: fileName)
     }
     
-    func download(from path: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        storageRepository.downloadImage(from: path, completion: completion)
+    func download(from path: String) -> AnyPublisher<UIImage, any Error> {
+        return storageRepository.downloadImage(from: path)
     }
 }

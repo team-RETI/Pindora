@@ -7,29 +7,23 @@
 
 import FirebaseStorage
 import UIKit
+import Combine
 
 final class StorageRepositoryImpl: StorageRepositoryProtocol {
-    func uploadImage(_ image: UIImage, to folder: String, with fileName: String, completion: @escaping (Result<URL, Error>) -> Void) {
+    func uploadImage(_ image: UIImage, to folder: String, with fileName: String) -> AnyPublisher<URL, any Error> {
         guard let data = image.jpegData(compressionQuality: 0.8) else {
-            completion(.failure(NSError(domain: "ImageError", code: -1)))
-            return
+            return Fail(error: NSError(domain: "ImageError", code: -1)).eraseToAnyPublisher()
         }
         let path = "\(folder)/\(fileName).jpg"
-        FirebaseStorageManager.shared.uploadImage(data, to: path, completion: completion)
+        return FirebaseStorageManager.shared.uploadImage(data, to: path)
     }
     
-    func downloadImage(from path: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        FirebaseStorageManager.shared.downloadImage(from: path) { result in
-            switch result {
-            case .success(let data):
-                if let image = UIImage(data: data) {
-                    completion(.success(image))
-                } else {
-                    completion(.failure(NSError(domain: "InvalidImage", code: -1)))
-                }
-            case .failure(let error):
-                completion(.failure(error))
+    func downloadImage(from path: String) -> AnyPublisher<UIImage, any Error> {
+        return FirebaseStorageManager.shared.downloadImage(from: path).tryMap { data in
+            guard let image = UIImage(data: data) else {
+                throw NSError(domain: "InvalidImage", code: -1)
             }
-        }
+            return image
+        }.eraseToAnyPublisher()
     }
 }

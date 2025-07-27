@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import Combine
 
 protocol ImageUsecaseProtocol {
-    func upload(image: UIImage, folder: String, fileName: String, completion: @escaping (Result<URL, Error>) -> Void)
-    func download(from path: String, completion: @escaping (Result<UIImage, Error>) -> Void)
+    func upload(image: UIImage, folder: String, fileName: String) -> AnyPublisher<URL, Error>
+    func download(from path: String) -> AnyPublisher<UIImage, Error>
 }

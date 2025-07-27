@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8930F2C52E36062B00431E50 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8930F2C42E36062A00431E50 /* GoogleService-Info.plist */; };
 		89728D822E33DC38002B3ACE /* StorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D812E33DC38002B3ACE /* StorageRepository.swift */; };
 		89728D862E33DC71002B3ACE /* StorageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D852E33DC71002B3ACE /* StorageRepositoryImpl.swift */; };
 		89728D892E33DD2F002B3ACE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 89728D882E33DD2F002B3ACE /* FirebaseAuth */; };
@@ -97,6 +98,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8930F2C42E36062A00431E50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		89728D812E33DC38002B3ACE /* StorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepository.swift; sourceTree = "<group>"; };
 		89728D852E33DC71002B3ACE /* StorageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepositoryImpl.swift; sourceTree = "<group>"; };
 		89728D912E33DDEF002B3ACE /* ImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCase.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 		A7C1AB502E20022D00B8B9E1 = {
 			isa = PBXGroup;
 			children = (
+				8930F2C42E36062A00431E50 /* GoogleService-Info.plist */,
 				DFA6892C2E2110F7000EC0BA /* .github */,
 				DF5FFE412E20B9BE00C07AD3 /* .gitignore */,
 				DF899C702E24F834006BE87D /* .swiftlint.yml */,
@@ -692,6 +695,7 @@
 				DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */,
 				DF5FFE442E20BBB300C07AD3 /* README.md in Resources */,
 				DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */,
+				8930F2C52E36062B00431E50 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
