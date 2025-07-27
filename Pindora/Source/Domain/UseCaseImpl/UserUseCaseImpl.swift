@@ -16,12 +16,12 @@ final class UserUseCaseImpl: UserUseCaseprotocol {
         self.repository = repository
     }
     
-    func saveUser(user: UserModel) -> AnyPublisher<Void, any Error> {
+    func saveUser(user: User) -> AnyPublisher<Void, any Error> {
         repository.create(user, at: collection, id: user.uid)
     }
     
-    func fetchUser(uid: String) -> AnyPublisher<UserModel, any Error> {
-        repository.fetch(from: collection, id: uid, as: UserModel.self)
+    func fetchUser(uid: String) -> AnyPublisher<User, any Error> {
+        repository.fetch(from: collection, id: uid, as: User.self)
     }
     
     func deleteUser(uid: String) -> AnyPublisher<Void, any Error> {

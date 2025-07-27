@@ -19,7 +19,7 @@
 		89728D982E33DE58002B3ACE /* DatabaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D972E33DE58002B3ACE /* DatabaseRepository.swift */; };
 		89728D9A2E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D992E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift */; };
 		89728D9C2E33DE98002B3ACE /* FirebaseDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9B2E33DE98002B3ACE /* FirebaseDatabaseManager.swift */; };
-		89728D9E2E33DEBC002B3ACE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9D2E33DEBC002B3ACE /* UserModel.swift */; };
+		89728D9E2E33DEBC002B3ACE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9D2E33DEBC002B3ACE /* User.swift */; };
 		89728DA02E33DEE8002B3ACE /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */; };
 		89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */; };
 		A725E9A52E2FA30300EEA3F5 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */; };
@@ -107,7 +107,7 @@
 		89728D972E33DE58002B3ACE /* DatabaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRepository.swift; sourceTree = "<group>"; };
 		89728D992E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRepositoryImpl.swift; sourceTree = "<group>"; };
 		89728D9B2E33DE98002B3ACE /* FirebaseDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseManager.swift; sourceTree = "<group>"; };
-		89728D9D2E33DEBC002B3ACE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		89728D9D2E33DEBC002B3ACE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImpl.swift; sourceTree = "<group>"; };
 		A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
@@ -374,7 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				DF5FFE3C2E20B48200C07AD3 /* .gitkeep */,
-				89728D9D2E33DEBC002B3ACE /* UserModel.swift */,
+				89728D9D2E33DEBC002B3ACE /* User.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -767,7 +767,7 @@
 				A75AB1172E339A4D006DA6EB /* UILabel+.swift in Sources */,
 				DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */,
 				A778D2E12E28F212006B3309 /* HomeView.swift in Sources */,
-				89728D9E2E33DEBC002B3ACE /* UserModel.swift in Sources */,
+				89728D9E2E33DEBC002B3ACE /* User.swift in Sources */,
 				A725E9A72E2FA32000EEA3F5 /* AccountSettingView.swift in Sources */,
 				DF1F40E42E279E8200BE27AC /* LoginView.swift in Sources */,
 				DF1F40E52E279E8200BE27AC /* LoginViewController.swift in Sources */,
