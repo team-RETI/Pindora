@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 final class UserUseCaseImpl: UserUseCaseprotocol {
     private let repository: DatabaseRepositoryProtocol
@@ -15,15 +16,15 @@ final class UserUseCaseImpl: UserUseCaseprotocol {
         self.repository = repository
     }
     
-    func saveUser(user: UserModel, completion: @escaping (Result<Void, Error>) -> Void) {
-        repository.create(user, at: collection, id: user.uid, completion: completion)
+    func saveUser(user: UserModel) -> AnyPublisher<Void, any Error> {
+        repository.create(user, at: collection, id: user.uid)
     }
     
-    func fetchUser(uid: String, completion: @escaping (Result<UserModel, Error>) -> Void) {
-        repository.fetch(from: collection, id: uid, as: UserModel.self, completion: completion)
+    func fetchUser(uid: String) -> AnyPublisher<UserModel, any Error> {
+        repository.fetch(from: collection, id: uid, as: UserModel.self)
     }
     
-    func deleteUser(uid: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        repository.delete(from: collection, id: uid, completion: completion)
+    func deleteUser(uid: String) -> AnyPublisher<Void, any Error> {
+        repository.delete(from: collection, id: uid)
     }
 }

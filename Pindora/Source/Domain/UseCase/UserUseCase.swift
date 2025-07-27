@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import Combine
 
 protocol UserUseCaseprotocol {
-    func saveUser(user: UserModel, completion: @escaping (Result<Void, Error>) -> Void)
-    func fetchUser(uid: String, completion: @escaping (Result<UserModel, Error>) -> Void)
-    func deleteUser(uid: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func saveUser(user: UserModel) -> AnyPublisher<Void, Error>
+    func fetchUser(uid: String) -> AnyPublisher<UserModel, Error>
+    func deleteUser(uid: String) -> AnyPublisher<Void, Error>
 }

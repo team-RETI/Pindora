@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import Combine
 
 public protocol DatabaseRepositoryProtocol {
-    func create<T: Codable>(_ object: T, at collection: String, id: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func fetch<T: Codable>(from collection: String, id: String, as type: T.Type, completion: @escaping (Result<T, Error>) -> Void)
-    func update<T: Codable>(_ object: T, at collection: String, id: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func delete(from collection: String, id: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func create<T: Codable>(_ object: T, at collection: String, id: String) -> AnyPublisher<Void, Error>
+    func fetch<T: Codable>(from collection: String, id: String, as type: T.Type) -> AnyPublisher<T, Error>
+    func update<T: Codable>(_ object: T, at collection: String, id: String) -> AnyPublisher<Void, Error>
+    func delete(from collection: String, id: String) -> AnyPublisher<Void, Error>
 }
