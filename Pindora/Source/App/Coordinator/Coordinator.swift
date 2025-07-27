@@ -264,7 +264,7 @@ final class MyPlaceCoordinator: Coordinator {
     }
 }
 
-final class ProfileCoordinator: Coordinator, ProfileViewControllerDelegate, ProfileEditViewControllerDelegate, SettingListViewControllerDelegate, AccountSettingViewControllerDelegate {
+final class ProfileCoordinator: Coordinator {
     func didTapLogout() {
         navigationController.popViewController(animated: true)
     }
@@ -323,27 +323,27 @@ final class ProfileCoordinator: Coordinator, ProfileViewControllerDelegate, Prof
         switch route {
         case .home:
             let vc = ModuleFactory.shared.makeProfileVC()
-            vc.delegate = self
+            vc.coordinator = self
             navigationController.pushViewController(vc, animated: true)
             navigationController.isNavigationBarHidden = true  //✅ 요거 추가
             
         case .editProfile:
             let vc = ModuleFactory.shared.makeProfileEditVC()
-            vc.delegate = self
+            vc.coordinator = self
             vc.hidesBottomBarWhenPushed = true
             navigationController.pushViewController(vc, animated: true)
             navigationController.isNavigationBarHidden = true
             
         case .setting:
             let vc = ModuleFactory.shared.makeSettingVC()
-            vc.delegate = self
+            vc.coordinator = self
             vc.hidesBottomBarWhenPushed = true
             navigationController.pushViewController(vc, animated: true)
             navigationController.isNavigationBarHidden = true
             
         case .accountSetting:
             let vc = ModuleFactory.shared.makeAccountSettingVC()
-            vc.delegate = self
+            vc.coordinator = self
             vc.hidesBottomBarWhenPushed = true
             navigationController.pushViewController(vc, animated: true)
             navigationController.isNavigationBarHidden = true

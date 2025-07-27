@@ -7,20 +7,8 @@
 
 import UIKit
 
-protocol SettingListViewControllerDelegate: AnyObject {
-    /// 화면이동
-    func didTapAccountSetting()
-    /// 화면이동
-    func didTapTermsOfService()
-    /// 화면이동
-    func didTapPrivacyPolicy()
-    /// 화면이동
-    func backButtonTapped()
-}
-
 final class SettingListViewController: UITableViewController {
-    weak var delegate: SettingListViewControllerDelegate?
-    
+    weak var coordinator: ProfileCoordinator?
     private let viewModel: SettingListViewModel
     private let customView = SettingListView()
     
@@ -58,18 +46,18 @@ final class SettingListViewController: UITableViewController {
     }
 
     @objc private func didtapAccountSetting() {
-        delegate?.didTapAccountSetting()
+        coordinator?.didTapAccountSetting()
     }
     
     @objc private func didTapTermsOfService() {
-        delegate?.didTapTermsOfService()
+        coordinator?.didTapTermsOfService()
     }
     
     @objc private func didTapPrivacyPolicy() {
-        delegate?.didTapPrivacyPolicy()
+        coordinator?.didTapPrivacyPolicy()
     }
     
     @objc private func backButtonTapped() {
-        delegate?.backButtonTapped()
+        coordinator?.backButtonTapped()
     }
 }

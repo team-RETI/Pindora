@@ -6,16 +6,8 @@
 //
 import UIKit
 
-protocol ProfileEditViewControllerDelegate: AnyObject {
-    ///화면이동
-    func backButtonTapped()
-    /// 화면이동
-    func didTapRegisterButton()
-}
-
 final class ProfileEditViewController: UIViewController {
-    weak var delegate: ProfileEditViewControllerDelegate?
-    
+    weak var coordinator: ProfileCoordinator?
     private let viewModel: ProfileEditViewModel
     private let customView = ProfileEditView()
 
@@ -52,10 +44,10 @@ final class ProfileEditViewController: UIViewController {
     }
     
     @objc private func didTapRegisterButton() {
-        delegate?.didTapRegisterButton()
+        coordinator?.didTapRegisterButton()
     }
     
     @objc private func backButtonTapped() {
-        delegate?.backButtonTapped()
+        coordinator?.backButtonTapped()
     }
 }
