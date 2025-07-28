@@ -66,7 +66,7 @@ extension Place {
     ///
     /// - Parameter input: 해시를 생성할 대상 문자열 (예: "스타벅스_35.12345_129.12345")
     /// - Returns: SHA256 해시값을 16진수 문자열로 인코딩한 값
-    static func SHA256String(_ input: String) -> String {
+    static func sHA256String(_ input: String) -> String {
         let inputData = Data(input.utf8)
         let hashed = SHA256.hash(data: inputData)
         return hashed.compactMap { String(format: "%02x", $0) }.joined()
@@ -82,7 +82,7 @@ extension Place {
     static func generateId(name: String, latitude: Double, longitude: Double) -> String {
         let roundedLat = String(format: "%.5f", latitude)
         let roundedLng = String(format: "%.5f", longitude)
-        let base = Place.SHA256String("\(name)_\(roundedLat)_\(roundedLng)")
+        let base = Place.sHA256String("\(name)_\(roundedLat)_\(roundedLng)")
         return base
     }
 }
