@@ -74,6 +74,7 @@
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
 		DF7487B62E38A95200CF9864 /* PindoraShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF7487AC2E38A95200CF9864 /* PindoraShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF7487BF2E38AC5000CF9864 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7487BE2E38AC5000CF9864 /* UserDefaultsManager.swift */; };
 		DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C22E27783F00378AC3 /* Coordinator.swift */; };
 		DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C82E27786300378AC3 /* DIContainer.swift */; };
 		DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */; };
@@ -210,6 +211,8 @@
 		DF5FFE412E20B9BE00C07AD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DF5FFE432E20BBB300C07AD3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DF7487AC2E38A95200CF9864 /* PindoraShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PindoraShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF7487BE2E38AC5000CF9864 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		DF7487C02E38AE6400CF9864 /* Pindora.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pindora.entitlements; sourceTree = "<group>"; };
 		DF7A87C22E27783F00378AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DF7A87C82E27786300378AC3 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
@@ -378,6 +381,7 @@
 		A7F2E16A2E2007630045D175 /* Pindora */ = {
 			isa = PBXGroup;
 			children = (
+				DF7487C02E38AE6400CF9864 /* Pindora.entitlements */,
 				DF5A06B92E3507E500CF61BF /* Config.xcconfig */,
 				A7F2E1712E2007840045D175 /* Resource */,
 				A7F2E1702E20077F0045D175 /* Source */,
@@ -647,6 +651,8 @@
 		DF883ABF2E34B5C200F67BF9 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				DF883AC02E34B5C200F67BF9 /* Local */,
+				DF883AC42E34B5C200F67BF9 /* Remote */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -655,6 +661,7 @@
 			isa = PBXGroup;
 			children = (
 				DF883ACA2E34B5C700F67BF9 /* .gitkeep */,
+				DF7487BE2E38AC5000CF9864 /* UserDefaultsManager.swift */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -712,8 +719,6 @@
 			isa = PBXGroup;
 			children = (
 				DF883ABF2E34B5C200F67BF9 /* Infrastructure */,
-				DF883AC02E34B5C200F67BF9 /* Local */,
-				DF883AC42E34B5C200F67BF9 /* Remote */,
 				DF883AC62E34B5C200F67BF9 /* RepositoryImpl */,
 				DF883AC72E34B5C200F67BF9 /* .gitkeep */,
 			);
@@ -1028,6 +1033,7 @@
 				DF883AC92E34B5C200F67BF9 /* AuthRepositoryImpl.swift in Sources */,
 				A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */,
 				A732BA2B2E27E2BB009EB6BF /* CategoryCellVeiw.swift in Sources */,
+				DF7487BF2E38AC5000CF9864 /* UserDefaultsManager.swift in Sources */,
 				89728D9A2E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift in Sources */,
 				A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */,
 				89728DA02E33DEE8002B3ACE /* UserUseCase.swift in Sources */,
@@ -1084,6 +1090,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pindora/Pindora.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1123,6 +1130,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pindora/Pindora.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1280,10 +1288,11 @@
 		DF7487B82E38A95200CF9864 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PindoraShareExtension/PindoraShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = LGX4B4WC66;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1310,10 +1319,11 @@
 		DF7487B92E38A95200CF9864 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PindoraShareExtension/PindoraShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = LGX4B4WC66;
 				GENERATE_INFOPLIST_FILE = YES;

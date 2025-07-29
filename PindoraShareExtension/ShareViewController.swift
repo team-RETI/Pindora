@@ -2,13 +2,18 @@
 //  ShareViewController.swift
 //  PindoraShareExtension
 //
-//  Created by 김동현 on 7/29/25.
+//  Created by 김동현 on 7/18/25.
 //
 
 import UIKit
 import Social
 
 class ShareViewController: SLComposeServiceViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        extractSharedURL()
+    }
 
     override func isContentValid() -> Bool {
         // Do validation of contentText and/or NSExtensionContext attachments here
@@ -19,6 +24,13 @@ class ShareViewController: SLComposeServiceViewController {
         // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
     
         // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
+        
+        // MARK: - 사용자가 "공유" 누른 후 호출됨
+        // ✅ 사용자 입력 텍스트 출력
+        if let text = contentText, !text.isEmpty {
+            print("✅ 공유된 텍스트: \(text)")
+            UserDefaultsManager.save(text, for: .sharedText)
+        }
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
 
@@ -27,4 +39,29 @@ class ShareViewController: SLComposeServiceViewController {
         return []
     }
 
+}
+
+extension ShareViewController {
+    private func extractSharedURL() {
+        guard let extensionItems = extensionContext?.inputItems as? [NSExtensionItem] else { return }
+        for item in extensionItems {
+            guard let attachments = item.attachments else { continue }
+            
+            for provider in attachments {
+                if provider.hasItemConformingToTypeIdentifier("public.url") {
+                    provider.loadItem(forTypeIdentifier: "public.url", options: nil) { (data, error) in
+                        if let url = data as? URL {
+                            let urlString = url.absoluteString
+                            print("✅ 공유된 URL: \(urlString)")
+                            UserDefaultsManager.save(urlString, for: .sharedURL)
+                        } else if let str = data as? String {
+                            print("✅ 공유된 문자열 URL: \(str)")
+                        } else {
+                            print("⚠️ URL을 가져올 수 없습니다.")
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
