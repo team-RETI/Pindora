@@ -144,11 +144,9 @@
 		89728D812E33DC38002B3ACE /* StorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepository.swift; sourceTree = "<group>"; };
 		89728D852E33DC71002B3ACE /* StorageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepositoryImpl.swift; sourceTree = "<group>"; };
 		89728D912E33DDEF002B3ACE /* ImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCase.swift; sourceTree = "<group>"; };
-		89728D932E33DE0E002B3ACE /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
 		89728D952E33DE2A002B3ACE /* ImageUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCaseImpl.swift; sourceTree = "<group>"; };
 		89728D972E33DE58002B3ACE /* DatabaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRepository.swift; sourceTree = "<group>"; };
 		89728D992E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRepositoryImpl.swift; sourceTree = "<group>"; };
-		89728D9B2E33DE98002B3ACE /* FirebaseDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseManager.swift; sourceTree = "<group>"; };
 		89728D9D2E33DEBC002B3ACE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImpl.swift; sourceTree = "<group>"; };
@@ -303,15 +301,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8938CBAD2E36799900369EE3 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				89728D9B2E33DE98002B3ACE /* FirebaseDatabaseManager.swift */,
-				89728D932E33DE0E002B3ACE /* FirebaseStorageManager.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		A725E9A22E2FA11F00EEA3F5 /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -366,7 +355,6 @@
 				A7C1AB5A2E20022D00B8B9E1 /* Products */,
 				DF18A7782E34E59900956881 /* Pindora.xctestplan */,
 				DF5FFE432E20BBB300C07AD3 /* README.md */,
-				8938CBAD2E36799900369EE3 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
