@@ -23,7 +23,7 @@ final class ProfileEditView: UIView {
         button.setTitle("확인 및 등록", for: .normal)
         button.backgroundColor = .black
         button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 18
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return button
     }()
@@ -64,14 +64,14 @@ final class ProfileEditView: UIView {
         let image = UIImageView(image: UIImage(named: "미리보기"))
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             image.widthAnchor.constraint(equalToConstant: 30),
-            image.heightAnchor.constraint(equalToConstant: 30)
+            image.heightAnchor.constraint(equalToConstant: 30),
         ])
         let previewLabel = UILabel.makeTitleLabel(text: "미리보기")
         let stackView = UIStackView(arrangedSubviews: [image, previewLabel])
         stackView.axis = .vertical
+        stackView.alignment = .center
         stackView.spacing = 14
         return stackView
     }()
@@ -135,12 +135,14 @@ final class ProfileEditView: UIView {
             personaInfoCardView.heightAnchor.constraint(equalToConstant: 140),
             
             previewStackView.topAnchor.constraint(equalTo: personaInfoCardView.bottomAnchor, constant: 14),
-            previewStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            previewStackView.widthAnchor.constraint(equalToConstant: 100),
+            previewStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            previewStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            previewStackView.heightAnchor.constraint(equalToConstant: 75),
             
             personaPreviewView.topAnchor.constraint(equalTo: previewStackView.bottomAnchor, constant: 27),
-            personaPreviewView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            personaPreviewView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            personaPreviewView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            personaPreviewView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 42),
+            personaPreviewView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -42),
             
             registerButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             registerButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),

@@ -12,9 +12,14 @@ import UIKit
 /// 각 화면과 1:1로 매핑됩니다.
 enum ModuleKey: String {
     case login
+    
     case home
+    
     case map
+    
     case myPlace
+    case addPlace
+    
     case profile
     case editProfile
     case setting
@@ -46,11 +51,18 @@ final class ModuleFactory {
         return OneTimeAskViewController(viewModel: viewModel)
     }
     
-    func makeHomeVC() -> UIViewController {
+    func makeHomeVC() -> HomeViewController {
         let viewModel: HomeViewModel = getOrCreateViewModel(for: .home) {
             HomeViewModel()
         }
         return HomeViewController(viewModel: viewModel)
+    }
+    
+    func makeCardDetailVC() -> CardDetailViewController {
+        let viewModel: CardDetailViewModel = getOrCreateViewModel(for: .home) {
+            CardDetailViewModel()
+        }
+        return CardDetailViewController(viewModel: viewModel)
     }
     
     func makeMapVC() -> UIViewController {
@@ -60,11 +72,18 @@ final class ModuleFactory {
         return MapViewController(viewModel: viewModel)
     }
     
-    func makeMyPlaceVC() -> UIViewController {
+    func makeMyPlaceVC() -> MyPlaceViewController {
         let viewModel: MyPlaceViewModel = getOrCreateViewModel(for: .myPlace) {
             MyPlaceViewModel()
         }
         return MyPlaceViewController(viewModel: viewModel)
+    }
+    
+    func makeAddPlaceVC() -> AddPlaceViewController {
+        let viewModel: AddPlaceViewModel = getOrCreateViewModel(for: .addPlace) {
+            AddPlaceViewModel()
+        }
+        return AddPlaceViewController(viewModel: viewModel)
     }
     
     func makeProfileVC() -> ProfileViewController {

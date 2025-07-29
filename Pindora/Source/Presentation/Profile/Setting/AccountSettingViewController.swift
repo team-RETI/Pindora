@@ -7,17 +7,8 @@
 
 import UIKit
 
-protocol AccountSettingViewControllerDelegate: AnyObject {
-    /// 화면이동
-    func didTapLogout()
-    /// 화면이동
-    func didTapDeleteAccount()
-    /// 화면이동
-    func backButtonTapped()
-}
 final class AccountSettingViewController: UIViewController {
-    weak var delegate: AccountSettingViewControllerDelegate?
-    
+    weak var coordinator: ProfileCoordinator?
     private let viewModel: AccountSettingViewModel
     private let customView = AccountSettingView()
     
@@ -54,14 +45,14 @@ final class AccountSettingViewController: UIViewController {
     }
     
     @objc private func didTapLogout() {
-        delegate?.didTapLogout()
+        coordinator?.didTapLogout()
     }
     
     @objc private func didTapDeleteAccount() {
-        delegate?.didTapDeleteAccount()
+        coordinator?.didTapDeleteAccount()
     }
     
     @objc private func backButtonTapped() {
-        delegate?.backButtonTapped()
+        coordinator?.backButtonTapped()
     }
 }

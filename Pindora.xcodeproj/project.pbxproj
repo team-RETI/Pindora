@@ -35,6 +35,12 @@
 		A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F2E1662E2007630045D175 /* Assets.xcassets */; };
 		A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */; };
 		A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19C2E200A830045D175 /* FontSystem.swift */; };
+		A7F545482E37BDFE0014EB85 /* AddPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F545472E37BDFE0014EB85 /* AddPlaceView.swift */; };
+		A7F5454A2E37BE5E0014EB85 /* AddPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F545492E37BE5E0014EB85 /* AddPlaceViewModel.swift */; };
+		A7F5454C2E37BE690014EB85 /* AddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F5454B2E37BE690014EB85 /* AddPlaceViewController.swift */; };
+		A7F5454E2E38816A0014EB85 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F5454D2E38816A0014EB85 /* CardDetailView.swift */; };
+		A7F545512E38A5C20014EB85 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F545502E38A5C20014EB85 /* CardDetailViewController.swift */; };
+		A7F545532E38A7600014EB85 /* CardDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F545522E38A7600014EB85 /* CardDetailViewModel.swift */; };
 		DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E752E27859B00BE27AC /* AppDelegate.swift */; };
 		DF1F3E792E27859B00BE27AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */; };
 		DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3FB42E279C4100BE27AC /* HomeViewModel.swift */; };
@@ -114,6 +120,12 @@
 		A7F2E1692E2007630045D175 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		A7F2E19C2E200A830045D175 /* FontSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSystem.swift; sourceTree = "<group>"; };
+		A7F545472E37BDFE0014EB85 /* AddPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceView.swift; sourceTree = "<group>"; };
+		A7F545492E37BE5E0014EB85 /* AddPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewModel.swift; sourceTree = "<group>"; };
+		A7F5454B2E37BE690014EB85 /* AddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
+		A7F5454D2E38816A0014EB85 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
+		A7F545502E38A5C20014EB85 /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
+		A7F545522E38A7600014EB85 /* CardDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewModel.swift; sourceTree = "<group>"; };
 		DF1F3E752E27859B00BE27AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -208,8 +220,7 @@
 		A732BA282E27E2BB009EB6BF /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				A732BA242E27E2BB009EB6BF /* CardCellListView.swift */,
-				A732BA252E27E2BB009EB6BF /* CardCellView.swift */,
+				A7F5454F2E38A4870014EB85 /* PlaceList */,
 				A732BA262E27E2BB009EB6BF /* CategoryCellListView.swift */,
 				A732BA272E27E2BB009EB6BF /* CategoryCellVeiw.swift */,
 				A725E9BC2E30A89C00EEA3F5 /* CustomNavBarView.swift */,
@@ -402,6 +413,7 @@
 		A7F2E1802E2008CF0045D175 /* MyPlace */ = {
 			isa = PBXGroup;
 			children = (
+				A7F545462E37BDEE0014EB85 /* AddPlace */,
 				DF1F40ED2E279F6600BE27AC /* MyPlaceView.swift */,
 				DF1F40EE2E279F6600BE27AC /* MyPlaceViewController.swift */,
 				DF1F40EF2E279F6600BE27AC /* MyPlaceViewModel.swift */,
@@ -429,6 +441,28 @@
 				A7F2E19C2E200A830045D175 /* FontSystem.swift */,
 			);
 			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		A7F545462E37BDEE0014EB85 /* AddPlace */ = {
+			isa = PBXGroup;
+			children = (
+				A7F545472E37BDFE0014EB85 /* AddPlaceView.swift */,
+				A7F545492E37BE5E0014EB85 /* AddPlaceViewModel.swift */,
+				A7F5454B2E37BE690014EB85 /* AddPlaceViewController.swift */,
+			);
+			path = AddPlace;
+			sourceTree = "<group>";
+		};
+		A7F5454F2E38A4870014EB85 /* PlaceList */ = {
+			isa = PBXGroup;
+			children = (
+				A732BA242E27E2BB009EB6BF /* CardCellListView.swift */,
+				A732BA252E27E2BB009EB6BF /* CardCellView.swift */,
+				A7F5454D2E38816A0014EB85 /* CardDetailView.swift */,
+				A7F545502E38A5C20014EB85 /* CardDetailViewController.swift */,
+				A7F545522E38A7600014EB85 /* CardDetailViewModel.swift */,
+			);
+			path = PlaceList;
 			sourceTree = "<group>";
 		};
 		DF1F3E772E27859B00BE27AC /* Delegate */ = {
@@ -691,6 +725,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7F5454E2E38816A0014EB85 /* CardDetailView.swift in Sources */,
 				A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */,
 				A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */,
 				A725E9A52E2FA30300EEA3F5 /* ProfileEditView.swift in Sources */,
@@ -699,10 +734,12 @@
 				DF1F40EA2E279F5400BE27AC /* MapViewModel.swift in Sources */,
 				A7D418C12E2A364D00B17044 /* UIView+.swift in Sources */,
 				DF1F40EB2E279F5400BE27AC /* MapViewController.swift in Sources */,
+				A7F545482E37BDFE0014EB85 /* AddPlaceView.swift in Sources */,
 				DF1F40F82E279F9000BE27AC /* ProfileViewModel.swift in Sources */,
 				A725E9B32E2FA5CA00EEA3F5 /* ProfileEditViewController.swift in Sources */,
 				DF1F40F92E279F9000BE27AC /* ProfileView.swift in Sources */,
 				A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */,
+				A7F545532E38A7600014EB85 /* CardDetailViewModel.swift in Sources */,
 				DF1F40FA2E279F9000BE27AC /* ProfileViewController.swift in Sources */,
 				DF1F40EC2E279F5400BE27AC /* MapView.swift in Sources */,
 				A725E9BD2E30A89C00EEA3F5 /* CustomNavBarView.swift in Sources */,
@@ -714,6 +751,7 @@
 				DF1F40E52E279E8200BE27AC /* LoginViewController.swift in Sources */,
 				A725E9AF2E2FA52900EEA3F5 /* PersonaInfoCardView.swift in Sources */,
 				DF1F40E62E279E8200BE27AC /* LoginViewModel.swift in Sources */,
+				A7F5454A2E37BE5E0014EB85 /* AddPlaceViewModel.swift in Sources */,
 				DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */,
 				DF1F40F02E279F6600BE27AC /* MyPlaceViewModel.swift in Sources */,
 				A725E9AD2E2FA4FB00EEA3F5 /* PersonaPreviewView.swift in Sources */,
@@ -733,6 +771,7 @@
 				DFA2CB3D2E27DC8E00C4F32B /* Documentation.docc in Sources */,
 				A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */,
 				A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */,
+				A7F5454C2E37BE690014EB85 /* AddPlaceViewController.swift in Sources */,
 				A732BA2B2E27E2BB009EB6BF /* CategoryCellVeiw.swift in Sources */,
 				A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */,
 				A732BA2E2E27E2D4009EB6BF /* SearchBarView.swift in Sources */,
@@ -740,6 +779,7 @@
 				DF7A8B9E2E27804600378AC3 /* AuthRepository.swift in Sources */,
 				DF1F40DE2E279E7F00BE27AC /* OneTimeAskView.swift in Sources */,
 				A725E9A92E2FA36300EEA3F5 /* SettingListView.swift in Sources */,
+				A7F545512E38A5C20014EB85 /* CardDetailViewController.swift in Sources */,
 				DF1F40DF2E279E7F00BE27AC /* OneTimeAskViewController.swift in Sources */,
 				DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */,
 				DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */,

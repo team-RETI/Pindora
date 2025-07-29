@@ -183,9 +183,25 @@ final class MainTabCoordinator: Coordinator {
     }
 }
 
-final class HomeCoordinator: Coordinator {
+final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationControllerDelegate {
+    
+    func didTapCell() {
+        navigate(to: .cardDetail)
+    }
+    
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        if let bgView = navigationController.view.viewWithTag(999) {
+            UIView.animate(withDuration: 0.5, animations: {
+                bgView.alpha = 0
+            }) { _ in
+                bgView.removeFromSuperview()
+            }
+        }
+    }
+
     private enum Route {
         case home
+        case cardDetail
     }
 
     var parentCoordinator: Coordinator?
@@ -204,8 +220,50 @@ final class HomeCoordinator: Coordinator {
         switch route {
         case .home:
             let vc = ModuleFactory.shared.makeHomeVC()
-            navigationController.setViewControllers([vc], animated: false)
+            vc.coordinator = self
+            navigationController.pushViewController(vc, animated: false)
             navigationController.isNavigationBarHidden = true // ✅ 요거 추가
+            
+            
+        case .cardDetail:
+            let vc = ModuleFactory.shared.makeCardDetailVC()
+            vc.coordinator = self
+
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .pageSheet
+            nav.view.backgroundColor = .clear
+            vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [
+                    .custom(resolver: { context in
+                        return context.maximumDetentValue * 0.98
+                    })
+                ]
+                sheet.prefersGrabberVisible = false
+            }
+
+            // ✅ 배경 뷰 추가
+            let bgView = UIView(frame: navigationController.view.bounds)
+            bgView.alpha = 0
+            bgView.tag = 999  // 나중에 제거용
+            
+            let backgroundImageView = UIImageView(frame: bgView.bounds)
+            backgroundImageView.image = UIImage(named: "경복궁고화질")
+            backgroundImageView.contentMode = .scaleAspectFill
+            backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            bgView.addSubview(backgroundImageView)
+            navigationController.view.addSubview(bgView)
+
+            UIView.animate(withDuration: 0.5) {
+                bgView.alpha = 1
+            }
+
+            // ✅ delegate 설정
+            nav.presentationController?.delegate = self
+
+            navigationController.present(nav, animated: true)
         }
     }
 }
@@ -238,8 +296,13 @@ final class MapCoordinator: Coordinator {
 }
 
 final class MyPlaceCoordinator: Coordinator {
+    func didTapAddPlace() {
+        navigate(to: .addPlace)
+    }
+    
     private enum Route {
         case home
+        case addPlace
     }
 
     var parentCoordinator: Coordinator?
@@ -258,13 +321,30 @@ final class MyPlaceCoordinator: Coordinator {
         switch route {
         case .home:
             let vc = ModuleFactory.shared.makeMyPlaceVC()
-            navigationController.setViewControllers([vc], animated: false)
+            vc.coordinator = self
+            navigationController.pushViewController(vc, animated: false)
             navigationController.isNavigationBarHidden = true // ✅ 요거 추가
+            
+        case .addPlace:
+            let vc = ModuleFactory.shared.makeAddPlaceVC()
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .pageSheet
+            
+            // ✅ iOS 15+ sheet 스타일 적용 (크기 조절 가능하도록)
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [
+                    .custom(resolver: { context in
+                        return context.maximumDetentValue * 0.98
+                    })]
+                sheet.prefersGrabberVisible = false
+            }
+
+            navigationController.present(nav, animated: true)
         }
     }
 }
 
-final class ProfileCoordinator: Coordinator, ProfileViewControllerDelegate, ProfileEditViewControllerDelegate, SettingListViewControllerDelegate, AccountSettingViewControllerDelegate {
+final class ProfileCoordinator: Coordinator {
     func didTapLogout() {
         navigationController.popViewController(animated: true)
     }
@@ -323,27 +403,27 @@ final class ProfileCoordinator: Coordinator, ProfileViewControllerDelegate, Prof
         switch route {
         case .home:
             let vc = ModuleFactory.shared.makeProfileVC()
-            vc.delegate = self
+            vc.coordinator = self
             navigationController.pushViewController(vc, animated: true)
             navigationController.isNavigationBarHidden = true  //✅ 요거 추가
             
         case .editProfile:
             let vc = ModuleFactory.shared.makeProfileEditVC()
-            vc.delegate = self
+            vc.coordinator = self
             vc.hidesBottomBarWhenPushed = true
             navigationController.pushViewController(vc, animated: true)
             navigationController.isNavigationBarHidden = true
             
         case .setting:
             let vc = ModuleFactory.shared.makeSettingVC()
-            vc.delegate = self
+            vc.coordinator = self
             vc.hidesBottomBarWhenPushed = true
             navigationController.pushViewController(vc, animated: true)
             navigationController.isNavigationBarHidden = true
             
         case .accountSetting:
             let vc = ModuleFactory.shared.makeAccountSettingVC()
-            vc.delegate = self
+            vc.coordinator = self
             vc.hidesBottomBarWhenPushed = true
             navigationController.pushViewController(vc, animated: true)
             navigationController.isNavigationBarHidden = true

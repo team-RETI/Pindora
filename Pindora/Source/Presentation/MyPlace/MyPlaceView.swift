@@ -8,7 +8,7 @@ import UIKit
 
 // MARK: - (C)MyPlaceView
 final class MyPlaceView: UIView {
-    private let placeListView = CardCellListView()
+    let placeListView = CardCellListView()
     
     // MARK: - UI Component
     private let headerLabel: UILabel = {
@@ -20,7 +20,7 @@ final class MyPlaceView: UIView {
         return label
     }()
     
-    private let addButton: UIButton = {
+    let addButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         button.tintColor = .black
