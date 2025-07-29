@@ -350,3 +350,18 @@ final class ProfileCoordinator: Coordinator {
         }
     }
 }
+
+
+/*
+#if canImport(SwiftUI)
+import SwiftUI
+
+@available(iOS 17.0, *)
+#Preview("탭바 Coordinator") {
+    let nav = UINavigationController()
+    let coordinator = MainTabCoordinator(navigationController: nav)
+    coordinator.start()
+    return nav
+}
+#endif
+*/
