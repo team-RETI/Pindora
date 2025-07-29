@@ -49,7 +49,8 @@ platform :ios do
       scheme: "Pindora",
       export_options: {
         provisioningProfiles: {
-          "com.RETIA.Pindora" => "match AppStore com.RETIA.Pindora"
+          "com.RETIA.Pindora" => "match AppStore com.RETIA.Pindora",
+          "com.RETIA.Pindora.ShareExtension" => "match AppStore com.RETIA.Pindora.ShareExtension"
         }
       }
     )
