@@ -73,6 +73,9 @@
 		DF5A0BB12E350D9100CF61BF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A0BAF2E350D9100CF61BF /* Constants.swift */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
+		DF7487B62E38A95200CF9864 /* PindoraShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF7487AC2E38A95200CF9864 /* PindoraShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF7487BF2E38AC5000CF9864 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7487BE2E38AC5000CF9864 /* UserDefaultsManager.swift */; };
+		DF748A422E38B4EB00CF9864 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF748A412E38B4EB00CF9864 /* LaunchScreen.storyboard */; };
 		DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C22E27783F00378AC3 /* Coordinator.swift */; };
 		DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C82E27786300378AC3 /* DIContainer.swift */; };
 		DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */; };
@@ -105,6 +108,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		DF7487B42E38A95200CF9864 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7C1AB512E20022D00B8B9E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF7487AB2E38A95200CF9864;
+			remoteInfo = PindoraShareExtension;
+		};
 		DF8840332E34CD5200F67BF9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A7C1AB512E20022D00B8B9E1 /* Project object */;
@@ -113,6 +123,20 @@
 			remoteInfo = Pindora;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DF7487B72E38A95200CF9864 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DF7487B62E38A95200CF9864 /* PindoraShareExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8938CBAE2E367D2D00369EE3 /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
@@ -187,6 +211,10 @@
 		DF5FFE3E2E20B48400C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE412E20B9BE00C07AD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DF5FFE432E20BBB300C07AD3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DF7487AC2E38A95200CF9864 /* PindoraShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PindoraShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF7487BE2E38AC5000CF9864 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		DF7487C02E38AE6400CF9864 /* Pindora.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pindora.entitlements; sourceTree = "<group>"; };
+		DF748A402E38B4EB00CF9864 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DF7A87C22E27783F00378AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DF7A87C82E27786300378AC3 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
@@ -226,6 +254,27 @@
 		DFF67EA72E219AE800676213 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DF7487BA2E38A95200CF9864 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DF7487AB2E38A95200CF9864 /* PindoraShareExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		DF7487AD2E38A95200CF9864 /* PindoraShareExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DF7487BA2E38A95200CF9864 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */,
+			);
+			path = PindoraShareExtension;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		A7C1AB562E20022D00B8B9E1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -234,6 +283,13 @@
 				89728D892E33DD2F002B3ACE /* FirebaseAuth in Frameworks */,
 				89728D8B2E33DD2F002B3ACE /* FirebaseFirestore in Frameworks */,
 				89728D8D2E33DD2F002B3ACE /* FirebaseStorage in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF7487A92E38A95200CF9864 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +361,7 @@
 				DF899D982E24FF79006BE87D /* Makefile */,
 				A7F2E16A2E2007630045D175 /* Pindora */,
 				DF38C6202E34E4B40011DFE7 /* ManagerTest */,
+				DF7487AD2E38A95200CF9864 /* PindoraShareExtension */,
 				DF27D9B82E28C2C400D0D8BE /* Frameworks */,
 				A7C1AB5A2E20022D00B8B9E1 /* Products */,
 				DF18A7782E34E59900956881 /* Pindora.xctestplan */,
@@ -318,6 +375,7 @@
 			children = (
 				A7C1AB592E20022D00B8B9E1 /* Pindora.app */,
 				DF88402F2E34CD5200F67BF9 /* ManagerTest.xctest */,
+				DF7487AC2E38A95200CF9864 /* PindoraShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -325,6 +383,7 @@
 		A7F2E16A2E2007630045D175 /* Pindora */ = {
 			isa = PBXGroup;
 			children = (
+				DF7487C02E38AE6400CF9864 /* Pindora.entitlements */,
 				DF5A06B92E3507E500CF61BF /* Config.xcconfig */,
 				A7F2E1712E2007840045D175 /* Resource */,
 				A7F2E1702E20077F0045D175 /* Source */,
@@ -507,6 +566,7 @@
 			children = (
 				DF1F3E752E27859B00BE27AC /* AppDelegate.swift */,
 				DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */,
+				DF748A412E38B4EB00CF9864 /* LaunchScreen.storyboard */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -594,6 +654,8 @@
 		DF883ABF2E34B5C200F67BF9 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				DF883AC02E34B5C200F67BF9 /* Local */,
+				DF883AC42E34B5C200F67BF9 /* Remote */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -602,6 +664,7 @@
 			isa = PBXGroup;
 			children = (
 				DF883ACA2E34B5C700F67BF9 /* .gitkeep */,
+				DF7487BE2E38AC5000CF9864 /* UserDefaultsManager.swift */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -659,8 +722,6 @@
 			isa = PBXGroup;
 			children = (
 				DF883ABF2E34B5C200F67BF9 /* Infrastructure */,
-				DF883AC02E34B5C200F67BF9 /* Local */,
-				DF883AC42E34B5C200F67BF9 /* Remote */,
 				DF883AC62E34B5C200F67BF9 /* RepositoryImpl */,
 				DF883AC72E34B5C200F67BF9 /* .gitkeep */,
 			);
@@ -726,10 +787,12 @@
 				A7C1AB552E20022D00B8B9E1 /* Sources */,
 				A7C1AB562E20022D00B8B9E1 /* Frameworks */,
 				A7C1AB572E20022D00B8B9E1 /* Resources */,
+				DF7487B72E38A95200CF9864 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DF7487B52E38A95200CF9864 /* PBXTargetDependency */,
 			);
 			name = Pindora;
 			packageProductDependencies = (
@@ -740,6 +803,28 @@
 			productName = Pindora;
 			productReference = A7C1AB592E20022D00B8B9E1 /* Pindora.app */;
 			productType = "com.apple.product-type.application";
+		};
+		DF7487AB2E38A95200CF9864 /* PindoraShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF7487BB2E38A95200CF9864 /* Build configuration list for PBXNativeTarget "PindoraShareExtension" */;
+			buildPhases = (
+				DF7487A82E38A95200CF9864 /* Sources */,
+				DF7487A92E38A95200CF9864 /* Frameworks */,
+				DF7487AA2E38A95200CF9864 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DF7487AD2E38A95200CF9864 /* PindoraShareExtension */,
+			);
+			name = PindoraShareExtension;
+			packageProductDependencies = (
+			);
+			productName = PindoraShareExtension;
+			productReference = DF7487AC2E38A95200CF9864 /* PindoraShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		DF88402E2E34CD5200F67BF9 /* ManagerTest */ = {
 			isa = PBXNativeTarget;
@@ -774,6 +859,9 @@
 					A7C1AB582E20022D00B8B9E1 = {
 						CreatedOnToolsVersion = 16.4;
 					};
+					DF7487AB2E38A95200CF9864 = {
+						CreatedOnToolsVersion = 16.4;
+					};
 					DF88402E2E34CD5200F67BF9 = {
 						CreatedOnToolsVersion = 16.4;
 						TestTargetID = A7C1AB582E20022D00B8B9E1;
@@ -799,6 +887,7 @@
 			targets = (
 				A7C1AB582E20022D00B8B9E1 /* Pindora */,
 				DF88402E2E34CD5200F67BF9 /* ManagerTest */,
+				DF7487AB2E38A95200CF9864 /* PindoraShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -817,6 +906,7 @@
 				DFA6892E2E2110F7000EC0BA /* main.yml in Resources */,
 				DFF67EA82E219AE800676213 /* Pretendard-Light.otf in Resources */,
 				DFF67EA92E219AE800676213 /* Pretendard-Black.otf in Resources */,
+				DF748A422E38B4EB00CF9864 /* LaunchScreen.storyboard in Resources */,
 				DFF67EAA2E219AE800676213 /* Pretendard-Thin.otf in Resources */,
 				DFB9A41B2E22BB9500BD0E51 /* email-notify.yml in Resources */,
 				DFF67EAB2E219AE800676213 /* Pretendard-Regular.otf in Resources */,
@@ -830,6 +920,13 @@
 				DF0CA2202E376D5E007E7904 /* GoogleService-Info.plist in Resources */,
 				DF5A06BA2E3507E500CF61BF /* Config.xcconfig in Resources */,
 				DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF7487AA2E38A95200CF9864 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -940,6 +1037,7 @@
 				DF883AC92E34B5C200F67BF9 /* AuthRepositoryImpl.swift in Sources */,
 				A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */,
 				A732BA2B2E27E2BB009EB6BF /* CategoryCellVeiw.swift in Sources */,
+				DF7487BF2E38AC5000CF9864 /* UserDefaultsManager.swift in Sources */,
 				89728D9A2E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift in Sources */,
 				A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */,
 				89728DA02E33DEE8002B3ACE /* UserUseCase.swift in Sources */,
@@ -958,6 +1056,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DF7487A82E38A95200CF9864 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DF88402B2E34CD5200F67BF9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -970,12 +1075,28 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		DF7487B52E38A95200CF9864 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF7487AB2E38A95200CF9864 /* PindoraShareExtension */;
+			targetProxy = DF7487B42E38A95200CF9864 /* PBXContainerItemProxy */;
+		};
 		DF8840342E34CD5200F67BF9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A7C1AB582E20022D00B8B9E1 /* Pindora */;
 			targetProxy = DF8840332E34CD5200F67BF9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DF748A412E38B4EB00CF9864 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF748A402E38B4EB00CF9864 /* LaunchScreen.storyboard */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A7C1AB6D2E20022D00B8B9E1 /* Debug */ = {
@@ -984,10 +1105,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pindora/Pindora.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = LGX4B4WC66;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1023,10 +1145,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pindora/Pindora.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = LGX4B4WC66;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1177,13 +1300,75 @@
 			};
 			name = Release;
 		};
+		DF7487B82E38A95200CF9864 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PindoraShareExtension/PindoraShareExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = LGX4B4WC66;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PindoraShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PindoraShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RETIA.Pindora.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.RETIA.Pindora.ShareExtension";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DF7487B92E38A95200CF9864 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PindoraShareExtension/PindoraShareExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = LGX4B4WC66;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PindoraShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PindoraShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RETIA.Pindora.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.RETIA.Pindora.ShareExtension";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		DF8840362E34CD5200F67BF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DF5A06B92E3507E500CF61BF /* Config.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = LGX4B4WC66;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
@@ -1203,7 +1388,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = LGX4B4WC66;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
@@ -1234,6 +1419,15 @@
 			buildConfigurations = (
 				A7C1AB6D2E20022D00B8B9E1 /* Debug */,
 				A7C1AB6E2E20022D00B8B9E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF7487BB2E38A95200CF9864 /* Build configuration list for PBXNativeTarget "PindoraShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF7487B82E38A95200CF9864 /* Debug */,
+				DF7487B92E38A95200CF9864 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

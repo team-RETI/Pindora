@@ -120,6 +120,7 @@ _download-privates-real:
 	$(call download_file,Pindora/Resource,$(GITHUB_ACCESS_TOKEN),GoogleService-Info.plist)
 	$(call download_file,Pindora,$(GITHUB_ACCESS_TOKEN),Info.plist)
 	$(call download_file,Pindora,$(GITHUB_ACCESS_TOKEN),Config.xcconfig)
+	$(call download_file,PindoraShareExtension,$(GITHUB_ACCESS_TOKEN),Info.plist)
 
 # -----------------------------
 # 🔐 인증서 불러오기 
@@ -127,8 +128,8 @@ _download-privates-real:
 fetch-certificates:
 	@echo "🔐 Fetching signing certificates using fastlane match..."
 	@export MATCH_PASSWORD=$$(grep MATCH_PASSWORD .env | cut -d '=' -f2) && \
-	bundle exec fastlane match development --readonly && \
-	bundle exec fastlane match appstore --readonly
+	bundle exec fastlane match development --readonly --app_identifier com.RETIA.Pindora,com.RETIA.Pindora.ShareExtension && \
+	bundle exec fastlane match appstore --readonly --app_identifier com.RETIA.Pindora,com.RETIA.Pindora.ShareExtension
 	@echo ""
 	
 # -----------------------------
