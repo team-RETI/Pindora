@@ -78,6 +78,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 extension SceneDelegate {
+    
     // ✅ 공유된 값을 가져오는 공통 함수
     private func checkSharedContent() {
         if let sharedText = UserDefaultsManager.getAndRemove(for: .sharedText) {
