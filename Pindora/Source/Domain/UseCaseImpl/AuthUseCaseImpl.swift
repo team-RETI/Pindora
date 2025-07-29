@@ -21,6 +21,17 @@ final class AuthUseCaseImpl: AuthUseCase {
     }
 }
 
-//final class StubAuthUseCaseImpl: AuthUseCase {
-//    
-//}
+final class StubAuthUseCaseImpl: AuthUseCase {
+    func signInWithApple() -> AnyPublisher<User, Error> {
+        let dummyUser = User(
+            userId: "12345",
+            userImage: nil,
+            personaName: "테스트 유저",
+            personaDescription: "Stub Persona",
+            likedPlaces: []
+        )
+        return Just(dummyUser)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+}

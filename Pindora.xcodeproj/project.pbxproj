@@ -130,6 +130,7 @@
 		89728D9D2E33DEBC002B3ACE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImpl.swift; sourceTree = "<group>"; };
+		89A9E7772E3902C700BF9098 /* Pindora.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pindora.entitlements; sourceTree = "<group>"; };
 		89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		89AC93FD2E38D7B5006446CD /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
@@ -329,6 +330,7 @@
 		A7F2E16A2E2007630045D175 /* Pindora */ = {
 			isa = PBXGroup;
 			children = (
+				89A9E7772E3902C700BF9098 /* Pindora.entitlements */,
 				DF5A06B92E3507E500CF61BF /* Config.xcconfig */,
 				A7F2E1712E2007840045D175 /* Resource */,
 				A7F2E1702E20077F0045D175 /* Source */,
@@ -992,6 +994,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pindora/Pindora.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1031,6 +1034,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pindora/Pindora.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
