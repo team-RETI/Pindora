@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import Combine
+import FirebaseAuth
 
 protocol AuthRepository {
-    
+    func signInWithApple() -> AnyPublisher<AuthDataResult, Error>
 }

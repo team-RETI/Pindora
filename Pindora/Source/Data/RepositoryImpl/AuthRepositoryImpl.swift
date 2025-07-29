@@ -6,7 +6,17 @@
 //
 
 import Foundation
+import Combine
+import FirebaseAuth
 
-class AuthRepositoryImpl: AuthRepository {
+final class AuthRepositoryImpl: AuthRepository {
+    private let authManager: FirebaseAuthManager
     
+    init(authManager: FirebaseAuthManager = FirebaseAuthManager()) {
+        self.authManager = authManager
+    }
+    
+    func signInWithApple() -> AnyPublisher<FirebaseAuth.AuthDataResult, any Error> {
+        return authManager.startSignInWithAppleFlow().eraseToAnyPublisher()
+    }
 }

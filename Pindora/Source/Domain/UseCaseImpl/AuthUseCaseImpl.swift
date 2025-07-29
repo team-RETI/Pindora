@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+import FirebaseAuth
 
 final class AuthUseCaseImpl: AuthUseCase {
     private let authRepository: AuthRepository
@@ -13,8 +15,12 @@ final class AuthUseCaseImpl: AuthUseCase {
     init(authRepository: AuthRepository) {
         self.authRepository = authRepository
     }
+    
+    func signInWithApple() -> AnyPublisher<User, any Error> {
+        return authRepository.signInWithApple().map{ User(from: $0.user) }.eraseToAnyPublisher()
+    }
 }
 
-final class StubAuthUseCaseImpl: AuthUseCase {
-    
-}
+//final class StubAuthUseCaseImpl: AuthUseCase {
+//    
+//}

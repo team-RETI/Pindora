@@ -21,6 +21,7 @@
 		89728D9E2E33DEBC002B3ACE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9D2E33DEBC002B3ACE /* User.swift */; };
 		89728DA02E33DEE8002B3ACE /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */; };
 		89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */; };
+		89AC93FC2E38AA21006446CD /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */; };
 		A725E9A52E2FA30300EEA3F5 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */; };
 		A725E9A72E2FA32000EEA3F5 /* AccountSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A62E2FA32000EEA3F5 /* AccountSettingView.swift */; };
 		A725E9A92E2FA36300EEA3F5 /* SettingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A82E2FA36300EEA3F5 /* SettingListView.swift */; };
@@ -128,6 +129,7 @@
 		89728D9D2E33DEBC002B3ACE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImpl.swift; sourceTree = "<group>"; };
+		89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		A725E9A62E2FA32000EEA3F5 /* AccountSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingView.swift; sourceTree = "<group>"; };
 		A725E9A82E2FA36300EEA3F5 /* SettingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListView.swift; sourceTree = "<group>"; };
@@ -622,6 +624,7 @@
 				DF883ACE2E34B5CB00F67BF9 /* .gitkeep */,
 				8938CBAE2E367D2D00369EE3 /* FirebaseStorageManager.swift */,
 				8938CBB02E367D3E00369EE3 /* FirebaseDatabaseManager.swift */,
+				89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -920,6 +923,7 @@
 				DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */,
 				DF1F40F02E279F6600BE27AC /* MyPlaceViewModel.swift in Sources */,
 				DF0CA2212E376EC6007E7904 /* SearchBarView.swift in Sources */,
+				89AC93FC2E38AA21006446CD /* FirebaseAuthManager.swift in Sources */,
 				89728D982E33DE58002B3ACE /* DatabaseRepository.swift in Sources */,
 				A725E9AD2E2FA4FB00EEA3F5 /* PersonaPreviewView.swift in Sources */,
 				DF1F40F12E279F6600BE27AC /* MyPlaceViewController.swift in Sources */,
