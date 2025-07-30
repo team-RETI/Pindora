@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class UserUseCaseImpl: UserUseCaseprotocol {
+final class UserUseCaseImpl: UserUseCaseProtocol {
     private let repository: DatabaseRepositoryProtocol
     private let collection = "Users"
     
