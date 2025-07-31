@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 /// 사용자 정보를 저장, 조회, 삭제하는 유스케이스를 정의하는 프로토콜입니다.
-protocol UserUseCaseprotocol {
+protocol UserUseCaseProtocol {
     
     /// 사용자 정보를 Firestore에 저장합니다.
     /// - Parameter user: 저장할 사용자 정보 (UserModel).

@@ -55,7 +55,7 @@ extension DIContainer {
             dependency: ImageUsecaseImpl(storageRepository: storageRepository))
         
         self.shared.register(
-            UserUseCaseprotocol.self,
+            UserUseCaseProtocol.self,
             dependency: UserUseCaseImpl(repository: databaseRepository))
         
         // 필요한 의존성들은 여기에 등록하시면 됩니다

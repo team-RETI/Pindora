@@ -21,6 +21,8 @@
 		89728D9E2E33DEBC002B3ACE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9D2E33DEBC002B3ACE /* User.swift */; };
 		89728DA02E33DEE8002B3ACE /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */; };
 		89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */; };
+		89AC93FC2E38AA21006446CD /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */; };
+		89AC93FE2E38D7B6006446CD /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AC93FD2E38D7B5006446CD /* UserDTO.swift */; };
 		A725E9A52E2FA30300EEA3F5 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */; };
 		A725E9A72E2FA32000EEA3F5 /* AccountSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A62E2FA32000EEA3F5 /* AccountSettingView.swift */; };
 		A725E9A92E2FA36300EEA3F5 /* SettingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A82E2FA36300EEA3F5 /* SettingListView.swift */; };
@@ -152,6 +154,9 @@
 		89728D9D2E33DEBC002B3ACE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImpl.swift; sourceTree = "<group>"; };
+		89A9E78A2E39EC2B00BF9098 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = info.plist; sourceTree = "<group>"; };
+		89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
+		89AC93FD2E38D7B5006446CD /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		A725E9A62E2FA32000EEA3F5 /* AccountSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingView.swift; sourceTree = "<group>"; };
 		A725E9A82E2FA36300EEA3F5 /* SettingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListView.swift; sourceTree = "<group>"; };
@@ -255,7 +260,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		DF7487BA2E38A95200CF9864 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */ = {
+		89A9E78E2E39ED8600BF9098 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -268,7 +273,7 @@
 		DF7487AD2E38A95200CF9864 /* PindoraShareExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				DF7487BA2E38A95200CF9864 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */,
+				89A9E78E2E39ED8600BF9098 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */,
 			);
 			path = PindoraShareExtension;
 			sourceTree = "<group>";
@@ -385,6 +390,7 @@
 			children = (
 				DF7487C02E38AE6400CF9864 /* Pindora.entitlements */,
 				DF5A06B92E3507E500CF61BF /* Config.xcconfig */,
+				89A9E78A2E39EC2B00BF9098 /* info.plist */,
 				A7F2E1712E2007840045D175 /* Resource */,
 				A7F2E1702E20077F0045D175 /* Source */,
 				A7F2E1672E2007630045D175 /* Info.plist */,
@@ -675,6 +681,7 @@
 				DF883ACC2E34B5CA00F67BF9 /* .gitkeep */,
 				DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */,
 				DFE039AF2E352B7500A2060D /* PlaceDTO.swift */,
+				89AC93FD2E38D7B5006446CD /* UserDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -685,6 +692,7 @@
 				DF883ACE2E34B5CB00F67BF9 /* .gitkeep */,
 				8938CBAE2E367D2D00369EE3 /* FirebaseStorageManager.swift */,
 				8938CBB02E367D3E00369EE3 /* FirebaseDatabaseManager.swift */,
+				89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -1017,6 +1025,7 @@
 				DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */,
 				DF1F40F02E279F6600BE27AC /* MyPlaceViewModel.swift in Sources */,
 				DF0CA2212E376EC6007E7904 /* SearchBarView.swift in Sources */,
+				89AC93FC2E38AA21006446CD /* FirebaseAuthManager.swift in Sources */,
 				89728D982E33DE58002B3ACE /* DatabaseRepository.swift in Sources */,
 				A725E9AD2E2FA4FB00EEA3F5 /* PersonaPreviewView.swift in Sources */,
 				DF1F40F12E279F6600BE27AC /* MyPlaceViewController.swift in Sources */,
@@ -1052,6 +1061,7 @@
 				DFE039B02E352B7500A2060D /* PlaceDTO.swift in Sources */,
 				DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */,
 				DF1F3E792E27859B00BE27AC /* SceneDelegate.swift in Sources */,
+				89AC93FE2E38D7B6006446CD /* UserDTO.swift in Sources */,
 				89728D962E33DE2A002B3ACE /* ImageUseCaseImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

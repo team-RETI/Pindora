@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class UserUseCaseImpl: UserUseCaseprotocol {
+final class UserUseCaseImpl: UserUseCaseProtocol {
     private let repository: DatabaseRepositoryProtocol
     private let collection = "Users"
     
@@ -16,15 +16,19 @@ final class UserUseCaseImpl: UserUseCaseprotocol {
         self.repository = repository
     }
     
-    func saveUser(user: User) -> AnyPublisher<Void, any Error> {
-        repository.create(user, at: collection, id: user.uid)
+    func saveUser(user: User) -> AnyPublisher<Void, Error> {
+        let dto = user.toDTO()
+        return repository.create(dto, at: collection, id: user.userId)
     }
     
-    func fetchUser(uid: String) -> AnyPublisher<User, any Error> {
-        repository.fetch(from: collection, id: uid, as: User.self)
+    func fetchUser(uid: String) -> AnyPublisher<User, Error> {
+        return repository
+            .fetch(from: collection, id: uid, as: UserDTO.self)
+            .map { $0.toEntity() }
+            .eraseToAnyPublisher()
     }
     
-    func deleteUser(uid: String) -> AnyPublisher<Void, any Error> {
-        repository.delete(from: collection, id: uid)
+    func deleteUser(uid: String) -> AnyPublisher<Void, Error> {
+        return repository.delete(from: collection, id: uid)
     }
 }
