@@ -14,7 +14,7 @@ final class ProfileView: UIView {
     
     // MARK: - UI Component
     private let profileImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "아바타"))
+        let imageView = UIImageView(image: UIImage(named: "아바타2"))
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView

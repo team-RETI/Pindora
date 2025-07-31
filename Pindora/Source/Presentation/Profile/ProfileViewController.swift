@@ -45,10 +45,10 @@ final class ProfileViewController: UIViewController {
     
     // 버튼 탭 처리
     @objc private func editProfileButtonTapped() {
-            coordinator?.didTapEditProfile()
+        coordinator?.didTapEditProfile()
     }
     @objc private func settingsButtonTapped() {
-            coordinator?.didTapSetting()
+        coordinator?.didTapSetting()
     }
 
 }

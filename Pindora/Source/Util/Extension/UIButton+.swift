@@ -20,7 +20,6 @@ extension UIButton {
         return button
     }
     
-    
     static func settingListButtonStyle(title: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
@@ -28,6 +27,18 @@ extension UIButton {
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 12
         button.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        return button
+    }
+    
+    static func detailButtonStyle(name: String) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: name), for: .normal)
+        button.tintColor = .black
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 15
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return button
     }
 }

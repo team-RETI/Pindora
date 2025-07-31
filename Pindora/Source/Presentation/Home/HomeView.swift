@@ -15,13 +15,13 @@ final class HomeView: UIView {
     private let recommendLabel = UILabel()
     private let buttonLabel = UILabel()
     private let sortButton = UIButton()
-    private let placeListView = CardCellListView()
+    let placeListView = CardCellListView()
     
     // MARK: - UI Component
     private let headerLabel: UILabel = {
         let label = UILabel()
         label.text = "어떤 장소가 필요하세요?"
-        label.font = UIFont(name: "Inter 24pt", size: 24)
+        label.font = .boldSystemFont(ofSize: 24)
         label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = 0
