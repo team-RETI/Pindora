@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8938CBAF2E367D2D00369EE3 /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8938CBAE2E367D2D00369EE3 /* FirebaseStorageManager.swift */; };
+		8938CBB12E367D3E00369EE3 /* FirebaseDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8938CBB02E367D3E00369EE3 /* FirebaseDatabaseManager.swift */; };
+		89728D822E33DC38002B3ACE /* StorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D812E33DC38002B3ACE /* StorageRepository.swift */; };
+		89728D862E33DC71002B3ACE /* StorageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D852E33DC71002B3ACE /* StorageRepositoryImpl.swift */; };
+		89728D892E33DD2F002B3ACE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 89728D882E33DD2F002B3ACE /* FirebaseAuth */; };
+		89728D8B2E33DD2F002B3ACE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 89728D8A2E33DD2F002B3ACE /* FirebaseFirestore */; };
+		89728D8D2E33DD2F002B3ACE /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 89728D8C2E33DD2F002B3ACE /* FirebaseStorage */; };
+		89728D922E33DDEF002B3ACE /* ImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D912E33DDEF002B3ACE /* ImageUseCase.swift */; };
+		89728D962E33DE2A002B3ACE /* ImageUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D952E33DE2A002B3ACE /* ImageUseCaseImpl.swift */; };
+		89728D982E33DE58002B3ACE /* DatabaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D972E33DE58002B3ACE /* DatabaseRepository.swift */; };
+		89728D9A2E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D992E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift */; };
+		89728D9E2E33DEBC002B3ACE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9D2E33DEBC002B3ACE /* User.swift */; };
+		89728DA02E33DEE8002B3ACE /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */; };
+		89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */; };
 		A725E9A52E2FA30300EEA3F5 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */; };
 		A725E9A72E2FA32000EEA3F5 /* AccountSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A62E2FA32000EEA3F5 /* AccountSettingView.swift */; };
 		A725E9A92E2FA36300EEA3F5 /* SettingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A82E2FA36300EEA3F5 /* SettingListView.swift */; };
@@ -24,14 +38,12 @@
 		A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA252E27E2BB009EB6BF /* CardCellView.swift */; };
 		A732BA2B2E27E2BB009EB6BF /* CategoryCellVeiw.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA272E27E2BB009EB6BF /* CategoryCellVeiw.swift */; };
 		A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA242E27E2BB009EB6BF /* CardCellListView.swift */; };
-		A732BA2E2E27E2D4009EB6BF /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */; };
 		A75AB1172E339A4D006DA6EB /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75AB1162E339A4D006DA6EB /* UILabel+.swift */; };
 		A778D2E12E28F212006B3309 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E02E28F212006B3309 /* HomeView.swift */; };
 		A778D2E32E29756E006B3309 /* ProfilePlaceCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */; };
 		A7D418BD2E2A281200B17044 /* ProfilePlaceCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BC2E2A281200B17044 /* ProfilePlaceCellListView.swift */; };
 		A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BE2E2A344700B17044 /* UIButton+.swift */; };
 		A7D418C12E2A364D00B17044 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418C02E2A364D00B17044 /* UIView+.swift */; };
-		A7F2E16D2E2007630045D175 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E1692E2007630045D175 /* ViewController.swift */; };
 		A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F2E1662E2007630045D175 /* Assets.xcassets */; };
 		A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */; };
 		A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19C2E200A830045D175 /* FontSystem.swift */; };
@@ -41,6 +53,8 @@
 		A7F5454E2E38816A0014EB85 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F5454D2E38816A0014EB85 /* CardDetailView.swift */; };
 		A7F545512E38A5C20014EB85 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F545502E38A5C20014EB85 /* CardDetailViewController.swift */; };
 		A7F545532E38A7600014EB85 /* CardDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F545522E38A7600014EB85 /* CardDetailViewModel.swift */; };
+		DF0CA2202E376D5E007E7904 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF0CA21F2E376D5E007E7904 /* GoogleService-Info.plist */; };
+		DF0CA2212E376EC6007E7904 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */; };
 		DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E752E27859B00BE27AC /* AppDelegate.swift */; };
 		DF1F3E792E27859B00BE27AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */; };
 		DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3FB42E279C4100BE27AC /* HomeViewModel.swift */; };
@@ -59,14 +73,22 @@
 		DF1F40F82E279F9000BE27AC /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40F72E279F9000BE27AC /* ProfileViewModel.swift */; };
 		DF1F40F92E279F9000BE27AC /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40F52E279F9000BE27AC /* ProfileView.swift */; };
 		DF1F40FA2E279F9000BE27AC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40F62E279F9000BE27AC /* ProfileViewController.swift */; };
+		DF38C6212E34E4B40011DFE7 /* ManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF38C61E2E34E4B40011DFE7 /* ManagerTest.swift */; };
+		DF38C6222E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF38C61F2E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift */; };
+		DF5A06BA2E3507E500CF61BF /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DF5A06B92E3507E500CF61BF /* Config.xcconfig */; };
+		DF5A0BB12E350D9100CF61BF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A0BAF2E350D9100CF61BF /* Constants.swift */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
+		DF7487B62E38A95200CF9864 /* PindoraShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF7487AC2E38A95200CF9864 /* PindoraShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF7487BF2E38AC5000CF9864 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7487BE2E38AC5000CF9864 /* UserDefaultsManager.swift */; };
+		DF748A422E38B4EB00CF9864 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF748A412E38B4EB00CF9864 /* LaunchScreen.storyboard */; };
 		DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C22E27783F00378AC3 /* Coordinator.swift */; };
 		DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C82E27786300378AC3 /* DIContainer.swift */; };
 		DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */; };
 		DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */; };
 		DF7A8B9E2E27804600378AC3 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B9D2E27804600378AC3 /* AuthRepository.swift */; };
-		DF7A8BA02E27806800378AC3 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B9F2E27806800378AC3 /* AuthRepositoryImpl.swift */; };
+		DF883AC92E34B5C200F67BF9 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF883AC52E34B5C200F67BF9 /* AuthRepositoryImpl.swift */; };
+		DF883AD32E34B67800F67BF9 /* NaverSearchAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF883AD22E34B67800F67BF9 /* NaverSearchAPIManager.swift */; };
 		DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */ = {isa = PBXBuildFile; fileRef = DF899B452E24DD9C006BE87D /* CodeConvention.md */; };
 		DF899C712E24F834006BE87D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF899C702E24F834006BE87D /* .swiftlint.yml */; };
 		DF9E1E972E212646000F0F13 /* issue-project-tracker.yml in Resources */ = {isa = PBXBuildFile; fileRef = DF9E1E962E212646000F0F13 /* issue-project-tracker.yml */; };
@@ -77,6 +99,9 @@
 		DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */ = {isa = PBXBuildFile; fileRef = DFA6892B2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md */; };
 		DFA689342E211752000EC0BA /* issue-branch.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFA689332E211752000EC0BA /* issue-branch.yml */; };
 		DFB9A41B2E22BB9500BD0E51 /* email-notify.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFB9A41A2E22BB9500BD0E51 /* email-notify.yml */; };
+		DFE0388B2E351A4300A2060D /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE0388A2E351A4300A2060D /* Place.swift */; };
+		DFE039B02E352B7500A2060D /* PlaceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE039AF2E352B7500A2060D /* PlaceDTO.swift */; };
+		DFE039B42E3532CB00A2060D /* NaverPlaceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */; };
 		DFF67EA82E219AE800676213 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA32E219AE800676213 /* Pretendard-Light.otf */; };
 		DFF67EA92E219AE800676213 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67E9F2E219AE800676213 /* Pretendard-Black.otf */; };
 		DFF67EAA2E219AE800676213 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA72E219AE800676213 /* Pretendard-Thin.otf */; };
@@ -88,7 +113,51 @@
 		DFF67EB02E219AE800676213 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DFF67EA62E219AE800676213 /* Pretendard-SemiBold.otf */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		DF7487B42E38A95200CF9864 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7C1AB512E20022D00B8B9E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF7487AB2E38A95200CF9864;
+			remoteInfo = PindoraShareExtension;
+		};
+		DF8840332E34CD5200F67BF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7C1AB512E20022D00B8B9E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7C1AB582E20022D00B8B9E1;
+			remoteInfo = Pindora;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DF7487B72E38A95200CF9864 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DF7487B62E38A95200CF9864 /* PindoraShareExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		8938CBAE2E367D2D00369EE3 /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
+		8938CBB02E367D3E00369EE3 /* FirebaseDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseManager.swift; sourceTree = "<group>"; };
+		89728D812E33DC38002B3ACE /* StorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepository.swift; sourceTree = "<group>"; };
+		89728D852E33DC71002B3ACE /* StorageRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepositoryImpl.swift; sourceTree = "<group>"; };
+		89728D912E33DDEF002B3ACE /* ImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCase.swift; sourceTree = "<group>"; };
+		89728D932E33DE0E002B3ACE /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
+		89728D952E33DE2A002B3ACE /* ImageUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCaseImpl.swift; sourceTree = "<group>"; };
+		89728D972E33DE58002B3ACE /* DatabaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRepository.swift; sourceTree = "<group>"; };
+		89728D992E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRepositoryImpl.swift; sourceTree = "<group>"; };
+		89728D9B2E33DE98002B3ACE /* FirebaseDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseManager.swift; sourceTree = "<group>"; };
+		89728D9D2E33DEBC002B3ACE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
+		89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImpl.swift; sourceTree = "<group>"; };
 		A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		A725E9A62E2FA32000EEA3F5 /* AccountSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingView.swift; sourceTree = "<group>"; };
 		A725E9A82E2FA36300EEA3F5 /* SettingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListView.swift; sourceTree = "<group>"; };
@@ -117,7 +186,6 @@
 		A7D418C02E2A364D00B17044 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		A7F2E1662E2007630045D175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7F2E1672E2007630045D175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A7F2E1692E2007630045D175 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		A7F2E19C2E200A830045D175 /* FontSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSystem.swift; sourceTree = "<group>"; };
 		A7F545472E37BDFE0014EB85 /* AddPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceView.swift; sourceTree = "<group>"; };
@@ -126,6 +194,8 @@
 		A7F5454D2E38816A0014EB85 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
 		A7F545502E38A5C20014EB85 /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
 		A7F545522E38A7600014EB85 /* CardDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewModel.swift; sourceTree = "<group>"; };
+		DF0CA21F2E376D5E007E7904 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DF18A7782E34E59900956881 /* Pindora.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Pindora.xctestplan; path = ../Pindora.xctestplan; sourceTree = "<group>"; };
 		DF1F3E752E27859B00BE27AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -144,19 +214,32 @@
 		DF1F40F52E279F9000BE27AC /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DF1F40F62E279F9000BE27AC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DF1F40F72E279F9000BE27AC /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		DF5FFE322E20B47D00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF38C61E2E34E4B40011DFE7 /* ManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerTest.swift; sourceTree = "<group>"; };
+		DF38C61F2E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPIManagerTest.swift; sourceTree = "<group>"; };
+		DF5A06B92E3507E500CF61BF /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		DF5A0BAF2E350D9100CF61BF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DF5FFE342E20B47E00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		DF5FFE362E20B47F00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE3C2E20B48200C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE3E2E20B48400C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE412E20B9BE00C07AD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DF5FFE432E20BBB300C07AD3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DF7487AC2E38A95200CF9864 /* PindoraShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PindoraShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF7487BE2E38AC5000CF9864 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		DF7487C02E38AE6400CF9864 /* Pindora.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pindora.entitlements; sourceTree = "<group>"; };
+		DF748A402E38B4EB00CF9864 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DF7A87C22E27783F00378AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DF7A87C82E27786300378AC3 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
 		DF7A8B9D2E27804600378AC3 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
-		DF7A8B9F2E27806800378AC3 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
+		DF883AC52E34B5C200F67BF9 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
+		DF883AC72E34B5C200F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF883ACA2E34B5C700F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF883ACC2E34B5CA00F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF883ACE2E34B5CB00F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF883AD02E34B5CC00F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF883AD22E34B67800F67BF9 /* NaverSearchAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPIManager.swift; sourceTree = "<group>"; };
+		DF88402F2E34CD5200F67BF9 /* ManagerTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ManagerTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF899B452E24DD9C006BE87D /* CodeConvention.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CodeConvention.md; sourceTree = "<group>"; };
 		DF899C702E24F834006BE87D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DF899D982E24FF79006BE87D /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -169,6 +252,9 @@
 		DFA689322E21163A000EC0BA /* labels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = labels.json; sourceTree = "<group>"; };
 		DFA689332E211752000EC0BA /* issue-branch.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "issue-branch.yml"; sourceTree = "<group>"; };
 		DFB9A41A2E22BB9500BD0E51 /* email-notify.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "email-notify.yml"; sourceTree = "<group>"; };
+		DFE0388A2E351A4300A2060D /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		DFE039AF2E352B7500A2060D /* PlaceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDTO.swift; sourceTree = "<group>"; };
+		DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverPlaceDTO.swift; sourceTree = "<group>"; };
 		DFF67E9F2E219AE800676213 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		DFF67EA02E219AE800676213 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		DFF67EA12E219AE800676213 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
@@ -180,8 +266,46 @@
 		DFF67EA72E219AE800676213 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DF7487BA2E38A95200CF9864 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DF7487AB2E38A95200CF9864 /* PindoraShareExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		DF7487AD2E38A95200CF9864 /* PindoraShareExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DF7487BA2E38A95200CF9864 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */,
+			);
+			path = PindoraShareExtension;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		A7C1AB562E20022D00B8B9E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89728D892E33DD2F002B3ACE /* FirebaseAuth in Frameworks */,
+				89728D8B2E33DD2F002B3ACE /* FirebaseFirestore in Frameworks */,
+				89728D8D2E33DD2F002B3ACE /* FirebaseStorage in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF7487A92E38A95200CF9864 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF88402C2E34CD5200F67BF9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -191,6 +315,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8938CBAD2E36799900369EE3 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				89728D9B2E33DE98002B3ACE /* FirebaseDatabaseManager.swift */,
+				89728D932E33DE0E002B3ACE /* FirebaseStorageManager.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		A725E9A22E2FA11F00EEA3F5 /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,9 +371,13 @@
 				DFA2CB3C2E27DC8E00C4F32B /* Documentation.docc */,
 				DF899D982E24FF79006BE87D /* Makefile */,
 				A7F2E16A2E2007630045D175 /* Pindora */,
+				DF38C6202E34E4B40011DFE7 /* ManagerTest */,
+				DF7487AD2E38A95200CF9864 /* PindoraShareExtension */,
 				DF27D9B82E28C2C400D0D8BE /* Frameworks */,
 				A7C1AB5A2E20022D00B8B9E1 /* Products */,
+				DF18A7782E34E59900956881 /* Pindora.xctestplan */,
 				DF5FFE432E20BBB300C07AD3 /* README.md */,
+				8938CBAD2E36799900369EE3 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -248,6 +385,8 @@
 			isa = PBXGroup;
 			children = (
 				A7C1AB592E20022D00B8B9E1 /* Pindora.app */,
+				DF88402F2E34CD5200F67BF9 /* ManagerTest.xctest */,
+				DF7487AC2E38A95200CF9864 /* PindoraShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -255,10 +394,11 @@
 		A7F2E16A2E2007630045D175 /* Pindora */ = {
 			isa = PBXGroup;
 			children = (
+				DF7487C02E38AE6400CF9864 /* Pindora.entitlements */,
+				DF5A06B92E3507E500CF61BF /* Config.xcconfig */,
 				A7F2E1712E2007840045D175 /* Resource */,
 				A7F2E1702E20077F0045D175 /* Source */,
 				A7F2E1672E2007630045D175 /* Info.plist */,
-				A7F2E1692E2007630045D175 /* ViewController.swift */,
 			);
 			path = Pindora;
 			sourceTree = "<group>";
@@ -267,7 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				DF5FFE2F2E20B47000C07AD3 /* App */,
-				A7F2E1752E2007E80045D175 /* Data */,
+				DF883AC82E34B5C200F67BF9 /* Data */,
 				A7F2E1732E2007C10045D175 /* Domain */,
 				A7F2E1742E2007D80045D175 /* Presentation */,
 				A7F2E1762E2007F70045D175 /* Util */,
@@ -278,6 +418,7 @@
 		A7F2E1712E2007840045D175 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				DF0CA21F2E376D5E007E7904 /* GoogleService-Info.plist */,
 				DFA689192E2109C6000EC0BA /* Fonts */,
 				A7F2E1992E200A640045D175 /* DesignSystem */,
 				A7F2E1662E2007630045D175 /* Assets.xcassets */,
@@ -289,7 +430,6 @@
 			isa = PBXGroup;
 			children = (
 				DF5FFE342E20B47E00C07AD3 /* .gitkeep */,
-				A7F2E17B2E2008600045D175 /* DTO */,
 				A7F2E1782E2008360045D175 /* Entity */,
 				A7F2E17A2E20084F0045D175 /* Repository */,
 				A7F2E1792E2008450045D175 /* UseCase */,
@@ -312,18 +452,10 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		A7F2E1752E2007E80045D175 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				DF899C732E24FE5A006BE87D /* RepositoryImpl */,
-				DF5FFE322E20B47D00C07AD3 /* .gitkeep */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
 		A7F2E1762E2007F70045D175 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				DF5A0BB02E350D9100CF61BF /* Constant */,
 				A7F2E1772E2008220045D175 /* Extension */,
 			);
 			path = Util;
@@ -344,6 +476,8 @@
 			isa = PBXGroup;
 			children = (
 				DF5FFE3C2E20B48200C07AD3 /* .gitkeep */,
+				89728D9D2E33DEBC002B3ACE /* User.swift */,
+				DFE0388A2E351A4300A2060D /* Place.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -352,6 +486,8 @@
 			isa = PBXGroup;
 			children = (
 				DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */,
+				89728D912E33DDEF002B3ACE /* ImageUseCase.swift */,
+				89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -360,16 +496,10 @@
 			isa = PBXGroup;
 			children = (
 				DF7A8B9D2E27804600378AC3 /* AuthRepository.swift */,
+				89728D812E33DC38002B3ACE /* StorageRepository.swift */,
+				89728D972E33DE58002B3ACE /* DatabaseRepository.swift */,
 			);
 			path = Repository;
-			sourceTree = "<group>";
-		};
-		A7F2E17B2E2008600045D175 /* DTO */ = {
-			isa = PBXGroup;
-			children = (
-				DF5FFE362E20B47F00C07AD3 /* .gitkeep */,
-			);
-			path = DTO;
 			sourceTree = "<group>";
 		};
 		A7F2E17C2E2008780045D175 /* Home */ = {
@@ -470,6 +600,7 @@
 			children = (
 				DF1F3E752E27859B00BE27AC /* AppDelegate.swift */,
 				DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */,
+				DF748A412E38B4EB00CF9864 /* LaunchScreen.storyboard */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -498,6 +629,23 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DF38C6202E34E4B40011DFE7 /* ManagerTest */ = {
+			isa = PBXGroup;
+			children = (
+				DF38C61E2E34E4B40011DFE7 /* ManagerTest.swift */,
+				DF38C61F2E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift */,
+			);
+			path = ManagerTest;
+			sourceTree = "<group>";
+		};
+		DF5A0BB02E350D9100CF61BF /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				DF5A0BAF2E350D9100CF61BF /* Constants.swift */,
+			);
+			path = Constant;
 			sourceTree = "<group>";
 		};
 		DF5FFE2F2E20B47000C07AD3 /* App */ = {
@@ -531,16 +679,87 @@
 			isa = PBXGroup;
 			children = (
 				DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */,
+				89728D952E33DE2A002B3ACE /* ImageUseCaseImpl.swift */,
+				89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */,
 			);
 			path = UseCaseImpl;
 			sourceTree = "<group>";
 		};
-		DF899C732E24FE5A006BE87D /* RepositoryImpl */ = {
+		DF883ABF2E34B5C200F67BF9 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
-				DF7A8B9F2E27806800378AC3 /* AuthRepositoryImpl.swift */,
+				DF883AC02E34B5C200F67BF9 /* Local */,
+				DF883AC42E34B5C200F67BF9 /* Remote */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		DF883AC02E34B5C200F67BF9 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				DF883ACA2E34B5C700F67BF9 /* .gitkeep */,
+				DF7487BE2E38AC5000CF9864 /* UserDefaultsManager.swift */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		DF883AC12E34B5C200F67BF9 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				DF883ACC2E34B5CA00F67BF9 /* .gitkeep */,
+				DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */,
+				DFE039AF2E352B7500A2060D /* PlaceDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		DF883AC22E34B5C200F67BF9 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				DF883ACE2E34B5CB00F67BF9 /* .gitkeep */,
+				8938CBAE2E367D2D00369EE3 /* FirebaseStorageManager.swift */,
+				8938CBB02E367D3E00369EE3 /* FirebaseDatabaseManager.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		DF883AC32E34B5C200F67BF9 /* Naver */ = {
+			isa = PBXGroup;
+			children = (
+				DF883AD02E34B5CC00F67BF9 /* .gitkeep */,
+				DF883AD22E34B67800F67BF9 /* NaverSearchAPIManager.swift */,
+			);
+			path = Naver;
+			sourceTree = "<group>";
+		};
+		DF883AC42E34B5C200F67BF9 /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				DF883AC12E34B5C200F67BF9 /* DTO */,
+				DF883AC22E34B5C200F67BF9 /* Firebase */,
+				DF883AC32E34B5C200F67BF9 /* Naver */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		DF883AC62E34B5C200F67BF9 /* RepositoryImpl */ = {
+			isa = PBXGroup;
+			children = (
+				89728D852E33DC71002B3ACE /* StorageRepositoryImpl.swift */,
+				89728D992E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift */,
+				DF883AC52E34B5C200F67BF9 /* AuthRepositoryImpl.swift */,
 			);
 			path = RepositoryImpl;
+			sourceTree = "<group>";
+		};
+		DF883AC82E34B5C200F67BF9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				DF883ABF2E34B5C200F67BF9 /* Infrastructure */,
+				DF883AC62E34B5C200F67BF9 /* RepositoryImpl */,
+				DF883AC72E34B5C200F67BF9 /* .gitkeep */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		DFA689192E2109C6000EC0BA /* Fonts */ = {
@@ -602,17 +821,64 @@
 				A7C1AB552E20022D00B8B9E1 /* Sources */,
 				A7C1AB562E20022D00B8B9E1 /* Frameworks */,
 				A7C1AB572E20022D00B8B9E1 /* Resources */,
+				DF7487B72E38A95200CF9864 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF7487B52E38A95200CF9864 /* PBXTargetDependency */,
+			);
+			name = Pindora;
+			packageProductDependencies = (
+				89728D882E33DD2F002B3ACE /* FirebaseAuth */,
+				89728D8A2E33DD2F002B3ACE /* FirebaseFirestore */,
+				89728D8C2E33DD2F002B3ACE /* FirebaseStorage */,
+			);
+			productName = Pindora;
+			productReference = A7C1AB592E20022D00B8B9E1 /* Pindora.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DF7487AB2E38A95200CF9864 /* PindoraShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF7487BB2E38A95200CF9864 /* Build configuration list for PBXNativeTarget "PindoraShareExtension" */;
+			buildPhases = (
+				DF7487A82E38A95200CF9864 /* Sources */,
+				DF7487A92E38A95200CF9864 /* Frameworks */,
+				DF7487AA2E38A95200CF9864 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Pindora;
+			fileSystemSynchronizedGroups = (
+				DF7487AD2E38A95200CF9864 /* PindoraShareExtension */,
+			);
+			name = PindoraShareExtension;
 			packageProductDependencies = (
 			);
-			productName = Pindora;
-			productReference = A7C1AB592E20022D00B8B9E1 /* Pindora.app */;
-			productType = "com.apple.product-type.application";
+			productName = PindoraShareExtension;
+			productReference = DF7487AC2E38A95200CF9864 /* PindoraShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		DF88402E2E34CD5200F67BF9 /* ManagerTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF8840352E34CD5200F67BF9 /* Build configuration list for PBXNativeTarget "ManagerTest" */;
+			buildPhases = (
+				DF88402B2E34CD5200F67BF9 /* Sources */,
+				DF88402C2E34CD5200F67BF9 /* Frameworks */,
+				DF88402D2E34CD5200F67BF9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF8840342E34CD5200F67BF9 /* PBXTargetDependency */,
+			);
+			name = ManagerTest;
+			packageProductDependencies = (
+			);
+			productName = ManagerTest;
+			productReference = DF88402F2E34CD5200F67BF9 /* ManagerTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -627,6 +893,13 @@
 					A7C1AB582E20022D00B8B9E1 = {
 						CreatedOnToolsVersion = 16.4;
 					};
+					DF7487AB2E38A95200CF9864 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					DF88402E2E34CD5200F67BF9 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = A7C1AB582E20022D00B8B9E1;
+					};
 				};
 			};
 			buildConfigurationList = A7C1AB542E20022D00B8B9E1 /* Build configuration list for PBXProject "Pindora" */;
@@ -639,6 +912,7 @@
 			mainGroup = A7C1AB502E20022D00B8B9E1;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				89728D872E33DD2F002B3ACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A7C1AB5A2E20022D00B8B9E1 /* Products */;
@@ -646,6 +920,8 @@
 			projectRoot = "";
 			targets = (
 				A7C1AB582E20022D00B8B9E1 /* Pindora */,
+				DF88402E2E34CD5200F67BF9 /* ManagerTest */,
+				DF7487AB2E38A95200CF9864 /* PindoraShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -664,6 +940,7 @@
 				DFA6892E2E2110F7000EC0BA /* main.yml in Resources */,
 				DFF67EA82E219AE800676213 /* Pretendard-Light.otf in Resources */,
 				DFF67EA92E219AE800676213 /* Pretendard-Black.otf in Resources */,
+				DF748A422E38B4EB00CF9864 /* LaunchScreen.storyboard in Resources */,
 				DFF67EAA2E219AE800676213 /* Pretendard-Thin.otf in Resources */,
 				DFB9A41B2E22BB9500BD0E51 /* email-notify.yml in Resources */,
 				DFF67EAB2E219AE800676213 /* Pretendard-Regular.otf in Resources */,
@@ -674,7 +951,23 @@
 				DFF67EB02E219AE800676213 /* Pretendard-SemiBold.otf in Resources */,
 				DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */,
 				DF5FFE442E20BBB300C07AD3 /* README.md in Resources */,
+				DF0CA2202E376D5E007E7904 /* GoogleService-Info.plist in Resources */,
+				DF5A06BA2E3507E500CF61BF /* Config.xcconfig in Resources */,
 				DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF7487AA2E38A95200CF9864 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF88402D2E34CD5200F67BF9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -726,6 +1019,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7F5454E2E38816A0014EB85 /* CardDetailView.swift in Sources */,
+				89728D862E33DC71002B3ACE /* StorageRepositoryImpl.swift in Sources */,
 				A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */,
 				A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */,
 				A725E9A52E2FA30300EEA3F5 /* ProfileEditView.swift in Sources */,
@@ -736,24 +1030,32 @@
 				DF1F40EB2E279F5400BE27AC /* MapViewController.swift in Sources */,
 				A7F545482E37BDFE0014EB85 /* AddPlaceView.swift in Sources */,
 				DF1F40F82E279F9000BE27AC /* ProfileViewModel.swift in Sources */,
+				89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */,
+				DFE0388B2E351A4300A2060D /* Place.swift in Sources */,
+				8938CBAF2E367D2D00369EE3 /* FirebaseStorageManager.swift in Sources */,
 				A725E9B32E2FA5CA00EEA3F5 /* ProfileEditViewController.swift in Sources */,
 				DF1F40F92E279F9000BE27AC /* ProfileView.swift in Sources */,
 				A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */,
 				A7F545532E38A7600014EB85 /* CardDetailViewModel.swift in Sources */,
 				DF1F40FA2E279F9000BE27AC /* ProfileViewController.swift in Sources */,
 				DF1F40EC2E279F5400BE27AC /* MapView.swift in Sources */,
+				89728D922E33DDEF002B3ACE /* ImageUseCase.swift in Sources */,
 				A725E9BD2E30A89C00EEA3F5 /* CustomNavBarView.swift in Sources */,
 				A75AB1172E339A4D006DA6EB /* UILabel+.swift in Sources */,
 				DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */,
 				A778D2E12E28F212006B3309 /* HomeView.swift in Sources */,
+				89728D9E2E33DEBC002B3ACE /* User.swift in Sources */,
 				A725E9A72E2FA32000EEA3F5 /* AccountSettingView.swift in Sources */,
 				DF1F40E42E279E8200BE27AC /* LoginView.swift in Sources */,
 				DF1F40E52E279E8200BE27AC /* LoginViewController.swift in Sources */,
+				DF883AD32E34B67800F67BF9 /* NaverSearchAPIManager.swift in Sources */,
 				A725E9AF2E2FA52900EEA3F5 /* PersonaInfoCardView.swift in Sources */,
 				DF1F40E62E279E8200BE27AC /* LoginViewModel.swift in Sources */,
 				A7F5454A2E37BE5E0014EB85 /* AddPlaceViewModel.swift in Sources */,
 				DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */,
 				DF1F40F02E279F6600BE27AC /* MyPlaceViewModel.swift in Sources */,
+				DF0CA2212E376EC6007E7904 /* SearchBarView.swift in Sources */,
+				89728D982E33DE58002B3ACE /* DatabaseRepository.swift in Sources */,
 				A725E9AD2E2FA4FB00EEA3F5 /* PersonaPreviewView.swift in Sources */,
 				DF1F40F12E279F6600BE27AC /* MyPlaceViewController.swift in Sources */,
 				A725E9B92E2FE6CF00EEA3F5 /* SettingListViewController.swift in Sources */,
@@ -763,42 +1065,91 @@
 				A725E9B52E2FE60900EEA3F5 /* SettingListViewModel.swift in Sources */,
 				DF1F3FB62E279C4100BE27AC /* HomeViewController.swift in Sources */,
 				A725E9AB2E2FA4E300EEA3F5 /* ProfileEditViewModel.swift in Sources */,
+				DFE039B42E3532CB00A2060D /* NaverPlaceDTO.swift in Sources */,
 				DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */,
 				DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */,
-				DF7A8BA02E27806800378AC3 /* AuthRepositoryImpl.swift in Sources */,
 				A725E9BB2E2FE6E100EEA3F5 /* AccountSettingViewController.swift in Sources */,
 				DFA2CB392E27C7B000C4F32B /* ModuleFactory.swift in Sources */,
 				DFA2CB3D2E27DC8E00C4F32B /* Documentation.docc in Sources */,
 				A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */,
+				DF883AC92E34B5C200F67BF9 /* AuthRepositoryImpl.swift in Sources */,
 				A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */,
 				A7F5454C2E37BE690014EB85 /* AddPlaceViewController.swift in Sources */,
 				A732BA2B2E27E2BB009EB6BF /* CategoryCellVeiw.swift in Sources */,
+				DF7487BF2E38AC5000CF9864 /* UserDefaultsManager.swift in Sources */,
+				89728D9A2E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift in Sources */,
 				A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */,
-				A732BA2E2E27E2D4009EB6BF /* SearchBarView.swift in Sources */,
-				A7F2E16D2E2007630045D175 /* ViewController.swift in Sources */,
+				89728DA02E33DEE8002B3ACE /* UserUseCase.swift in Sources */,
+				89728D822E33DC38002B3ACE /* StorageRepository.swift in Sources */,
+				DF5A0BB12E350D9100CF61BF /* Constants.swift in Sources */,
 				DF7A8B9E2E27804600378AC3 /* AuthRepository.swift in Sources */,
 				DF1F40DE2E279E7F00BE27AC /* OneTimeAskView.swift in Sources */,
 				A725E9A92E2FA36300EEA3F5 /* SettingListView.swift in Sources */,
 				A7F545512E38A5C20014EB85 /* CardDetailViewController.swift in Sources */,
+				8938CBB12E367D3E00369EE3 /* FirebaseDatabaseManager.swift in Sources */,
 				DF1F40DF2E279E7F00BE27AC /* OneTimeAskViewController.swift in Sources */,
 				DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */,
+				DFE039B02E352B7500A2060D /* PlaceDTO.swift in Sources */,
 				DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */,
 				DF1F3E792E27859B00BE27AC /* SceneDelegate.swift in Sources */,
+				89728D962E33DE2A002B3ACE /* ImageUseCaseImpl.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF7487A82E38A95200CF9864 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF88402B2E34CD5200F67BF9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF38C6212E34E4B40011DFE7 /* ManagerTest.swift in Sources */,
+				DF38C6222E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		DF7487B52E38A95200CF9864 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF7487AB2E38A95200CF9864 /* PindoraShareExtension */;
+			targetProxy = DF7487B42E38A95200CF9864 /* PBXContainerItemProxy */;
+		};
+		DF8840342E34CD5200F67BF9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A7C1AB582E20022D00B8B9E1 /* Pindora */;
+			targetProxy = DF8840332E34CD5200F67BF9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DF748A412E38B4EB00CF9864 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF748A402E38B4EB00CF9864 /* LaunchScreen.storyboard */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		A7C1AB6D2E20022D00B8B9E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF5A06B92E3507E500CF61BF /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pindora/Pindora.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = LGX4B4WC66;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -830,13 +1181,15 @@
 		};
 		A7C1AB6E2E20022D00B8B9E1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF5A06B92E3507E500CF61BF /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pindora/Pindora.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = LGX4B4WC66;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -868,6 +1221,7 @@
 		};
 		A7C1AB6F2E20022D00B8B9E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF5A06B92E3507E500CF61BF /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -931,6 +1285,7 @@
 		};
 		A7C1AB702E20022D00B8B9E1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF5A06B92E3507E500CF61BF /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -985,6 +1340,108 @@
 			};
 			name = Release;
 		};
+		DF7487B82E38A95200CF9864 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PindoraShareExtension/PindoraShareExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = LGX4B4WC66;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PindoraShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PindoraShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RETIA.Pindora.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.RETIA.Pindora.ShareExtension";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DF7487B92E38A95200CF9864 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PindoraShareExtension/PindoraShareExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = LGX4B4WC66;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PindoraShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PindoraShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RETIA.Pindora.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.RETIA.Pindora.ShareExtension";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DF8840362E34CD5200F67BF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF5A06B92E3507E500CF61BF /* Config.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = LGX4B4WC66;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.indextrown..ManagerTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pindora.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pindora";
+			};
+			name = Debug;
+		};
+		DF8840372E34CD5200F67BF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF5A06B92E3507E500CF61BF /* Config.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = LGX4B4WC66;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.indextrown..ManagerTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pindora.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pindora";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1006,7 +1463,54 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		DF7487BB2E38A95200CF9864 /* Build configuration list for PBXNativeTarget "PindoraShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF7487B82E38A95200CF9864 /* Debug */,
+				DF7487B92E38A95200CF9864 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF8840352E34CD5200F67BF9 /* Build configuration list for PBXNativeTarget "ManagerTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF8840362E34CD5200F67BF9 /* Debug */,
+				DF8840372E34CD5200F67BF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		89728D872E33DD2F002B3ACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		89728D882E33DD2F002B3ACE /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 89728D872E33DD2F002B3ACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		89728D8A2E33DD2F002B3ACE /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 89728D872E33DD2F002B3ACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		89728D8C2E33DD2F002B3ACE /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 89728D872E33DD2F002B3ACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A7C1AB512E20022D00B8B9E1 /* Project object */;
 }

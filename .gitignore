@@ -1,3 +1,4 @@
+**/*.xcconfig
 *.DS_Store
 *.plist
 *.xcuserstate

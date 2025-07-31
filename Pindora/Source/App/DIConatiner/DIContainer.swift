@@ -41,12 +41,22 @@ extension DIContainer {
     static func config() {
         // MARK: - Repository 생성
         let authRepository = AuthRepositoryImpl()
+        let storageRepository = StorageRepositoryImpl()
+        let databaseRepository = DatabaseRepositoryImpl()
         
         // MARK: - Usecase 등록
         self.shared.register(
             AuthUseCase.self,
             dependency: AuthUseCaseImpl(authRepository: authRepository)
         )
+        
+        self.shared.register(
+            ImageUsecaseProtocol.self,
+            dependency: ImageUsecaseImpl(storageRepository: storageRepository))
+        
+        self.shared.register(
+            UserUseCaseprotocol.self,
+            dependency: UserUseCaseImpl(repository: databaseRepository))
         
         // 필요한 의존성들은 여기에 등록하시면 됩니다
         // 예: UserUseCase, AnalyticsService 등
