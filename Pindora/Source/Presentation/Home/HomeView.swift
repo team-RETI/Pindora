@@ -11,7 +11,7 @@ import UIKit
 final class HomeView: UIView {
     
     private let searchBarView = SearchBarView()
-    private let categoryListView = CategoryCellListView()
+    let categoryListView = CategoryCellListView()
     private let recommendLabel = UILabel()
     private let buttonLabel = UILabel()
     private let sortButton = UIButton()

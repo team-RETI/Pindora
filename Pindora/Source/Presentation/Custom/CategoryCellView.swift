@@ -1,5 +1,5 @@
 //
-//  CategoryCellVeiw.swift
+//  CategoryCellView.swift
 //  Pindora
 //
 //  Created by eunchanKim on 7/16/25.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class CategoryCellVeiw: UIView {
+final class CategoryCellView: UIView {
     
     // MARK: - UI Component
-    private let button: UIButton = {
+    private var button: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
         button.setTitleColor(.black, for: .normal)
@@ -20,6 +20,14 @@ final class CategoryCellVeiw: UIView {
         button.clipsToBounds = true
         return button
     }()
+    
+    var titleText: String? {
+        guard let title = button.title(for: .normal) else {
+            print("❗️button에 title이 없음")
+            return nil
+        }
+        return title
+    }
     
     // MARK: - Initializer
     init(title: String) {
@@ -35,7 +43,9 @@ final class CategoryCellVeiw: UIView {
     
     // MARK: - (F)UI Setup
     private func setupUI() {
+        setupShadow()
         addSubview(button)
+        clipsToBounds = false 
     }
     
     private func setupConstraints() {
@@ -48,6 +58,14 @@ final class CategoryCellVeiw: UIView {
         ])
     }
     
+    private func setupShadow() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.15
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowRadius = 4
+        layer.masksToBounds = false
+    }
+
     // ✅ 고정된 크기
     override var intrinsicContentSize: CGSize {
         return CGSize(width: 70, height: 30)
@@ -64,7 +82,7 @@ final class CategoryCellVeiw: UIView {
     }
 
     func setSelected(_ selected: Bool) {
-        button.backgroundColor = selected ? .black : .white
+        button.backgroundColor = selected ? .gray : .white
         button.setTitleColor(selected ? .white : .black, for: .normal)
     }
 }

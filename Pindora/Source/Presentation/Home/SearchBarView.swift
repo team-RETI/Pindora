@@ -49,7 +49,7 @@ final class SearchBarView: UIView {
     // Setup
     private func setupUI() {
         backgroundColor = .white
-        layer.cornerRadius = 18
+        layer.cornerRadius = 15
         layer.masksToBounds = true
 
         addSubview(iconImageView)

@@ -36,9 +36,10 @@
 		A725E9B92E2FE6CF00EEA3F5 /* SettingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9B82E2FE6CF00EEA3F5 /* SettingListViewController.swift */; };
 		A725E9BB2E2FE6E100EEA3F5 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9BA2E2FE6E100EEA3F5 /* AccountSettingViewController.swift */; };
 		A725E9BD2E30A89C00EEA3F5 /* CustomNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9BC2E30A89C00EEA3F5 /* CustomNavBarView.swift */; };
+		A72C9A2C2E3CD9FC00F6D30E /* PreviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72C9A2B2E3CD9FC00F6D30E /* PreviewCardView.swift */; };
 		A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA262E27E2BB009EB6BF /* CategoryCellListView.swift */; };
 		A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA252E27E2BB009EB6BF /* CardCellView.swift */; };
-		A732BA2B2E27E2BB009EB6BF /* CategoryCellVeiw.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA272E27E2BB009EB6BF /* CategoryCellVeiw.swift */; };
+		A732BA2B2E27E2BB009EB6BF /* CategoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA272E27E2BB009EB6BF /* CategoryCellView.swift */; };
 		A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA242E27E2BB009EB6BF /* CardCellListView.swift */; };
 		A75AB1172E339A4D006DA6EB /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75AB1162E339A4D006DA6EB /* UILabel+.swift */; };
 		A778D2E12E28F212006B3309 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E02E28F212006B3309 /* HomeView.swift */; };
@@ -176,10 +177,11 @@
 		A725E9B82E2FE6CF00EEA3F5 /* SettingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListViewController.swift; sourceTree = "<group>"; };
 		A725E9BA2E2FE6E100EEA3F5 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		A725E9BC2E30A89C00EEA3F5 /* CustomNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavBarView.swift; sourceTree = "<group>"; };
+		A72C9A2B2E3CD9FC00F6D30E /* PreviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCardView.swift; sourceTree = "<group>"; };
 		A732BA242E27E2BB009EB6BF /* CardCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCellListView.swift; sourceTree = "<group>"; };
 		A732BA252E27E2BB009EB6BF /* CardCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCellView.swift; sourceTree = "<group>"; };
 		A732BA262E27E2BB009EB6BF /* CategoryCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellListView.swift; sourceTree = "<group>"; };
-		A732BA272E27E2BB009EB6BF /* CategoryCellVeiw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellVeiw.swift; sourceTree = "<group>"; };
+		A732BA272E27E2BB009EB6BF /* CategoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellView.swift; sourceTree = "<group>"; };
 		A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		A732BA2F2E27E9D0009EB6BF /* Inter 24pt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter 24pt.ttf"; sourceTree = "<group>"; };
 		A75AB1162E339A4D006DA6EB /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
@@ -360,7 +362,7 @@
 			children = (
 				A7F5454F2E38A4870014EB85 /* PlaceList */,
 				A732BA262E27E2BB009EB6BF /* CategoryCellListView.swift */,
-				A732BA272E27E2BB009EB6BF /* CategoryCellVeiw.swift */,
+				A732BA272E27E2BB009EB6BF /* CategoryCellView.swift */,
 				A725E9BC2E30A89C00EEA3F5 /* CustomNavBarView.swift */,
 			);
 			path = Custom;
@@ -585,6 +587,7 @@
 				A7F545472E37BDFE0014EB85 /* AddPlaceView.swift */,
 				A7F545492E37BE5E0014EB85 /* AddPlaceViewModel.swift */,
 				A7F5454B2E37BE690014EB85 /* AddPlaceViewController.swift */,
+				A72C9A2B2E3CD9FC00F6D30E /* PreviewCardView.swift */,
 			);
 			path = AddPlace;
 			sourceTree = "<group>";
@@ -1039,6 +1042,7 @@
 				A7F545482E37BDFE0014EB85 /* AddPlaceView.swift in Sources */,
 				DF1F40F82E279F9000BE27AC /* ProfileViewModel.swift in Sources */,
 				89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */,
+				A72C9A2C2E3CD9FC00F6D30E /* PreviewCardView.swift in Sources */,
 				DFE0388B2E351A4300A2060D /* Place.swift in Sources */,
 				8938CBAF2E367D2D00369EE3 /* FirebaseStorageManager.swift in Sources */,
 				A725E9B32E2FA5CA00EEA3F5 /* ProfileEditViewController.swift in Sources */,
@@ -1084,7 +1088,7 @@
 				DF883AC92E34B5C200F67BF9 /* AuthRepositoryImpl.swift in Sources */,
 				A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */,
 				A7F5454C2E37BE690014EB85 /* AddPlaceViewController.swift in Sources */,
-				A732BA2B2E27E2BB009EB6BF /* CategoryCellVeiw.swift in Sources */,
+				A732BA2B2E27E2BB009EB6BF /* CategoryCellView.swift in Sources */,
 				DF7487BF2E38AC5000CF9864 /* UserDefaultsManager.swift in Sources */,
 				89728D9A2E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift in Sources */,
 				A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */,
