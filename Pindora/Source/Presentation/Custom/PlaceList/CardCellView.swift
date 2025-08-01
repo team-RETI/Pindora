@@ -33,16 +33,76 @@ final class CardCellView: UITableViewCell {
         return view
     }()
     
+    private let catetoryLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 10)
+        label.textColor = .black
+        label.backgroundColor = .white
+        return label
+    }()
+    
+    private let likedCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 10)
+        label.textColor = .black
+        return label
+    }()
+    
+    private let categoryIcon: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "태그"))
+        image.tintColor = .black
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
+    
+    private let likeIcon: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "좋아요"))
+        image.tintColor = .black
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
+    
+    private lazy var tagStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [categoryIcon, catetoryLabel])
+        stackView.axis = .horizontal
+        stackView.spacing = 4
+        stackView.alignment = .center
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 2, left: 6, bottom: 2, right: 6)
+        stackView.backgroundColor = .white
+        stackView.layer.masksToBounds = true
+        return stackView
+    }()
+    
+    private lazy var likedCountStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [likeIcon, likedCountLabel])
+        stackView.axis = .horizontal
+        stackView.spacing = 4
+        stackView.alignment = .center
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 2, left: 6, bottom: 2, right: 6)
+        stackView.backgroundColor = .white
+        stackView.layer.masksToBounds = true
+        return stackView
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 18)
+        label.font = .boldSystemFont(ofSize: 24)
         label.textColor = .white
         return label
     }()
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 10)
+        label.textColor = .white
+        return label
+    }()
+    
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 10)
         label.textColor = .white
         return label
     }()
@@ -67,11 +127,16 @@ final class CardCellView: UITableViewCell {
         thumbnailImageView.addSubview(overlayView)
         thumbnailImageView.addSubview(titleLabel)
         thumbnailImageView.addSubview(descriptionLabel)
+        thumbnailImageView.addSubview(dateLabel)
+        thumbnailImageView.addSubview(tagStackView)
+        thumbnailImageView.addSubview(likedCountStackView)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0))
+        tagStackView.layer.cornerRadius = tagStackView.frame.height / 2
+        likedCountStackView.layer.cornerRadius = likedCountStackView.frame.height / 2
     }
     
     // MARK: - (F)Constraints
@@ -82,6 +147,9 @@ final class CardCellView: UITableViewCell {
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        tagStackView.translatesAutoresizingMaskIntoConstraints = false
+        likedCountStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             thumbnailContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 26),
@@ -101,25 +169,38 @@ final class CardCellView: UITableViewCell {
             overlayView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor),
             overlayView.bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor),
             
+            // 카테고리, 좋아요
+            tagStackView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 12),
+            tagStackView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 12),
+            likedCountStackView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: -12),
+            likedCountStackView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 12),
+            
             // 타이틀, 설명
             titleLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 12),
             titleLabel.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -4),
-            
             descriptionLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 12),
-            descriptionLabel.bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: -12)
+            descriptionLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: -4),
+            dateLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 12),
+            dateLabel.bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: -12)
         ])
     }
     
     // 데이터 연결 (viewModel 구현 후 지울예정)
     func configure(with place: PlaceModel) {
+        catetoryLabel.text = place.category
+        likedCountLabel.text = place.likedCount.description
         thumbnailImageView.image = UIImage(named: place.imageName)
         titleLabel.text = place.title
         descriptionLabel.text = place.description
+        dateLabel.text = place.date
     }
 }
 
 struct PlaceModel {
+    let category: String
+    let likedCount: Int
     let title: String
     let description: String
     let imageName: String
+    let date: String
 }
