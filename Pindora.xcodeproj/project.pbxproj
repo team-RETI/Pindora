@@ -44,6 +44,8 @@
 		A75AB1172E339A4D006DA6EB /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75AB1162E339A4D006DA6EB /* UILabel+.swift */; };
 		A778D2E12E28F212006B3309 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E02E28F212006B3309 /* HomeView.swift */; };
 		A778D2E32E29756E006B3309 /* ProfilePlaceCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */; };
+		A78571922E3E51040021F72D /* TagLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78571912E3E51040021F72D /* TagLabelView.swift */; };
+		A78571942E3E54C50021F72D /* LikeCountLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78571932E3E54C50021F72D /* LikeCountLabelView.swift */; };
 		A7D418BD2E2A281200B17044 /* ProfilePlaceCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BC2E2A281200B17044 /* ProfilePlaceCellListView.swift */; };
 		A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BE2E2A344700B17044 /* UIButton+.swift */; };
 		A7D418C12E2A364D00B17044 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418C02E2A364D00B17044 /* UIView+.swift */; };
@@ -187,6 +189,8 @@
 		A75AB1162E339A4D006DA6EB /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		A778D2E02E28F212006B3309 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePlaceCellView.swift; sourceTree = "<group>"; };
+		A78571912E3E51040021F72D /* TagLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelView.swift; sourceTree = "<group>"; };
+		A78571932E3E54C50021F72D /* LikeCountLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCountLabelView.swift; sourceTree = "<group>"; };
 		A7C1AB592E20022D00B8B9E1 /* Pindora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pindora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7D418BC2E2A281200B17044 /* ProfilePlaceCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePlaceCellListView.swift; sourceTree = "<group>"; };
 		A7D418BE2E2A344700B17044 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
@@ -600,6 +604,8 @@
 				A7F5454D2E38816A0014EB85 /* CardDetailView.swift */,
 				A7F545502E38A5C20014EB85 /* CardDetailViewController.swift */,
 				A7F545522E38A7600014EB85 /* CardDetailViewModel.swift */,
+				A78571912E3E51040021F72D /* TagLabelView.swift */,
+				A78571932E3E54C50021F72D /* LikeCountLabelView.swift */,
 			);
 			path = PlaceList;
 			sourceTree = "<group>";
@@ -1054,8 +1060,10 @@
 				89728D922E33DDEF002B3ACE /* ImageUseCase.swift in Sources */,
 				A725E9BD2E30A89C00EEA3F5 /* CustomNavBarView.swift in Sources */,
 				A75AB1172E339A4D006DA6EB /* UILabel+.swift in Sources */,
+				A78571922E3E51040021F72D /* TagLabelView.swift in Sources */,
 				DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */,
 				A778D2E12E28F212006B3309 /* HomeView.swift in Sources */,
+				A78571942E3E54C50021F72D /* LikeCountLabelView.swift in Sources */,
 				89728D9E2E33DEBC002B3ACE /* User.swift in Sources */,
 				A725E9A72E2FA32000EEA3F5 /* AccountSettingView.swift in Sources */,
 				DF1F40E42E279E8200BE27AC /* LoginView.swift in Sources */,

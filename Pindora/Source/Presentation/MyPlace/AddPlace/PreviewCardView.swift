@@ -10,6 +10,8 @@ import UIKit
 final class PreviewCardView: UIView {
     
     // MARK: - UI Component
+    private let tagLabelView = TagLabelView()
+    private let likeCountLabelView = LikeCountLabelView()
     private let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -22,61 +24,6 @@ final class PreviewCardView: UIView {
         let view = UIView()
         view.backgroundColor = UIColor.white.withAlphaComponent(0.3)
         return view
-    }()
-    
-    private let catetoryLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 10)
-        label.textColor = .black
-        label.backgroundColor = .white
-        return label
-    }()
-    
-    private let likedCountLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 10)
-        label.textColor = .black
-        return label
-    }()
-    
-    private let categoryIcon: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "태그"))
-        image.tintColor = .black
-        image.contentMode = .scaleAspectFit
-        return image
-    }()
-    
-    private let likeIcon: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "좋아요"))
-        image.tintColor = .black
-        image.contentMode = .scaleAspectFit
-        return image
-    }()
-    
-    private lazy var tagStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [categoryIcon, catetoryLabel])
-        stackView.axis = .horizontal
-        stackView.spacing = 4
-        stackView.alignment = .center
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 2, left: 6, bottom: 2, right: 6)
-        stackView.backgroundColor = .white
-        stackView.layer.masksToBounds = true
-        stackView.layer.cornerRadius = 8
-        return stackView
-    }()
-    
-    private lazy var likedCountStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [likeIcon, likedCountLabel])
-        stackView.axis = .horizontal
-        stackView.spacing = 4
-        stackView.alignment = .center
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 2, left: 6, bottom: 2, right: 6)
-        stackView.backgroundColor = .white
-        stackView.layer.cornerRadius = 8
-        stackView.layer.masksToBounds = true
-        return stackView
     }()
     
     private let imageSelectButton: UIButton = {
@@ -144,8 +91,8 @@ final class PreviewCardView: UIView {
         thumbnailImageView.addSubview(titleLabel)
         thumbnailImageView.addSubview(descriptionLabel)
         thumbnailImageView.addSubview(dateLabel)
-        thumbnailImageView.addSubview(tagStackView)
-        thumbnailImageView.addSubview(likedCountStackView)
+        thumbnailImageView.addSubview(tagLabelView)
+        thumbnailImageView.addSubview(likeCountLabelView)
     }
     
     // MARK: - (F)Constraints
@@ -157,8 +104,8 @@ final class PreviewCardView: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        tagStackView.translatesAutoresizingMaskIntoConstraints = false
-        likedCountStackView.translatesAutoresizingMaskIntoConstraints = false
+        tagLabelView.translatesAutoresizingMaskIntoConstraints = false
+        likeCountLabelView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             thumbnailImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -182,10 +129,10 @@ final class PreviewCardView: UIView {
             overlayView.bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor),
             
             // 카테고리, 좋아요
-            tagStackView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 12),
-            tagStackView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 12),
-            likedCountStackView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: -12),
-            likedCountStackView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 12),
+            tagLabelView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 12),
+            tagLabelView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 12),
+            likeCountLabelView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: -12),
+            likeCountLabelView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 12),
             
             // 타이틀, 설명
             titleLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 12),
@@ -199,20 +146,11 @@ final class PreviewCardView: UIView {
     
     // 데이터 연결 (viewModel 구현 후 지울예정)
     func configure(with place: PlaceModel) {
-        catetoryLabel.text = place.category
-        likedCountLabel.text = place.likedCount.description
+        tagLabelView.title = place.category
+        likeCountLabelView.count = place.likeCount.description
         thumbnailImageView.image = UIImage(named: place.imageName)
         titleLabel.text = place.title
         descriptionLabel.text = place.description
         dateLabel.text = place.date
     }
 }
-
-//struct PlaceModel {
-//    let category: String
-//    let likedCount: Int
-//    let title: String
-//    let description: String
-//    let imageName: String
-//    let date: String
-//}

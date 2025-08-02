@@ -262,6 +262,7 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             
             // ✅ delegate 설정
             nav.presentationController?.delegate = self
+            nav.isNavigationBarHidden = true // ✅ 요거 추가
             navigationController.present(nav, animated: true)
         }
     }

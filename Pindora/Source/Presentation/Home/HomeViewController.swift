@@ -84,7 +84,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let place = dummyData[indexPath.row]
-        let placeModel = PlaceModel(category: place.category, likedCount: place.likedCount, title: place.title, description: place.description, imageName: place.imageName, date: place.date)
+        let placeModel = PlaceModel(category: place.category, likeCount: place.likedCount, title: place.title, description: place.description, imageName: place.imageName, date: place.date)
         
         cell.configure(with: placeModel)
         return cell
