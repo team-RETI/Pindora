@@ -12,7 +12,11 @@ final class CategoryCellListView: UIScrollView {
     // MARK: - UI Component
     // 더미 데이터 (ViewModel 구현후 없앨예정)
     let categories = ["도서관", "카페", "관광지", "식당", "숙소", "기타", "도서관", "카페", "관광지", "식당", "숙소", "기타"]
-
+    
+    lazy var categoryViews: [CategoryCellView] = {
+        return categories.map { CategoryCellView(title: $0) }
+    }()
+    
     private let stackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
@@ -44,9 +48,8 @@ final class CategoryCellListView: UIScrollView {
             stackView.heightAnchor.constraint(equalTo: heightAnchor)
         ])
 
-        categories.forEach { category in
-            let cell = CategoryCellView(title: category)
-            stackView.addArrangedSubview(cell)
+        categoryViews.forEach { category in
+            stackView.addArrangedSubview(category)
         }
     }
 }

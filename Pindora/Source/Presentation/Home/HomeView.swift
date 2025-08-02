@@ -12,8 +12,6 @@ final class HomeView: UIView {
     
     private let searchBarView = SearchBarView()
     let categoryListView = CategoryCellListView()
-    private let recommendLabel = UILabel()
-    private let buttonLabel = UILabel()
     private let sortButton = UIButton()
     let placeListView = CardCellListView()
     
@@ -26,6 +24,35 @@ final class HomeView: UIView {
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
+    }()
+    
+    private let recommendLabel: UILabel = {
+       let label = UILabel()
+        label.text = "장소추천"
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        return label
+    }()
+    
+    private let buttonLabel: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(named: "정렬버튼")
+        config.imagePlacement = .trailing
+        config.imagePadding = 4 // 텍스트-이미지 간 간격
+        config.baseForegroundColor = .black
+
+        // 텍스트 크기 조절
+        let font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font
+        ]
+        config.attributedTitle = AttributedString("거리순", attributes: AttributeContainer(attributes))
+
+        // 구성 적용
+        button.configuration = config
+        return button
     }()
     
     private let blackHeaderContainerView: UIView = {
@@ -62,15 +89,6 @@ final class HomeView: UIView {
         addSubview(buttonLabel)
         addSubview(sortButton)
         addSubview(placeListView)
-        
-        recommendLabel.text = "장소추천"
-        recommendLabel.font = .boldSystemFont(ofSize: 20)
-        recommendLabel.textColor = .black
-        
-        buttonLabel.text = "거리순"
-        buttonLabel.font = .systemFont(ofSize: 12)
-        buttonLabel.textColor = .black
-        sortButton.setImage(UIImage(named: "Vector"), for: .normal)
     }
     
     
@@ -82,7 +100,7 @@ final class HomeView: UIView {
         blackHeaderContainerView.translatesAutoresizingMaskIntoConstraints = false
         recommendLabel.translatesAutoresizingMaskIntoConstraints = false
         buttonLabel.translatesAutoresizingMaskIntoConstraints = false
-        sortButton.translatesAutoresizingMaskIntoConstraints = false
+//        sortButton.translatesAutoresizingMaskIntoConstraints = false
         placeListView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -109,10 +127,8 @@ final class HomeView: UIView {
             recommendLabel.topAnchor.constraint(equalTo: blackHeaderContainerView.bottomAnchor, constant: 20),
             recommendLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
-            sortButton.centerYAnchor.constraint(equalTo: recommendLabel.centerYAnchor),
-            sortButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             buttonLabel.centerYAnchor.constraint(equalTo: recommendLabel.centerYAnchor),
-            buttonLabel.trailingAnchor.constraint(equalTo: sortButton.leadingAnchor, constant: -2),
+            buttonLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             // 장소 리스트 뷰
             placeListView.topAnchor.constraint(equalTo: recommendLabel.bottomAnchor, constant: 12),

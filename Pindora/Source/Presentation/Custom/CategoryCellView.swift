@@ -15,8 +15,6 @@ final class CategoryCellView: UIView {
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
-        button.layer.borderColor = UIColor.white.cgColor
-        button.layer.borderWidth = 1
         button.clipsToBounds = true
         return button
     }()
