@@ -49,8 +49,8 @@ final class SelectableOverlayView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: 35),
-            button.heightAnchor.constraint(equalToConstant: 35),
+            button.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.1),
+            button.heightAnchor.constraint(equalTo: button.widthAnchor),
             button.centerXAnchor.constraint(equalTo: centerXAnchor),
             button.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
