@@ -5,9 +5,12 @@
 //
 
 import UIKit
+import NMapsMap
+import CoreLocation
 
-final class MapViewController: UIViewController {
+final class MapViewController: UIViewController, CLLocationManagerDelegate {
     private let viewModel: MapViewModel
+    private let locationManager = CLLocationManager()
     private let customView = MapView()
     
     // MARK: - Initializer
@@ -27,6 +30,8 @@ final class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        customView.locationButton.addTarget(self, action:  #selector(locationButtonTapped), for: .touchUpInside)
+        requestLocationPermission()
         bindViewModel()
     }
     
@@ -38,5 +43,15 @@ final class MapViewController: UIViewController {
     // MARK: - Bindings
     private func bindViewModel() {
 
+    }
+
+    @objc private func locationButtonTapped() {
+        customView.mapView.positionMode = .direction // 또는 .normal
+    }
+    
+    private func requestLocationPermission() {
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
 }

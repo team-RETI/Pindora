@@ -47,6 +47,7 @@
 		A78571922E3E51040021F72D /* TagLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78571912E3E51040021F72D /* TagLabelView.swift */; };
 		A78571942E3E54C50021F72D /* LikeCountLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78571932E3E54C50021F72D /* LikeCountLabelView.swift */; };
 		A78571A02E3F19AF0021F72D /* SelectableOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785719F2E3F19AF0021F72D /* SelectableOverlayView.swift */; };
+		A78571A32E3F94570021F72D /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = A78571A22E3F94570021F72D /* NMapsMap */; };
 		A7D418BD2E2A281200B17044 /* ProfilePlaceCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BC2E2A281200B17044 /* ProfilePlaceCellListView.swift */; };
 		A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BE2E2A344700B17044 /* UIButton+.swift */; };
 		A7D418C12E2A364D00B17044 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418C02E2A364D00B17044 /* UIView+.swift */; };
@@ -306,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89728D892E33DD2F002B3ACE /* FirebaseAuth in Frameworks */,
+				A78571A32E3F94570021F72D /* NMapsMap in Frameworks */,
 				89728D8B2E33DD2F002B3ACE /* FirebaseFirestore in Frameworks */,
 				89728D8D2E33DD2F002B3ACE /* FirebaseStorage in Frameworks */,
 			);
@@ -853,6 +855,7 @@
 				89728D882E33DD2F002B3ACE /* FirebaseAuth */,
 				89728D8A2E33DD2F002B3ACE /* FirebaseFirestore */,
 				89728D8C2E33DD2F002B3ACE /* FirebaseStorage */,
+				A78571A22E3F94570021F72D /* NMapsMap */,
 			);
 			productName = Pindora;
 			productReference = A7C1AB592E20022D00B8B9E1 /* Pindora.app */;
@@ -933,6 +936,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				89728D872E33DD2F002B3ACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				A78571A12E3F94570021F72D /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A7C1AB5A2E20022D00B8B9E1 /* Products */;
@@ -1181,6 +1185,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pindora/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "앱에서 현재 위치를 사용하기 위해 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -1191,6 +1196,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NAVER_CLIENT_ID = cvpv8j6eh4;
+				NAVER_CLIENT_SECRET = b3mPTjeCprdxWYDyCxsUBvA9PoiPHVeb96JCvhmS;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RETIA.Pindora;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1221,6 +1228,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pindora/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "앱에서 현재 위치를 사용하기 위해 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -1231,6 +1239,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NAVER_CLIENT_ID = cvpv8j6eh4;
+				NAVER_CLIENT_SECRET = b3mPTjeCprdxWYDyCxsUBvA9PoiPHVeb96JCvhmS;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RETIA.Pindora;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1302,6 +1312,8 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				NAVER_CLIENT_ID = cvpv8j6eh4;
+				NAVER_CLIENT_SECRET = "b3mPTjeCprdxWYDyCxsUBvA9PoiPHVeb96JCvhmS\n";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -1360,6 +1372,8 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				NAVER_CLIENT_ID = cvpv8j6eh4;
+				NAVER_CLIENT_SECRET = "b3mPTjeCprdxWYDyCxsUBvA9PoiPHVeb96JCvhmS\n";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -1439,6 +1453,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MARKETING_VERSION = 1.0;
+				NAVER_CLIENT_ID = cvpv8j6eh4;
+				NAVER_CLIENT_SECRET = b3mPTjeCprdxWYDyCxsUBvA9PoiPHVeb96JCvhmS;
 				PRODUCT_BUNDLE_IDENTIFIER = com.indextrown..ManagerTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1459,6 +1475,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MARKETING_VERSION = 1.0;
+				NAVER_CLIENT_ID = cvpv8j6eh4;
+				NAVER_CLIENT_SECRET = b3mPTjeCprdxWYDyCxsUBvA9PoiPHVeb96JCvhmS;
 				PRODUCT_BUNDLE_IDENTIFIER = com.indextrown..ManagerTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1518,6 +1536,14 @@
 				minimumVersion = 12.0.0;
 			};
 		};
+		A78571A12E3F94570021F72D /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/navermaps/SPM-NMapsMap";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.22.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1535,6 +1561,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 89728D872E33DD2F002B3ACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		A78571A22E3F94570021F72D /* NMapsMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A78571A12E3F94570021F72D /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
+			productName = NMapsMap;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
