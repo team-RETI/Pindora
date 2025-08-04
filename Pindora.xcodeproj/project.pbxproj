@@ -21,6 +21,8 @@
 		89728D9E2E33DEBC002B3ACE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9D2E33DEBC002B3ACE /* User.swift */; };
 		89728DA02E33DEE8002B3ACE /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */; };
 		89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */; };
+		899ECE7F2E40403800EE7105 /* PlaceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899ECE7E2E40403800EE7105 /* PlaceUseCase.swift */; };
+		899ECE812E4056A800EE7105 /* PlaceUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899ECE802E4056A800EE7105 /* PlaceUseCaseImpl.swift */; };
 		89AC93FC2E38AA21006446CD /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */; };
 		89AC93FE2E38D7B6006446CD /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AC93FD2E38D7B5006446CD /* UserDTO.swift */; };
 		A725E9A52E2FA30300EEA3F5 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */; };
@@ -160,6 +162,8 @@
 		89728D9D2E33DEBC002B3ACE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImpl.swift; sourceTree = "<group>"; };
+		899ECE7E2E40403800EE7105 /* PlaceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceUseCase.swift; sourceTree = "<group>"; };
+		899ECE802E4056A800EE7105 /* PlaceUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceUseCaseImpl.swift; sourceTree = "<group>"; };
 		89A9E78A2E39EC2B00BF9098 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = info.plist; sourceTree = "<group>"; };
 		89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		89AC93FD2E38D7B5006446CD /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
@@ -494,6 +498,7 @@
 				DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */,
 				89728D912E33DDEF002B3ACE /* ImageUseCase.swift */,
 				89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */,
+				899ECE7E2E40403800EE7105 /* PlaceUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -687,6 +692,7 @@
 				DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */,
 				89728D952E33DE2A002B3ACE /* ImageUseCaseImpl.swift */,
 				89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */,
+				899ECE802E4056A800EE7105 /* PlaceUseCaseImpl.swift */,
 			);
 			path = UseCaseImpl;
 			sourceTree = "<group>";
@@ -1059,6 +1065,7 @@
 				DF883AD32E34B67800F67BF9 /* NaverSearchAPIManager.swift in Sources */,
 				A725E9AF2E2FA52900EEA3F5 /* PersonaInfoCardView.swift in Sources */,
 				DF1F40E62E279E8200BE27AC /* LoginViewModel.swift in Sources */,
+				899ECE812E4056A800EE7105 /* PlaceUseCaseImpl.swift in Sources */,
 				A7F5454A2E37BE5E0014EB85 /* AddPlaceViewModel.swift in Sources */,
 				DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */,
 				DF1F40F02E279F6600BE27AC /* MyPlaceViewModel.swift in Sources */,
@@ -1079,6 +1086,7 @@
 				DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */,
 				A725E9BB2E2FE6E100EEA3F5 /* AccountSettingViewController.swift in Sources */,
 				DFA2CB392E27C7B000C4F32B /* ModuleFactory.swift in Sources */,
+				899ECE7F2E40403800EE7105 /* PlaceUseCase.swift in Sources */,
 				DFA2CB3D2E27DC8E00C4F32B /* Documentation.docc in Sources */,
 				A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */,
 				DF883AC92E34B5C200F67BF9 /* AuthRepositoryImpl.swift in Sources */,

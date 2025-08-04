@@ -58,6 +58,10 @@ extension DIContainer {
             UserUseCaseProtocol.self,
             dependency: UserUseCaseImpl(repository: databaseRepository))
         
+        self.shared.register(
+            PlaceUseCase.self,
+            dependency: PlaceUseCaseImpl(repository: databaseRepository))
+        
         // 필요한 의존성들은 여기에 등록하시면 됩니다
         // 예: UserUseCase, AnalyticsService 등
         #warning("필요한 의존성 추가")
