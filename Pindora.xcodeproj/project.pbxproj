@@ -23,6 +23,7 @@
 		89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */; };
 		89AC93FC2E38AA21006446CD /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */; };
 		89AC93FE2E38D7B6006446CD /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AC93FD2E38D7B5006446CD /* UserDTO.swift */; };
+		A70462012E4106F1001D7542 /* MarkerIconFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70462002E4106F1001D7542 /* MarkerIconFactory.swift */; };
 		A725E9A52E2FA30300EEA3F5 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */; };
 		A725E9A72E2FA32000EEA3F5 /* AccountSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A62E2FA32000EEA3F5 /* AccountSettingView.swift */; };
 		A725E9A92E2FA36300EEA3F5 /* SettingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A82E2FA36300EEA3F5 /* SettingListView.swift */; };
@@ -168,6 +169,7 @@
 		89A9E78A2E39EC2B00BF9098 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = info.plist; sourceTree = "<group>"; };
 		89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		89AC93FD2E38D7B5006446CD /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		A70462002E4106F1001D7542 /* MarkerIconFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerIconFactory.swift; sourceTree = "<group>"; };
 		A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		A725E9A62E2FA32000EEA3F5 /* AccountSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingView.swift; sourceTree = "<group>"; };
 		A725E9A82E2FA36300EEA3F5 /* SettingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListView.swift; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 				DF1F40E72E279F5400BE27AC /* MapView.swift */,
 				DF1F40E82E279F5400BE27AC /* MapViewController.swift */,
 				DF1F40E92E279F5400BE27AC /* MapViewModel.swift */,
+				A70462002E4106F1001D7542 /* MarkerIconFactory.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1077,6 +1080,7 @@
 				DF1F40E52E279E8200BE27AC /* LoginViewController.swift in Sources */,
 				DF883AD32E34B67800F67BF9 /* NaverSearchAPIManager.swift in Sources */,
 				A725E9AF2E2FA52900EEA3F5 /* PersonaInfoCardView.swift in Sources */,
+				A70462012E4106F1001D7542 /* MarkerIconFactory.swift in Sources */,
 				DF1F40E62E279E8200BE27AC /* LoginViewModel.swift in Sources */,
 				A7F5454A2E37BE5E0014EB85 /* AddPlaceViewModel.swift in Sources */,
 				DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */,
@@ -1186,6 +1190,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pindora/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "앱에서 현재 위치를 사용하기 위해 필요합니다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "앱에서 현재 위치를 사용하기 위해 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -1229,6 +1234,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pindora/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "앱에서 현재 위치를 사용하기 위해 필요합니다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "앱에서 현재 위치를 사용하기 위해 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";

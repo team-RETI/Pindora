@@ -14,3 +14,5 @@ enum Constants {
         static let searchURL = "https://openapi.naver.com/v1/search/local.json"
     }
 }
+
+/// 추후 이부분 Naver API/SDK 클라이언트 ID가 달라서 어떻게할지 논의해야됨
