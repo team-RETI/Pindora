@@ -20,6 +20,7 @@ struct PlaceDTO: Codable {
     let naviLink: String?
     let instaLink: String?
     let bookLink: String?
+    let imageURL: String?
 }
 
 // MARK: - Entity로 변환
@@ -40,7 +41,8 @@ extension PlaceDTO {
             likedCount: likedCount,
             naviLink: naviLink,
             instaLink: instaLink,
-            bookLink: bookLink
+            bookLink: bookLink,
+            imageURL: imageURL
         )
     }
 }
