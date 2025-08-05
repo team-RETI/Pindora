@@ -53,7 +53,8 @@ final class ModuleFactory {
     
     func makeHomeVC() -> HomeViewController {
         let viewModel: HomeViewModel = getOrCreateViewModel(for: .home) {
-            HomeViewModel()
+            let useCase = DIContainer.shared.resolve(PlaceUseCase.self)
+            return HomeViewModel(placeUseCase: useCase)
         }
         return HomeViewController(viewModel: viewModel)
     }

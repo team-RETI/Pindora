@@ -69,8 +69,22 @@ extension MyPlaceViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let place = dummyData[indexPath.row]
-        let placeModel = PlaceModel(title: place.title, description: place.description, imageName: place.imageName)
+        //let place = dummyData[indexPath.row]
+        let placeTuple = dummyData[indexPath.row]
+        let placeModel = Place(
+            placeId: UUID().uuidString, // 임시 고유 ID
+            placeName: placeTuple.title,
+            placeAddress: "테스트 주소", // 없어도 되는 경우 "" 가능
+            latitude: 0.0, // 테스트용 값
+            longitude: 0.0,
+            category: "기타",
+            addedDate: Date(),
+            likedCount: nil,
+            naviLink: nil,
+            instaLink: nil,
+            bookLink: nil,
+            imageURL: nil // 또는 "https://~~" 형태로 테스트용 이미지 URL 넣어도 됨
+        )
         
         cell.configure(with: placeModel)
         return cell
