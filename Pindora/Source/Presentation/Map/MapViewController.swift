@@ -79,7 +79,8 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     @objc private func locationButtonTapped() {
         print("location Button Tapped")
-        customView.mapView.positionMode = .direction // 또는 .normal
+//        customView.mapView.locationOverlay.hidden = false
+//        customView.mapView.positionMode = .direction // 또는 .normal
     }
     
     private func requestLocationPermission() {
