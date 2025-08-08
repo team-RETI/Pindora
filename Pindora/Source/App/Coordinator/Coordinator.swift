@@ -183,12 +183,23 @@ final class MainTabCoordinator: Coordinator {
     }
 }
 
-final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationControllerDelegate {
+protocol CardDetailCoordinating: AnyObject {
+    /// 이동
+    func didTapCell()
+    /// 이동
+    func didTapPlaceMarker()
+//    func navigateToPlaceDetail()
+    // 여기에 필요한 이동 메서드 추가
+}
+
+final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationControllerDelegate, CardDetailCoordinating {
+    func didTapPlaceMarker() {
+        navigate(to: .home)
+    }
     
     func didTapCell() {
         navigate(to: .cardDetail)
     }
-    
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         if let bgView = navigationController.view.viewWithTag(999) {
             UIView.animate(withDuration: 0.5, animations: {
@@ -227,8 +238,8 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             
         case .cardDetail:
             let vc = ModuleFactory.shared.makeCardDetailVC()
-            vc.coordinator = self
-            
+//            vc.coordinator = self
+            vc.coordinator = self as CardDetailCoordinating
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .pageSheet
             nav.view.backgroundColor = .clear
@@ -268,9 +279,28 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
     }
 }
 
-final class MapCoordinator: Coordinator {
+final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAdaptivePresentationControllerDelegate {
+    func didTapCell() {
+        navigate(to: .home)
+    }
+    
+    func didTapPlaceMarker() {
+        navigate(to: .cardDetail)
+    }
+    
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        if let bgView = navigationController.view.viewWithTag(999) {
+            UIView.animate(withDuration: 0.5, animations: {
+                bgView.alpha = 0
+            }) { _ in
+                bgView.removeFromSuperview()
+            }
+        }
+    }
+        
     private enum Route {
         case home
+        case cardDetail
     }
     
     var parentCoordinator: Coordinator?
@@ -289,8 +319,27 @@ final class MapCoordinator: Coordinator {
         switch route {
         case .home:
             let vc = ModuleFactory.shared.makeMapVC()
-            navigationController.setViewControllers([vc], animated: false)
+            vc.coordinator = self
+            navigationController.pushViewController(vc, animated: false)
             navigationController.isNavigationBarHidden = true // ✅ 요거 추가
+            
+        case .cardDetail:
+            let vc = ModuleFactory.shared.makeCardDetailVC()
+            vc.coordinator = self as CardDetailCoordinating
+            
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .pageSheet
+            nav.view.backgroundColor = .clear
+            vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+            
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+            }
+            
+            nav.presentationController?.delegate = self
+            nav.isNavigationBarHidden = true // ✅ 요거 추가
+            navigationController.present(nav, animated: true)
         }
     }
 }

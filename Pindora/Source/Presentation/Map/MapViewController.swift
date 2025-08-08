@@ -9,6 +9,7 @@ import NMapsMap
 import CoreLocation
 
 final class MapViewController: UIViewController, CLLocationManagerDelegate {
+    weak var coordinator: MapCoordinator?
     private let viewModel: MapViewModel
     private let locationManager = CLLocationManager()
     private let customView = MapView()
@@ -35,6 +36,8 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         customView.locationButton.addTarget(self, action:  #selector(locationButtonTapped), for: .touchUpInside)
         customView.tagToggleButton.addTarget(self, action: #selector(toggleTags), for: .touchUpInside)
+        
+        selectableHandler()
         requestLocationPermission()
         bindViewModel()
     }
@@ -48,7 +51,23 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     private func bindViewModel() {
 
     }
+    
+    private func selectableHandler() {
+        customView.selectableMarker?.marker.touchHandler = { [weak self] _ in
+            guard let self = self else { return false }
 
+            // 터치 시 선택 상태를 약간 딜레이 후 적용 (피드백처럼 보이게)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.customView.isMarkerSelected.toggle()
+                self.customView.selectableMarker?.setSelected(self.customView.isMarkerSelected)
+                self.coordinator?.didTapPlaceMarker()
+                
+                print("marker tapped")
+            }
+
+            return true
+        }
+    }
 
     @objc private func toggleTags() {
         customView.isExpanded.toggle()

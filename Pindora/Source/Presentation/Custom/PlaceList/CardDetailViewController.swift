@@ -8,7 +8,7 @@
 import UIKit
 
 final class CardDetailViewController: UIViewController {
-    weak var coordinator: HomeCoordinator?
+    weak var coordinator: CardDetailCoordinating?
     private let viewModel: CardDetailViewModel
     private let customView = CardDetailView()
     

@@ -13,13 +13,14 @@ final class MapView: UIView {
     
     // MARK: - UI Component
     var mapView = NMFMapView()
-    private var selectableMarker: SelectableMarker?
+    var selectableMarker: SelectableMarker?
     var locationManager = CLLocationManager()
     var currentLocation = CLLocationCoordinate2D()
     var findLocation = CLLocation()
 
     var longitude_HVC = 0.0
     var latitude_HVC = 0.0
+    var hasFetchedPlaces = false  // 클래스 프로퍼티로 추가
 
     var isMarkerSelected = false  // 상태 저장용
     var isExpanded = false
@@ -87,28 +88,29 @@ final class MapView: UIView {
 
     // MARK: - (F)UI Setup
     private func setupUI() {
-        let location = NMGLatLng(lat: 37.579617, lng: 126.977041)
+//        let location = NMGLatLng(lat: 37.579617, lng: 126.977041)
+//        
+//        let photo = UIImage(named: "경복궁") ?? UIImage()
+//        selectableMarker = SelectableMarker(position: location, image: photo)
+//        selectableMarker?.attach(to: mapView)
+//        
+//        selectableMarker?.marker.touchHandler = { [weak self] _ in
+//            guard let self = self else { return false }
+//
+//            // 터치 시 선택 상태를 약간 딜레이 후 적용 (피드백처럼 보이게)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//                self.isMarkerSelected.toggle()
+//                self.selectableMarker?.setSelected(self.isMarkerSelected)
+//            }
+//
+//            return true
+//        }
         
-        let photo = UIImage(named: "경복궁") ?? UIImage()
-        selectableMarker = SelectableMarker(position: location, image: photo)
-        selectableMarker?.attach(to: mapView)
-        
-        selectableMarker?.marker.touchHandler = { [weak self] _ in
-            guard let self = self else { return false }
-
-            // 터치 시 선택 상태를 약간 딜레이 후 적용 (피드백처럼 보이게)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.isMarkerSelected.toggle()
-                self.selectableMarker?.setSelected(self.isMarkerSelected)
-            }
-
-            return true
-        }
-        
-
+        //x,y : 37.17555079934496,127.12561734444992
         // 위도, 경도 가져오기
-        let latitude = 37.5759//locationManager.location?.coordinate.latitude ?? 0
-        let longitude = 126.9769//locationManager.location?.coordinate.longitude ?? 0
+        let latitude = 37.17555079934496//locationManager.location?.coordinate.latitude ?? 0 //37.5759
+        let longitude = 127.12561734444992//locationManager.location?.coordinate.longitude ?? 0 //126.9769
+        print("x,y : \(latitude),\(longitude)")
         let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude), zoomTo: 15.0)
         mapView.moveCamera(cameraUpdate)
         cameraUpdate.animation = .easeIn
@@ -180,8 +182,6 @@ final class MapView: UIView {
             tagStackView.addArrangedSubview(tagButton)
         }
     }
-    
-
 }
 
 extension MapView: NMFMapViewTouchDelegate {
@@ -194,7 +194,6 @@ extension MapView: NMFMapViewTouchDelegate {
 
 extension MapView: CLLocationManagerDelegate {
     private func requestAuthorization() {
-
         //정확도 검사
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         //앱 사용할때 권한요청
@@ -236,6 +235,115 @@ extension MapView: CLLocationManagerDelegate {
         if let location = locations.last {
             latitude_HVC =  location.coordinate.latitude
             longitude_HVC = location.coordinate.longitude
+            
+
+            
+            if !hasFetchedPlaces {
+                print("latitude: \(latitude_HVC), longitude: \(longitude_HVC)")
+                hasFetchedPlaces = true
+                fetchKakaoPlaces(keyword: "관광지",
+                                 x: longitude_HVC,
+                                 y: latitude_HVC,
+                                 radius: 1500)
+            }
         }
     }
 }
+
+// MARK: - Naver Local Search API
+extension MapView {
+    func fetchKakaoPlaces(keyword: String,
+                            x lng: Double,
+                            y lat: Double,
+                            radius: Int = 1500,
+                            page: Int = 1,
+                            size: Int = 15) {
+          // 간단 쿨타임
+//          guard Date().timeIntervalSince(Self.lastKakaoCall) > kakaoCooldownSeconds else { return }
+//          Self.lastKakaoCall = Date()
+
+          var comp = URLComponents(string: "https://dapi.kakao.com/v2/local/search/keyword.json")
+            comp?.queryItems = [
+              .init(name: "query", value: keyword),
+              .init(name: "x", value: String(lng)),       // 경도
+              .init(name: "y", value: String(lat)),       // 위도
+              .init(name: "radius", value: String(radius)), // 0~20000(m)
+              .init(name: "page", value: String(page)),     // 1~45
+              .init(name: "size", value: String(size))      // 1~15
+            ]
+            guard let url = comp?.url else { return }
+
+          var req = URLRequest(url: url)
+          req.httpMethod = "GET"
+          req.setValue("KakaoAK d21a4bfef816e5e43a98ad54b649f54d", forHTTPHeaderField: "Authorization")
+
+//        URLSession.shared.dataTask(with: req) { data, resp, err in
+//            if let err = err { print("❌ 요청 에러:", err); return }
+//
+//            let http = resp as? HTTPURLResponse
+//            print("🔎 status:", http?.statusCode ?? -1)
+//
+//            if let data = data, let body = String(data: data, encoding: .utf8) {
+//                print("📩 body:", body)
+//            } else {
+//                print("📭 빈 바디 (data=nil)")
+//                return
+//            }
+//            // ... (디코드 아래에서)
+//        }.resume()
+        
+          URLSession.shared.dataTask(with: req) { data, resp, err in
+              if let err = err { print("❌ Kakao 요청 에러:", err); return }
+              guard let data = data else { print("❌ Kakao 데이터 없음"); return }
+
+              // 디버그 원문 확인 원하면 주석 해제
+              // print(String(data: data, encoding: .utf8) ?? "no body")
+
+              do {
+                  let result = try JSONDecoder().decode(KakaoSearchResponse.self, from: data)
+                  DispatchQueue.main.async {
+                      // 기존 마커 정리하고 싶으면 여기서 지우기
+                      for place in result.documents {
+                          guard let lng = Double(place.x), let lat = Double(place.y) else { continue }
+                          let marker = NMFMarker(position: NMGLatLng(lat: lat, lng: lng))
+                          marker.captionText = place.place_name
+                          marker.subCaptionText = place.category_name ?? ""
+                          marker.touchHandler = { [weak self] _ in
+                              print("📍 \(place.place_name) / \(place.road_address_name ?? place.address_name ?? "") / \(place.phone ?? "-")")
+                              return true
+                          }
+                          marker.mapView = self.mapView
+                      }
+                  }
+              } catch {
+                  print("❌ Kakao JSON 파싱 실패:", error.localizedDescription)
+              }
+          }.resume()
+    }
+    
+    // Kakao Local API 응답 모델
+    struct KakaoSearchResponse: Codable {
+        let documents: [KakaoPlace]
+        let meta: KakaoMeta
+    }
+
+    struct KakaoMeta: Codable {
+        let is_end: Bool
+        let pageable_count: Int
+        let total_count: Int
+    }
+
+    struct KakaoPlace: Codable {
+        let id: String
+        let place_name: String
+        let category_name: String?
+        let phone: String?
+        let address_name: String?
+        let road_address_name: String?
+        let x: String   // 경도(LNG) 문자열
+        let y: String   // 위도(LAT) 문자열
+        let distance: String? // m 단위, 좌표 검색 시만
+    }
+
+}
+
