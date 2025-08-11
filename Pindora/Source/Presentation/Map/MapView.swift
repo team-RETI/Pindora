@@ -266,7 +266,7 @@ extension MapView {
         }
         var req = URLRequest(url: url)
         req.httpMethod = "GET"
-        req.setValue("KakaoAK d21a4bfef816e5e43a98ad54b649f54d", forHTTPHeaderField: "Authorization")
+        req.setValue("KakaoAK \(Constants.KakaoAPI.KAKAO_REST_API_KEY)", forHTTPHeaderField: "Authorization")
 
         URLSession.shared.dataTask(with: req) { data, _, err in
             if let err = err { return DispatchQueue.main.async { completion(.failure(err)) } }

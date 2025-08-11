@@ -13,6 +13,10 @@ enum Constants {
         static let clientSecret = Bundle.main.infoDictionary?["NAVER_CLIENT_SECRET"] as? String ?? ""
         static let searchURL = "https://openapi.naver.com/v1/search/local.json"
     }
+    
+    enum KakaoAPI {
+        static let KAKAO_REST_API_KEY = Bundle.main.infoDictionary?["KAKAO_REST_API_KEY"] as? String ?? ""
+    }
 }
 
 enum KakaoCategory: String, CaseIterable {
