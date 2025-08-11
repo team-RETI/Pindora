@@ -44,6 +44,7 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        setupCategoryTargets()
         print("MapViewController")
     }
     
@@ -51,7 +52,7 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     private func bindViewModel() {
 
     }
-    
+
     private func selectableHandler() {
         customView.selectableMarker?.marker.touchHandler = { [weak self] _ in
             guard let self = self else { return false }
@@ -68,38 +69,82 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
             return true
         }
     }
+    
+    private func setupCategoryTargets() {
+        for categoryView in customView.categoryListView.categoryViews {
+            categoryView.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
+        }
+    }
+    
+    @objc private func categoryTapped(_ sender: UIButton) {
+        guard let cellView = sender.superview as? CategoryCellView else { return }
 
+        for view in customView.categoryListView.categoryViews { view.setSelected(false) }
+        cellView.setSelected(true)
+
+        guard let name = cellView.titleText else { return }
+        customView.selectedTag = name
+
+        // ✅ 이전 카테고리 마커 즉시 제거
+        customView.clearPlaceMarkers()
+
+        // 요청 식별자(선택사항: 레이스 방지용)
+        let requestCategory = name
+        let currentCategoryRequestId = UUID() // 프로퍼티로 하나 선언해두세요
+        let requestId = currentCategoryRequestId
+
+        customView.fetchKakaoPlaces(category: name,
+                                    x: customView.longitude_HVC,
+                                    y: customView.latitude_HVC,
+                                    radius: 1500) { [weak self] result in
+            guard let self = self else { return }
+            // ✅ 레이스 보호: 탭이 여러 번 일어났을 때, 최신 요청만 반영
+            guard requestId == currentCategoryRequestId else { return }
+
+            switch result {
+            case .success(let places):
+                customView.renderPlacesOnMap(places)
+            case .failure(let error):
+                print("fetch error:", error)
+            }
+        }
+    }
+    
     @objc private func toggleTags() {
         customView.isExpanded.toggle()
         
         if customView.isExpanded {
-            // 태그 처음 등장 시, 오른쪽에서 왼쪽으로 슬라이딩되며 나타남
-            customView.tagScrollView.alpha = 0
-            customView.tagScrollView.transform = CGAffineTransform(translationX: -20, y: 0)
-            customView.tagScrollView.isHidden = false
-            
+            customView.categoryListView.alpha = 0
+            customView.categoryListView.transform = CGAffineTransform(translationX: -20, y: 0)
+            customView.categoryListView.isHidden = false
+            customView.tagToggleButton.configuration = .tagStyle2()
+    
             UIView.animate(withDuration: 0.3) {
-                self.customView.tagScrollView.alpha = 1
-                self.customView.tagScrollView.transform = .identity
+                self.customView.categoryListView.alpha = 1
+                self.customView.categoryListView.transform = .identity
             }
             
-            customView.setTags(["카페", "박물관", "명소", "공원", "산책로", "맛집"])
-
         } else {
-            // 사라질 때, 왼쪽으로 살짝 이동하며 fade-out
+            customView.tagToggleButton.configuration = .tagStyle1(title: customView.selectedTag ?? "카테고리를 선택해주세요")
             UIView.animate(withDuration: 0.3, animations: {
-                self.customView.tagScrollView.alpha = 0
-                self.customView.tagScrollView.transform = CGAffineTransform(translationX: -20, y: 0)
+                self.customView.categoryListView.alpha = 0
+                self.customView.categoryListView.transform = CGAffineTransform(translationX: -20, y: 0)
             }) { _ in
-                self.customView.tagScrollView.isHidden = true
+                self.customView.categoryListView.isHidden = true
             }
         }
     }
     
     @objc private func locationButtonTapped() {
-        print("location Button Tapped")
-//        customView.mapView.locationOverlay.hidden = false
-//        customView.mapView.positionMode = .direction // 또는 .normal
+        guard let loc = locationManager.location else { return }
+        let latLng = NMGLatLng(lat: loc.coordinate.latitude, lng: loc.coordinate.longitude)
+
+        let update = NMFCameraUpdate(scrollTo: latLng, zoomTo: 15)
+        update.animation = .easeIn
+        customView.mapView.moveCamera(update)
+
+        // 이미 만든 마커만 위치만 갱신
+        customView.myLocation.position = latLng
     }
     
     private func requestLocationPermission() {

@@ -24,24 +24,30 @@ final class MapView: UIView {
 
     var isMarkerSelected = false  // 상태 저장용
     var isExpanded = false
+    var myLocation = NMFMarker()
+    
+    let categoryListView = CategoryCellListView()
+    var selectedTag: String?
+    
+    private var placeMarkers: [NMFMarker] = []
 
+    func clearPlaceMarkers() {
+        placeMarkers.forEach { $0.mapView = nil }  // 지도에서 제거
+        placeMarkers.removeAll()
+    }
+    
     let locationButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "location.fill"), for: .normal)
-        button.tintColor = .white
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 25
+        let button = UIButton()
+        button.configuration = .locationButtonStyle()
+        button.addShadow()
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     let tagToggleButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("  🏷 관광지  >", for: .normal)
-        button.backgroundColor = .black
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 14)
-        button.layer.cornerRadius = 12
+        let button = UIButton()
+        button.configuration = .tagStyle1(title: "카테고리를 선택해주세요")
+        button.addShadow()
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -49,7 +55,6 @@ final class MapView: UIView {
     lazy var tagStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = 8
         stack.alignment = .fill
         stack.distribution = .equalSpacing
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -62,13 +67,13 @@ final class MapView: UIView {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
+    
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
         setupConstraints()
         mapView.touchDelegate = self
-        locationManager.delegate = self
         
         // delegate 설정
         locationManager.delegate = self
@@ -88,35 +93,34 @@ final class MapView: UIView {
 
     // MARK: - (F)UI Setup
     private func setupUI() {
-//        let location = NMGLatLng(lat: 37.579617, lng: 126.977041)
-//        
-//        let photo = UIImage(named: "경복궁") ?? UIImage()
-//        selectableMarker = SelectableMarker(position: location, image: photo)
-//        selectableMarker?.attach(to: mapView)
-//        
-//        selectableMarker?.marker.touchHandler = { [weak self] _ in
-//            guard let self = self else { return false }
-//
-//            // 터치 시 선택 상태를 약간 딜레이 후 적용 (피드백처럼 보이게)
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                self.isMarkerSelected.toggle()
-//                self.selectableMarker?.setSelected(self.isMarkerSelected)
-//            }
-//
-//            return true
-//        }
+        let location = NMGLatLng(lat: 37.579617, lng: 126.977041)
+        
+        let photo = UIImage(named: "경복궁") ?? UIImage()
+        selectableMarker = SelectableMarker(position: location, image: photo)
+        selectableMarker?.attach(to: mapView)
+        
+        selectableMarker?.marker.touchHandler = { [weak self] _ in
+            guard let self = self else { return false }
+
+            // 터치 시 선택 상태를 약간 딜레이 후 적용 (피드백처럼 보이게)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.isMarkerSelected.toggle()
+                self.selectableMarker?.setSelected(self.isMarkerSelected)
+            }
+
+            return true
+        }
         
         //x,y : 37.17555079934496,127.12561734444992
         // 위도, 경도 가져오기
-        let latitude = 37.17555079934496//locationManager.location?.coordinate.latitude ?? 0 //37.5759
-        let longitude = 127.12561734444992//locationManager.location?.coordinate.longitude ?? 0 //126.9769
+        let latitude = locationManager.location?.coordinate.latitude ?? 0 //37.5759
+        let longitude = locationManager.location?.coordinate.longitude ?? 0 //126.9769
         print("x,y : \(latitude),\(longitude)")
         let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude), zoomTo: 15.0)
         mapView.moveCamera(cameraUpdate)
         cameraUpdate.animation = .easeIn
         
         // 내 위치 마커 그리기
-        let myLocation = NMFMarker()
         let customIcon = MarkerIconFactory.makeCustomUserIcon(from: UIImage(named: "아바타2") ?? UIImage())
         myLocation.position = NMGLatLng(lat: latitude, lng: longitude)
         myLocation.iconImage = NMFOverlayImage(image: customIcon)
@@ -128,19 +132,17 @@ final class MapView: UIView {
         
         addSubview(mapView)
         addSubview(locationButton)
-        
-        tagScrollView.addSubview(tagStackView)
         addSubview(tagToggleButton)
-        addSubview(tagScrollView)
-        
-        tagScrollView.isHidden = true
-        
+        addSubview(categoryListView)
+        categoryListView.isHidden = true
     }
     
     // MARK: - (F)Constraints
     private func setupConstraints() {
         // 지도 제약조건을 Auto Layout으로 설정하고 싶다면:
         mapView.translatesAutoresizingMaskIntoConstraints = false
+        categoryListView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: topAnchor),
             mapView.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -156,31 +158,30 @@ final class MapView: UIView {
             tagToggleButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             tagToggleButton.heightAnchor.constraint(equalToConstant: 35),
             
-            tagScrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            tagScrollView.leadingAnchor.constraint(equalTo: tagToggleButton.trailingAnchor, constant: 8),
-            tagScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tagScrollView.bottomAnchor.constraint(equalTo: tagToggleButton.bottomAnchor),
-            
-            tagStackView.leadingAnchor.constraint(equalTo: tagScrollView.leadingAnchor),
-            tagStackView.trailingAnchor.constraint(equalTo: tagScrollView.trailingAnchor),
-            tagStackView.topAnchor.constraint(equalTo: tagScrollView.topAnchor),
-            tagStackView.bottomAnchor.constraint(equalTo: tagScrollView.bottomAnchor),
-            tagStackView.heightAnchor.constraint(equalTo: tagScrollView.heightAnchor)
-            
+            categoryListView.centerYAnchor.constraint(equalTo: tagToggleButton.centerYAnchor, constant: 2),
+            categoryListView.leadingAnchor.constraint(equalTo: tagToggleButton.trailingAnchor, constant: 8),
+            categoryListView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            categoryListView.heightAnchor.constraint(equalTo: tagToggleButton.heightAnchor),
         ])
     }
+    
+    func renderPlacesOnMap(_ places: [KakaoPlace]) {
+        // 혹시 모를 중복 방지
+        clearPlaceMarkers()
 
-    func setTags(_ tags: [String]) {
-        tagStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        for tag in tags {
-            let tagButton = UIButton(type: .system)
-            tagButton.setTitle(tag, for: .normal)
-            tagButton.backgroundColor = .white
-            tagButton.tintColor = .black
-            tagButton.layer.cornerRadius = 8
-            tagButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
-            tagStackView.addArrangedSubview(tagButton)
+        var newMarkers: [NMFMarker] = []
+        for place in places {
+            guard let lat = Double(place.y), let lng = Double(place.x) else { continue }
+
+            let marker = NMFMarker()
+            marker.position = NMGLatLng(lat: lat, lng: lng)
+            marker.iconImage = NMF_MARKER_IMAGE_BLUE // 커스텀이면 NMFOverlayImage 사용
+            marker.width = 28
+            marker.height = 38
+            marker.mapView = mapView
+            newMarkers.append(marker)
         }
+        placeMarkers = newMarkers
     }
 }
 
@@ -235,114 +236,71 @@ extension MapView: CLLocationManagerDelegate {
         if let location = locations.last {
             latitude_HVC =  location.coordinate.latitude
             longitude_HVC = location.coordinate.longitude
-            
-
-            
-            if !hasFetchedPlaces {
-                print("latitude: \(latitude_HVC), longitude: \(longitude_HVC)")
-                hasFetchedPlaces = true
-                fetchKakaoPlaces(keyword: "관광지",
-                                 x: longitude_HVC,
-                                 y: latitude_HVC,
-                                 radius: 1500)
-            }
         }
     }
 }
 
 // MARK: - Naver Local Search API
 extension MapView {
-    func fetchKakaoPlaces(keyword: String,
-                            x lng: Double,
-                            y lat: Double,
-                            radius: Int = 1500,
-                            page: Int = 1,
-                            size: Int = 15) {
-          // 간단 쿨타임
-//          guard Date().timeIntervalSince(Self.lastKakaoCall) > kakaoCooldownSeconds else { return }
-//          Self.lastKakaoCall = Date()
+    func fetchKakaoPlaces(
+        category: String,
+        x lng: Double,
+        y lat: Double,
+        radius: Int = 1500,
+        page: Int = 1,
+        size: Int = 15,
+        completion: @escaping (Result<[KakaoPlace], Error>) -> Void
+    ) {
+        var comp = URLComponents(string: "https://dapi.kakao.com/v2/local/search/keyword.json") ?? URLComponents()
+        comp.queryItems = [
+            .init(name: "query", value: category),
+            .init(name: "x", value: String(lng)),
+            .init(name: "y", value: String(lat)),
+            .init(name: "radius", value: String(radius)),
+            .init(name: "page", value: String(page)),
+            .init(name: "size", value: String(size))
+        ]
+        guard let url = comp.url else {
+            print("❌ 잘못된 URL 구성")
+            return
+        }
+        var req = URLRequest(url: url)
+        req.httpMethod = "GET"
+        req.setValue("KakaoAK d21a4bfef816e5e43a98ad54b649f54d", forHTTPHeaderField: "Authorization")
 
-          var comp = URLComponents(string: "https://dapi.kakao.com/v2/local/search/keyword.json")
-            comp?.queryItems = [
-              .init(name: "query", value: keyword),
-              .init(name: "x", value: String(lng)),       // 경도
-              .init(name: "y", value: String(lat)),       // 위도
-              .init(name: "radius", value: String(radius)), // 0~20000(m)
-              .init(name: "page", value: String(page)),     // 1~45
-              .init(name: "size", value: String(size))      // 1~15
-            ]
-            guard let url = comp?.url else { return }
-
-          var req = URLRequest(url: url)
-          req.httpMethod = "GET"
-          req.setValue("KakaoAK d21a4bfef816e5e43a98ad54b649f54d", forHTTPHeaderField: "Authorization")
-
-//        URLSession.shared.dataTask(with: req) { data, resp, err in
-//            if let err = err { print("❌ 요청 에러:", err); return }
-//
-//            let http = resp as? HTTPURLResponse
-//            print("🔎 status:", http?.statusCode ?? -1)
-//
-//            if let data = data, let body = String(data: data, encoding: .utf8) {
-//                print("📩 body:", body)
-//            } else {
-//                print("📭 빈 바디 (data=nil)")
-//                return
-//            }
-//            // ... (디코드 아래에서)
-//        }.resume()
-        
-          URLSession.shared.dataTask(with: req) { data, resp, err in
-              if let err = err { print("❌ Kakao 요청 에러:", err); return }
-              guard let data = data else { print("❌ Kakao 데이터 없음"); return }
-
-              // 디버그 원문 확인 원하면 주석 해제
-              // print(String(data: data, encoding: .utf8) ?? "no body")
-
-              do {
-                  let result = try JSONDecoder().decode(KakaoSearchResponse.self, from: data)
-                  DispatchQueue.main.async {
-                      // 기존 마커 정리하고 싶으면 여기서 지우기
-                      for place in result.documents {
-                          guard let lng = Double(place.x), let lat = Double(place.y) else { continue }
-                          let marker = NMFMarker(position: NMGLatLng(lat: lat, lng: lng))
-                          marker.captionText = place.place_name
-                          marker.subCaptionText = place.category_name ?? ""
-                          marker.touchHandler = { [weak self] _ in
-                              print("📍 \(place.place_name) / \(place.road_address_name ?? place.address_name ?? "") / \(place.phone ?? "-")")
-                              return true
-                          }
-                          marker.mapView = self.mapView
-                      }
-                  }
-              } catch {
-                  print("❌ Kakao JSON 파싱 실패:", error.localizedDescription)
-              }
-          }.resume()
+        URLSession.shared.dataTask(with: req) { data, _, err in
+            if let err = err { return DispatchQueue.main.async { completion(.failure(err)) } }
+            guard let data = data else {
+                return DispatchQueue.main.async {
+                    completion(.failure(NSError(domain: "Kakao", code: -1, userInfo: [NSLocalizedDescriptionKey: "no data"])))
+                }
+            }
+            do {
+                let res = try JSONDecoder().decode(KakaoSearchResponse.self, from: data)
+                DispatchQueue.main.async { completion(.success(res.documents)) }
+            } catch {
+                DispatchQueue.main.async { completion(.failure(error)) }
+            }
+        }.resume()
     }
     
-    // Kakao Local API 응답 모델
-    struct KakaoSearchResponse: Codable {
+    // 응답 모델
+    struct KakaoSearchResponse: Decodable {
         let documents: [KakaoPlace]
         let meta: KakaoMeta
     }
-
-    struct KakaoMeta: Codable {
-        let is_end: Bool
-        let pageable_count: Int
-        let total_count: Int
-    }
-
-    struct KakaoPlace: Codable {
+    struct KakaoPlace: Decodable {
         let id: String
         let place_name: String
+        let x: String   // 경도
+        let y: String   // 위도
         let category_name: String?
-        let phone: String?
-        let address_name: String?
         let road_address_name: String?
-        let x: String   // 경도(LNG) 문자열
-        let y: String   // 위도(LAT) 문자열
-        let distance: String? // m 단위, 좌표 검색 시만
+        let address_name: String?
+        let phone: String?
+    }
+    struct KakaoMeta: Decodable {
+        let is_end: Bool
     }
 
 }

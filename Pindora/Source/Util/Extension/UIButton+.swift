@@ -67,3 +67,42 @@ extension UIButton {
         return button
     }
 }
+
+extension UIButton.Configuration {
+    static func tagStyle1(title: String) -> UIButton.Configuration {
+        var config = UIButton.Configuration.filled()
+        config.image = UIImage(named: "태그2")
+        config.imagePlacement = .leading
+        config.imagePadding = 10
+        config.cornerStyle = .capsule
+        config.baseBackgroundColor = .black
+        config.baseForegroundColor = .white
+        
+        let font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        let attributed = NSAttributedString(
+            string: title,
+            attributes: [.font: font]
+        )
+
+        config.attributedTitle = AttributedString(attributed)
+        return config
+    }
+    
+    static func tagStyle2() -> UIButton.Configuration {
+        var config = UIButton.Configuration.filled()
+        config.image = UIImage(named: "태그2")
+        config.imagePlacement = .leading
+        config.cornerStyle = .capsule
+        config.baseBackgroundColor = .black
+        config.baseForegroundColor = .white
+        return config
+    }
+    
+    static func locationButtonStyle() -> UIButton.Configuration {
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(named: "내위치")
+        config.baseForegroundColor = .black
+        config.baseBackgroundColor = .clear
+        return config
+    }
+}

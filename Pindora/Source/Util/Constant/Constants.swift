@@ -15,4 +15,35 @@ enum Constants {
     }
 }
 
-/// 추후 이부분 Naver API/SDK 클라이언트 ID가 달라서 어떻게할지 논의해야됨
+enum KakaoCategory: String, CaseIterable {
+    case restaurant   = "FD6" // 음식점
+    case cafe         = "CE7" // 카페
+    case touristSpot  = "AT4" // 관광명소
+    case cultural     = "CT1" // 문화시설(박물관/미술관)
+    case publicOffice = "PO3" // 공공기관(도서관 등)
+
+    var groupCode: String { rawValue }
+
+    /// UI에 보여줄 한글 이름
+    var displayName: String {
+        switch self {
+        case .restaurant:   return "식당"
+        case .cafe:         return "카페"
+        case .touristSpot:  return "관광지"
+        case .cultural:     return "박물관"
+        case .publicOffice: return "도서관"
+        }
+    }
+
+    /// 한글 이름 -> enum (매칭 안 되면 nil)
+    init?(displayName: String) {
+        switch displayName {
+        case "식당":   self = .restaurant
+        case "카페":   self = .cafe
+        case "관광지": self = .touristSpot
+        case "박물관": self = .cultural
+        case "도서관": self = .publicOffice
+        default:       return nil
+        }
+    }
+}

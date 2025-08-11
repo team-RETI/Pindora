@@ -52,6 +52,7 @@
 		A7D418BD2E2A281200B17044 /* ProfilePlaceCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BC2E2A281200B17044 /* ProfilePlaceCellListView.swift */; };
 		A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BE2E2A344700B17044 /* UIButton+.swift */; };
 		A7D418C12E2A364D00B17044 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418C02E2A364D00B17044 /* UIView+.swift */; };
+		A7D57E802E49C83E00598B32 /* SelectableMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D57E7F2E49C83E00598B32 /* SelectableMarkerView.swift */; };
 		A7F2E16E2E2007630045D175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F2E1662E2007630045D175 /* Assets.xcassets */; };
 		A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */; };
 		A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F2E19C2E200A830045D175 /* FontSystem.swift */; };
@@ -200,6 +201,7 @@
 		A7D418BC2E2A281200B17044 /* ProfilePlaceCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePlaceCellListView.swift; sourceTree = "<group>"; };
 		A7D418BE2E2A344700B17044 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A7D418C02E2A364D00B17044 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		A7D57E7F2E49C83E00598B32 /* SelectableMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableMarkerView.swift; sourceTree = "<group>"; };
 		A7F2E1662E2007630045D175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7F2E1672E2007630045D175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7F2E18A2E2009DB0045D175 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
@@ -548,6 +550,7 @@
 				DF1F40E82E279F5400BE27AC /* MapViewController.swift */,
 				DF1F40E92E279F5400BE27AC /* MapViewModel.swift */,
 				A70462002E4106F1001D7542 /* MarkerIconFactory.swift */,
+				A7D57E7F2E49C83E00598B32 /* SelectableMarkerView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1063,6 +1066,7 @@
 				8938CBAF2E367D2D00369EE3 /* FirebaseStorageManager.swift in Sources */,
 				A725E9B32E2FA5CA00EEA3F5 /* ProfileEditViewController.swift in Sources */,
 				DF1F40F92E279F9000BE27AC /* ProfileView.swift in Sources */,
+				A7D57E802E49C83E00598B32 /* SelectableMarkerView.swift in Sources */,
 				A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */,
 				A7F545532E38A7600014EB85 /* CardDetailViewModel.swift in Sources */,
 				DF1F40FA2E279F9000BE27AC /* ProfileViewController.swift in Sources */,

@@ -108,7 +108,7 @@ final class HomeView: UIView {
             blackHeaderContainerView.topAnchor.constraint(equalTo: topAnchor),
             blackHeaderContainerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blackHeaderContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            blackHeaderContainerView.bottomAnchor.constraint(equalTo: categoryListView.bottomAnchor, constant: 20),
+            blackHeaderContainerView.bottomAnchor.constraint(equalTo: categoryListView.bottomAnchor, constant: 14),
             
             headerLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             headerLabel.centerXAnchor.constraint(equalTo: blackHeaderContainerView.centerXAnchor),
@@ -121,7 +121,7 @@ final class HomeView: UIView {
             categoryListView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 26),
             categoryListView.leadingAnchor.constraint(equalTo: blackHeaderContainerView.leadingAnchor),
             categoryListView.trailingAnchor.constraint(equalTo: blackHeaderContainerView.trailingAnchor),
-            categoryListView.heightAnchor.constraint(equalToConstant: 30),
+            categoryListView.heightAnchor.constraint(equalToConstant: 34),
             
             // 추천 라벨, 정렬 버튼
             recommendLabel.topAnchor.constraint(equalTo: blackHeaderContainerView.bottomAnchor, constant: 20),
