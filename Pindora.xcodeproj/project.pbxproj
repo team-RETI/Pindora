@@ -303,6 +303,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		DF3A927D2E4C5100000512D8 /* CustomUI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CustomUI;
+			sourceTree = "<group>";
+		};
 		DF7487AD2E38A95200CF9864 /* PindoraShareExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -608,6 +613,7 @@
 		A7F2E1992E200A640045D175 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				DF3A927D2E4C5100000512D8 /* CustomUI */,
 				A7F2E19C2E200A830045D175 /* FontSystem.swift */,
 			);
 			path = DesignSystem;
@@ -875,6 +881,9 @@
 			);
 			dependencies = (
 				DF7487B52E38A95200CF9864 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DF3A927D2E4C5100000512D8 /* CustomUI */,
 			);
 			name = Pindora;
 			packageProductDependencies = (
