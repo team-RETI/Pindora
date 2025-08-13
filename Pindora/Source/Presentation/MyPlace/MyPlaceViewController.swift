@@ -13,10 +13,10 @@ final class MyPlaceViewController: UIViewController {
     
     private lazy var placeListView = customView.placeListView
     private let dummyData: [(category: String, likedCount: Int, title: String, description: String, imageName: String, date: String)] = [
-        ("관광지",159,"경복궁", "서울특별시 종로구 사직로 161", "경복궁", "2주전"),
-        ("카페",55,"스타벅스 시청점", "도로명서울 중구 을지로 19 삼성화재삼성빌딩 1층", "스타벅스 시청", "어제"),
-        ("공원",595,"여의도 한강공원", "서울 영등포구 여의동로 330", "여의도 한강공원","한달전"),
-        ("관광지",111,"남산타워", "서울 영등포구 여의동로 330", "남산타워", "3일전"),
+        ("관광지",159,"경복궁", "서울특별시 종로구 사직로 161", "sample1", "2주전"),
+        ("카페",55,"스타벅스 시청점", "도로명서울 중구 을지로 19 삼성화재삼성빌딩 1층", "sample6", "어제"),
+        ("공원",595,"여의도 한강공원", "서울 영등포구 여의동로 330", "sample9","한달전"),
+        ("관광지",111,"남산타워", "서울 영등포구 여의동로 330", "sample4", "3일전"),
     ]
 
     // MARK: - Initializer

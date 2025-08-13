@@ -15,7 +15,7 @@ final class AddPlaceView: UIView {
         likeCount: 159,
         title: "경복궁",
         description: "서울특별시 종로구 사직로 161",
-        imageName: "경복궁",
+        imageName: "sample1",
         date: "2주전"
     )
     private lazy var previewCard = PreviewCardView()

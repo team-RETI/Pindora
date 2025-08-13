@@ -260,7 +260,7 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             bgView.tag = 999  // 나중에 제거용
             
             let backgroundImageView = UIImageView(frame: bgView.bounds)
-            backgroundImageView.image = UIImage(named: "경복궁고화질")
+            backgroundImageView.image = UIImage(named: "sample_main")
             backgroundImageView.contentMode = .scaleAspectFill
             backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             

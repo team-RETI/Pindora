@@ -63,7 +63,7 @@ final class CardDetailView: UIView {
 
     private let mainImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "경복궁")
+        imageView.image = UIImage(named: "sample1")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 18
         imageView.clipsToBounds = true

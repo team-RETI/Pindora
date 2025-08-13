@@ -10,7 +10,7 @@ import UIKit
 final class ProfilePlaceCellListView: UICollectionView, UICollectionViewDelegate {
     
     // MARK: - UI Component
-    private var savedPlaceImages: [UIImage] = ["경복궁","경복궁고화질","남산타워","서울역","스타필드 시청","스타필드","여의도 한강공원","경복궁","경복궁고화질","남산타워","서울역","스타필드 시청","스타필드","여의도 한강공원"].compactMap { UIImage(named: $0) }
+    private var savedPlaceImages: [UIImage] = ["sample1","sample2","sample3","sample4","sample5","sample6","sample7","sample8","sample9","sample10","sample11","sample_main"].compactMap { UIImage(named: $0) }
     
     // MARK: - Initializer
     override init(frame: CGRect, collectionViewLayout layout : UICollectionViewLayout) {
