@@ -15,7 +15,7 @@ enum Constants {
     }
     
     enum KakaoAPI {
-        static let KAKAO_REST_API_KEY = Bundle.main.infoDictionary?["KAKAO_REST_API_KEY"] as? String ?? ""
+        static let restApiKey = Bundle.main.infoDictionary?["KAKAO_REST_API_KEY"] as? String ?? ""
     }
 }
 

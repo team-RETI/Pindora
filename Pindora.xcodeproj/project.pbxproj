@@ -45,6 +45,8 @@
 		A75AB1172E339A4D006DA6EB /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75AB1162E339A4D006DA6EB /* UILabel+.swift */; };
 		A778D2E12E28F212006B3309 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E02E28F212006B3309 /* HomeView.swift */; };
 		A778D2E32E29756E006B3309 /* ProfilePlaceCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */; };
+		A7854E3C2E4B30E5002A5C2A /* KakaoSearchAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7854E3B2E4B30E5002A5C2A /* KakaoSearchAPIManager.swift */; };
+		A7854E3E2E4B3132002A5C2A /* KakaoPlaceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7854E3D2E4B3132002A5C2A /* KakaoPlaceDTO.swift */; };
 		A78571922E3E51040021F72D /* TagLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78571912E3E51040021F72D /* TagLabelView.swift */; };
 		A78571942E3E54C50021F72D /* LikeCountLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78571932E3E54C50021F72D /* LikeCountLabelView.swift */; };
 		A78571A02E3F19AF0021F72D /* SelectableOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785719F2E3F19AF0021F72D /* SelectableOverlayView.swift */; };
@@ -194,6 +196,8 @@
 		A75AB1162E339A4D006DA6EB /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		A778D2E02E28F212006B3309 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePlaceCellView.swift; sourceTree = "<group>"; };
+		A7854E3B2E4B30E5002A5C2A /* KakaoSearchAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSearchAPIManager.swift; sourceTree = "<group>"; };
+		A7854E3D2E4B3132002A5C2A /* KakaoPlaceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoPlaceDTO.swift; sourceTree = "<group>"; };
 		A78571912E3E51040021F72D /* TagLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelView.swift; sourceTree = "<group>"; };
 		A78571932E3E54C50021F72D /* LikeCountLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCountLabelView.swift; sourceTree = "<group>"; };
 		A785719F2E3F19AF0021F72D /* SelectableOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableOverlayView.swift; sourceTree = "<group>"; };
@@ -379,6 +383,14 @@
 				A725E9BC2E30A89C00EEA3F5 /* CustomNavBarView.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		A7854E3A2E4B30C6002A5C2A /* KaKao */ = {
+			isa = PBXGroup;
+			children = (
+				A7854E3B2E4B30E5002A5C2A /* KakaoSearchAPIManager.swift */,
+			);
+			path = KaKao;
 			sourceTree = "<group>";
 		};
 		A7C1AB502E20022D00B8B9E1 = {
@@ -734,6 +746,7 @@
 			children = (
 				DF883ACC2E34B5CA00F67BF9 /* .gitkeep */,
 				DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */,
+				A7854E3D2E4B3132002A5C2A /* KakaoPlaceDTO.swift */,
 				DFE039AF2E352B7500A2060D /* PlaceDTO.swift */,
 				89AC93FD2E38D7B5006446CD /* UserDTO.swift */,
 			);
@@ -766,6 +779,7 @@
 				DF883AC12E34B5C200F67BF9 /* DTO */,
 				DF883AC22E34B5C200F67BF9 /* Firebase */,
 				DF883AC32E34B5C200F67BF9 /* Naver */,
+				A7854E3A2E4B30C6002A5C2A /* KaKao */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -1080,6 +1094,7 @@
 				A78571942E3E54C50021F72D /* LikeCountLabelView.swift in Sources */,
 				89728D9E2E33DEBC002B3ACE /* User.swift in Sources */,
 				A725E9A72E2FA32000EEA3F5 /* AccountSettingView.swift in Sources */,
+				A7854E3C2E4B30E5002A5C2A /* KakaoSearchAPIManager.swift in Sources */,
 				DF1F40E42E279E8200BE27AC /* LoginView.swift in Sources */,
 				DF1F40E52E279E8200BE27AC /* LoginViewController.swift in Sources */,
 				DF883AD32E34B67800F67BF9 /* NaverSearchAPIManager.swift in Sources */,
@@ -1124,6 +1139,7 @@
 				A725E9A92E2FA36300EEA3F5 /* SettingListView.swift in Sources */,
 				A7F545512E38A5C20014EB85 /* CardDetailViewController.swift in Sources */,
 				8938CBB12E367D3E00369EE3 /* FirebaseDatabaseManager.swift in Sources */,
+				A7854E3E2E4B3132002A5C2A /* KakaoPlaceDTO.swift in Sources */,
 				DF1F40DF2E279E7F00BE27AC /* OneTimeAskViewController.swift in Sources */,
 				DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */,
 				DFE039B02E352B7500A2060D /* PlaceDTO.swift in Sources */,

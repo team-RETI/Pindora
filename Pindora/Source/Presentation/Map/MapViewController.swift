@@ -7,11 +7,14 @@
 import UIKit
 import NMapsMap
 import CoreLocation
+import Combine
 
 final class MapViewController: UIViewController, CLLocationManagerDelegate {
     weak var coordinator: MapCoordinator?
     private let viewModel: MapViewModel
     private let locationManager = CLLocationManager()
+    private let kakaoApiManager =  KakaoSearchAPIManager.shared
+    private var cancellables = Set<AnyCancellable>()
     private let customView = MapView()
     
     private var tagsVisible = false
@@ -84,30 +87,23 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
 
         guard let name = cellView.titleText else { return }
         customView.selectedTag = name
-
-        // ✅ 이전 카테고리 마커 즉시 제거
         customView.clearPlaceMarkers()
-
-        // 요청 식별자(선택사항: 레이스 방지용)
-        let requestCategory = name
-        let currentCategoryRequestId = UUID() // 프로퍼티로 하나 선언해두세요
-        let requestId = currentCategoryRequestId
-
-        customView.fetchKakaoPlaces(category: name,
-                                    x: customView.longitude_HVC,
-                                    y: customView.latitude_HVC,
-                                    radius: 1500) { [weak self] result in
-            guard let self = self else { return }
-            // ✅ 레이스 보호: 탭이 여러 번 일어났을 때, 최신 요청만 반영
-            guard requestId == currentCategoryRequestId else { return }
-
-            switch result {
-            case .success(let places):
-                customView.renderPlacesOnMap(places)
-            case .failure(let error):
-                print("fetch error:", error)
+        kakaoApiManager
+            .searchPlaces(keyword: name,
+                          x: customView.longitude_HVC,
+                          y: customView.latitude_HVC,)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print("에러:", error.message)
+                }
+            } receiveValue: { places in
+                print("받은 장소 수:", places.count)
+                self.customView.renderPlacesOnMap(places)
             }
-        }
+            .store(in: &cancellables)
     }
     
     @objc private func toggleTags() {

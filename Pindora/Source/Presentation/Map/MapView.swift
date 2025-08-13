@@ -165,7 +165,7 @@ final class MapView: UIView {
         ])
     }
     
-    func renderPlacesOnMap(_ places: [KakaoPlace]) {
+    func renderPlacesOnMap(_ places: [KakaoPlaceDTO]) {
         // 혹시 모를 중복 방지
         clearPlaceMarkers()
 
@@ -175,9 +175,15 @@ final class MapView: UIView {
 
             let marker = NMFMarker()
             marker.position = NMGLatLng(lat: lat, lng: lng)
-            marker.iconImage = NMF_MARKER_IMAGE_BLUE // 커스텀이면 NMFOverlayImage 사용
-            marker.width = 28
-            marker.height = 38
+            marker.iconImage = NMF_MARKER_IMAGE_BLACK
+            marker.width = CGFloat(NMF_MARKER_SIZE_AUTO)
+            marker.height = CGFloat(NMF_MARKER_SIZE_AUTO)
+
+            // 캡션
+            marker.captionRequestedWidth = 50
+            marker.captionText = place.place_name
+            marker.isHideCollidedCaptions = true
+            
             marker.mapView = mapView
             newMarkers.append(marker)
         }
@@ -238,70 +244,5 @@ extension MapView: CLLocationManagerDelegate {
             longitude_HVC = location.coordinate.longitude
         }
     }
-}
-
-// MARK: - Naver Local Search API
-extension MapView {
-    func fetchKakaoPlaces(
-        category: String,
-        x lng: Double,
-        y lat: Double,
-        radius: Int = 1500,
-        page: Int = 1,
-        size: Int = 15,
-        completion: @escaping (Result<[KakaoPlace], Error>) -> Void
-    ) {
-        var comp = URLComponents(string: "https://dapi.kakao.com/v2/local/search/keyword.json") ?? URLComponents()
-        comp.queryItems = [
-            .init(name: "query", value: category),
-            .init(name: "x", value: String(lng)),
-            .init(name: "y", value: String(lat)),
-            .init(name: "radius", value: String(radius)),
-            .init(name: "page", value: String(page)),
-            .init(name: "size", value: String(size))
-        ]
-        guard let url = comp.url else {
-            print("❌ 잘못된 URL 구성")
-            return
-        }
-        var req = URLRequest(url: url)
-        req.httpMethod = "GET"
-        req.setValue("KakaoAK \(Constants.KakaoAPI.KAKAO_REST_API_KEY)", forHTTPHeaderField: "Authorization")
-
-        URLSession.shared.dataTask(with: req) { data, _, err in
-            if let err = err { return DispatchQueue.main.async { completion(.failure(err)) } }
-            guard let data = data else {
-                return DispatchQueue.main.async {
-                    completion(.failure(NSError(domain: "Kakao", code: -1, userInfo: [NSLocalizedDescriptionKey: "no data"])))
-                }
-            }
-            do {
-                let res = try JSONDecoder().decode(KakaoSearchResponse.self, from: data)
-                DispatchQueue.main.async { completion(.success(res.documents)) }
-            } catch {
-                DispatchQueue.main.async { completion(.failure(error)) }
-            }
-        }.resume()
-    }
-    
-    // 응답 모델
-    struct KakaoSearchResponse: Decodable {
-        let documents: [KakaoPlace]
-        let meta: KakaoMeta
-    }
-    struct KakaoPlace: Decodable {
-        let id: String
-        let place_name: String
-        let x: String   // 경도
-        let y: String   // 위도
-        let category_name: String?
-        let road_address_name: String?
-        let address_name: String?
-        let phone: String?
-    }
-    struct KakaoMeta: Decodable {
-        let is_end: Bool
-    }
-
 }
 
