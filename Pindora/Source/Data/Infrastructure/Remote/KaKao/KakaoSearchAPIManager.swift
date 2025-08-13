@@ -129,8 +129,7 @@ final class KakaoSearchAPIManager {
         var req = URLRequest(url: url)
         req.httpMethod = "GET"
         // TODO: 실제 키로 교체 (예: Constants.KakaoAPI.KAKAO_REST_API_KEY)
-        req.setValue("KakaoAK d3898164064c5679ec1876f47421c32a", forHTTPHeaderField: "Authorization")
-        // req.setValue("KakaoAK \(Constants.KakaoAPI.KAKAO_REST_API_KEY)", forHTTPHeaderField: "Authorization")
+        req.setValue("KakaoAK \(Constants.KakaoAPI.restApiKey)", forHTTPHeaderField: "Authorization")
         
         // Combine 파이프라인
         return URLSession.shared.dataTaskPublisher(for: req)
