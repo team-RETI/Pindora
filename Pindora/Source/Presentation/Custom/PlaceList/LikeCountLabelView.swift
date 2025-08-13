@@ -17,7 +17,7 @@ final class LikeCountLabelView: UIView {
     // MARK: - UI Component
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "좋아요")
+        imageView.image = UIImage(named: "like")
         imageView.tintColor = .black
         imageView.contentMode = .scaleAspectFit
         return imageView

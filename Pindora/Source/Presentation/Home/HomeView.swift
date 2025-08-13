@@ -38,7 +38,7 @@ final class HomeView: UIView {
         let button = UIButton()
         
         var config = UIButton.Configuration.plain()
-        config.image = UIImage(named: "정렬버튼")
+        config.image = UIImage(named: "sort")
         config.imagePlacement = .trailing
         config.imagePadding = 4 // 텍스트-이미지 간 간격
         config.baseForegroundColor = .black

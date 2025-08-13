@@ -61,7 +61,7 @@ final class ProfileEditView: UIView {
     }()
     
     private lazy var previewStackView: UIStackView = {
-        let image = UIImageView(image: UIImage(named: "미리보기"))
+        let image = UIImageView(image: UIImage(named: "preview"))
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

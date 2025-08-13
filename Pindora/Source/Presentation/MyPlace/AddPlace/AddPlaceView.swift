@@ -65,7 +65,7 @@ final class AddPlaceView: UIView {
     }()
     
     private lazy var previewStackView: UIStackView = {
-        let image = UIImageView(image: UIImage(named: "미리보기_w"))
+        let image = UIImageView(image: UIImage(named: "white_preview"))
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

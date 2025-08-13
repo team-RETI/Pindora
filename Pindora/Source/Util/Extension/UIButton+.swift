@@ -71,7 +71,7 @@ extension UIButton {
 extension UIButton.Configuration {
     static func tagStyle1(title: String) -> UIButton.Configuration {
         var config = UIButton.Configuration.filled()
-        config.image = UIImage(named: "태그2")
+        config.image = UIImage(named: "whilte_tag")
         config.imagePlacement = .leading
         config.imagePadding = 10
         config.cornerStyle = .capsule
@@ -90,7 +90,7 @@ extension UIButton.Configuration {
     
     static func tagStyle2() -> UIButton.Configuration {
         var config = UIButton.Configuration.filled()
-        config.image = UIImage(named: "태그2")
+        config.image = UIImage(named: "white_tag")
         config.imagePlacement = .leading
         config.cornerStyle = .capsule
         config.baseBackgroundColor = .black
@@ -100,7 +100,7 @@ extension UIButton.Configuration {
     
     static func locationButtonStyle() -> UIButton.Configuration {
         var config = UIButton.Configuration.plain()
-        config.image = UIImage(named: "내위치")
+        config.image = UIImage(named: "location")
         config.baseForegroundColor = .black
         config.baseBackgroundColor = .clear
         return config
