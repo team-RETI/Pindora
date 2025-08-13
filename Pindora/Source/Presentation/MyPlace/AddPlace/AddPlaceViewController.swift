@@ -36,12 +36,35 @@ final class AddPlaceViewController: UIViewController {
         super.viewDidAppear(animated)
         customView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         customView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        setupCategoryTargets()
+
         print("AddPlaceViewController")
     }
 
     // MARK: - Bindings
     private func bindViewModel() {
 
+    }
+    
+    private func setupCategoryTargets() {
+        for categoryView in customView.categoryViews {
+            categoryView.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
+        }
+    }
+
+    @objc private func categoryTapped(_ sender: UIButton) {
+        guard let cellView = sender.superview as? CategoryCellView else {
+            print("❌ CategoryCellView로 캐스팅 실패 - sender.superview: \(String(describing: sender.superview))")
+            return
+        }
+
+        for view in customView.categoryViews {
+            view.setSelected(false)
+        }
+        cellView.setSelected(true)
+
+        let selectedTitle = cellView.titleText
+        print("✅ 선택된 카테고리: \(selectedTitle ?? "-")")
     }
     
     @objc private func cancelButtonTapped() {

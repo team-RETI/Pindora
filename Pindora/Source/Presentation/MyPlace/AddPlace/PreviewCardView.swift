@@ -1,13 +1,13 @@
 //
-//  CardCellView.swift
+//  PreviewCardView.swift
 //  Pindora
 //
-//  Created by eunchanKim on 7/16/25.
+//  Created by eunchanKim on 8/1/25.
 //
 
 import UIKit
 
-final class CardCellView: UITableViewCell {
+final class PreviewCardView: UIView {
     
     // MARK: - UI Component
     private let tagLabelView = TagLabelView()
@@ -19,22 +19,37 @@ final class CardCellView: UITableViewCell {
         imageView.clipsToBounds = true
         return imageView
     }()
-    
-    private let thumbnailContainerView: UIView = {
-        let view = UIView()
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.25
-        view.layer.shadowOffset = CGSize(width: 0, height: 4)
-        view.layer.masksToBounds = false
-        return view
-    }()
-    
+
     private let overlayView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.3)
         return view
     }()
-
+    
+    private let imageSelectButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+        button.tintColor = .white
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.imageView?.contentMode = .scaleAspectFit
+        
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.25
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 4
+        button.layer.masksToBounds = false  // 그림자가 잘리지 않도록 설정
+        return button
+    }()
+    
+    private let imageInfoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이미지 불러오기"
+        label.font = .systemFont(ofSize: 10)
+        label.textColor = .white
+        return label
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 24)
@@ -56,11 +71,9 @@ final class CardCellView: UITableViewCell {
         return label
     }()
     
-    // MARK: - Initializer
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .white
-        selectionStyle = .none
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .black
         setupUI()
         setupConstraints()
     }
@@ -71,9 +84,10 @@ final class CardCellView: UITableViewCell {
     
     // MARK: - (F)UI Setup
     private func setupUI() {
-        contentView.addSubview(thumbnailContainerView)
-        thumbnailContainerView.addSubview(thumbnailImageView)
+        addSubview(thumbnailImageView)
         thumbnailImageView.addSubview(overlayView)
+        thumbnailImageView.addSubview(imageSelectButton)
+        thumbnailImageView.addSubview(imageInfoLabel)
         thumbnailImageView.addSubview(titleLabel)
         thumbnailImageView.addSubview(descriptionLabel)
         thumbnailImageView.addSubview(dateLabel)
@@ -81,19 +95,12 @@ final class CardCellView: UITableViewCell {
         thumbnailImageView.addSubview(likeCountLabelView)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0))
-        tagLabelView.layer.cornerRadius = tagLabelView.frame.height / 2
-        likeCountLabelView.layer.cornerRadius = likeCountLabelView.frame.height / 2
-    }
-    
     // MARK: - (F)Constraints
     private func setupConstraints() {
-
-        thumbnailContainerView.translatesAutoresizingMaskIntoConstraints = false
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         overlayView.translatesAutoresizingMaskIntoConstraints = false
+        imageSelectButton.translatesAutoresizingMaskIntoConstraints = false
+        imageInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -101,16 +108,19 @@ final class CardCellView: UITableViewCell {
         likeCountLabelView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            thumbnailContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 26),
-            thumbnailContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -26),
-            thumbnailContainerView.topAnchor.constraint(equalTo: topAnchor),
-            thumbnailContainerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            thumbnailImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            thumbnailImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            thumbnailImageView.topAnchor.constraint(equalTo: topAnchor),
+            thumbnailImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            // 이미지 뷰
-            thumbnailImageView.leadingAnchor.constraint(equalTo: thumbnailContainerView.leadingAnchor),
-            thumbnailImageView.trailingAnchor.constraint(equalTo: thumbnailContainerView.trailingAnchor),
-            thumbnailImageView.topAnchor.constraint(equalTo: thumbnailContainerView.topAnchor),
-            thumbnailImageView.bottomAnchor.constraint(equalTo: thumbnailContainerView.bottomAnchor),
+            imageSelectButton.centerXAnchor.constraint(equalTo: thumbnailImageView.centerXAnchor),
+            imageSelectButton.centerYAnchor.constraint(equalTo: thumbnailImageView.centerYAnchor),
+            imageSelectButton.widthAnchor.constraint(equalToConstant: 55),
+            imageSelectButton.heightAnchor.constraint(equalToConstant: 55),
+            
+            imageInfoLabel.topAnchor.constraint(equalTo: imageSelectButton.bottomAnchor, constant: 7),
+            imageInfoLabel.centerXAnchor.constraint(equalTo: thumbnailImageView.centerXAnchor),
+            imageInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 200),
             
             // 오버레이
             overlayView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor),
@@ -143,13 +153,4 @@ final class CardCellView: UITableViewCell {
         descriptionLabel.text = place.description
         dateLabel.text = place.date
     }
-}
-
-struct PlaceModel {
-    let category: String
-    let likeCount: Int
-    let title: String
-    let description: String
-    let imageName: String
-    let date: String
 }

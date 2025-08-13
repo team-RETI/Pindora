@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - (C)ProfileEditView
 final class ProfileEditView: UIView {
-    private let imageSelectorView = ImageSelectorView()
+    let imageSelectorView = ImageSelectorView()
     private let personaInfoCardView = PersonaInfoCardView()
     private let personaPreviewView = PersonaPreviewView()
     let navigationBarView = CustomNavBarView(title: "프로필 수정")
@@ -79,7 +79,7 @@ final class ProfileEditView: UIView {
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUI()
+        setupUI()
         setupConstraints()
     }
     
@@ -88,7 +88,7 @@ final class ProfileEditView: UIView {
     }
     
     // MARK: - (F)UI Setup
-    private func setUI() {
+    private func setupUI() {
         backgroundColor = .white
         addSubview(navigationBarView)
         navigationBarView.translatesAutoresizingMaskIntoConstraints = false

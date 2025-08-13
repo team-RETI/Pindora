@@ -92,11 +92,11 @@ final class LoginCoordinator: Coordinator {
     }
     
     func start() {
-
+        
         let vc = ModuleFactory.shared.makeLoginVC()
         navigationController.pushViewController(vc, animated: true)
     }
-
+    
     
     private func navigate(to route: Route) {
         switch route {
@@ -135,7 +135,7 @@ final class LoginFlowCoordinator: Coordinator {
     private func navigate(to route: Route) {
         switch route {
         case .oneTimeAsk:
-
+            
             let vc = ModuleFactory.shared.makeOneTimeAskVC()
             navigationController.setViewControllers([vc], animated: false)
         }
@@ -168,7 +168,7 @@ final class MainTabCoordinator: Coordinator {
         let map = MapCoordinator(navigationController: mapNav)
         let myPlace = MyPlaceCoordinator(navigationController: myPlaceNav)
         let profile = ProfileCoordinator(navigationController: profileNav)
-
+        
         let coordinators: [Coordinator] = [home, map, myPlace, profile]
         coordinators.forEach {
             $0.parentCoordinator = self
@@ -183,12 +183,23 @@ final class MainTabCoordinator: Coordinator {
     }
 }
 
-final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationControllerDelegate {
+protocol CardDetailCoordinating: AnyObject {
+    /// 이동
+    func didTapCell()
+    /// 이동
+    func didTapPlaceMarker()
+//    func navigateToPlaceDetail()
+    // 여기에 필요한 이동 메서드 추가
+}
+
+final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationControllerDelegate, CardDetailCoordinating {
+    func didTapPlaceMarker() {
+        navigate(to: .home)
+    }
     
     func didTapCell() {
         navigate(to: .cardDetail)
     }
-    
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         if let bgView = navigationController.view.viewWithTag(999) {
             UIView.animate(withDuration: 0.5, animations: {
@@ -198,24 +209,24 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             }
         }
     }
-
+    
     private enum Route {
         case home
         case cardDetail
     }
-
+    
     var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
-
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
+    
     func start() {
         navigate(to: .home)
     }
-
+    
     private func navigate(to route: Route) {
         switch route {
         case .home:
@@ -227,13 +238,13 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             
         case .cardDetail:
             let vc = ModuleFactory.shared.makeCardDetailVC()
-            vc.coordinator = self
-
+//            vc.coordinator = self
+            vc.coordinator = self as CardDetailCoordinating
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .pageSheet
             nav.view.backgroundColor = .clear
             vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-
+            
             if let sheet = nav.sheetPresentationController {
                 sheet.detents = [
                     .custom(resolver: { context in
@@ -242,7 +253,7 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
                 ]
                 sheet.prefersGrabberVisible = false
             }
-
+            
             // ✅ 배경 뷰 추가
             let bgView = UIView(frame: navigationController.view.bounds)
             bgView.alpha = 0
@@ -255,42 +266,80 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             
             bgView.addSubview(backgroundImageView)
             navigationController.view.addSubview(bgView)
-
+            
             UIView.animate(withDuration: 0.5) {
                 bgView.alpha = 1
             }
-
+            
             // ✅ delegate 설정
             nav.presentationController?.delegate = self
-
+            nav.isNavigationBarHidden = true // ✅ 요거 추가
             navigationController.present(nav, animated: true)
         }
     }
 }
 
-final class MapCoordinator: Coordinator {
+final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAdaptivePresentationControllerDelegate {
+    func didTapCell() {
+        navigate(to: .home)
+    }
+    
+    func didTapPlaceMarker() {
+        navigate(to: .cardDetail)
+    }
+    
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        if let bgView = navigationController.view.viewWithTag(999) {
+            UIView.animate(withDuration: 0.5, animations: {
+                bgView.alpha = 0
+            }) { _ in
+                bgView.removeFromSuperview()
+            }
+        }
+    }
+        
     private enum Route {
         case home
+        case cardDetail
     }
-
+    
     var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
-
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
+    
     func start() {
         navigate(to: .home)
     }
-
+    
     private func navigate(to route: Route) {
         switch route {
         case .home:
             let vc = ModuleFactory.shared.makeMapVC()
-            navigationController.setViewControllers([vc], animated: false)
+            vc.coordinator = self
+            navigationController.pushViewController(vc, animated: false)
             navigationController.isNavigationBarHidden = true // ✅ 요거 추가
+            
+        case .cardDetail:
+            let vc = ModuleFactory.shared.makeCardDetailVC()
+            vc.coordinator = self as CardDetailCoordinating
+            
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .pageSheet
+            nav.view.backgroundColor = .clear
+            vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+            
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+            }
+            
+            nav.presentationController?.delegate = self
+            nav.isNavigationBarHidden = true // ✅ 요거 추가
+            navigationController.present(nav, animated: true)
         }
     }
 }
@@ -304,19 +353,19 @@ final class MyPlaceCoordinator: Coordinator {
         case home
         case addPlace
     }
-
+    
     var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
-
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
+    
     func start() {
         navigate(to: .home)
     }
-
+    
     private func navigate(to route: Route) {
         switch route {
         case .home:
@@ -328,17 +377,19 @@ final class MyPlaceCoordinator: Coordinator {
         case .addPlace:
             let vc = ModuleFactory.shared.makeAddPlaceVC()
             let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .pageSheet
+            nav.modalPresentationStyle = .popover//.pageSheet
             
             // ✅ iOS 15+ sheet 스타일 적용 (크기 조절 가능하도록)
             if let sheet = nav.sheetPresentationController {
                 sheet.detents = [
                     .custom(resolver: { context in
-                        return context.maximumDetentValue * 0.98
+                        return context.maximumDetentValue * 0.99
                     })]
                 sheet.prefersGrabberVisible = false
+                sheet.prefersEdgeAttachedInCompactHeight = true
+                
             }
-
+            nav.isNavigationBarHidden = true // ✅ 요거 추가
             navigationController.present(nav, animated: true)
         }
     }
@@ -386,19 +437,19 @@ final class ProfileCoordinator: Coordinator {
         case setting
         case accountSetting
     }
-
+    
     var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
-
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
+    
     func start() {
         navigate(to: .home)
     }
-
+    
     private func navigate(to route: Route) {
         switch route {
         case .home:
