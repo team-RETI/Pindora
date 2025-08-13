@@ -5,6 +5,7 @@
 //
 
 import UIKit
+import Combine
 
 final class LoginViewModel {
     private let authUseCase: AuthUseCase
@@ -12,4 +13,13 @@ final class LoginViewModel {
     init(authUseCase: AuthUseCase) {
         self.authUseCase = authUseCase
     }
+    
+    struct Input {
+        
+    }
+    
+    struct Output {
+        
+    }
 }
+

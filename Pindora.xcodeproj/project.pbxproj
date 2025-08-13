@@ -88,6 +88,7 @@
 		DF1F40FA2E279F9000BE27AC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40F62E279F9000BE27AC /* ProfileViewController.swift */; };
 		DF38C6212E34E4B40011DFE7 /* ManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF38C61E2E34E4B40011DFE7 /* ManagerTest.swift */; };
 		DF38C6222E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF38C61F2E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift */; };
+		DF530C8B2E4C7DFA00C31301 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DF530C8A2E4C7DFA00C31301 /* CombineCocoa */; };
 		DF5A06BA2E3507E500CF61BF /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DF5A06B92E3507E500CF61BF /* Config.xcconfig */; };
 		DF5A0BB12E350D9100CF61BF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A0BAF2E350D9100CF61BF /* Constants.swift */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
@@ -326,6 +327,7 @@
 				89728D892E33DD2F002B3ACE /* FirebaseAuth in Frameworks */,
 				A78571A32E3F94570021F72D /* NMapsMap in Frameworks */,
 				89728D8B2E33DD2F002B3ACE /* FirebaseFirestore in Frameworks */,
+				DF530C8B2E4C7DFA00C31301 /* CombineCocoa in Frameworks */,
 				89728D8D2E33DD2F002B3ACE /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -891,6 +893,7 @@
 				89728D8A2E33DD2F002B3ACE /* FirebaseFirestore */,
 				89728D8C2E33DD2F002B3ACE /* FirebaseStorage */,
 				A78571A22E3F94570021F72D /* NMapsMap */,
+				DF530C8A2E4C7DFA00C31301 /* CombineCocoa */,
 			);
 			productName = Pindora;
 			productReference = A7C1AB592E20022D00B8B9E1 /* Pindora.app */;
@@ -972,6 +975,7 @@
 			packageReferences = (
 				89728D872E33DD2F002B3ACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				A78571A12E3F94570021F72D /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */,
+				DF530C892E4C7DFA00C31301 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A7C1AB5A2E20022D00B8B9E1 /* Products */;
@@ -1587,6 +1591,12 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 3.22.1;
+		DF530C892E4C7DFA00C31301 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1611,6 +1621,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A78571A12E3F94570021F72D /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
 			productName = NMapsMap;
+		DF530C8A2E4C7DFA00C31301 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF530C892E4C7DFA00C31301 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

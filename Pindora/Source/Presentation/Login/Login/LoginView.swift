@@ -10,6 +10,8 @@ import UIKit
 final class LoginView: UIView {
     
     // MARK: - UI Component
+    lazy var kakaoLoginButton = SocialLoginButton(loginType: .apple,
+                                                  title: "Apple로 계속하기")
 
     // MARK: - Initializer
     override init(frame: CGRect) {
@@ -24,18 +26,27 @@ final class LoginView: UIView {
 
     // MARK: - (F)UI Setup
     private func setupUI() {
-        backgroundColor = .systemBackground
-
+        self.backgroundColor = .mainWhite
+        [kakaoLoginButton].forEach {
+            self.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
 
     // MARK: - (F)Constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-
+            // Button
+            kakaoLoginButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50),
+            kakaoLoginButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            kakaoLoginButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            kakaoLoginButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 }
 
 #Preview {
-    LoginView()
+    LoginViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl()))
 }
+
+
