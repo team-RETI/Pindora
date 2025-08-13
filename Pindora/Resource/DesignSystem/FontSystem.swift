@@ -39,6 +39,10 @@ extension UIFont {
     static var logoFont: UIFont {
         customFont(.bold, size: 24)
     }
+    
+    static var loginTitleFont: UIFont {
+        customFont(.semiBold, size: 16)
+    }
 
     static var titleFont: UIFont {
         customFont(.bold, size: 20)
