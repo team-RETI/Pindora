@@ -12,7 +12,9 @@ final class CardDetailView: UIView {
     // MARK: - UI Component
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-
+    private let tagLabelView = TagLabelView(title: "관광지")
+    private let likeCountLabelView = LikeCountLabelView(count: 159)
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 20)
@@ -31,20 +33,20 @@ final class CardDetailView: UIView {
 
     private let closeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.setImage(UIImage(named: "닫기버튼"), for: .normal)
         button.tintColor = .white
         return button
     }()
 
     private let hashtagLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 12)
+        label.font = .boldSystemFont(ofSize: 12)
         label.textColor = .white
         label.numberOfLines = 0 // 자동 줄바꿈 허용
         label.text = "#경복궁 #광화문 #세종대왕 #야간관람"
         return label
     }()
-
+    
     private let buttonStack: UIStackView = {
         let buttons = [
             UIButton.detailButtonStyle(name: "pin"),
@@ -65,7 +67,6 @@ final class CardDetailView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 18
         imageView.clipsToBounds = true
-//        imageView.heightAnchor.constraint(equalToConstant: 240).isActive = true
         return imageView
     }()
 
@@ -112,7 +113,7 @@ final class CardDetailView: UIView {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         [headerStack, addressLabel, hashtagLabel, buttonStack, mainImageView,
-         locationTitleLabel, mapImageView].forEach {
+         locationTitleLabel, mapImageView, tagLabelView, likeCountLabelView ].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -120,7 +121,7 @@ final class CardDetailView: UIView {
     // MARK: - (F)Constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -133,30 +134,34 @@ final class CardDetailView: UIView {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
             headerStack.topAnchor.constraint(equalTo: contentView.topAnchor),
-            headerStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            headerStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            headerStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
+            headerStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -28),
             
-            addressLabel.topAnchor.constraint(equalTo: headerStack.bottomAnchor, constant: 16),
-            addressLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            addressLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            addressLabel.topAnchor.constraint(equalTo: headerStack.bottomAnchor, constant: 7),
+            addressLabel.leadingAnchor.constraint(equalTo: headerStack.leadingAnchor),
+            addressLabel.trailingAnchor.constraint(equalTo: headerStack.trailingAnchor),
             
-            hashtagLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 16),
-            hashtagLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            hashtagLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            hashtagLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 7),
+            hashtagLabel.leadingAnchor.constraint(equalTo: headerStack.leadingAnchor),
+            hashtagLabel.trailingAnchor.constraint(equalTo: headerStack.trailingAnchor),
             
-            buttonStack.topAnchor.constraint(equalTo: hashtagLabel.bottomAnchor, constant: 16),
-            buttonStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-//            buttonStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            buttonStack.topAnchor.constraint(equalTo: hashtagLabel.bottomAnchor, constant: 17),
+            buttonStack.leadingAnchor.constraint(equalTo: headerStack.leadingAnchor),
+    
+            tagLabelView.centerYAnchor.constraint(equalTo: buttonStack.centerYAnchor),
+            tagLabelView.trailingAnchor.constraint(equalTo: headerStack.trailingAnchor),
+            likeCountLabelView.centerYAnchor.constraint(equalTo: buttonStack.centerYAnchor),
+            likeCountLabelView.trailingAnchor.constraint(equalTo: tagLabelView.leadingAnchor, constant: -9),
             
-            mainImageView.topAnchor.constraint(equalTo: buttonStack.bottomAnchor, constant: 16),
+            mainImageView.topAnchor.constraint(equalTo: buttonStack.bottomAnchor, constant: 25),
             mainImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 76),
             mainImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -76),
             mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor),
             
-            locationTitleLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 16),
+            locationTitleLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 40),
             locationTitleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             
-            mapImageView.topAnchor.constraint(equalTo: locationTitleLabel.bottomAnchor, constant: 16),
+            mapImageView.topAnchor.constraint(equalTo: locationTitleLabel.bottomAnchor, constant: 13),
             mapImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
             mapImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -28),
             mapImageView.heightAnchor.constraint(equalTo: mapImageView.widthAnchor)

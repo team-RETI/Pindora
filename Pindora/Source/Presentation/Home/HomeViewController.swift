@@ -48,6 +48,10 @@ final class HomeViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        for categoryView in customView.categoryListView.categoryViews {
+            categoryView.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
+        }
+
         print("HomeViewController")
     }
     
@@ -59,6 +63,22 @@ final class HomeViewController: UIViewController {
                 self?.placeList = places
                 self?.placeListView.reloadData()
             }.store(in: &cancellables)
+    }
+    
+    @objc private func categoryTapped(_ sender: UIButton) {
+        guard let cellView = sender.superview as? CategoryCellView else {
+            print("❌ CategoryCellView로 캐스팅 실패 - sender.superview: \(String(describing: sender.superview))")
+            return
+        }
+
+        for view in customView.categoryListView.categoryViews {
+            view.setSelected(false)
+        }
+        
+        cellView.setSelected(true)
+
+        let selectedTitle = cellView.titleText
+        print("✅ 선택된 카테고리: \(selectedTitle ?? "-")")
     }
 }
 
@@ -75,7 +95,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         let place = placeList[indexPath.row]
         //let placeModel = PlaceModel(title: place.title, description: place.description, imageName: place.imageName)
-        
         cell.configure(with: place)
         return cell
     }
