@@ -95,6 +95,26 @@ extension FirebaseDatabaseManager {
         .eraseToAnyPublisher()
     }
     
+    func readAllGenericPublisher<T: Decodable>(collection: String, as type: T.Type) -> AnyPublisher<[T], Error> {
+        Future<[T], Error> { promise in
+            self.db.collection(collection).getDocuments { snapshot, error in
+                if let error {
+                    promise(.failure(error))
+                } else {
+                    do {
+                        let object: [T] = try snapshot?.documents.compactMap { document in
+                            let jsonData = try JSONSerialization.data(withJSONObject: document.data())
+                            return try JSONDecoder().decode(T.self, from: jsonData)
+                        } ?? []
+                        promise(.success(object))
+                    } catch {
+                        promise(.failure(error))
+                    }
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
     func updateGenericPublisher<T: Encodable>(collection: String, documentID: String, with object: T) -> AnyPublisher<Void, Error> {
         Future<Void, Error> { promise in
             do {
