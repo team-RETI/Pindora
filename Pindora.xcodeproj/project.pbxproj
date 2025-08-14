@@ -98,7 +98,7 @@
 		DF748A422E38B4EB00CF9864 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF748A412E38B4EB00CF9864 /* LaunchScreen.storyboard */; };
 		DF7A87C42E27783F00378AC3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C22E27783F00378AC3 /* Coordinator.swift */; };
 		DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A87C82E27786300378AC3 /* DIContainer.swift */; };
-		DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */; };
+		DF7A8B9A2E277CCB00378AC3 /* AuthUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B992E277CCB00378AC3 /* AuthUseCaseProtocol.swift */; };
 		DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */; };
 		DF7A8B9E2E27804600378AC3 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7A8B9D2E27804600378AC3 /* AuthRepository.swift */; };
 		DF883AC92E34B5C200F67BF9 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF883AC52E34B5C200F67BF9 /* AuthRepositoryImpl.swift */; };
@@ -256,7 +256,7 @@
 		DF748A402E38B4EB00CF9864 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DF7A87C22E27783F00378AC3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DF7A87C82E27786300378AC3 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
-		DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
+		DF7A8B992E277CCB00378AC3 /* AuthUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseProtocol.swift; sourceTree = "<group>"; };
 		DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
 		DF7A8B9D2E27804600378AC3 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		DF883AC52E34B5C200F67BF9 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
@@ -529,7 +529,7 @@
 		A7F2E1792E2008450045D175 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				DF7A8B992E277CCB00378AC3 /* AuthUseCase.swift */,
+				DF7A8B992E277CCB00378AC3 /* AuthUseCaseProtocol.swift */,
 				89728D912E33DDEF002B3ACE /* ImageUseCase.swift */,
 				89728D9F2E33DEE8002B3ACE /* UserUseCase.swift */,
 				899ECE7E2E40403800EE7105 /* PlaceUseCase.swift */,
@@ -1108,7 +1108,7 @@
 				A725E9BD2E30A89C00EEA3F5 /* CustomNavBarView.swift in Sources */,
 				A75AB1172E339A4D006DA6EB /* UILabel+.swift in Sources */,
 				A78571922E3E51040021F72D /* TagLabelView.swift in Sources */,
-				DF7A8B9A2E277CCB00378AC3 /* AuthUseCase.swift in Sources */,
+				DF7A8B9A2E277CCB00378AC3 /* AuthUseCaseProtocol.swift in Sources */,
 				A778D2E12E28F212006B3309 /* HomeView.swift in Sources */,
 				A78571942E3E54C50021F72D /* LikeCountLabelView.swift in Sources */,
 				89728D9E2E33DEBC002B3ACE /* User.swift in Sources */,

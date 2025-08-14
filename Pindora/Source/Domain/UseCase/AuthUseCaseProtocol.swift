@@ -10,7 +10,7 @@ import Combine
 
 /// 인증 관련 유즈케이스를 정의합니다.
 /// Apple 로그인 로직을 처리하고 도메인 계층의 `User` 모델로 변환합니다.
-protocol AuthUseCase {
+protocol AuthUseCaseProtocol {
     
     /// Apple 계정을 사용하여 로그인합니다.
     /// - Returns:

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import FirebaseAuth
 
-final class AuthUseCaseImpl: AuthUseCase {
+final class AuthUseCaseImpl: AuthUseCaseProtocol {
     private let authRepository: AuthRepository
     
     init(authRepository: AuthRepository) {
@@ -21,7 +21,7 @@ final class AuthUseCaseImpl: AuthUseCase {
     }
 }
 
-final class StubAuthUseCaseImpl: AuthUseCase {
+final class StubAuthUseCaseImpl: AuthUseCaseProtocol {
     func signInWithApple() -> AnyPublisher<User, Error> {
         let dummyUser = User(
             userId: "12345",

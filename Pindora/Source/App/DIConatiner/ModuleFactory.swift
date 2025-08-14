@@ -34,7 +34,7 @@ final class ModuleFactory {
     // MARK: - ViewController 생성
     func makeLoginVC() -> UIViewController {
         let viewModel: LoginViewModel = getOrCreateViewModel(for: .login) {
-            let useCase = DIContainer.shared.resolve(AuthUseCase.self)
+            let useCase = DIContainer.shared.resolve(AuthUseCaseProtocol.self)
             return LoginViewModel(authUseCase: useCase)
         }
         return LoginViewController(viewModel: viewModel)
@@ -42,7 +42,7 @@ final class ModuleFactory {
     
     func makeOneTimeAskVC() -> UIViewController {
         let viewModel: LoginViewModel = getOrCreateViewModel(for: .login) {
-            let useCase = DIContainer.shared.resolve(AuthUseCase.self)
+            let useCase = DIContainer.shared.resolve(AuthUseCaseProtocol.self)
             return LoginViewModel(authUseCase: useCase)
         }
         return OneTimeAskViewController(viewModel: viewModel)

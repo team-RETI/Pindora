@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //checkSharedContent()
         
         // 0. DIContainer 초기 설정
-        DIContainer.config()
+        DIContainer.config(useStub: true)
         
         // 1. scene 캡처
         guard let windowScene = (scene as? UIWindowScene) else { return }

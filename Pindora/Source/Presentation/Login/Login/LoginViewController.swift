@@ -6,8 +6,10 @@
 
 import UIKit
 import Combine
+import CombineCocoa
 
 final class LoginViewController: UIViewController {
+    private var cancellables: Set<AnyCancellable> = []
     private let viewModel: LoginViewModel
     private let customView = LoginView()
     
@@ -34,10 +36,31 @@ final class LoginViewController: UIViewController {
 
     // MARK: - Bindings
     private func bindViewModel() {
+        let input = LoginViewModel.Input(appleLoginTapped: customView.appleLoginButton.tapPublisher.eraseToAnyPublisher())
         
+        let output = viewModel.transform(input: input)
+        
+        output.loginResult
+            .receive(on: RunLoop.main)
+            .sink { [weak self] result in
+                switch result {
+                case .success:
+                    print("✅ 애플 로그인 성공")
+                case .failure(let error):
+                    print("❌ 애플 로그인 실패:", error.localizedDescription)
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 
 #Preview {
     LoginViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl()))
 }
+
+
+
+
+
+
+
