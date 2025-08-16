@@ -32,7 +32,7 @@ final class ModuleFactory {
     private var viewModelCache: [ModuleKey: Any] = [:]
     
     // MARK: - ViewController 생성
-    func makeLoginVC() -> UIViewController {
+    func makeLoginVC() -> LoginViewController {
         let viewModel: LoginViewModel = getOrCreateViewModel(for: .login) {
             let useCase = DIContainer.shared.resolve(AuthUseCaseProtocol.self)
             return LoginViewModel(authUseCase: useCase)

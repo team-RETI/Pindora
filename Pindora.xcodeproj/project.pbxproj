@@ -1591,6 +1591,8 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 3.22.1;
+            };
+        };
 		DF530C892E4C7DFA00C31301 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
@@ -1621,12 +1623,13 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A78571A12E3F94570021F72D /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
 			productName = NMapsMap;
+        };
 		DF530C8A2E4C7DFA00C31301 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DF530C892E4C7DFA00C31301 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
-	};
+    };
 	rootObject = A7C1AB512E20022D00B8B9E1 /* Project object */;
 }

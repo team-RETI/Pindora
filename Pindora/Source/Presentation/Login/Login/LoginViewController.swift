@@ -9,6 +9,7 @@ import Combine
 import CombineCocoa
 
 final class LoginViewController: UIViewController {
+    weak var coordinator: LoginCoordinator?
     private var cancellables: Set<AnyCancellable> = []
     private let viewModel: LoginViewModel
     private let customView = LoginView()
@@ -46,6 +47,7 @@ final class LoginViewController: UIViewController {
                 switch result {
                 case .success:
                     print("✅ 애플 로그인 성공")
+                    self?.coordinator?.didTapLoginButton()
                 case .failure(let error):
                     print("❌ 애플 로그인 실패:", error.localizedDescription)
                 }

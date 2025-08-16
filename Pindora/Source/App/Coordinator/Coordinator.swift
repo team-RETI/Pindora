@@ -77,6 +77,7 @@ final class AppCoordinator: Coordinator {
 
 final class LoginCoordinator: Coordinator {
     private enum Route {
+        case login      // 로그인뷰
         case loginFlow  // 최초 사용자 -> 추천 카테고리 입력
         case mainTab    // 기존 사용자 -> 메인 탭
     }
@@ -92,14 +93,21 @@ final class LoginCoordinator: Coordinator {
     }
     
     func start() {
-        
-        let vc = ModuleFactory.shared.makeLoginVC()
-        navigationController.pushViewController(vc, animated: true)
+        navigate(to: .login)
     }
     
+    func didTapLoginButton() {
+        navigate(to: .loginFlow)
+    }
+>>>>>>> 07717df ([#67] 소셜 로그인 mvvm 구현)
     
     private func navigate(to route: Route) {
         switch route {
+        case .login:
+            let vc = ModuleFactory.shared.makeLoginVC()
+            vc.coordinator = self
+            navigationController.pushViewController(vc, animated: true)
+            
         case .loginFlow:
             let loginFlow = LoginFlowCoordinator(navigationController: navigationController)
             loginFlow.parentCoordinator = self
@@ -129,7 +137,7 @@ final class LoginFlowCoordinator: Coordinator {
     }
     
     func start() {
-        
+        navigate(to: .oneTimeAsk)
     }
     
     private func navigate(to route: Route) {
@@ -137,7 +145,7 @@ final class LoginFlowCoordinator: Coordinator {
         case .oneTimeAsk:
             
             let vc = ModuleFactory.shared.makeOneTimeAskVC()
-            navigationController.setViewControllers([vc], animated: false)
+            navigationController.setViewControllers([vc], animated: true)
         }
     }
 }
