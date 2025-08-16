@@ -28,7 +28,6 @@ final class LoginViewModel {
         /// eraseToAnyPublisher로 타입을 숨겨서 내부 구현이 바뀌어도 외부 코드는 유지 가능
         let loginResult: AnyPublisher<Result<Void, ServiceError>, Never>
     }
-    
     func transform(input: Input) -> Output {
         /// ViewModel 내부에서 이벤트를 발행하는 실제 주체
         let loginResultSubject = PassthroughSubject<Result<Void, ServiceError>, Never>()
@@ -66,13 +65,12 @@ final class LoginViewModel {
                 
                 return self.userUseCase.fetchUser(uid: uid)
                     .map { user in
-                        print("✅ 기존 유저 로그인: \(String(describing: user.personaName))")
+                        print("✅ 기존 유저 로그인: \(String(describing: user))")
                         return ()
                     }
                     .catch { error -> AnyPublisher<Void, ServiceError> in
                         switch error {
                         case .userNotFound:
-                            print("🆕 신규 유저입니다. Firestore에 저장을 시작합니다.")
                             
                             let newUser = User(
                                 userId: uid,
@@ -117,6 +115,5 @@ final class LoginViewModel {
         
         return Output(loginResult: loginResultSubject.eraseToAnyPublisher())
     }
-    
 }
 
