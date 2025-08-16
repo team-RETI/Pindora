@@ -37,5 +37,5 @@ final class OneTimeAskViewController: UIViewController {
 }
 
 #Preview {
-    OneTimeAskViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl()))
+    OneTimeAskViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl(), userUseCase: StubUserUsecaseImpl()))
 }

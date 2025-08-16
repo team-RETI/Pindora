@@ -57,7 +57,7 @@ final class LoginViewController: UIViewController {
 }
 
 #Preview {
-    LoginViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl()))
+    LoginViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl(), userUseCase: StubUserUsecaseImpl()))
 }
 
 

@@ -12,13 +12,12 @@ import Combine
 final class FirebaseDatabaseManager {
     static let shared = FirebaseDatabaseManager()
     private init() {}
-    
     private let db = Firestore.firestore()
 }
 
 // MARK: - 기본 CRUD (escaping)
 extension FirebaseDatabaseManager {
-    func create(collection: String, documentID: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+    private func create(collection: String, documentID: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
         db.collection(collection).document(documentID).setData(data) { error in
             if let error = error {
                 completion(.failure(error))
@@ -28,7 +27,7 @@ extension FirebaseDatabaseManager {
         }
     }
     
-    func read(collection: String, documentID: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
+    private func read(collection: String, documentID: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
         db.collection(collection).document(documentID).getDocument { snapshot, error in
             if let error = error {
                 completion(.failure(error))
@@ -40,7 +39,7 @@ extension FirebaseDatabaseManager {
         }
     }
     
-    func update(collection: String, documentID: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+    private func update(collection: String, documentID: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
         db.collection(collection).document(documentID).updateData(data) { error in
             if let error = error {
                 completion(.failure(error))
@@ -50,7 +49,7 @@ extension FirebaseDatabaseManager {
         }
     }
     
-    func delete(collection: String, documentID: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    private func delete(collection: String, documentID: String, completion: @escaping (Result<Void, Error>) -> Void) {
         db.collection(collection).document(documentID).delete { error in
             if let error = error {
                 completion(.failure(error))
@@ -88,12 +87,26 @@ extension FirebaseDatabaseManager {
                         promise(.failure(error))
                     }
                 case .failure(let error):
-                    promise(.failure(error))
+                    let nsError = error as NSError
+                    // print("🔥 readGenericPublisher error code: \(nsError.code), domain: \(nsError.domain)")
+
+                    if nsError.code == FirestoreErrorCode.notFound.rawValue || nsError.code == -1 {
+                        // ✅ 문서 없음 → 명시적으로 notFound 에러 던지기
+                        let notFoundError = NSError(
+                            domain: "FirestoreError",
+                            code: FirestoreErrorCode.notFound.rawValue,
+                            userInfo: [NSLocalizedDescriptionKey: "문서를 찾을 수 없습니다."]
+                        )
+                        promise(.failure(notFoundError))
+                    } else {
+                        promise(.failure(error))
+                    }
                 }
             }
         }
         .eraseToAnyPublisher()
     }
+
     
     func readAllGenericPublisher<T: Decodable>(collection: String, as type: T.Type) -> AnyPublisher<[T], Error> {
         Future<[T], Error> { promise in

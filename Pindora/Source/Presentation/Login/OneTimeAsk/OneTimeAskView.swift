@@ -10,6 +10,7 @@ import UIKit
 final class OneTimeAskView: UIView {
     
     // MARK: - UI Component
+    let nextButton = NextButton(title: "다음")
 
     // MARK: - Initializer
     override init(frame: CGRect) {
@@ -24,18 +25,25 @@ final class OneTimeAskView: UIView {
 
     // MARK: - (F)UI Setup
     private func setupUI() {
-        backgroundColor = .systemBackground
-
+        backgroundColor = .white
+        
+        [nextButton].forEach {
+            self.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
 
     // MARK: - (F)Constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-
+            nextButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40),
+            nextButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            nextButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            nextButton.heightAnchor.constraint(equalToConstant: 45),
         ])
     }
 }
 
 #Preview {
-    OneTimeAskView()
+    OneTimeAskViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl(), userUseCase: StubUserUsecaseImpl()))
 }

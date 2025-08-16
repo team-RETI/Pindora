@@ -9,14 +9,18 @@ import Foundation
 import Combine
 import FirebaseAuth
 
-final class AuthRepositoryImpl: AuthRepository {
+final class AuthRepositoryImpl: AuthRepositoryProtocol {
     private let authManager: FirebaseAuthManager
     
     init(authManager: FirebaseAuthManager = FirebaseAuthManager()) {
         self.authManager = authManager
     }
     
-    func signInWithApple() -> AnyPublisher<FirebaseAuth.AuthDataResult, any Error> {
-        return authManager.startSignInWithAppleFlow().eraseToAnyPublisher()
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), DBError> {
+        return authManager.requestAppleAuthorization()
+    }
+    
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, DBError> {
+        return authManager.authenticateWithApple(idToken: idToken, rawNonce: rawNonce)
     }
 }

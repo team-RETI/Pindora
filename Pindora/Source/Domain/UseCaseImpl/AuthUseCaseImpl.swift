@@ -9,29 +9,74 @@ import Foundation
 import Combine
 import FirebaseAuth
 
+//enum LoginError: LocalizedError {
+//    case invalidCredential
+//    case userNotFound
+//    case error(Error)
+//
+//    var errorDescription: String? {
+//        switch self {
+//        case .invalidCredential:
+//            return "⚠️ 유효하지 않은 Credential입니다."
+//        case .userNotFound:
+//            return "⚠️ 해당 유저를 찾을 수 없습니다."
+//        case .error(let error):
+//            return "⚠️ 알 수 없음: \(error.localizedDescription)"
+//        }
+//    }
+//}
+
+//extension Error {
+//    func toLoginError() -> LoginError {
+//        let e = self as NSError
+//        if e.domain == AuthErrorDomain {
+//            switch e.code {
+//            case AuthErrorCode.userNotFound.rawValue:
+//                return .userNotFound
+//            case AuthErrorCode.invalidCredential.rawValue:
+//                return .invalidCredential
+//            default:
+//                break
+//            }
+//        }
+//        return .error(self) // 나머지는 그대로 래핑
+//    }
+//}
+
 final class AuthUseCaseImpl: AuthUseCaseProtocol {
-    private let authRepository: AuthRepository
     
-    init(authRepository: AuthRepository) {
+    private let authRepository: AuthRepositoryProtocol
+    
+    init(authRepository: AuthRepositoryProtocol) {
         self.authRepository = authRepository
     }
     
-    func signInWithApple() -> AnyPublisher<User, any Error> {
-        return authRepository.signInWithApple().map{ User(from: $0.user) }.eraseToAnyPublisher()
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), ServiceError> {
+        return authRepository.requestAppleAuthorization()
+            .mapError { ServiceError.error($0) }
+            .eraseToAnyPublisher()
+    }
+    
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, ServiceError> {
+        return authRepository.authenticateWithApple(idToken: idToken, rawNonce: rawNonce)
+            .mapError { ServiceError.error($0) }
+            .eraseToAnyPublisher()
     }
 }
 
 final class StubAuthUseCaseImpl: AuthUseCaseProtocol {
-    func signInWithApple() -> AnyPublisher<User, Error> {
-        let dummyUser = User(
-            userId: "12345",
-            userImage: nil,
-            personaName: "테스트 유저",
-            personaDescription: "Stub Persona",
-            likedPlaces: []
-        )
-        return Just(dummyUser)
-            .setFailureType(to: Error.self)
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), ServiceError> {
+        let dummyIDToken = "mock_id_token_123"
+        let dummyRawNonce = "mock_nonce_abc"
+        
+        return Just((idToken: dummyIDToken, rawNonce: dummyRawNonce))
+            .setFailureType(to: ServiceError.self)
+            .eraseToAnyPublisher()
+    }
+    
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, ServiceError> {
+        return Just(())
+            .setFailureType(to: ServiceError.self)
             .eraseToAnyPublisher()
     }
 }
