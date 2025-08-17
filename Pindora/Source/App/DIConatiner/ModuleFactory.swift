@@ -35,7 +35,8 @@ final class ModuleFactory {
     func makeLoginVC() -> UIViewController {
         let viewModel: LoginViewModel = getOrCreateViewModel(for: .login) {
             let useCase = DIContainer.shared.resolve(AuthUseCase.self)
-            return LoginViewModel(authUseCase: useCase)
+            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
+            return LoginViewModel(authUseCase: useCase, userUseCase: userUseCase)
         }
         return LoginViewController(viewModel: viewModel)
     }
@@ -43,7 +44,8 @@ final class ModuleFactory {
     func makeOneTimeAskVC() -> UIViewController {
         let viewModel: LoginViewModel = getOrCreateViewModel(for: .login) {
             let useCase = DIContainer.shared.resolve(AuthUseCase.self)
-            return LoginViewModel(authUseCase: useCase)
+            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
+            return LoginViewModel(authUseCase: useCase, userUseCase: userUseCase)
         }
         return OneTimeAskViewController(viewModel: viewModel)
     }
@@ -86,7 +88,8 @@ final class ModuleFactory {
     
     func makeProfileVC() -> ProfileViewController {
         let viewModel: ProfileViewModel = getOrCreateViewModel(for: .profile) {
-            ProfileViewModel()
+            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
+            return ProfileViewModel(userUseCase: userUseCase)
         }
         return ProfileViewController(viewModel: viewModel)
     }

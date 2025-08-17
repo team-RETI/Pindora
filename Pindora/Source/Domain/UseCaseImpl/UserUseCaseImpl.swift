@@ -32,3 +32,33 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
         return repository.delete(from: collection, id: uid)
     }
 }
+
+final class StubUserUseCaseImpl: UserUseCaseProtocol {
+    
+    func saveUser(user: User) -> AnyPublisher<Void, Error> {
+        print("Stub: 사용자 저장 \(user.userId)")
+        return Just(())
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+    
+    func fetchUser(uid: String) -> AnyPublisher<User, Error> {
+        let dummyUser = User(
+            userId: uid,
+            userImage: nil,
+            personaName: "Stub 유저",
+            personaDescription: "테스트 설명",
+            likedPlaces: []
+        )
+        return Just(dummyUser)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+    
+    func deleteUser(uid: String) -> AnyPublisher<Void, Error> {
+        print("Stub: 사용자 삭제 \(uid)")
+        return Just(())
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+}
