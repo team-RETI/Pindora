@@ -31,6 +31,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // 3. 로그인 여부 확인(일단 하드코딩)
         let isLoggedIn: Bool = Auth.auth().currentUser != nil
+        if let user = Auth.auth().currentUser {
+            print("로그인된 사용자 ID: \(user.uid)")
+        } else {
+            print("로그인되지 않은 상태")
+        }
         let coordinator = AppCoordinator(navigationController: navigationController, isLoggedIn: isLoggedIn)
         self.appCoordinator = coordinator
         coordinator.start()
