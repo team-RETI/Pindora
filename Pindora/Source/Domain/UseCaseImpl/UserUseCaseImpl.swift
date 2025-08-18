@@ -18,14 +18,14 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
         self.repository = repository
     }
     
-    func saveUser(user: User) -> AnyPublisher<Void, ServiceError> {
+    func saveUser(user: User) -> AnyPublisher<Void, DomainError> {
         let dto = user.toDTO()
         return repository.create(dto, at: collection, id: user.userId)
-            .mapError { ServiceError.error($0) }
+            .mapError { DomainError.error($0) }
             .eraseToAnyPublisher()
     }
     
-    func fetchUser(uid: String) -> AnyPublisher<User, ServiceError> {
+    func fetchUser(uid: String) -> AnyPublisher<User, DomainError> {
         return repository
             .fetch(from: collection, id: uid, as: UserDTO.self)
             .map { $0.toEntity() }
@@ -44,22 +44,22 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
             .eraseToAnyPublisher()
     }
     
-    func deleteUser(uid: String) -> AnyPublisher<Void, ServiceError> {
+    func deleteUser(uid: String) -> AnyPublisher<Void, DomainError> {
         return repository.delete(from: collection, id: uid)
-            .mapError { ServiceError.error($0) }
+            .mapError { DomainError.error($0) }
             .eraseToAnyPublisher()
     }
 }
 
 final class StubUserUsecaseImpl: UserUseCaseProtocol {
-    func saveUser(user: User) -> AnyPublisher<Void, ServiceError> {
+    func saveUser(user: User) -> AnyPublisher<Void, DomainError> {
         // 즉시 성공 반환
         return Just(())
-            .setFailureType(to: ServiceError.self)
+            .setFailureType(to: DomainError.self)
             .eraseToAnyPublisher()
     }
     
-    func fetchUser(uid: String) -> AnyPublisher<User, ServiceError> {
+    func fetchUser(uid: String) -> AnyPublisher<User, DomainError> {
         // User 모델을 그대로 활용한 더미 유저 생성
         let dummyUser = User(
             userId: uid,
@@ -71,14 +71,14 @@ final class StubUserUsecaseImpl: UserUseCaseProtocol {
             visitedPlaces: []
         )
         return Just(dummyUser)
-            .setFailureType(to: ServiceError.self)
+            .setFailureType(to: DomainError.self)
             .eraseToAnyPublisher()
     }
     
-    func deleteUser(uid: String) -> AnyPublisher<Void, ServiceError> {
+    func deleteUser(uid: String) -> AnyPublisher<Void, DomainError> {
         // 즉시 성공 반환
         return Just(())
-            .setFailureType(to: ServiceError.self)
+            .setFailureType(to: DomainError.self)
             .eraseToAnyPublisher()
     }
 }

@@ -51,32 +51,32 @@ final class AuthUseCaseImpl: AuthUseCaseProtocol {
         self.authRepository = authRepository
     }
     
-    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), ServiceError> {
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), DomainError> {
         return authRepository.requestAppleAuthorization()
-            .mapError { ServiceError.error($0) }
+            .mapError { DomainError.error($0) }
             .eraseToAnyPublisher()
     }
     
-    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, ServiceError> {
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, DomainError> {
         return authRepository.authenticateWithApple(idToken: idToken, rawNonce: rawNonce)
-            .mapError { ServiceError.error($0) }
+            .mapError { DomainError.error($0) }
             .eraseToAnyPublisher()
     }
 }
 
 final class StubAuthUseCaseImpl: AuthUseCaseProtocol {
-    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), ServiceError> {
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), DomainError> {
         let dummyIDToken = "mock_id_token_123"
         let dummyRawNonce = "mock_nonce_abc"
         
         return Just((idToken: dummyIDToken, rawNonce: dummyRawNonce))
-            .setFailureType(to: ServiceError.self)
+            .setFailureType(to: DomainError.self)
             .eraseToAnyPublisher()
     }
     
-    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, ServiceError> {
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, DomainError> {
         return Just(())
-            .setFailureType(to: ServiceError.self)
+            .setFailureType(to: DomainError.self)
             .eraseToAnyPublisher()
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ServiceError: LocalizedError {
+enum DomainError: LocalizedError {
     case invalidState
     case userNotFound
     case error(Error)
@@ -20,3 +20,4 @@ enum ServiceError: LocalizedError {
         }
     }
 }
+ 

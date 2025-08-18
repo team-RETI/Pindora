@@ -22,7 +22,7 @@ protocol AuthRepositoryProtocol {
     ///
     /// 이 메서드는 Apple 로그인 UI를 띄우고, 사용자의 인증 정보를 받아와
     /// Firebase 연동에 필요한 토큰을 제공합니다.
-    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), DBError>
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), InfraError>
     
     
     /// Apple 인증 정보를 사용하여 Firebase에 로그인합니다.
@@ -41,6 +41,6 @@ protocol AuthRepositoryProtocol {
     ///
     /// - 참고: 이 메서드는 Firebase 측에서 사용자가 처음 로그인하는 경우에는
     ///        새 계정을 생성하고, 기존 사용자인 경우에는 해당 계정으로 로그인합니다.
-    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, DBError>
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, InfraError>
 
 }

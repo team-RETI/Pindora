@@ -16,11 +16,11 @@ final class AuthRepositoryImpl: AuthRepositoryProtocol {
         self.authManager = authManager
     }
     
-    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), DBError> {
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), InfraError> {
         return authManager.requestAppleAuthorization()
     }
     
-    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, DBError> {
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, InfraError> {
         return authManager.authenticateWithApple(idToken: idToken, rawNonce: rawNonce)
     }
 }

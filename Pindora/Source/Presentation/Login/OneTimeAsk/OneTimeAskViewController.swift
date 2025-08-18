@@ -5,8 +5,10 @@
 //
 
 import UIKit
+import Combine
 
 final class OneTimeAskViewController: UIViewController {
+    private var cancellables: Set<AnyCancellable> = []
     private let viewModel: LoginViewModel
     private let customView = OneTimeAskView()
     
@@ -32,7 +34,12 @@ final class OneTimeAskViewController: UIViewController {
 
     // MARK: - Bindings
     private func bindViewModel() {
-
+        customView.nextButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                print("다음 버튼")
+            }
+            .store(in: &cancellables)
     }
 }
 

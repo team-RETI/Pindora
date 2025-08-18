@@ -26,11 +26,11 @@ final class LoginViewModel {
         /// loginResultSubject를 읽기 전용으로 감싼 것
         /// 외부에서 .send() 불가능하고 구독만 허용
         /// eraseToAnyPublisher로 타입을 숨겨서 내부 구현이 바뀌어도 외부 코드는 유지 가능
-        let loginResult: AnyPublisher<Result<Void, ServiceError>, Never>
+        let loginResult: AnyPublisher<Result<Void, DomainError>, Never>
     }
     func transform(input: Input) -> Output {
         /// ViewModel 내부에서 이벤트를 발행하는 실제 주체
-        let loginResultSubject = PassthroughSubject<Result<Void, ServiceError>, Never>()
+        let loginResultSubject = PassthroughSubject<Result<Void, DomainError>, Never>()
         
         input.appleLoginTapped
             // 1) 애플 로그인 인증
@@ -38,7 +38,7 @@ final class LoginViewModel {
             /// output: AnyPublisher<(idToken, rawNonce), ServiceError>
             .flatMap { [weak self] in
                 guard let self = self else {
-                    return Empty<(idToken: String, rawNonce: String), ServiceError>().eraseToAnyPublisher()
+                    return Empty<(idToken: String, rawNonce: String), DomainError>().eraseToAnyPublisher()
                 }
                 return self.authUseCase.requestAppleAuthorization()
             }
@@ -47,14 +47,14 @@ final class LoginViewModel {
             /// output: AnyPublisher<Void, ServiceError>
             .flatMap { [weak self] (idToken, rawNonce) in
                 guard let self = self else {
-                    return Empty<Void, ServiceError>().eraseToAnyPublisher()
+                    return Empty<Void, DomainError>().eraseToAnyPublisher()
                 }
                 return self.authUseCase.authenticateWithApple(idToken: idToken, rawNonce: rawNonce)
             }
             // 3) Realtime DB에 유저 존재 여부 확인(기존유저: 정보 가져오기, 신규유저: 회원가입)
             /// input: Void
             /// output: AnyPublisher<Void, ServiceError>
-            .flatMap { [weak self] _ -> AnyPublisher<Void, ServiceError> in
+            .flatMap { [weak self] _ -> AnyPublisher<Void, DomainError> in
                 guard let self = self else {
                     return Fail(error: .invalidState).eraseToAnyPublisher()
                 }
@@ -68,7 +68,7 @@ final class LoginViewModel {
                         print("✅ 기존 유저 로그인: \(String(describing: user))")
                         return ()
                     }
-                    .catch { error -> AnyPublisher<Void, ServiceError> in
+                    .catch { error -> AnyPublisher<Void, DomainError> in
                         switch error {
                         case .userNotFound:
                             
@@ -100,11 +100,11 @@ final class LoginViewModel {
             /// input: Void
             /// output: Result<Void, ServiceError>
             /// Void를 Result.success(())로 감싸는 용도
-            .map { _ in Result<Void, ServiceError>.success(()) }
+            .map { _ in Result<Void, DomainError>.success(()) }
             /// input: Void
             /// output: Just<Result<Void, ServiceError>>
             /// 에러를 Void를 Result.success(())로 감싸는 용도
-            .catch { error -> Just<Result<Void, ServiceError>> in
+            .catch { error -> Just<Result<Void, DomainError>> in
                 Just(.failure(error))
             }
             /// input: Result<Void, ServiceError>

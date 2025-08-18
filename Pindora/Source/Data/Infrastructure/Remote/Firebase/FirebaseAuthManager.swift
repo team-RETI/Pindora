@@ -12,40 +12,15 @@ import CryptoKit
 import Combine
 import UIKit
 
-//enum LoginError: LocalizedError {
-//    
-//    // MARK: - Apple
-//    case missingNonce
-//    case missingAppleIdToken
-//    case invalidCredential
-//    case userNotFound
-//    case unknown(Error)
-//    
-//    var errorDescription: String {
-//        switch self {
-//        case .missingNonce:
-//            return "⚠️ Nonce 값이 없습니다."
-//        case .missingAppleIdToken:
-//            return "⚠️ Apple ID 토큰을 가져오지 못했습니다."
-//        case .invalidCredential:
-//            return "⚠️ 유효하지 않은 Apple Credential입니다."
-//        case .userNotFound:
-//            return "⚠️ 해당 유저를 찾을 수 없습니다."
-//        case .unknown(let error):
-//            return "⚠️ 알 수 없음: \(error.localizedDescription)"
-//        }
-//    }
-//}
-
 final class FirebaseAuthManager: NSObject {
     private var currentNonce: String?
-    private var appleLoginCompletion: ((Result<(idToken: String, rawNonce: String), DBError>) -> Void)?
+    private var appleLoginCompletion: ((Result<(idToken: String, rawNonce: String), InfraError>) -> Void)?
     
     // MARK: - 애플 로그인 요청(회원가입 또는 인증 시작 시 사용)
     /// 애플 로그인 요청 - 클로저 기반
     /// 사용자가 애플 로그인 버튼을 눌렀을 때 로그인 UI를 띄우고, 결과로 idToken과 nonce를 전달한다.
     /// 이 단계는 실제 Firebase 인증 전 단계이며, 회원가입 또는 인증 시도 전에 필요한 Apple 인증 요청 단계이다.
-    private func requestAppleAuthorization(completion: @escaping (Result<(idToken: String, rawNonce: String), DBError>) -> Void) {
+    private func requestAppleAuthorization(completion: @escaping (Result<(idToken: String, rawNonce: String), InfraError>) -> Void) {
         
         let nonce = randomNonceString()
         currentNonce = nonce
@@ -66,7 +41,7 @@ final class FirebaseAuthManager: NSObject {
     // MARK: - Firebase인증(애플 로그인 성공 후 idToken으로 인증 처리
     /// Firebase 애플 로그인 인증 - 클로저 기반
     /// Apple 로그인으로 얻은 idToken과 rawNonce를 바탕으로 Firebase 인증을 수행한다.
-    private func authenticateWithApple(idToken: String, rawNonce: String, completion: @escaping (Result<Void, DBError>) -> Void) {
+    private func authenticateWithApple(idToken: String, rawNonce: String, completion: @escaping (Result<Void, InfraError>) -> Void) {
         let credential = OAuthProvider.appleCredential(
             withIDToken: idToken,
             rawNonce: rawNonce,
@@ -75,7 +50,7 @@ final class FirebaseAuthManager: NSObject {
         
         Auth.auth().signIn(with: credential) { _, error in
             if let error = error {
-                completion(.failure(DBError.error(error)))
+                completion(.failure(InfraError.firebaseUnknown(error)))
             } else {
                 completion(.success(()))
             }
@@ -89,7 +64,7 @@ extension FirebaseAuthManager {
     /// 애플 로그인 요청 - Combine 기반
     /// 위의 클로저 기반 함수(requestAppleAuthorization)를 Future로 감싸 Combine 형태로 제공.
     /// ViewModel 등에서 Combine 체이닝으로 사용하기 편하게 만들어진 래퍼 함수이다.
-    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), DBError> {
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), InfraError> {
         Future { [weak self] promise in
             guard let self = self else { return }
             self.requestAppleAuthorization { result in //
@@ -101,7 +76,7 @@ extension FirebaseAuthManager {
     
     /// Firebase 애플 로그인 인증 - Combine 기반
     /// 위의 클로저 기반 인증 함수를 Future로 감싸 Combine 형태로 제공.
-    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, DBError> {
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, InfraError> {
         Future { [weak self] promise in
             guard let self = self else { return }
             self.authenticateWithApple(idToken: idToken, rawNonce: rawNonce) { result in
@@ -127,17 +102,17 @@ extension FirebaseAuthManager: ASAuthorizationControllerDelegate, ASAuthorizatio
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
 
         guard let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential else {
-            appleLoginCompletion?(.failure((DBError.error(NSError(domain: "apple", code: 1001, userInfo: [NSLocalizedDescriptionKey: "유효하지 않은 credential"])))))
+            appleLoginCompletion?(.failure(InfraError.appleInvalidCredential))
             return
         }
         
         guard let nonce = currentNonce else {
-            appleLoginCompletion?(.failure((DBError.error(NSError(domain: "apple", code: 1002, userInfo: [NSLocalizedDescriptionKey: "nonce 누락"])))))
+            appleLoginCompletion?(.failure(InfraError.appleNonceMissing))
             return
         }
         
         guard let appleIdToken = appleIdCredential.identityToken, let idTokenString = String(data: appleIdToken, encoding: .utf8) else {
-            appleLoginCompletion?(.failure(DBError.error(NSError(domain: "apple", code: 1003, userInfo: [NSLocalizedDescriptionKey: "idToken 파싱 실패"])) ))
+            appleLoginCompletion?(.failure(InfraError.appleIDTokenParsingFailed))
             return
         }
         
@@ -145,8 +120,17 @@ extension FirebaseAuthManager: ASAuthorizationControllerDelegate, ASAuthorizatio
         appleLoginCompletion?(.success((idToken: idTokenString, rawNonce: nonce)))
     }
 
-    private func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: DBError) {
-        appleLoginCompletion?(.failure(DBError.error(error)))
+    // 애플 로그인 실패시 호출됨
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        let customError: InfraError
+        
+        if let appleError = error as? ASAuthorizationError, appleError.code == .canceled {
+            customError = .appleCanceled
+        } else {
+            customError = .appleUnknown(error)
+        }
+
+        appleLoginCompletion?(.failure(customError))
     }
 }
 
@@ -178,3 +162,5 @@ private extension FirebaseAuthManager {
         return result
     }
 }
+
+
