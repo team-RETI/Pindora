@@ -9,9 +9,7 @@ import Combine
 import FirebaseAuth
 
 final class ProfileViewModel {
-    @Published var personaName: String?
-    @Published var personaDescription: String = ""
-    @Published var userImageURL: String?
+    @Published var user: User?
     
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
@@ -41,9 +39,7 @@ final class ProfileViewModel {
                     self?.errorMessage = "사용자 정보를 불러오지 못함: \(error.localizedDescription)"
                 }
             } receiveValue: { [weak self] user in
-                self?.personaName = user.personaName
-                self?.personaDescription = user.personaDescription
-                self?.userImageURL = user.userImage
+                self?.user = user
             }
             .store(in: &cancellables)
     }

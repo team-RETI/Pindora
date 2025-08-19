@@ -42,26 +42,22 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Bindings
     private func bindViewModel() {
-        viewModel.$personaName
-            .receive(on: RunLoop.main)
-            .sink { [weak self] name in
-                self?.customView.setProfileTitleLabel(name)
-            }
-            .store(in: &cancellables)
-        
-        viewModel.$personaDescription
-            .receive(on: RunLoop.main)
-            .sink { [weak self] description in
-                self?.customView.setProfileDescriptionLabel(description)
-            }
-            .store(in: &cancellables)
-        
-        viewModel.$userImageURL
-            .receive(on: RunLoop.main)
+        viewModel.$user
             .compactMap { $0 }
-            .sink { [weak self] urlString in
-                guard let url = URL(string: urlString) else { return }
-                self?.loadImage(from: url)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] (user: User) in
+                self?.customView.setProfileTitleLabel(user.personaName)
+                self?.customView.setProfileDescriptionLabel(user.personaDescription)
+                if let urlString = user.userImage, let url = URL(string: urlString) {
+                    self?.loadImage(from: url)
+                }
+                
+                let saved = user.savedPlaces?.count ?? -1
+                let visited = user.visitedPlaces?.count ?? -1
+                let liked = user.likedPlaces?.count ?? -1
+                self?.customView.updatePlaceCount(saved: saved, visited: visited, liked: liked)
+                
+                
             }
             .store(in: &cancellables)
     }

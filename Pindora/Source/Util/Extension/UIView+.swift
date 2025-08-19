@@ -14,6 +14,7 @@ extension UIView {
         countLabel.font = .systemFont(ofSize: 13)
         countLabel.textAlignment = .center
         countLabel.textColor = .black
+        countLabel.tag = 999  // ⭐️ 여기가 중요
 
         let titleLabel = UILabel()
         titleLabel.text = title
@@ -46,4 +47,15 @@ extension UIView {
         layer.shadowOpacity = opacity
         layer.shadowOffset = offset
     }
+    
+    func findLabelWithTag(_ tag: Int) -> UILabel? {
+            for subview in subviews {
+                if let label = subview as? UILabel, label.tag == tag {
+                    return label
+                } else if let found = subview.findLabelWithTag(tag) {
+                    return found
+                }
+            }
+            return nil
+        }
 }

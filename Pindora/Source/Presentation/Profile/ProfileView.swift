@@ -170,3 +170,19 @@ extension ProfileView {
         profileImageView.image = image
     }
 }
+
+// MARK: - 추가 메서드
+extension ProfileView {
+    func updatePlaceCount(saved: Int, visited: Int, liked: Int) {
+        let counts = [saved, visited, liked]
+
+        for (index, count) in counts.enumerated() {
+            guard statsStackView.arrangedSubviews.indices.contains(index) else { continue }
+            let container = statsStackView.arrangedSubviews[index]
+
+            if let countLabel = container.findLabelWithTag(999) {
+                countLabel.text = "\(count)"
+            }
+        }
+    }
+}
