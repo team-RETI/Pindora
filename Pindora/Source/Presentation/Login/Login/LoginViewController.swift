@@ -49,7 +49,8 @@ final class LoginViewController: UIViewController {
                     print("✅ 애플 로그인 성공")
                     self?.coordinator?.didTapLoginButton()
                 case .failure(let error):
-                    print("❌ 애플 로그인 실패:", error.localizedDescription)
+                    // print("❌ 애플 로그인 실패:", error.localizedDescription)
+                    printFullErrorTrace(error: error)
                 }
             }
             .store(in: &cancellables)

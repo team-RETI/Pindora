@@ -306,7 +306,7 @@
 		DFF8A6712E50DD0000F07F72 /* Exceptions for "Error" folder in "Pindora" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				DomainError.swift,
+				UseCaseError.swift,
 			);
 			target = A7C1AB582E20022D00B8B9E1 /* Pindora */;
 		};

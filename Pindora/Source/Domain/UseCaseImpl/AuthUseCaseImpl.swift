@@ -51,32 +51,34 @@ final class AuthUseCaseImpl: AuthUseCaseProtocol {
         self.authRepository = authRepository
     }
     
-    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), DomainError> {
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), UseCaseError> {
         return authRepository.requestAppleAuthorization()
-            .mapError { DomainError.error($0) }
+            .mapError { RepositoryError.map(from: $0) }
+            .mapError { UseCaseError.unknown($0) }
             .eraseToAnyPublisher()
     }
     
-    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, DomainError> {
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, UseCaseError> {
         return authRepository.authenticateWithApple(idToken: idToken, rawNonce: rawNonce)
-            .mapError { DomainError.error($0) }
+            .mapError { RepositoryError.map(from: $0) }
+            .mapError { UseCaseError.unknown($0) }
             .eraseToAnyPublisher()
     }
 }
 
 final class StubAuthUseCaseImpl: AuthUseCaseProtocol {
-    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), DomainError> {
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), UseCaseError> {
         let dummyIDToken = "mock_id_token_123"
         let dummyRawNonce = "mock_nonce_abc"
         
         return Just((idToken: dummyIDToken, rawNonce: dummyRawNonce))
-            .setFailureType(to: DomainError.self)
+            .setFailureType(to: UseCaseError.self)
             .eraseToAnyPublisher()
     }
     
-    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, DomainError> {
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, UseCaseError> {
         return Just(())
-            .setFailureType(to: DomainError.self)
+            .setFailureType(to: UseCaseError.self)
             .eraseToAnyPublisher()
     }
 }

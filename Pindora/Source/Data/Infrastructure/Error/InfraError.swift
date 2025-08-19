@@ -8,7 +8,7 @@
 import Foundation
 
 // 프레임워크/SDK에서 발생한 오류를 그대로 감싸는 열거형
-enum InfraError: Error {
+enum InfraError: Error, NestedError {
     // MARK: - Common
     case timeout            // 요청 시간 초과
     case networkUnavailable // 네트워크 연결 불가
@@ -61,13 +61,14 @@ extension InfraError: LocalizedError {
     }
 }
 
+extension InfraError {
+    var underlying: Error? {
+        switch self {
+        case .unknown(let error):        return error
+        default:                         return nil
+        }
+    }
+}
 
 
 
-
-
-// MARK: - Unknown
-//        case .firebaseError(let error),
-//                .unknown(let error):
-//            // 원본 error의 localizedDescription을 그대로 노출
-//            return error.localizedDescription

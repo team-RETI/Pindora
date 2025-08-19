@@ -22,7 +22,7 @@ protocol AuthUseCaseProtocol {
     /// 이 메서드는 Apple의 인증 플로우를 시작하고,
     /// Firebase 인증에 사용할 ID 토큰과 nonce를 반환합니다.
     
-    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), DomainError>
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), UseCaseError>
     
     /// Apple 인증 정보를 사용하여 Firebase에 로그인합니다.
     ///
@@ -37,5 +37,5 @@ protocol AuthUseCaseProtocol {
     ///
     /// 이 메서드는 Apple 로그인에서 받은 토큰 정보를 기반으로
     /// Firebase Authentication에 사용자 로그인을 요청합니다.
-    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, DomainError>
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, UseCaseError>
 }

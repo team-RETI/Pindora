@@ -56,7 +56,6 @@ final class FirebaseAuthManager: NSObject {
             }
         }
     }
-    
 }
 
 // MARK: - Combine Wrapper
