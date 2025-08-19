@@ -155,3 +155,18 @@ final class ProfileView: UIView {
         ])
     }
 }
+
+// MARK: - Public Setter
+extension ProfileView {
+    func setProfileTitleLabel(_ title: String?) {
+        profileTitleLabel.text = title
+    }
+    
+    func setProfileDescriptionLabel(_ description: String?) {
+        profileDescriptionLabel.text = description
+    }
+    
+    func setProfileImageView(_ image: UIImage?) {
+        profileImageView.image = image
+    }
+}

@@ -5,11 +5,13 @@
 //
 
 import UIKit
+import Combine
 
 final class ProfileViewController: UIViewController {
     weak var coordinator: ProfileCoordinator?
     private let viewModel: ProfileViewModel
     private let customView = ProfileView()
+    private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Initializer
     init(viewModel: ProfileViewModel) {
@@ -40,7 +42,40 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Bindings
     private func bindViewModel() {
-
+        viewModel.$personaName
+            .receive(on: RunLoop.main)
+            .sink { [weak self] name in
+                self?.customView.setProfileTitleLabel(name)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$personaDescription
+            .receive(on: RunLoop.main)
+            .sink { [weak self] description in
+                self?.customView.setProfileDescriptionLabel(description)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$userImageURL
+            .receive(on: RunLoop.main)
+            .compactMap { $0 }
+            .sink { [weak self] urlString in
+                guard let url = URL(string: urlString) else { return }
+                self?.loadImage(from: url)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func loadImage(from url: URL) {
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let data, let image = UIImage(data: data), error == nil else {
+                print("이미지 로딩 실패: \(error?.localizedDescription ?? "이미지 오류 발생")")
+                return
+            }
+            DispatchQueue.main.async {
+                self?.customView.setProfileImageView(image)
+            }
+        }.resume()
     }
     
     // 버튼 탭 처리
