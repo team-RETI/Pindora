@@ -10,7 +10,7 @@ import UIKit
 final class ProfilePlaceCellListView: UICollectionView, UICollectionViewDelegate {
     
     // MARK: - UI Component
-    private var savedPlaceImages: [UIImage] = ["경복궁","경복궁고화질","남산타워","서울역","스타필드 시청","스타필드","여의도 한강공원","경복궁","경복궁고화질","남산타워","서울역","스타필드 시청","스타필드","여의도 한강공원"].compactMap { UIImage(named: $0) }
+    private var savedPlaces: [Place] = []
     
     // MARK: - Initializer
     override init(frame: CGRect, collectionViewLayout layout : UICollectionViewLayout) {
@@ -44,14 +44,24 @@ final class ProfilePlaceCellListView: UICollectionView, UICollectionViewDelegate
 
 extension ProfilePlaceCellListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return savedPlaceImages.count
+        return savedPlaces.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlaceCell", for: indexPath) as? ProfilePlaceCellView else {
             return UICollectionViewCell()
         }
-        cell.configure(with: savedPlaceImages[indexPath.item])
+        
+        let place = savedPlaces[indexPath.item]
+        cell.configure(with: place.imageURL)
         return cell
+    }
+}
+
+// MARK: - 추가 메서드
+extension ProfilePlaceCellListView {
+    func updateSavedPlaces(_ places: [Place]) {
+        self.savedPlaces = places
+        self.reloadData()
     }
 }

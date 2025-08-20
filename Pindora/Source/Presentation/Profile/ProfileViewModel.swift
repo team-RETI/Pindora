@@ -39,6 +39,7 @@ final class ProfileViewModel {
                     self?.errorMessage = "사용자 정보를 불러오지 못함: \(error.localizedDescription)"
                 }
             } receiveValue: { [weak self] user in
+                print("유저 데이터: \(user)") //가져오는 데이터 확인용 나중에 삭제할 예정
                 self?.user = user
             }
             .store(in: &cancellables)

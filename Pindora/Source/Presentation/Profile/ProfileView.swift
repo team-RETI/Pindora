@@ -185,4 +185,8 @@ extension ProfileView {
             }
         }
     }
+    
+    func updateSavedPlaces(_ places: [Place]) {
+        collectionView.updateSavedPlaces(places)
+    }
 }

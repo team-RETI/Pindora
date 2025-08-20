@@ -57,7 +57,11 @@ final class ProfileViewController: UIViewController {
                 let liked = user.likedPlaces?.count ?? -1
                 self?.customView.updatePlaceCount(saved: saved, visited: visited, liked: liked)
                 
-                
+                if let savedPlaces = user.savedPlaces {
+                    self?.customView.updateSavedPlaces(savedPlaces)
+                } else {
+                    print("저장 장소 가져오기 실패")
+                }
             }
             .store(in: &cancellables)
     }
