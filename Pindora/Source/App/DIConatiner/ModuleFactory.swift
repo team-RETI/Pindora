@@ -114,6 +114,14 @@ final class ModuleFactory {
         }
         return AccountSettingViewController(viewModel: viewModel)
     }
+    
+    func makeLoginViewModel() -> LoginViewModel {
+        getOrCreateViewModel(for: .login) {
+            let authUseCase = DIContainer.shared.resolve(AuthUseCase.self)
+            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
+            return LoginViewModel(authUseCase: authUseCase, userUseCase: userUseCase)
+        }
+    }
 
     
     /// 이미 생성된 ViewModel이 있다면 반환하고,
