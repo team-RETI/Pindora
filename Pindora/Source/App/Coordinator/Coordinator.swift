@@ -58,6 +58,10 @@ final class AppCoordinator: Coordinator {
         navigate(to: isLoggedIn ? .mainTab : .login)
     }
     
+    func navigateToMainTab() {
+        navigate(to: .mainTab)
+    }
+    
     private func navigate(to route: Route) {
         switch route {
         case .login:
@@ -101,6 +105,10 @@ final class LoginCoordinator: Coordinator {
     }
 >>>>>>> 07717df ([#67] 소셜 로그인 mvvm 구현)
     
+    func navigateToMainTab() {
+        navigate(to: .mainTab)
+    }
+    
     private func navigate(to route: Route) {
         switch route {
         case .login:
@@ -138,6 +146,17 @@ final class LoginFlowCoordinator: Coordinator {
     
     func start() {
         navigate(to: .oneTimeAsk)
+    }
+    
+    func navigateToHome() {
+        finishFlow()
+        if let appCoordinator = parentCoordinator as? AppCoordinator {
+            appCoordinator.navigateToMainTab()
+        }
+    }
+    
+    func finishFlow() {
+        parentCoordinator?.childDidFinish(self)
     }
     
     private func navigate(to route: Route) {

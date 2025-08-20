@@ -18,6 +18,7 @@ final class AuthRepositoryImpl: AuthRepositoryProtocol {
     
     func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), InfraError> {
         return authManager.requestAppleAuthorization()
+            .eraseToAnyPublisher()
     }
     
     func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, InfraError> {

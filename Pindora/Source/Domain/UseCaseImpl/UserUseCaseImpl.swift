@@ -20,7 +20,7 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
     func saveUser(user: User) -> AnyPublisher<Void, UseCaseError> {
         let dto = user.toDTO()
         return repository.create(dto, at: collection, id: user.userId)
-            .mapError { UseCaseError.unknown($0) }
+            .mapToUseCaseError()
             .eraseToAnyPublisher()
     }
     
@@ -28,13 +28,13 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
         return repository
             .fetch(from: collection, id: uid, as: UserDTO.self)
             .map { $0.toEntity() }
-            .mapError { UseCaseError.unknown($0) }
+            .mapToUseCaseError()
             .eraseToAnyPublisher()
     }
     
     func deleteUser(uid: String) -> AnyPublisher<Void, UseCaseError> {
         return repository.delete(from: collection, id: uid)
-            .mapError { UseCaseError.unknown($0) }
+            .mapToUseCaseError()
             .eraseToAnyPublisher()
     }
 }
@@ -56,7 +56,7 @@ final class StubUserUsecaseImpl: UserUseCaseProtocol {
         return repository
             .fetch(from: "Users", id: testUID, as: UserDTO.self)
             .map { $0.toEntity() }
-            .mapError { UseCaseError.unknown($0) }
+            .mapError { UseCaseError.map(from: $0 as! RepositoryError) }
             .eraseToAnyPublisher()
     }
 
@@ -69,53 +69,17 @@ final class StubUserUsecaseImpl: UserUseCaseProtocol {
 }
 
 
-
-
-
-//            .mapError { error in
-//                let nsError = error as NSError
-//
-//                // ✅ code만 가지고 판단
-//                if nsError.code == FirestoreErrorCode.notFound.rawValue {
-//                    print("✅ userNotFound 로 매핑됨")
-//                    return .userNotFound
-//                } else {
-//                    print("❌ 알 수 없는 에러로 error(...)에 래핑됨")
-//                    return .error(error)
-//                }
-//            }
-
-
-/*
-final class StubUserUsecaseImpl: UserUseCaseProtocol {
-    func saveUser(user: User) -> AnyPublisher<Void, DomainError> {
-        // 즉시 성공 반환
-        return Just(())
-            .setFailureType(to: DomainError.self)
-            .eraseToAnyPublisher()
-    }
-    
-    func fetchUser(uid: String) -> AnyPublisher<User, DomainError> {
-        // User 모델을 그대로 활용한 더미 유저 생성
-        let dummyUser = User(
-            userId: uid,
-            userImage: "https://example.com/dummy_profile.png",
-            personaName: "테스트 유저",
-            personaDescription: "3개의 장소를 저장해보세요.",
-            likedPlaces: [],
-            savedPlaces: [],
-            visitedPlaces: []
-        )
-        return Just(dummyUser)
-            .setFailureType(to: DomainError.self)
-            .eraseToAnyPublisher()
-    }
-    
-    func deleteUser(uid: String) -> AnyPublisher<Void, DomainError> {
-        // 즉시 성공 반환
-        return Just(())
-            .setFailureType(to: DomainError.self)
-            .eraseToAnyPublisher()
+// .mapError { UseCaseError.map(from: $0 as! RepositoryError) }
+extension Publisher where Failure == Error {
+    func mapToUseCaseError() -> Publishers.MapError<Self, UseCaseError> {
+        self.mapError { error in
+            if let repo = error as? RepositoryError {
+                return UseCaseError.map(from: repo)
+            } else if let infra = error as? InfraError {
+                return UseCaseError.map(from: RepositoryError.map(from: infra)) // ✅ 깔끔하게
+            } else {
+                return .unknown(.unknown(.unknown(error)))
+            }
+        }
     }
 }
-*/

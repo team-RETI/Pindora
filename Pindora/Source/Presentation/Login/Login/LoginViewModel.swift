@@ -29,90 +29,81 @@ final class LoginViewModel {
         let loginResult: AnyPublisher<Result<Void, UseCaseError>, Never>
     }
     func transform(input: Input) -> Output {
-        /// ViewModel 내부에서 이벤트를 발행하는 실제 주체
-        let loginResultSubject = PassthroughSubject<Result<Void, UseCaseError>, Never>()
-        
-        input.appleLoginTapped
-            // 1) 애플 로그인 인증
-            /// input: Void
-            /// output: AnyPublisher<(idToken, rawNonce), ServiceError>
-            .flatMap { [weak self] in
+        let loginResult: AnyPublisher<Result<Void, UseCaseError>, Never> = input.appleLoginTapped
+            .map { [weak self] _ -> AnyPublisher<Result<Void, UseCaseError>, Never> in
                 guard let self = self else {
-                    return Empty<(idToken: String, rawNonce: String), UseCaseError>().eraseToAnyPublisher()
+                    return Just(.failure(.invalidState)).eraseToAnyPublisher()
                 }
+
+                // 1) 애플 로그인 인증
+                /// input: Void
+                /// output: AnyPublisher<(idToken, rawNonce), UseCaseError>
                 return self.authUseCase.requestAppleAuthorization()
-            }
-            // 2) Firebase Auth 인증
-            /// input: idToken, rawNonce
-            /// output: AnyPublisher<Void, ServiceError>
-            .flatMap { [weak self] (idToken, rawNonce) in
-                guard let self = self else {
-                    return Empty<Void, UseCaseError>().eraseToAnyPublisher()
-                }
-                return self.authUseCase.authenticateWithApple(idToken: idToken, rawNonce: rawNonce)
-            }
-            // 3) Realtime DB에 유저 존재 여부 확인(기존유저: 정보 가져오기, 신규유저: 회원가입)
-            /// input: Void
-            /// output: AnyPublisher<Void, ServiceError>
-            .flatMap { [weak self] _ -> AnyPublisher<Void, UseCaseError> in
-                guard let self = self else {
-                    return Fail(error: .invalidState).eraseToAnyPublisher()
-                }
-                
-                guard let uid = Auth.auth().currentUser?.uid else {
-                    return Fail(error: .invalidState).eraseToAnyPublisher()
-                }
-                
-                return self.userUseCase.fetchUser(uid: uid)
-                    .map { user in
-                        print("✅ 기존 유저 로그인: \(String(describing: user))")
-                        return ()
-                    }
-                    .catch { error -> AnyPublisher<Void, UseCaseError> in
-                        switch error {
-                        case .userNotFound:
-                            
-                            let newUser = User(
-                                userId: uid,
-                                userImage: "https://example.com/default_profile.png",
-                                personaName: "초보 도시 탐험가",
-                                personaDescription: "",
-                                likedPlaces: [],
-                                savedPlaces: [],
-                                visitedPlaces: []
-                            )
-                            
-                            return self.userUseCase.saveUser(user: newUser)
-                                .handleEvents(receiveCompletion: { completion in
-                                    if case .finished = completion {
-                                        print("✅ 신규 유저 Firestore 저장 완료")
-                                    }
-                                })
-                                .eraseToAnyPublisher()
-                            
-                        default:
-                            print("❌ 알 수 없는 오류: \(error)")
-                            return Fail(error: error).eraseToAnyPublisher()
+                    
+                    // 2) Firebase Auth 인증
+                    /// input: idToken, rawNonce
+                    /// output: AnyPublisher<Void, UseCaseError>
+                    .flatMap { [weak self] (idToken, rawNonce) in
+                        guard let self = self else {
+                            return Empty<Void, UseCaseError>().eraseToAnyPublisher()
                         }
+                        return self.authUseCase.authenticateWithApple(idToken: idToken, rawNonce: rawNonce)
                     }
+                    // 3) Realtime DB에 유저 존재 여부 확인(기존유저: 정보 가져오기, 신규유저: 회원가입)
+                    /// input: Void
+                    /// output: AnyPublisher<Void, UseCaseError>
+                    .flatMap { [weak self] _ -> AnyPublisher<Void, UseCaseError> in
+                        guard let self = self else {
+                            return Fail(error: .invalidState).eraseToAnyPublisher()
+                        }
+
+                        guard let uid = Auth.auth().currentUser?.uid else {
+                            return Fail(error: .invalidState).eraseToAnyPublisher()
+                        }
+
+                        return self.userUseCase.fetchUser(uid: uid)
+                            .map { user in
+                                print("✅ 기존 유저 로그인: \(String(describing: user))")
+                                return ()
+                            }
+                            .catch { error -> AnyPublisher<Void, UseCaseError> in
+                                switch error {
+                                case .userNotFound:
+                                    let newUser = User(
+                                        userId: uid,
+                                        userImage: "https://example.com/default_profile.png",
+                                        personaName: "초보 도시 탐험가",
+                                        personaDescription: "",
+                                        likedPlaces: [],
+                                        savedPlaces: [],
+                                        visitedPlaces: []
+                                    )
+
+                                    return self.userUseCase.saveUser(user: newUser)
+                                        .handleEvents(receiveCompletion: { completion in
+                                            if case .finished = completion {
+                                                print("✅ 신규 유저 Firestore 저장 완료")
+                                            }
+                                        })
+                                        .eraseToAnyPublisher()
+
+                                default:
+                                    print("❌ 알 수 없는 오류: \(error)")
+                                    return Fail(error: error).eraseToAnyPublisher()
+                                }
+                            }
+                            .eraseToAnyPublisher()
+                    }
+                    /// 성공 시 Result.success(())로 래핑
+                    .map { Result<Void, UseCaseError>.success(()) }
+                    /// 에러 시 Result.failure(...)로 변환
+                    .catch { error in Just(.failure(error)) }
                     .eraseToAnyPublisher()
             }
-            /// input: Void
-            /// output: Result<Void, ServiceError>
-            /// Void를 Result.success(())로 감싸는 용도
-            .map { _ in Result<Void, UseCaseError>.success(()) }
-            /// input: Void
-            /// output: Just<Result<Void, ServiceError>>
-            /// 에러를 Void를 Result.success(())로 감싸는 용도
-            .catch { error -> Just<Result<Void, UseCaseError>> in
-                Just(.failure(error))
-            }
-            /// input: Result<Void, ServiceError>
-            .sink { result in
-                loginResultSubject.send(result)
-            }
-            .store(in: &cancellables)
-        
-        return Output(loginResult: loginResultSubject.eraseToAnyPublisher())
+            .switchToLatest() // ✅ 버튼 누를 때마다 새로 실행됨
+            .eraseToAnyPublisher()
+
+        return Output(loginResult: loginResult)
     }
+
 }

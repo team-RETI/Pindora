@@ -50,7 +50,7 @@ final class FirebaseAuthManager: NSObject {
         
         Auth.auth().signIn(with: credential) { _, error in
             if let error = error {
-                completion(.failure(InfraError.firebaseUnknown(error)))
+                completion(.failure(InfraError.firebaseError(error)))
             } else {
                 completion(.success(()))
             }
@@ -99,6 +99,7 @@ extension FirebaseAuthManager: ASAuthorizationControllerDelegate, ASAuthorizatio
 
     // 애플 로그인 성공시 호출됨
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        defer { appleLoginCompletion = nil } // ✅ 항상 마지막에 nil 처리
 
         guard let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential else {
             appleLoginCompletion?(.failure(InfraError.appleInvalidCredential))
@@ -121,12 +122,13 @@ extension FirebaseAuthManager: ASAuthorizationControllerDelegate, ASAuthorizatio
 
     // 애플 로그인 실패시 호출됨
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        defer { appleLoginCompletion = nil }
         let customError: InfraError
         
         if let appleError = error as? ASAuthorizationError, appleError.code == .canceled {
             customError = .appleCanceled
         } else {
-            customError = .appleUnknown(error)
+            customError = .appleError(error)
         }
 
         appleLoginCompletion?(.failure(customError))

@@ -9,40 +9,6 @@ import Foundation
 import Combine
 import FirebaseAuth
 
-//enum LoginError: LocalizedError {
-//    case invalidCredential
-//    case userNotFound
-//    case error(Error)
-//
-//    var errorDescription: String? {
-//        switch self {
-//        case .invalidCredential:
-//            return "⚠️ 유효하지 않은 Credential입니다."
-//        case .userNotFound:
-//            return "⚠️ 해당 유저를 찾을 수 없습니다."
-//        case .error(let error):
-//            return "⚠️ 알 수 없음: \(error.localizedDescription)"
-//        }
-//    }
-//}
-
-//extension Error {
-//    func toLoginError() -> LoginError {
-//        let e = self as NSError
-//        if e.domain == AuthErrorDomain {
-//            switch e.code {
-//            case AuthErrorCode.userNotFound.rawValue:
-//                return .userNotFound
-//            case AuthErrorCode.invalidCredential.rawValue:
-//                return .invalidCredential
-//            default:
-//                break
-//            }
-//        }
-//        return .error(self) // 나머지는 그대로 래핑
-//    }
-//}
-
 final class AuthUseCaseImpl: AuthUseCaseProtocol {
     
     private let authRepository: AuthRepositoryProtocol
@@ -54,14 +20,14 @@ final class AuthUseCaseImpl: AuthUseCaseProtocol {
     func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), UseCaseError> {
         return authRepository.requestAppleAuthorization()
             .mapError { RepositoryError.map(from: $0) }
-            .mapError { UseCaseError.unknown($0) }
+            .mapError { UseCaseError.map(from: $0) }
             .eraseToAnyPublisher()
     }
     
     func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, UseCaseError> {
         return authRepository.authenticateWithApple(idToken: idToken, rawNonce: rawNonce)
             .mapError { RepositoryError.map(from: $0) }
-            .mapError { UseCaseError.unknown($0) }
+            .mapError { UseCaseError.map(from: $0) }
             .eraseToAnyPublisher()
     }
 }

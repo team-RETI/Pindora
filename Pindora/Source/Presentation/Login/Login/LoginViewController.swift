@@ -47,10 +47,11 @@ final class LoginViewController: UIViewController {
                 switch result {
                 case .success:
                     print("✅ 애플 로그인 성공")
-                    self?.coordinator?.didTapLoginButton()
+                    // self?.coordinator?.didTapLoginButton()
+                    self?.coordinator?.navigateToMainTab()
                 case .failure(let error):
                     // print("❌ 애플 로그인 실패:", error.localizedDescription)
-                    printFullErrorTrace(error: error)
+                    error.printFullTrace()
                 }
             }
             .store(in: &cancellables)
@@ -60,10 +61,3 @@ final class LoginViewController: UIViewController {
 #Preview {
     LoginViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl(), userUseCase: StubUserUsecaseImpl()))
 }
-
-
-
-
-
-
-
