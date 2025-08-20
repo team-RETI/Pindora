@@ -45,9 +45,10 @@ enum UseCaseError: Error, NestedError, LocalizedError {
         case .appleInvalidCredential(let e),
              .appleNonceMissing(let e),
              .appleIDTokenParsingFailed(let e),
-             .appleCanceled(let e):
-            return e
-        case .unknown(let e), .appleError(let e), .firebaseError(let e):
+             .appleCanceled(let e),
+             .unknown(let e),
+             .appleError(let e),
+             .firebaseError(let e):
             return e
         case .invalidState, .userNotFound:
             return nil

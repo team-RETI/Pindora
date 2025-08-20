@@ -148,9 +148,9 @@ final class LoginFlowCoordinator: Coordinator {
         navigate(to: .oneTimeAsk)
     }
     
-    func navigateToHome() {
+    func navigateToMainTab() {
         finishFlow()
-        if let appCoordinator = parentCoordinator as? AppCoordinator {
+        if let appCoordinator = parentCoordinator as? LoginCoordinator {
             appCoordinator.navigateToMainTab()
         }
     }
@@ -162,8 +162,8 @@ final class LoginFlowCoordinator: Coordinator {
     private func navigate(to route: Route) {
         switch route {
         case .oneTimeAsk:
-            
-            let vc = ModuleFactory.shared.makeOneTimeAskVC()
+            let vc: OneTimeAskViewController = ModuleFactory.shared.makeOneTimeAskVC()
+            vc.coordinator = self
             navigationController.setViewControllers([vc], animated: true)
         }
     }

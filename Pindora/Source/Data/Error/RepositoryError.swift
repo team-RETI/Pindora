@@ -27,10 +27,12 @@ enum RepositoryError: Error, NestedError, LocalizedError {
         case .appleInvalidCredential(let e),
              .appleNonceMissing(let e),
              .appleIDTokenParsingFailed(let e),
-             .appleCanceled(let e):
+             .appleCanceled(let e),
+             .unknown(let e),
+             .appleError(let e),
+             .firebaseError(let e):
             return e
-        case .unknown(let e), .appleError(let e), .firebaseError(let e):
-            return e
+
         }
     }
 
@@ -59,5 +61,4 @@ enum RepositoryError: Error, NestedError, LocalizedError {
         case .unknown: return .unknown(error)
         }
     }
-
 }

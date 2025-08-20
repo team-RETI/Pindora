@@ -8,6 +8,7 @@ import UIKit
 import Combine
 
 final class OneTimeAskViewController: UIViewController {
+    var coordinator: LoginFlowCoordinator?
     private var cancellables: Set<AnyCancellable> = []
     private let viewModel: LoginViewModel
     private let customView = OneTimeAskView()
@@ -37,12 +38,19 @@ final class OneTimeAskViewController: UIViewController {
         customView.nextButton
             .tapPublisher
             .sink { [weak self] _ in
+                
+                if let coordinator = self?.coordinator {
+                    print("✅ coordinator 있음:", coordinator)
+                    coordinator.navigateToMainTab()
+                } else {
+                    print("❌ coordinator is nil")
+                }
                 print("다음 버튼")
             }
             .store(in: &cancellables)
     }
 }
 
-#Preview {
-    OneTimeAskViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl(), userUseCase: StubUserUsecaseImpl()))
-}
+//#Preview {
+//    OneTimeAskViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl(), userUseCase: StubUserUsecaseImpl()))
+//}

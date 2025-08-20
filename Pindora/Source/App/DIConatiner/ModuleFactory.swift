@@ -12,6 +12,8 @@ import UIKit
 /// 각 화면과 1:1로 매핑됩니다.
 enum ModuleKey: String {
     case login
+    case oneTimeAsk
+    
     case home
     case map
     case myPlace
@@ -41,8 +43,8 @@ final class ModuleFactory {
         return LoginViewController(viewModel: viewModel)
     }
     
-    func makeOneTimeAskVC() -> UIViewController {
-        let viewModel: LoginViewModel = getOrCreateViewModel(for: .login) {
+    func makeOneTimeAskVC() -> OneTimeAskViewController {
+        let viewModel: LoginViewModel = getOrCreateViewModel(for: .oneTimeAsk) {
             let authUseCase = DIContainer.shared.resolve(AuthUseCaseProtocol.self)
             let userUsecase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
             return LoginViewModel(authUseCase: authUseCase, userUseCase: userUsecase)

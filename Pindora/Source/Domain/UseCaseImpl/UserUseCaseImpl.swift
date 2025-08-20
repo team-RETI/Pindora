@@ -28,7 +28,7 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
         return repository
             .fetch(from: collection, id: uid, as: UserDTO.self)
             .map { $0.toEntity() }
-            .mapToUseCaseError()
+            .mapError { _ in UseCaseError.userNotFound }
             .eraseToAnyPublisher()
     }
     
@@ -68,7 +68,6 @@ final class StubUserUsecaseImpl: UserUseCaseProtocol {
     }
 }
 
-
 // .mapError { UseCaseError.map(from: $0 as! RepositoryError) }
 extension Publisher where Failure == Error {
     func mapToUseCaseError() -> Publishers.MapError<Self, UseCaseError> {
@@ -76,7 +75,7 @@ extension Publisher where Failure == Error {
             if let repo = error as? RepositoryError {
                 return UseCaseError.map(from: repo)
             } else if let infra = error as? InfraError {
-                return UseCaseError.map(from: RepositoryError.map(from: infra)) // ✅ 깔끔하게
+                return UseCaseError.map(from: RepositoryError.map(from: infra))
             } else {
                 return .unknown(.unknown(.unknown(error)))
             }
