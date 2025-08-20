@@ -1,0 +1,4 @@
+module GoogleUtilities_AppDelegateSwizzler {
+umbrella "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public"
+export *
+}

@@ -103,7 +103,6 @@ final class LoginCoordinator: Coordinator {
     func didTapLoginButton() {
         navigate(to: .loginFlow)
     }
->>>>>>> 07717df ([#67] 소셜 로그인 mvvm 구현)
     
     func navigateToMainTab() {
         navigate(to: .mainTab)

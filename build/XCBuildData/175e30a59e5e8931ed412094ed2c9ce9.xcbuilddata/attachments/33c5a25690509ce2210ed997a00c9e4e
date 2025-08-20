@@ -1,0 +1,4 @@
+module grpcWrapper {
+umbrella "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/grpc-binary/grpc-Wrapper/include"
+export *
+}

@@ -91,6 +91,12 @@
 		DF530C8B2E4C7DFA00C31301 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DF530C8A2E4C7DFA00C31301 /* CombineCocoa */; };
 		DF5A06BA2E3507E500CF61BF /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DF5A06B92E3507E500CF61BF /* Config.xcconfig */; };
 		DF5A0BB12E350D9100CF61BF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A0BAF2E350D9100CF61BF /* Constants.swift */; };
+		DF5F69162E560853004E98BE /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F69102E560853004E98BE /* NextButton.swift */; };
+		DF5F69172E560853004E98BE /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F69112E560853004E98BE /* SocialLoginButton.swift */; };
+		DF5F69182E560853004E98BE /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F69132E560853004E98BE /* Preview.swift */; };
+		DF5F691B2E56087D004E98BE /* InfraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F69192E56087D004E98BE /* InfraError.swift */; };
+		DF5F691E2E560892004E98BE /* RepositoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F691C2E560892004E98BE /* RepositoryError.swift */; };
+		DF5F69202E56090D004E98BE /* Error+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F691F2E56090D004E98BE /* Error+.swift */; };
 		DF5FFE422E20B9BE00C07AD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE412E20B9BE00C07AD3 /* .gitignore */; };
 		DF5FFE442E20BBB300C07AD3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5FFE432E20BBB300C07AD3 /* README.md */; };
 		DF7487B62E38A95200CF9864 /* PindoraShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF7487AC2E38A95200CF9864 /* PindoraShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -246,7 +252,12 @@
 		DF38C61F2E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPIManagerTest.swift; sourceTree = "<group>"; };
 		DF5A06B92E3507E500CF61BF /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		DF5A0BAF2E350D9100CF61BF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		DF5FFE342E20B47E00C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		DF5F69102E560853004E98BE /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
+		DF5F69112E560853004E98BE /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
+		DF5F69132E560853004E98BE /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
+		DF5F69192E56087D004E98BE /* InfraError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfraError.swift; sourceTree = "<group>"; };
+		DF5F691C2E560892004E98BE /* RepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryError.swift; sourceTree = "<group>"; };
+		DF5F691F2E56090D004E98BE /* Error+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+.swift"; sourceTree = "<group>"; };
 		DF5FFE3C2E20B48200C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE3E2E20B48400C07AD3 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF5FFE412E20B9BE00C07AD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -261,7 +272,6 @@
 		DF7A8B9B2E277D0000378AC3 /* AuthUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCaseImpl.swift; sourceTree = "<group>"; };
 		DF7A8B9D2E27804600378AC3 /* AuthRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryProtocol.swift; sourceTree = "<group>"; };
 		DF883AC52E34B5C200F67BF9 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
-		DF883AC72E34B5C200F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF883ACA2E34B5C700F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF883ACC2E34B5CA00F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DF883ACE2E34B5CB00F67BF9 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -303,14 +313,16 @@
 			);
 			target = DF7487AB2E38A95200CF9864 /* PindoraShareExtension */;
 		};
+		DF5F690F2E56083F004E98BE /* Exceptions for "Error" folder in "Pindora" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				UseCaseError.swift,
+			);
+			target = A7C1AB582E20022D00B8B9E1 /* Pindora */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		DF3A927D2E4C5100000512D8 /* CustomUI */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CustomUI;
-			sourceTree = "<group>";
-		};
 		DF7487AD2E38A95200CF9864 /* PindoraShareExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -319,13 +331,11 @@
 			path = PindoraShareExtension;
 			sourceTree = "<group>";
 		};
-		DFF8A66B2E50D1EE00F07F72 /* Error */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Error;
-			sourceTree = "<group>";
-		};
 		DFF8A66E2E50DCF900F07F72 /* Error */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DF5F690F2E56083F004E98BE /* Exceptions for "Error" folder in "Pindora" target */,
+			);
 			path = Error;
 			sourceTree = "<group>";
 		};
@@ -485,7 +495,6 @@
 		A7F2E1732E2007C10045D175 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				DF5FFE342E20B47E00C07AD3 /* .gitkeep */,
 				DFF8A66E2E50DCF900F07F72 /* Error */,
 				A7F2E1782E2008360045D175 /* Entity */,
 				A7F2E17A2E20084F0045D175 /* Repository */,
@@ -521,6 +530,7 @@
 		A7F2E1772E2008220045D175 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				DF5F691F2E56090D004E98BE /* Error+.swift */,
 				DF5FFE3E2E20B48400C07AD3 /* .gitkeep */,
 				A7D418BE2E2A344700B17044 /* UIButton+.swift */,
 				A7D418C02E2A364D00B17044 /* UIView+.swift */,
@@ -628,7 +638,7 @@
 		A7F2E1992E200A640045D175 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
-				DF3A927D2E4C5100000512D8 /* CustomUI */,
+				DF5F69152E560853004E98BE /* CustomUI */,
 				A7F2E19C2E200A830045D175 /* FontSystem.swift */,
 			);
 			path = DesignSystem;
@@ -713,6 +723,48 @@
 			path = Constant;
 			sourceTree = "<group>";
 		};
+		DF5F69122E560853004E98BE /* Button+ */ = {
+			isa = PBXGroup;
+			children = (
+				DF5F69102E560853004E98BE /* NextButton.swift */,
+				DF5F69112E560853004E98BE /* SocialLoginButton.swift */,
+			);
+			path = "Button+";
+			sourceTree = "<group>";
+		};
+		DF5F69142E560853004E98BE /* Preview+ */ = {
+			isa = PBXGroup;
+			children = (
+				DF5F69132E560853004E98BE /* Preview.swift */,
+			);
+			path = "Preview+";
+			sourceTree = "<group>";
+		};
+		DF5F69152E560853004E98BE /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				DF5F69122E560853004E98BE /* Button+ */,
+				DF5F69142E560853004E98BE /* Preview+ */,
+			);
+			path = CustomUI;
+			sourceTree = "<group>";
+		};
+		DF5F691A2E56087D004E98BE /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				DF5F69192E56087D004E98BE /* InfraError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		DF5F691D2E560892004E98BE /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				DF5F691C2E560892004E98BE /* RepositoryError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
 		DF5FFE2F2E20B47000C07AD3 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -754,6 +806,7 @@
 		DF883ABF2E34B5C200F67BF9 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				DF5F691A2E56087D004E98BE /* Error */,
 				DF883AC02E34B5C200F67BF9 /* Local */,
 				DF883AC42E34B5C200F67BF9 /* Remote */,
 			);
@@ -804,7 +857,6 @@
 		DF883AC42E34B5C200F67BF9 /* Remote */ = {
 			isa = PBXGroup;
 			children = (
-				DFF8A66B2E50D1EE00F07F72 /* Error */,
 				DF883AC12E34B5C200F67BF9 /* DTO */,
 				DF883AC22E34B5C200F67BF9 /* Firebase */,
 				DF883AC32E34B5C200F67BF9 /* Naver */,
@@ -826,9 +878,9 @@
 		DF883AC82E34B5C200F67BF9 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DF5F691D2E560892004E98BE /* Error */,
 				DF883ABF2E34B5C200F67BF9 /* Infrastructure */,
 				DF883AC62E34B5C200F67BF9 /* RepositoryImpl */,
-				DF883AC72E34B5C200F67BF9 /* .gitkeep */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -898,10 +950,6 @@
 			);
 			dependencies = (
 				DF7487B52E38A95200CF9864 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				DF3A927D2E4C5100000512D8 /* CustomUI */,
-				DFF8A66B2E50D1EE00F07F72 /* Error */,
 			);
 			name = Pindora;
 			packageProductDependencies = (
@@ -1097,6 +1145,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF5F69162E560853004E98BE /* NextButton.swift in Sources */,
+				DF5F69172E560853004E98BE /* SocialLoginButton.swift in Sources */,
+				DF5F69182E560853004E98BE /* Preview.swift in Sources */,
 				A7F5454E2E38816A0014EB85 /* CardDetailView.swift in Sources */,
 				89728D862E33DC71002B3ACE /* StorageRepositoryImpl.swift in Sources */,
 				A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */,
@@ -1128,6 +1179,7 @@
 				A778D2E12E28F212006B3309 /* HomeView.swift in Sources */,
 				A78571942E3E54C50021F72D /* LikeCountLabelView.swift in Sources */,
 				89728D9E2E33DEBC002B3ACE /* User.swift in Sources */,
+				DF5F69202E56090D004E98BE /* Error+.swift in Sources */,
 				A725E9A72E2FA32000EEA3F5 /* AccountSettingView.swift in Sources */,
 				A7854E3C2E4B30E5002A5C2A /* KakaoSearchAPIManager.swift in Sources */,
 				DF1F40E42E279E8200BE27AC /* LoginView.swift in Sources */,
@@ -1150,6 +1202,7 @@
 				A778D2E32E29756E006B3309 /* ProfilePlaceCellView.swift in Sources */,
 				DF1F40F22E279F6600BE27AC /* MyPlaceView.swift in Sources */,
 				A725E9B12E2FA53A00EEA3F5 /* ImageSelectorView.swift in Sources */,
+				DF5F691B2E56087D004E98BE /* InfraError.swift in Sources */,
 				A725E9B52E2FE60900EEA3F5 /* SettingListViewModel.swift in Sources */,
 				DF1F3FB62E279C4100BE27AC /* HomeViewController.swift in Sources */,
 				A725E9AB2E2FA4E300EEA3F5 /* ProfileEditViewModel.swift in Sources */,
@@ -1181,6 +1234,7 @@
 				DF7A87CA2E27786300378AC3 /* DIContainer.swift in Sources */,
 				DFE039B02E352B7500A2060D /* PlaceDTO.swift in Sources */,
 				DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */,
+				DF5F691E2E560892004E98BE /* RepositoryError.swift in Sources */,
 				DF1F3E792E27859B00BE27AC /* SceneDelegate.swift in Sources */,
 				89AC93FE2E38D7B6006446CD /* UserDTO.swift in Sources */,
 				89728D962E33DE2A002B3ACE /* ImageUseCaseImpl.swift in Sources */,

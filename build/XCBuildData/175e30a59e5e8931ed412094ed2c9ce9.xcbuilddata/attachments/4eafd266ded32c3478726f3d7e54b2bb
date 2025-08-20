@@ -1,0 +1,4 @@
+module opensslWrapper {
+umbrella "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/grpc-binary/openssl-grpc-Wrapper/include"
+export *
+}

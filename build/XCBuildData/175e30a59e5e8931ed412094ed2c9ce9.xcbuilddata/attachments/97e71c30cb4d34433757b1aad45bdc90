@@ -1,0 +1,480 @@
+{
+  "" : {
+    "const-values" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Pindora-master.swiftconstvalues",
+    "dependencies" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Pindora-master.d",
+    "diagnostics" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Pindora-master.dia",
+    "emit-module-dependencies" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Pindora-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Pindora-master-emit-module.dia",
+    "swift-dependencies" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Pindora-master.swiftdeps"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Resource/DesignSystem/CustomUI/Button+/NextButton.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/NextButton.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/NextButton.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/NextButton.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Resource/DesignSystem/CustomUI/Button+/SocialLoginButton.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SocialLoginButton.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SocialLoginButton.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SocialLoginButton.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Resource/DesignSystem/CustomUI/Preview+/Preview.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Preview.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Preview.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Preview.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Resource/DesignSystem/FontSystem.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/FontSystem.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/FontSystem.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/FontSystem.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/App/Coordinator/Coordinator.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Coordinator.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Coordinator.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Coordinator.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/App/DIConatiner/DIContainer.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/DIContainer.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/DIContainer.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/DIContainer.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/App/DIConatiner/ModuleFactory.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ModuleFactory.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ModuleFactory.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ModuleFactory.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/App/Delegate/AppDelegate.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AppDelegate.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AppDelegate.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AppDelegate.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/App/Delegate/SceneDelegate.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SceneDelegate.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SceneDelegate.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SceneDelegate.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/Error/RepositoryError.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/RepositoryError.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/RepositoryError.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/RepositoryError.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/Infrastructure/Error/InfraError.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/InfraError.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/InfraError.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/InfraError.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/Infrastructure/Local/UserDefaultsManager.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UserDefaultsManager.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UserDefaultsManager.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UserDefaultsManager.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/Infrastructure/Remote/DTO/KakaoPlaceDTO.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/KakaoPlaceDTO.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/KakaoPlaceDTO.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/KakaoPlaceDTO.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/Infrastructure/Remote/DTO/NaverPlaceDTO.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/NaverPlaceDTO.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/NaverPlaceDTO.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/NaverPlaceDTO.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/Infrastructure/Remote/DTO/PlaceDTO.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PlaceDTO.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PlaceDTO.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PlaceDTO.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/Infrastructure/Remote/DTO/UserDTO.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UserDTO.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UserDTO.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UserDTO.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/Infrastructure/Remote/Firebase/FirebaseAuthManager.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/FirebaseAuthManager.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/FirebaseAuthManager.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/FirebaseAuthManager.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/Infrastructure/Remote/Firebase/FirebaseDatabaseManager.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/FirebaseDatabaseManager.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/FirebaseDatabaseManager.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/FirebaseDatabaseManager.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/Infrastructure/Remote/Firebase/FirebaseStorageManager.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/FirebaseStorageManager.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/FirebaseStorageManager.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/FirebaseStorageManager.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/Infrastructure/Remote/KaKao/KakaoSearchAPIManager.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/KakaoSearchAPIManager.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/KakaoSearchAPIManager.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/KakaoSearchAPIManager.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/Infrastructure/Remote/Naver/NaverSearchAPIManager.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/NaverSearchAPIManager.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/NaverSearchAPIManager.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/NaverSearchAPIManager.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/RepositoryImpl/AuthRepositoryImpl.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AuthRepositoryImpl.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AuthRepositoryImpl.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AuthRepositoryImpl.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/RepositoryImpl/DatabaseRepositoryImpl.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/DatabaseRepositoryImpl.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/DatabaseRepositoryImpl.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/DatabaseRepositoryImpl.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Data/RepositoryImpl/StorageRepositoryImpl.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/StorageRepositoryImpl.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/StorageRepositoryImpl.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/StorageRepositoryImpl.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/Entity/Place.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Place.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Place.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Place.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/Entity/User.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/User.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/User.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/User.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/Error/UseCaseError.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UseCaseError.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UseCaseError.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UseCaseError.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/Repository/AuthRepositoryProtocol.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AuthRepositoryProtocol.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AuthRepositoryProtocol.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AuthRepositoryProtocol.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/Repository/DatabaseRepositoryProtocol.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/DatabaseRepositoryProtocol.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/DatabaseRepositoryProtocol.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/DatabaseRepositoryProtocol.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/Repository/StorageRepositoryProtocol.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/StorageRepositoryProtocol.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/StorageRepositoryProtocol.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/StorageRepositoryProtocol.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/UseCase/AuthUseCaseProtocol.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AuthUseCaseProtocol.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AuthUseCaseProtocol.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AuthUseCaseProtocol.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/UseCase/ImageUseCaseProtocol.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ImageUseCaseProtocol.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ImageUseCaseProtocol.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ImageUseCaseProtocol.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/UseCase/PlaceUseCase.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PlaceUseCase.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PlaceUseCase.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PlaceUseCase.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/UseCase/UserUseCaseProtocol.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UserUseCaseProtocol.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UserUseCaseProtocol.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UserUseCaseProtocol.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/UseCaseImpl/AuthUseCaseImpl.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AuthUseCaseImpl.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AuthUseCaseImpl.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AuthUseCaseImpl.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/UseCaseImpl/ImageUseCaseImpl.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ImageUseCaseImpl.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ImageUseCaseImpl.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ImageUseCaseImpl.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/UseCaseImpl/PlaceUseCaseImpl.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PlaceUseCaseImpl.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PlaceUseCaseImpl.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PlaceUseCaseImpl.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Domain/UseCaseImpl/UserUseCaseImpl.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UserUseCaseImpl.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UserUseCaseImpl.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UserUseCaseImpl.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Custom/CategoryCellListView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CategoryCellListView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CategoryCellListView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CategoryCellListView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Custom/CategoryCellView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CategoryCellView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CategoryCellView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CategoryCellView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Custom/CustomNavBarView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CustomNavBarView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CustomNavBarView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CustomNavBarView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Custom/PlaceList/CardCellListView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardCellListView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardCellListView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardCellListView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Custom/PlaceList/CardCellView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardCellView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardCellView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardCellView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Custom/PlaceList/CardDetailView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardDetailView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardDetailView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardDetailView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Custom/PlaceList/CardDetailViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardDetailViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardDetailViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardDetailViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Custom/PlaceList/CardDetailViewModel.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardDetailViewModel.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardDetailViewModel.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/CardDetailViewModel.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Custom/PlaceList/LikeCountLabelView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/LikeCountLabelView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/LikeCountLabelView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/LikeCountLabelView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Custom/PlaceList/TagLabelView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/TagLabelView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/TagLabelView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/TagLabelView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Home/HomeView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/HomeView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/HomeView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/HomeView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Home/HomeViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/HomeViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/HomeViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/HomeViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Home/HomeViewModel.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/HomeViewModel.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/HomeViewModel.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/HomeViewModel.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Home/SearchBarView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SearchBarView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SearchBarView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SearchBarView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Login/Login/LoginView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/LoginView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/LoginView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/LoginView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Login/Login/LoginViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/LoginViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/LoginViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/LoginViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Login/Login/LoginViewModel.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/LoginViewModel.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/LoginViewModel.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/LoginViewModel.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Login/OneTimeAsk/OneTimeAskView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/OneTimeAskView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/OneTimeAskView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/OneTimeAskView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Login/OneTimeAsk/OneTimeAskViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/OneTimeAskViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/OneTimeAskViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/OneTimeAskViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/MainTab/MainTabViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MainTabViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MainTabViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MainTabViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Map/MapView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MapView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MapView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MapView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Map/MapViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MapViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MapViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MapViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Map/MapViewModel.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MapViewModel.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MapViewModel.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MapViewModel.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Map/MarkerIconFactory.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MarkerIconFactory.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MarkerIconFactory.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MarkerIconFactory.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Map/SelectableMarkerView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SelectableMarkerView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SelectableMarkerView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SelectableMarkerView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/MyPlace/AddPlace/AddPlaceView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AddPlaceView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AddPlaceView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AddPlaceView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/MyPlace/AddPlace/AddPlaceViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AddPlaceViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AddPlaceViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AddPlaceViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/MyPlace/AddPlace/AddPlaceViewModel.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AddPlaceViewModel.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AddPlaceViewModel.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AddPlaceViewModel.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/MyPlace/AddPlace/PreviewCardView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PreviewCardView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PreviewCardView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PreviewCardView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/MyPlace/MyPlaceView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MyPlaceView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MyPlaceView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MyPlaceView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/MyPlace/MyPlaceViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MyPlaceViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MyPlaceViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MyPlaceViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/MyPlace/MyPlaceViewModel.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MyPlaceViewModel.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MyPlaceViewModel.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/MyPlaceViewModel.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/EditProfile/ImageSelectorView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ImageSelectorView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ImageSelectorView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ImageSelectorView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/EditProfile/PersonaInfoCardView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PersonaInfoCardView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PersonaInfoCardView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PersonaInfoCardView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/EditProfile/PersonaPreviewView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PersonaPreviewView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PersonaPreviewView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/PersonaPreviewView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/EditProfile/ProfileEditView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileEditView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileEditView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileEditView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/EditProfile/ProfileEditViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileEditViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileEditViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileEditViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/EditProfile/ProfileEditViewModel.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileEditViewModel.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileEditViewModel.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileEditViewModel.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/EditProfile/SelectableOverlayView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SelectableOverlayView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SelectableOverlayView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SelectableOverlayView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/ProfilePlaceCellListView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfilePlaceCellListView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfilePlaceCellListView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfilePlaceCellListView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/ProfilePlaceCellView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfilePlaceCellView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfilePlaceCellView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfilePlaceCellView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/ProfileView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/ProfileViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/ProfileViewModel.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileViewModel.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileViewModel.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/ProfileViewModel.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/Setting/AccountSettingView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AccountSettingView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AccountSettingView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AccountSettingView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/Setting/AccountSettingViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AccountSettingViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AccountSettingViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AccountSettingViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/Setting/AccountSettingViewModel.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AccountSettingViewModel.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AccountSettingViewModel.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/AccountSettingViewModel.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/Setting/SettingListView.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SettingListView.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SettingListView.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SettingListView.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/Setting/SettingListViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SettingListViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SettingListViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SettingListViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Presentation/Profile/Setting/SettingListViewModel.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SettingListViewModel.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SettingListViewModel.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/SettingListViewModel.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Util/Constant/Constants.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Constants.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Constants.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Constants.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Util/Extension/Error+.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Error+.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Error+.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/Error+.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Util/Extension/UIButton+.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UIButton+.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UIButton+.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UIButton+.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Util/Extension/UILabel+.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UILabel+.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UILabel+.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UILabel+.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/Pindora/Source/Util/Extension/UIView+.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UIView+.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UIView+.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/UIView+.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/Pindora.build/Objects-normal/arm64/GeneratedAssetSymbols.o"
+  }
+}
