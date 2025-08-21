@@ -70,8 +70,8 @@ final class KakaoSearchAPIManager {
         
         var req = URLRequest(url: url)
         req.httpMethod = "GET"
-        req.setValue("KakaoAK d3898164064c5679ec1876f47421c32a", forHTTPHeaderField: "Authorization")
-        // req.setValue("KakaoAK \(Constants.KakaoAPI.KAKAO_REST_API_KEY)", forHTTPHeaderField: "Authorization")
+//        req.setValue("KakaoAK d3898164064c5679ec1876f47421c32a", forHTTPHeaderField: "Authorization")
+        req.setValue("KakaoAK \(Constants.KakaoAPI.restApiKey)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: req) { data, _, error in
             // 네트워크 에러 처리
@@ -128,10 +128,8 @@ final class KakaoSearchAPIManager {
         
         var req = URLRequest(url: url)
         req.httpMethod = "GET"
-        // TODO: 실제 키로 교체 (예: Constants.KakaoAPI.KAKAO_REST_API_KEY)
         req.setValue("KakaoAK \(Constants.KakaoAPI.restApiKey)", forHTTPHeaderField: "Authorization")
         
-        // Combine 파이프라인
         return URLSession.shared.dataTaskPublisher(for: req)
             // 네트워크 레벨 에러 -> KakaoSearchAPIError.network 로 변환
             .mapError { KakaoSearchAPIError.network($0) }

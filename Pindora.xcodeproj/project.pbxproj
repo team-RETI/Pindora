@@ -51,6 +51,9 @@
 		A78571942E3E54C50021F72D /* LikeCountLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78571932E3E54C50021F72D /* LikeCountLabelView.swift */; };
 		A78571A02E3F19AF0021F72D /* SelectableOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785719F2E3F19AF0021F72D /* SelectableOverlayView.swift */; };
 		A78571A32E3F94570021F72D /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = A78571A22E3F94570021F72D /* NMapsMap */; };
+		A78A134D2E533DA600204D8D /* KeywordCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A134C2E533DA600204D8D /* KeywordCloudView.swift */; };
+		A78A134F2E53413600204D8D /* GradientProgressCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A134E2E53413600204D8D /* GradientProgressCardView.swift */; };
+		A78A13512E53446100204D8D /* AppleCardInkProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A13502E53446100204D8D /* AppleCardInkProgressView.swift */; };
 		A7D418BD2E2A281200B17044 /* ProfilePlaceCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BC2E2A281200B17044 /* ProfilePlaceCellListView.swift */; };
 		A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BE2E2A344700B17044 /* UIButton+.swift */; };
 		A7D418C12E2A364D00B17044 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418C02E2A364D00B17044 /* UIView+.swift */; };
@@ -201,6 +204,9 @@
 		A78571912E3E51040021F72D /* TagLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelView.swift; sourceTree = "<group>"; };
 		A78571932E3E54C50021F72D /* LikeCountLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCountLabelView.swift; sourceTree = "<group>"; };
 		A785719F2E3F19AF0021F72D /* SelectableOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableOverlayView.swift; sourceTree = "<group>"; };
+		A78A134C2E533DA600204D8D /* KeywordCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordCloudView.swift; sourceTree = "<group>"; };
+		A78A134E2E53413600204D8D /* GradientProgressCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressCardView.swift; sourceTree = "<group>"; };
+		A78A13502E53446100204D8D /* AppleCardInkProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleCardInkProgressView.swift; sourceTree = "<group>"; };
 		A7C1AB592E20022D00B8B9E1 /* Pindora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pindora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7D418BC2E2A281200B17044 /* ProfilePlaceCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePlaceCellListView.swift; sourceTree = "<group>"; };
 		A7D418BE2E2A344700B17044 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
@@ -648,6 +654,9 @@
 			children = (
 				DF1F40DB2E279E7F00BE27AC /* OneTimeAskView.swift */,
 				DF1F40DC2E279E7F00BE27AC /* OneTimeAskViewController.swift */,
+				A78A134C2E533DA600204D8D /* KeywordCloudView.swift */,
+				A78A134E2E53413600204D8D /* GradientProgressCardView.swift */,
+				A78A13502E53446100204D8D /* AppleCardInkProgressView.swift */,
 			);
 			path = OneTimeAsk;
 			sourceTree = "<group>";
@@ -1076,6 +1085,7 @@
 				DF1F40F82E279F9000BE27AC /* ProfileViewModel.swift in Sources */,
 				89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */,
 				A72C9A2C2E3CD9FC00F6D30E /* PreviewCardView.swift in Sources */,
+				A78A134F2E53413600204D8D /* GradientProgressCardView.swift in Sources */,
 				DFE0388B2E351A4300A2060D /* Place.swift in Sources */,
 				8938CBAF2E367D2D00369EE3 /* FirebaseStorageManager.swift in Sources */,
 				A725E9B32E2FA5CA00EEA3F5 /* ProfileEditViewController.swift in Sources */,
@@ -1100,6 +1110,7 @@
 				DF883AD32E34B67800F67BF9 /* NaverSearchAPIManager.swift in Sources */,
 				A725E9AF2E2FA52900EEA3F5 /* PersonaInfoCardView.swift in Sources */,
 				A70462012E4106F1001D7542 /* MarkerIconFactory.swift in Sources */,
+				A78A13512E53446100204D8D /* AppleCardInkProgressView.swift in Sources */,
 				DF1F40E62E279E8200BE27AC /* LoginViewModel.swift in Sources */,
 				A7F5454A2E37BE5E0014EB85 /* AddPlaceViewModel.swift in Sources */,
 				DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */,
@@ -1136,6 +1147,7 @@
 				DF5A0BB12E350D9100CF61BF /* Constants.swift in Sources */,
 				DF7A8B9E2E27804600378AC3 /* AuthRepository.swift in Sources */,
 				DF1F40DE2E279E7F00BE27AC /* OneTimeAskView.swift in Sources */,
+				A78A134D2E533DA600204D8D /* KeywordCloudView.swift in Sources */,
 				A725E9A92E2FA36300EEA3F5 /* SettingListView.swift in Sources */,
 				A7F545512E38A5C20014EB85 /* CardDetailViewController.swift in Sources */,
 				8938CBB12E367D3E00369EE3 /* FirebaseDatabaseManager.swift in Sources */,
@@ -1216,7 +1228,6 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				KAKAO_REST_API_KEY = 664bd4a298b774ad794fc8aa28745654;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1261,7 +1272,6 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				KAKAO_REST_API_KEY = 664bd4a298b774ad794fc8aa28745654;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

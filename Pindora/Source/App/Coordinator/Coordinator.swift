@@ -38,6 +38,7 @@ final class AppCoordinator: Coordinator {
     private enum Route {
         case login      // 로그인 코디네이터로 이동
         case mainTab    // 기존 사용자 -> 메인탭
+        case oneTimeAsk
     }
     
     var parentCoordinator: Coordinator?
@@ -55,7 +56,7 @@ final class AppCoordinator: Coordinator {
     
     func start() {
         // TODO: - ViewModel에서 판단해서 이 부분을 외부에서 호출하도록 설계하는 것이 핵심
-        navigate(to: isLoggedIn ? .mainTab : .login)
+        navigate(to: isLoggedIn ? .oneTimeAsk: .login) //.mainTab : .login)
     }
     
     private func navigate(to route: Route) {
@@ -71,6 +72,11 @@ final class AppCoordinator: Coordinator {
             mainTab.parentCoordinator = self
             childCoordinators.append(mainTab)
             mainTab.start()
+            
+        case .oneTimeAsk:
+            let vc = ModuleFactory.shared.makeOneTimeAskVC()
+            navigationController.setViewControllers([vc], animated: false)
+            navigationController.isNavigationBarHidden = true // ✅ 요거 추가
         }
     }
 }
@@ -238,7 +244,6 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             
         case .cardDetail:
             let vc = ModuleFactory.shared.makeCardDetailVC()
-//            vc.coordinator = self
             vc.coordinator = self as CardDetailCoordinating
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .pageSheet

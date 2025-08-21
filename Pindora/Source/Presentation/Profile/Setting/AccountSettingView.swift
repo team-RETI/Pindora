@@ -8,7 +8,7 @@
 import UIKit
 
 final class AccountSettingView: UIView {
-    let navigationBarView = CustomNavBarView(title: "계정 설정")
+    let navigationBarView = CustomNavBarView(title: "계정 설정", hideBackButton: false)
     let logoutButton = UIButton.settingListButtonStyle(title: "로그아웃", color: "black", image: "logOut")
     let deleteAccountButton = UIButton.settingListButtonStyle(title: "계정 삭제", color: "red", image: "delete")
     

@@ -18,20 +18,34 @@ final class CategoryCellListView: UIScrollView {
     }()
 
     lazy var categoryViews: [CategoryCellView] = {
-        categories.map { CategoryCellView(title: $0.displayName) }
+//        categories.map { CategoryCellView(title: $0.displayName) }
+        categories.map { CategoryCellView(title: $0.displayName, color: color)}
+    }()
+    
+    lazy var categoryViews2: [CategoryCellView] = {
+        categories.map { CategoryCellView(title: $0.displayName, color: color)}
     }()
     
     private let stackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
-        sv.spacing = 12
+        sv.spacing = 8
         return sv
     }()
+    
+    private var color: UIColor = .white
     
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         showsHorizontalScrollIndicator = false
+        setupUI()
+    }
+    
+    init(frame: CGRect, color: UIColor) {
+        super.init(frame: frame)
+        showsHorizontalScrollIndicator = false
+        self.color = color
         setupUI()
     }
 

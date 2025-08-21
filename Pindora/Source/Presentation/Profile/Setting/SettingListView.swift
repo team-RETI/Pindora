@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - (C)SettingListView
 final class SettingListView: UIView {
-    let navigationBarView = CustomNavBarView(title: "설정")
+    let navigationBarView = CustomNavBarView(title: "설정", hideBackButton: false)
     let accountButton = UIButton.settingListButtonStyle(title: "계정 설정", color: "black", image: "person")
     let termsButton = UIButton.settingListButtonStyle(title: "서비스 약관", color: "black", image: "document")
     let privacyButton = UIButton.settingListButtonStyle(title: "개인정보처리방침", color: "black", image: "locker2")

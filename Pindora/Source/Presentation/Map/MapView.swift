@@ -60,13 +60,6 @@ final class MapView: UIView {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-        
-    let tagScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
     
     // MARK: - Initializer
     override init(frame: CGRect) {

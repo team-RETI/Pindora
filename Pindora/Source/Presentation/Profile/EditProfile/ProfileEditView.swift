@@ -12,7 +12,7 @@ final class ProfileEditView: UIView {
     let imageSelectorView = ImageSelectorView()
     private let personaInfoCardView = PersonaInfoCardView()
     private let personaPreviewView = PersonaPreviewView()
-    let navigationBarView = CustomNavBarView(title: "프로필 수정")
+    let navigationBarView = CustomNavBarView(title: "프로필 수정", hideBackButton: false)
     private let contentView = UIView()
 
     private let imageTitleLabel = UILabel.makeTitleLabel(text: "대표 이미지")
