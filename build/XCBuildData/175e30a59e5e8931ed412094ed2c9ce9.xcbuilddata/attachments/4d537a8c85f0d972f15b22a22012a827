@@ -1,0 +1,4 @@
+module NMapsMapTarget {
+header "NMapsMapTarget-Swift.h"
+export *
+}

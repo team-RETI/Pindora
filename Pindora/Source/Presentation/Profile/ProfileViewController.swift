@@ -52,16 +52,12 @@ final class ProfileViewController: UIViewController {
                     self?.loadImage(from: url)
                 }
                 
-                let saved = user.savedPlaces?.count ?? -1
-                let visited = user.visitedPlaces?.count ?? -1
-                let liked = user.likedPlaces?.count ?? -1
-                self?.customView.updatePlaceCount(saved: saved, visited: visited, liked: liked)
+                let saved = user.savedPlaces.count
+                let visited = user.visitedPlaces.count
+                let liked = user.likedPlaces.count
                 
-                if let savedPlaces = user.savedPlaces {
-                    self?.customView.updateSavedPlaces(savedPlaces)
-                } else {
-                    print("저장 장소 가져오기 실패")
-                }
+                self?.customView.updatePlaceCount(saved: saved, visited: visited, liked: liked)
+                self?.customView.updateSavedPlaces(user.savedPlaces)
             }
             .store(in: &cancellables)
     }

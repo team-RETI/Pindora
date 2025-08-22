@@ -5,13 +5,14 @@
 //
 
 import UIKit
-import AuthenticationServices
 import Combine
+import CombineCocoa
 
 final class LoginViewController: UIViewController {
+    weak var coordinator: LoginCoordinator?
+    private var cancellables: Set<AnyCancellable> = []
     private let viewModel: LoginViewModel
     private let customView = LoginView()
-    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Initializer
     init(viewModel: LoginViewModel) {
@@ -32,39 +33,29 @@ final class LoginViewController: UIViewController {
         super.viewDidLoad()
         bindViewModel()
         print("로그인 화면")
-        customView.appleLoginButton.addTarget(self, action: #selector(appleLoginTapped), for: .touchUpInside)
-    }
-    
-    @objc func appleLoginTapped() {
-        viewModel.loginWithApple(from: self)
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    print("로그인 실패: \(error.localizedDescription)")
-                }
-            } receiveValue: { user in
-                print("유저 로그인 성공: \(user)")
-                self.viewModel.saveUser(user)
-                    .sink { completion in
-                        if case let .failure(error) = completion {
-                            print("유저 저장 실패: \(error.localizedDescription)")
-                        }
-                    } receiveValue: { print("유저 저장 완료")}
-                    .store(in: &self.cancellables)
-            }
-            .store(in: &cancellables)
     }
 
     // MARK: - Bindings
     private func bindViewModel() {
-
+        let input = LoginViewModel.Input(appleLoginTapped: customView.appleLoginButton.tapPublisher.eraseToAnyPublisher())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.loginResult
+            .receive(on: RunLoop.main)
+            .sink { [weak self] result in
+                switch result {
+                case .success:
+                    print("✅ 애플 로그인 성공")
+                    self?.coordinator?.didTapLoginButton()
+                case .failure(let error):
+                    error.printFullTrace()
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 
 #Preview {
-    LoginViewController(
-        viewModel: LoginViewModel(
-            authUseCase: StubAuthUseCaseImpl(),
-            userUseCase: StubUserUseCaseImpl()
-        )
-    )
+    LoginViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl(), userUseCase: StubUserUsecaseImpl()))
 }

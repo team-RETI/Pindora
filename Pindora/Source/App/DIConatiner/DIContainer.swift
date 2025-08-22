@@ -38,25 +38,41 @@ extension DIContainer {
     /// AppDelegate 또는 SceneDelegate에서 앱 초기화 시 호출해야 합니다.
     ///
     /// 이 메서드에서 Repository → UseCase 순으로 필요한 객체들을 생성하여 등록합니다.
-    static func config() {
+    static func config(useStub: Bool = false) {
         // MARK: - Repository 생성
         let authRepository = AuthRepositoryImpl()
         let storageRepository = StorageRepositoryImpl()
         let databaseRepository = DatabaseRepositoryImpl()
         
-        // MARK: - Usecase 등록
-        self.shared.register(
-            AuthUseCase.self,
-            dependency: AuthUseCaseImpl(authRepository: authRepository)
-        )
-        
-        self.shared.register(
-            ImageUsecaseProtocol.self,
-            dependency: ImageUsecaseImpl(storageRepository: storageRepository))
-        
-        self.shared.register(
-            UserUseCaseProtocol.self,
-            dependency: UserUseCaseImpl(repository: databaseRepository))
+        if !useStub {
+            // MARK: - Usecase 등록
+            self.shared.register(
+                AuthUseCaseProtocol.self,
+                dependency: AuthUseCaseImpl(authRepository: authRepository)
+            )
+            
+            self.shared.register(
+                ImageUsecaseProtocol.self,
+                dependency: ImageUsecaseImpl(storageRepository: storageRepository))
+            
+            self.shared.register(
+                UserUseCaseProtocol.self,
+                dependency: UserUseCaseImpl(repository: databaseRepository))
+        } else {
+            
+            // MARK: - Stub Usecase
+            self.shared.register(
+                AuthUseCaseProtocol.self,
+                dependency: StubAuthUseCaseImpl())
+            
+            self.shared.register(
+                ImageUsecaseProtocol.self,
+                dependency: StubImageUsecaseImpl())
+            
+            self.shared.register(
+                UserUseCaseProtocol.self,
+                dependency: StubUserUsecaseImpl())
+        }
         
         self.shared.register(
             PlaceUseCase.self,

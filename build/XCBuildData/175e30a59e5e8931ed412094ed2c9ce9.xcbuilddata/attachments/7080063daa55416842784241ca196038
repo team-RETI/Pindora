@@ -1,0 +1,20 @@
+{
+  "" : {
+    "const-values" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/PindoraShareExtension.build/Objects-normal/arm64/PindoraShareExtension-master.swiftconstvalues",
+    "dependencies" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/PindoraShareExtension.build/Objects-normal/arm64/PindoraShareExtension-master.d",
+    "diagnostics" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/PindoraShareExtension.build/Objects-normal/arm64/PindoraShareExtension-master.dia",
+    "emit-module-dependencies" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/PindoraShareExtension.build/Objects-normal/arm64/PindoraShareExtension-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/PindoraShareExtension.build/Objects-normal/arm64/PindoraShareExtension-master-emit-module.dia",
+    "swift-dependencies" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/PindoraShareExtension.build/Objects-normal/arm64/PindoraShareExtension-master.swiftdeps"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/PindoraShareExtension/ShareViewController.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/PindoraShareExtension.build/Objects-normal/arm64/ShareViewController.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/PindoraShareExtension.build/Objects-normal/arm64/ShareViewController.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/PindoraShareExtension.build/Objects-normal/arm64/ShareViewController.o"
+  },
+  "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/PindoraShareExtension/UserDefaultsManager.swift" : {
+    "index-unit-output-path" : "/Pindora.build/Release-iphoneos/PindoraShareExtension.build/Objects-normal/arm64/UserDefaultsManager.o",
+    "llvm-bc" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/PindoraShareExtension.build/Objects-normal/arm64/UserDefaultsManager.bc",
+    "object" : "/Users/kimdonghyeon/2025/개발/앱출시/Pindora/Pindora/build/Pindora.build/Release-iphoneos/PindoraShareExtension.build/Objects-normal/arm64/UserDefaultsManager.o"
+  }
+}

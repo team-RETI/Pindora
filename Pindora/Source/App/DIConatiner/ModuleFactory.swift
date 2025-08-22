@@ -12,6 +12,8 @@ import UIKit
 /// 각 화면과 1:1로 매핑됩니다.
 enum ModuleKey: String {
     case login
+    case oneTimeAsk
+    
     case home
     case map
     case myPlace
@@ -32,20 +34,20 @@ final class ModuleFactory {
     private var viewModelCache: [ModuleKey: Any] = [:]
     
     // MARK: - ViewController 생성
-    func makeLoginVC() -> UIViewController {
+    func makeLoginVC() -> LoginViewController {
         let viewModel: LoginViewModel = getOrCreateViewModel(for: .login) {
-            let useCase = DIContainer.shared.resolve(AuthUseCase.self)
-            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
-            return LoginViewModel(authUseCase: useCase, userUseCase: userUseCase)
+            let authUseCase = DIContainer.shared.resolve(AuthUseCaseProtocol.self)
+            let userUsecase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
+            return LoginViewModel(authUseCase: authUseCase, userUseCase: userUsecase)
         }
         return LoginViewController(viewModel: viewModel)
     }
     
-    func makeOneTimeAskVC() -> UIViewController {
-        let viewModel: LoginViewModel = getOrCreateViewModel(for: .login) {
-            let useCase = DIContainer.shared.resolve(AuthUseCase.self)
-            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
-            return LoginViewModel(authUseCase: useCase, userUseCase: userUseCase)
+    func makeOneTimeAskVC() -> OneTimeAskViewController {
+        let viewModel: LoginViewModel = getOrCreateViewModel(for: .oneTimeAsk) {
+            let authUseCase = DIContainer.shared.resolve(AuthUseCaseProtocol.self)
+            let userUsecase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
+            return LoginViewModel(authUseCase: authUseCase, userUseCase: userUsecase)
         }
         return OneTimeAskViewController(viewModel: viewModel)
     }
@@ -117,7 +119,7 @@ final class ModuleFactory {
     
     func makeLoginViewModel() -> LoginViewModel {
         getOrCreateViewModel(for: .login) {
-            let authUseCase = DIContainer.shared.resolve(AuthUseCase.self)
+            let authUseCase = DIContainer.shared.resolve(AuthUseCaseProtocol.self)
             let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
             return LoginViewModel(authUseCase: authUseCase, userUseCase: userUseCase)
         }

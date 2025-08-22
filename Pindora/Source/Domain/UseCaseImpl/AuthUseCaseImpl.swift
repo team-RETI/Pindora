@@ -9,29 +9,42 @@ import Foundation
 import Combine
 import FirebaseAuth
 
-final class AuthUseCaseImpl: AuthUseCase {
-    private let authRepository: AuthRepository
+final class AuthUseCaseImpl: AuthUseCaseProtocol {
     
-    init(authRepository: AuthRepository) {
+    private let authRepository: AuthRepositoryProtocol
+    
+    init(authRepository: AuthRepositoryProtocol) {
         self.authRepository = authRepository
     }
     
-    func signInWithApple() -> AnyPublisher<User, any Error> {
-        return authRepository.signInWithApple().map{ User(from: $0.user) }.eraseToAnyPublisher()
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), UseCaseError> {
+        return authRepository.requestAppleAuthorization()
+            .mapError { RepositoryError.map(from: $0) }
+            .mapError { UseCaseError.map(from: $0) }
+            .eraseToAnyPublisher()
+    }
+    
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, UseCaseError> {
+        return authRepository.authenticateWithApple(idToken: idToken, rawNonce: rawNonce)
+            .mapError { RepositoryError.map(from: $0) }
+            .mapError { UseCaseError.map(from: $0) }
+            .eraseToAnyPublisher()
     }
 }
 
-final class StubAuthUseCaseImpl: AuthUseCase {
-    func signInWithApple() -> AnyPublisher<User, Error> {
-        let dummyUser = User(
-            userId: "12345",
-            userImage: nil,
-            personaName: "테스트 유저",
-            personaDescription: "Stub Persona",
-            likedPlaces: []
-        )
-        return Just(dummyUser)
-            .setFailureType(to: Error.self)
+final class StubAuthUseCaseImpl: AuthUseCaseProtocol {
+    func requestAppleAuthorization() -> AnyPublisher<(idToken: String, rawNonce: String), UseCaseError> {
+        let dummyIDToken = "mock_id_token_123"
+        let dummyRawNonce = "mock_nonce_abc"
+        
+        return Just((idToken: dummyIDToken, rawNonce: dummyRawNonce))
+            .setFailureType(to: UseCaseError.self)
+            .eraseToAnyPublisher()
+    }
+    
+    func authenticateWithApple(idToken: String, rawNonce: String) -> AnyPublisher<Void, UseCaseError> {
+        return Just(())
+            .setFailureType(to: UseCaseError.self)
             .eraseToAnyPublisher()
     }
 }

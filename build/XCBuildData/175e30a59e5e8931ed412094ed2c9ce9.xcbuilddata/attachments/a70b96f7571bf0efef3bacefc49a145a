@@ -1,0 +1,15 @@
+{
+  "" : {
+    "const-values" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/SPM-NMapsMap/build/NMapsMap.build/Release-iphoneos/NMapsMapTarget.build/Objects-normal/arm64/NMapsMapTarget-master.swiftconstvalues",
+    "dependencies" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/SPM-NMapsMap/build/NMapsMap.build/Release-iphoneos/NMapsMapTarget.build/Objects-normal/arm64/NMapsMapTarget-master.d",
+    "diagnostics" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/SPM-NMapsMap/build/NMapsMap.build/Release-iphoneos/NMapsMapTarget.build/Objects-normal/arm64/NMapsMapTarget-master.dia",
+    "emit-module-dependencies" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/SPM-NMapsMap/build/NMapsMap.build/Release-iphoneos/NMapsMapTarget.build/Objects-normal/arm64/NMapsMapTarget-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/SPM-NMapsMap/build/NMapsMap.build/Release-iphoneos/NMapsMapTarget.build/Objects-normal/arm64/NMapsMapTarget-master-emit-module.dia",
+    "swift-dependencies" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/SPM-NMapsMap/build/NMapsMap.build/Release-iphoneos/NMapsMapTarget.build/Objects-normal/arm64/NMapsMapTarget-master.swiftdeps"
+  },
+  "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/SPM-NMapsMap/Sources/NMapsMap/NMapsMap.swift" : {
+    "index-unit-output-path" : "/NMapsMap.build/Release-iphoneos/NMapsMapTarget.build/Objects-normal/arm64/NMapsMap.o",
+    "llvm-bc" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/SPM-NMapsMap/build/NMapsMap.build/Release-iphoneos/NMapsMapTarget.build/Objects-normal/arm64/NMapsMap.bc",
+    "object" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/SPM-NMapsMap/build/NMapsMap.build/Release-iphoneos/NMapsMapTarget.build/Objects-normal/arm64/NMapsMap.o"
+  }
+}

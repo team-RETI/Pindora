@@ -5,13 +5,13 @@
 //
 
 import UIKit
-import AuthenticationServices
 
 // MARK: - (C)LoginView
 final class LoginView: UIView {
     
     // MARK: - UI Component
-    let appleLoginButton = ASAuthorizationAppleIDButton()
+    lazy var appleLoginButton = SocialLoginButton(loginType: .apple,
+                                                  title: "Apple로 계속하기")
 
     // MARK: - Initializer
     override init(frame: CGRect) {
@@ -26,22 +26,25 @@ final class LoginView: UIView {
 
     // MARK: - (F)UI Setup
     private func setupUI() {
-        backgroundColor = .systemBackground
-        appleLoginButton.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(appleLoginButton)
+        self.backgroundColor = .mainWhite
+        [appleLoginButton].forEach {
+            self.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
 
     // MARK: - (F)Constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            appleLoginButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            appleLoginButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100),
-            appleLoginButton.widthAnchor.constraint(equalToConstant: 250),
-            appleLoginButton.heightAnchor.constraint(equalToConstant: 44)
+            // Button
+            appleLoginButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50),
+            appleLoginButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            appleLoginButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            appleLoginButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 }
 
 #Preview {
-    LoginView()
+    LoginViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl(), userUseCase: StubUserUsecaseImpl()))
 }
