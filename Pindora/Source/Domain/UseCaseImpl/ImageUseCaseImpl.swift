@@ -23,3 +23,24 @@ final class ImageUsecaseImpl: ImageUsecaseProtocol {
         return storageRepository.downloadImage(from: path)
     }
 }
+
+final class StubImageUsecaseImpl: ImageUsecaseProtocol {
+    func upload(image: UIImage, folder: String, fileName: String) -> AnyPublisher<URL, any Error> {
+        guard let url = URL(string: "https://example.com/image.png") else {
+            return Fail(error: URLError(.badURL))
+                .eraseToAnyPublisher()
+        }
+        return Just(url)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+    
+    func download(from path: String) -> AnyPublisher<UIImage, any Error> {
+        let dummyImage = UIImage(systemName: "photo") ?? UIImage()
+                return Just(dummyImage)
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
+    }
+    
+    
+}

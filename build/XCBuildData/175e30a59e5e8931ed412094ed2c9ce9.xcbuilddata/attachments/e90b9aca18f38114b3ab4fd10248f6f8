@@ -1,0 +1,21 @@
+#!/bin/sh
+# 🚀 ProtocolDocChecker 실행 및 자동 빌드 (macOS 명시)
+echo "🛠 ProtocolDocChecker 검사 시작..."
+
+TOOL_NAME="ProtocolDocChecker"
+TOOL_PATH="${SRCROOT}/.build/debug/$TOOL_NAME"
+TARGET_PATH="${SRCROOT}/Pindora"
+
+# 1. macOS 툴체인으로 강제 빌드
+cd "${SRCROOT}"
+echo "🔨 빌드 중: $TOOL_NAME ..."
+xcrun --sdk macosx swift build --product "$TOOL_NAME"
+
+# 2. 빌드 성공 시 검사 실행
+if [ -x "$TOOL_PATH" ]; then
+  "$TOOL_PATH" "$TARGET_PATH"
+else
+  echo "❌ 빌드 실패 또는 실행파일 없음: $TOOL_PATH"
+  exit 1
+fi
+

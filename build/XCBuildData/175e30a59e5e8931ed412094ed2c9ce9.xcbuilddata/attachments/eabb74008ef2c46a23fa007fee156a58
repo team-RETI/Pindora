@@ -1,0 +1,4 @@
+module CombineCocoa {
+header "CombineCocoa-Swift.h"
+export *
+}

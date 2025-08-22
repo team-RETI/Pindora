@@ -16,6 +16,7 @@ struct UserDTO: Codable {
     var likedPlaces: [PlaceDTO]?
     var savedPlaces: [PlaceDTO]?
     var visitedPlaces: [PlaceDTO]?
+    var selectedCategories: [String]?
 }
 
 extension UserDTO {
@@ -25,9 +26,10 @@ extension UserDTO {
             userImage: userImage,
             personaName: personaName,
             personaDescription: personaDescription,
-            likedPlaces: likedPlaces?.map { $0.toEntity() },
-            savedPlaces: savedPlaces?.map { $0.toEntity() },
-            visitedPlaces: visitedPlaces?.map { $0.toEntity() }
+            likedPlaces: likedPlaces?.map { $0.toEntity() } ?? [],
+            savedPlaces: savedPlaces?.map { $0.toEntity() } ?? [],
+            visitedPlaces: visitedPlaces?.map { $0.toEntity() } ?? [],
+            selectedCategories: selectedCategories ?? []
         )
     }
 }
