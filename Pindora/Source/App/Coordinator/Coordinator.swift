@@ -38,7 +38,6 @@ final class AppCoordinator: Coordinator {
     private enum Route {
         case login      // 로그인 코디네이터로 이동
         case mainTab    // 기존 사용자 -> 메인탭
-        case oneTimeAsk
     }
     
     var parentCoordinator: Coordinator?
@@ -56,7 +55,7 @@ final class AppCoordinator: Coordinator {
     
     func start() {
         // TODO: - ViewModel에서 판단해서 이 부분을 외부에서 호출하도록 설계하는 것이 핵심
-        navigate(to: isLoggedIn ? .oneTimeAsk: .login) //.mainTab : .login)
+        navigate(to: isLoggedIn ? .mainTab : .login)
     }
     
     private func navigate(to route: Route) {
@@ -72,17 +71,13 @@ final class AppCoordinator: Coordinator {
             mainTab.parentCoordinator = self
             childCoordinators.append(mainTab)
             mainTab.start()
-            
-        case .oneTimeAsk:
-            let vc = ModuleFactory.shared.makeOneTimeAskVC()
-            navigationController.setViewControllers([vc], animated: false)
-            navigationController.isNavigationBarHidden = true // ✅ 요거 추가
         }
     }
 }
 
 final class LoginCoordinator: Coordinator {
     private enum Route {
+        case login      // 로그인뷰
         case loginFlow  // 최초 사용자 -> 추천 카테고리 입력
         case mainTab    // 기존 사용자 -> 메인 탭
     }
@@ -98,14 +93,24 @@ final class LoginCoordinator: Coordinator {
     }
     
     func start() {
-        
-        let vc = ModuleFactory.shared.makeLoginVC()
-        navigationController.pushViewController(vc, animated: true)
+        navigate(to: .login)
     }
     
+    func didTapLoginButton() {
+        navigate(to: .loginFlow)
+    }
+    
+    func navigateToMainTab() {
+        navigate(to: .mainTab)
+    }
     
     private func navigate(to route: Route) {
         switch route {
+        case .login:
+            let vc = ModuleFactory.shared.makeLoginVC()
+            vc.coordinator = self
+            navigationController.pushViewController(vc, animated: true)
+            
         case .loginFlow:
             let loginFlow = LoginFlowCoordinator(navigationController: navigationController)
             loginFlow.parentCoordinator = self
@@ -135,15 +140,26 @@ final class LoginFlowCoordinator: Coordinator {
     }
     
     func start() {
-        
+        navigate(to: .oneTimeAsk)
+    }
+    
+    func navigateToMainTab() {
+        finishFlow()
+        if let appCoordinator = parentCoordinator as? LoginCoordinator {
+            appCoordinator.navigateToMainTab()
+        }
+    }
+    
+    func finishFlow() {
+        parentCoordinator?.childDidFinish(self)
     }
     
     private func navigate(to route: Route) {
         switch route {
         case .oneTimeAsk:
-            
-            let vc = ModuleFactory.shared.makeOneTimeAskVC()
-            navigationController.setViewControllers([vc], animated: false)
+            let vc: OneTimeAskViewController = ModuleFactory.shared.makeOneTimeAskVC()
+            vc.coordinator = self
+            navigationController.setViewControllers([vc], animated: true)
         }
     }
 }

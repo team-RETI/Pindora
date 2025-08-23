@@ -51,7 +51,6 @@ final class KeywordCloudView: UIView {
                 keywordListView.setContentOffset(CGPoint(x: offset[i], y: 0), animated: false)
             }
         }
-        print("rows: \(rows.count)")
         return stack
     }()
     
@@ -89,8 +88,8 @@ final class KeywordCloudView: UIView {
         NSLayoutConstraint.activate([
             categoryStack.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
 //            categoryStack.centerXAnchor.constraint(equalTo: containerView.centerXAnchor)
-            categoryStack.leadingAnchor.constraint(equalTo: leadingAnchor),
-            categoryStack.trailingAnchor.constraint(equalTo: trailingAnchor),
+            categoryStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
+            categoryStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
 //            categoryStack.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -14)
             
             

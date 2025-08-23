@@ -13,8 +13,8 @@ final class CategoryCellView: UIView {
     private var button: UIButton = {
         let button = UIButton(type: .custom)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-//        button.setTitleColor(.black, for: .normal)
-        button.setTitleColor(.gray3, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+//        button.setTitleColor(.gray3, for: .normal)
         button.backgroundColor = .white
         button.clipsToBounds = true
         return button
@@ -75,8 +75,8 @@ final class CategoryCellView: UIView {
 
     // ✅ 고정된 크기
     override var intrinsicContentSize: CGSize {
-        //return CGSize(width: 70, height: 30)
-        return CGSize(width: 74, height: 34)
+        return CGSize(width: 70, height: 30)
+//        return CGSize(width: 74, height: 34)
     }
     
     //CornerRadius 적용
@@ -90,9 +90,9 @@ final class CategoryCellView: UIView {
     }
 
     func setSelected(_ selected: Bool) {
-//        button.backgroundColor = selected ? .gray : .white
-//        button.setTitleColor(selected ? .white : .black, for: .normal)
-        button.backgroundColor = selected ? .black : .gray1
-        button.setTitleColor(selected ? .white : .gray3, for: .normal)
+        button.backgroundColor = selected ? .gray : .white
+        button.setTitleColor(selected ? .white : .black, for: .normal)
+//        button.backgroundColor = selected ? .black : .gray1
+//        button.setTitleColor(selected ? .white : .gray3, for: .normal)
     }
 }

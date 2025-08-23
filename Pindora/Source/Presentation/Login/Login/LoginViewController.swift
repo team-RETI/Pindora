@@ -5,10 +5,12 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class LoginViewController: UIViewController {
+    weak var coordinator: LoginCoordinator?
     private let viewModel: LoginViewModel
-    private let customView = LoginView()
+    private var hostingController: UIHostingController<LoginView>?
     
     // MARK: - Initializer
     init(viewModel: LoginViewModel) {
@@ -21,12 +23,30 @@ final class LoginViewController: UIViewController {
     }
 
     // MARK: - LifeCycle
-    override func loadView() {
-        self.view = customView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // 1) SwiftUI 뷰 생성 + 콜백 주입
+        let swiftUIView = LoginView(onContinue: { [weak self] in
+            self?.coordinator?.didTapLoginButton()   // ← LoginCoordinator로 라우팅
+        })
+
+        // 2) HostingController로 감싸기
+        let hosting = UIHostingController(rootView: swiftUIView)
+        self.hostingController = hosting
+
+        // 3) 자식으로 추가
+        addChild(hosting)
+        view.addSubview(hosting.view)
+        hosting.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hosting.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hosting.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            hosting.view.topAnchor.constraint(equalTo: view.topAnchor),
+            hosting.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        hosting.didMove(toParent: self)
+
         bindViewModel()
         print("로그인 화면")
     }
@@ -35,8 +55,8 @@ final class LoginViewController: UIViewController {
     private func bindViewModel() {
 
     }
-}
-
-#Preview {
-    LoginViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl()))
+    
+    @objc private func appleButtonTapped() {
+//        coordinator?.didTapLogin()
+    }
 }

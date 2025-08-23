@@ -7,6 +7,7 @@
 import UIKit
 
 final class OneTimeAskViewController: UIViewController {
+    weak var coordinator: LoginFlowCoordinator?
     private let viewModel: LoginViewModel
     private let customView = OneTimeAskView()
     
@@ -27,15 +28,19 @@ final class OneTimeAskViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        customView.registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         bindViewModel()
+        print("OTA 화면")
     }
 
     // MARK: - Bindings
     private func bindViewModel() {
 
     }
+    
+    @objc private func registerButtonTapped() {
+        print("tapped")
+//        coordinator?.done()
+    }
 }
 
-#Preview {
-    OneTimeAskViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl()))
-}

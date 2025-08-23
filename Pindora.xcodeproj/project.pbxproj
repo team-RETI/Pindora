@@ -42,6 +42,7 @@
 		A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA252E27E2BB009EB6BF /* CardCellView.swift */; };
 		A732BA2B2E27E2BB009EB6BF /* CategoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA272E27E2BB009EB6BF /* CategoryCellView.swift */; };
 		A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA242E27E2BB009EB6BF /* CardCellListView.swift */; };
+		A742A98D2E5996C2003DA057 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A742A98C2E5996C2003DA057 /* IntroModel.swift */; };
 		A75AB1172E339A4D006DA6EB /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75AB1162E339A4D006DA6EB /* UILabel+.swift */; };
 		A778D2E12E28F212006B3309 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E02E28F212006B3309 /* HomeView.swift */; };
 		A778D2E32E29756E006B3309 /* ProfilePlaceCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */; };
@@ -196,6 +197,7 @@
 		A732BA272E27E2BB009EB6BF /* CategoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellView.swift; sourceTree = "<group>"; };
 		A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		A732BA2F2E27E9D0009EB6BF /* Inter 24pt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter 24pt.ttf"; sourceTree = "<group>"; };
+		A742A98C2E5996C2003DA057 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
 		A75AB1162E339A4D006DA6EB /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		A778D2E02E28F212006B3309 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePlaceCellView.swift; sourceTree = "<group>"; };
@@ -667,6 +669,7 @@
 				DF1F40E02E279E8200BE27AC /* LoginView.swift */,
 				DF1F40E12E279E8200BE27AC /* LoginViewController.swift */,
 				DF1F40E22E279E8200BE27AC /* LoginViewModel.swift */,
+				A742A98C2E5996C2003DA057 /* IntroModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1126,6 +1129,7 @@
 				DF1F40F22E279F6600BE27AC /* MyPlaceView.swift in Sources */,
 				A725E9B12E2FA53A00EEA3F5 /* ImageSelectorView.swift in Sources */,
 				A725E9B52E2FE60900EEA3F5 /* SettingListViewModel.swift in Sources */,
+				A742A98D2E5996C2003DA057 /* IntroModel.swift in Sources */,
 				DF1F3FB62E279C4100BE27AC /* HomeViewController.swift in Sources */,
 				A725E9AB2E2FA4E300EEA3F5 /* ProfileEditViewModel.swift in Sources */,
 				DFE039B42E3532CB00A2060D /* NaverPlaceDTO.swift in Sources */,

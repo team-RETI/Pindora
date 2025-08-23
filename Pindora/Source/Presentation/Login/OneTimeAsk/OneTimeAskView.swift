@@ -156,35 +156,6 @@ final class OneTimeAskView: UIView {
                 }
             }
         }
-//        onKeywordTapped = { [weak self] button, isSelected in
-//            guard let self = self else { return }
-//
-//            self.layoutIfNeeded()
-//            self.card.layoutIfNeeded()
-//
-//            // 앵커가 아직 없으면 계산
-//            if self.inkAnchors.isEmpty { self.recomputeInkAnchors() }
-//
-//            if isSelected {
-//                // 현재 앵커 선택 → 다음으로 인덱스 이동
-//                let anchor = self.inkAnchors[self.inkAnchorIndex]
-//                self.inkAnchorIndex = (self.inkAnchorIndex + 1) % self.inkAnchors.count
-//
-//                let step = CGFloat(Int.random(in: 10...15)) / 100.0
-//                self.progress = min(1.0, self.progress + step)
-//
-//                // ✅ 누적 잉크: 선택한 앵커에서 원 추가
-//                self.card.applyTap(at: anchor, increment: step)
-//                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-//
-//                if self.progress >= 1.0 {
-//                    self.registerButton.isEnabled = true
-//                    self.registerButton.alpha = 1
-//                }
-//            } else {
-//                // 해제 시 감소가 필요하면 여기에 구현
-//            }
-//        }
     }
     
     // MARK: - (F)UI Setup
