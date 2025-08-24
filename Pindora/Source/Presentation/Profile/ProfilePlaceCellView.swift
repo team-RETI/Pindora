@@ -64,7 +64,19 @@ final class ProfilePlaceCellView: UICollectionViewCell {
         ])
     }
     
-    func configure(with image: UIImage?) {
-        imageView.image = image
+    func configure(with imageURLString: String?) {
+        guard let imageURLString,
+              let url = URL(string: imageURLString) else {
+            imageView.image = UIImage(named: "placeholder")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let data = data, error == nil else { return }
+            
+            DispatchQueue.main.async {
+                self?.imageView.image = UIImage(data: data)
+            }
+        }.resume()
     }
 }
