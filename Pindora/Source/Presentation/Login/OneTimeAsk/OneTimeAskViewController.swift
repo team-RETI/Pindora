@@ -5,9 +5,11 @@
 //
 
 import UIKit
+import Combine
 
 final class OneTimeAskViewController: UIViewController {
-    weak var coordinator: LoginFlowCoordinator?
+    var coordinator: LoginFlowCoordinator?
+    private var cancellables: Set<AnyCancellable> = []
     private let viewModel: LoginViewModel
     private let customView = OneTimeAskView()
     
@@ -35,7 +37,19 @@ final class OneTimeAskViewController: UIViewController {
 
     // MARK: - Bindings
     private func bindViewModel() {
-
+        customView.nextButton
+            .tapPublisher
+            .sink { [weak self] _ in
+                
+                if let coordinator = self?.coordinator {
+                    print("✅ coordinator 있음:", coordinator)
+                    coordinator.navigateToMainTab()
+                } else {
+                    print("❌ coordinator is nil")
+                }
+                print("다음 버튼")
+            }
+            .store(in: &cancellables)
     }
     
     @objc private func registerButtonTapped() {
@@ -43,4 +57,3 @@ final class OneTimeAskViewController: UIViewController {
 //        coordinator?.done()
     }
 }
-

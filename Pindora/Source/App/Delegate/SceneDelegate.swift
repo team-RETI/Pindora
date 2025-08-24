@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -19,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //checkSharedContent()
         
         // 0. DIContainer 초기 설정
-        DIContainer.config()
+        DIContainer.config(useStub: false)
         
         // 1. scene 캡처
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -29,7 +30,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController()
         
         // 3. 로그인 여부 확인(일단 하드코딩)
-        let isLoggedIn: Bool = false
+
+        // let isLoggedIn: Bool = false
+        let isLoggedIn: Bool = Auth.auth().currentUser != nil
         let coordinator = AppCoordinator(navigationController: navigationController, isLoggedIn: isLoggedIn)
         self.appCoordinator = coordinator
         coordinator.start()

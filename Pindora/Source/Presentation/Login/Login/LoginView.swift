@@ -62,19 +62,15 @@ struct LoginView: View {
         }
     }
     
-    /// Login Buttons
-    @ViewBuilder
-    func loginButtons() -> some View {
-        VStack(spacing: 12) {
-            Button {
-                onContinue?()
-            } label: {
-                Label("Continue With Apple", systemImage: "applelogo")
-                    .foregroundStyle(.mainBlack)
-                    .fillButton(.white)
-            }
-        }
-        .padding(15)
+    // MARK: - UI Component
+    lazy var appleLoginButton = SocialLoginButton(loginType: .apple,
+                                                  title: "Apple로 계속하기")
+
+    // MARK: - Initializer
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+        setupConstraints()
     }
     
     /// Animating Intros
@@ -109,14 +105,16 @@ struct LoginView: View {
             }
         }
     }
-    
-    /// Fetching Text Size based on Fonts
-    func textSize(_ text: String) -> CGFloat {
-//        return NSString(string: text).size(withAttributes: [.font: UIFont.preferredFont(forTextStyle: .largeTitle)]).width
-        return NSString(string: text).size(withAttributes: [.font: UIFont.systemFont(ofSize: 26, weight: .regular)]).width
+
+    // MARK: - (F)UI Setup
+    private func setupUI() {
+        self.backgroundColor = .mainWhite
+        [appleLoginButton].forEach {
+            self.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
 }
-
 /// Custom Modifier
 extension View {
     @ViewBuilder
@@ -287,3 +285,18 @@ extension View {
 //           animator1.startAnimation()
 //       }
 //}
+    // MARK: - (F)Constraints
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            // Button
+            appleLoginButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50),
+            appleLoginButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            appleLoginButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            appleLoginButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+}
+
+#Preview {
+    LoginViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl(), userUseCase: StubUserUsecaseImpl()))
+}

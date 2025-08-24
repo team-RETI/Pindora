@@ -70,7 +70,7 @@ final class OneTimeAskView: UIView {
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return button
     }()
-    
+
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -211,6 +211,10 @@ final class OneTimeAskView: UIView {
             registerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             registerButton.heightAnchor.constraint(equalToConstant: 50),
             registerButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -35)
+            nextButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40),
+            nextButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            nextButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            nextButton.heightAnchor.constraint(equalToConstant: 45),
         ])
     }
     
@@ -261,8 +265,4 @@ final class OneTimeAskView: UIView {
                 sender.transform = .identity
             }
         }
-
-//        onKeywordTapped?(sender, now)
     }
-}
-

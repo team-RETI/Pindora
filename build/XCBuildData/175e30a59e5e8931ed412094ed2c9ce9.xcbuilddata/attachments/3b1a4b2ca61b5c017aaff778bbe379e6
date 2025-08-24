@@ -1,0 +1,4 @@
+module abslWrapper {
+umbrella "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/abseil-cpp-binary/absl-Wrapper/include"
+export *
+}

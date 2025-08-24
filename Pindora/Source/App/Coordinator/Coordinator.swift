@@ -58,6 +58,10 @@ final class AppCoordinator: Coordinator {
         navigate(to: isLoggedIn ? .mainTab : .login)
     }
     
+    func navigateToMainTab() {
+        navigate(to: .mainTab)
+    }
+    
     private func navigate(to route: Route) {
         switch route {
         case .login:

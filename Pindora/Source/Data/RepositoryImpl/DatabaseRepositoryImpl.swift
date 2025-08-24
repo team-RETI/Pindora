@@ -17,6 +17,10 @@ final class DatabaseRepositoryImpl: DatabaseRepositoryProtocol {
         FirebaseDatabaseManager.shared.readGenericPublisher(collection: collection, documentID: id, as: type)
     }
     
+    func fetchAll<T>(from collection: String, as type: T.Type) -> AnyPublisher<[T], any Error> where T : Decodable, T : Encodable {
+        FirebaseDatabaseManager.shared.readAllGenericPublisher(collection: collection, as: type)
+    }
+    
     func update<T>(_ object: T, at collection: String, id: String) -> AnyPublisher<Void, any Error> where T : Decodable, T : Encodable {
         FirebaseDatabaseManager.shared.updateGenericPublisher(collection: collection, documentID: id, with: object)
     }

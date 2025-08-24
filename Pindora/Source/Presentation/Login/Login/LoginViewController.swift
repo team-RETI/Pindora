@@ -4,11 +4,12 @@
 //  Created by 김동현 on 7/16/25.
 //
 
-import UIKit
+import Combine
+import CombineCocoa
 import SwiftUI
-
 final class LoginViewController: UIViewController {
     weak var coordinator: LoginCoordinator?
+    private var cancellables: Set<AnyCancellable> = []
     private let viewModel: LoginViewModel
     private var hostingController: UIHostingController<LoginView>?
     
@@ -53,7 +54,22 @@ final class LoginViewController: UIViewController {
 
     // MARK: - Bindings
     private func bindViewModel() {
-
+        let input = LoginViewModel.Input(appleLoginTapped: customView.appleLoginButton.tapPublisher.eraseToAnyPublisher())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.loginResult
+            .receive(on: RunLoop.main)
+            .sink { [weak self] result in
+                switch result {
+                case .success:
+                    print("✅ 애플 로그인 성공")
+                    self?.coordinator?.didTapLoginButton()
+                case .failure(let error):
+                    error.printFullTrace()
+                }
+            }
+            .store(in: &cancellables)
     }
     
     @objc private func appleButtonTapped() {

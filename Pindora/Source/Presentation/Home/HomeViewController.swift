@@ -5,6 +5,7 @@
 //
 
 import UIKit
+import Combine
 
 final class HomeViewController: UIViewController {
     weak var coordinator: HomeCoordinator?
@@ -12,11 +13,14 @@ final class HomeViewController: UIViewController {
     private let customView = HomeView()
     
     private lazy var placeListView: CardCellListView = customView.placeListView
-    private let dummyData: [(category: String, likedCount: Int, title: String, description: String, imageName: String, date: String)] = [
-        ("관광지",159,"경복궁", "서울특별시 종로구 사직로 161", "sample1", "2주전"),
-        ("카페",55,"스타벅스 시청점", "도로명서울 중구 을지로 19 삼성화재삼성빌딩 1층", "sample6", "어제"),
-        ("공원",595,"여의도 한강공원", "서울 영등포구 여의동로 330", "sample9","한달전"),
-        ("관광지",111,"남산타워", "서울 영등포구 여의동로 330", "sample4", "3일전"),
+    private var cancellables = Set<AnyCancellable>()
+    private var placeList: [Place] = []
+    
+    private let dummyData: [(title: String, description: String, imageName: String)] = [
+        ("카페 드롭탑", "분위기 좋은 루프탑 카페", "경복궁"),
+        ("연남동 돈까스", "수요미식회에도 나온 맛집", "경복궁고화질"),
+        ("책방 무대륙", "힐링하기 좋은 독립 서점", "스타필드"),
+        ("서울숲 카페", "분위기 좋은 루프탑 카페", "남산타워"),
     ]
     
     // MARK: - Initializer
@@ -39,6 +43,7 @@ final class HomeViewController: UIViewController {
         placeListView.dataSource = self
         placeListView.delegate = self
         bindViewModel()
+        viewModel.fetchPlaces()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,7 +57,12 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Bindings
     private func bindViewModel() {
-        
+        viewModel.$places
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] places in
+                self?.placeList = places
+                self?.placeListView.reloadData()
+            }.store(in: &cancellables)
     }
     
     @objc private func categoryTapped(_ sender: UIButton) {
@@ -75,7 +85,7 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyData.count
+        return placeList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,10 +93,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let place = dummyData[indexPath.row]
-        let placeModel = PlaceModel(category: place.category, likeCount: place.likedCount, title: place.title, description: place.description, imageName: place.imageName, date: place.date)
-        
-        cell.configure(with: placeModel)
+        let place = placeList[indexPath.row]
+        //let placeModel = PlaceModel(title: place.title, description: place.description, imageName: place.imageName)
+        cell.configure(with: place)
         return cell
     }
     

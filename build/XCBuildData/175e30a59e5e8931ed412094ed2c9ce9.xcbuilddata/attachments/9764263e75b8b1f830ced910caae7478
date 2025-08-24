@@ -1,0 +1,20 @@
+{
+  "" : {
+    "const-values" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/firebase-ios-sdk/build/Firebase.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseSharedSwift-master.swiftconstvalues",
+    "dependencies" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/firebase-ios-sdk/build/Firebase.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseSharedSwift-master.d",
+    "diagnostics" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/firebase-ios-sdk/build/Firebase.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseSharedSwift-master.dia",
+    "emit-module-dependencies" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/firebase-ios-sdk/build/Firebase.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseSharedSwift-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/firebase-ios-sdk/build/Firebase.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseSharedSwift-master-emit-module.dia",
+    "swift-dependencies" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/firebase-ios-sdk/build/Firebase.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseSharedSwift-master.swiftdeps"
+  },
+  "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/firebase-ios-sdk/FirebaseSharedSwift/Sources/FirebaseRemoteConfigValueDecoding.swift" : {
+    "index-unit-output-path" : "/Firebase.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseRemoteConfigValueDecoding.o",
+    "llvm-bc" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/firebase-ios-sdk/build/Firebase.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseRemoteConfigValueDecoding.bc",
+    "object" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/firebase-ios-sdk/build/Firebase.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseRemoteConfigValueDecoding.o"
+  },
+  "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/firebase-ios-sdk/FirebaseSharedSwift/Sources/third_party/FirebaseDataEncoder/FirebaseDataEncoder.swift" : {
+    "index-unit-output-path" : "/Firebase.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseDataEncoder.o",
+    "llvm-bc" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/firebase-ios-sdk/build/Firebase.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseDataEncoder.bc",
+    "object" : "/Users/kimdonghyeon/Library/Developer/Xcode/DerivedData/Pindora-atkyaqbxkcmnlaboqpdwplwjzcqi/SourcePackages/checkouts/firebase-ios-sdk/build/Firebase.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseDataEncoder.o"
+  }
+}
