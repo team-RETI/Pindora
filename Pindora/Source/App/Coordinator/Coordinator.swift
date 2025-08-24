@@ -87,7 +87,7 @@ final class LoginCoordinator: Coordinator {
         case mainTab    // 기존 사용자 -> 메인 탭
     }
     
-    var parentCoordinator: Coordinator?
+    weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
     
@@ -119,6 +119,7 @@ final class LoginCoordinator: Coordinator {
         case .loginFlow:
             let loginFlow = LoginFlowCoordinator(navigationController: navigationController)
             loginFlow.parentCoordinator = self
+            childCoordinators.append(loginFlow)            // ✅ 자식 보관
             loginFlow.start()
             
         case .mainTab:
@@ -134,7 +135,7 @@ final class LoginFlowCoordinator: Coordinator {
         case oneTimeAsk
     }
     
-    var parentCoordinator: Coordinator?
+    weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
     
@@ -164,7 +165,8 @@ final class LoginFlowCoordinator: Coordinator {
         case .oneTimeAsk:
             let vc: OneTimeAskViewController = ModuleFactory.shared.makeOneTimeAskVC()
             vc.coordinator = self
-            navigationController.setViewControllers([vc], animated: true)
+            navigationController.pushViewController(vc, animated: false)
+            navigationController.isNavigationBarHidden = true // ✅ 요거 추가
         }
     }
 }

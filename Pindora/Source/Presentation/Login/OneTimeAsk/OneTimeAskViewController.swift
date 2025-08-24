@@ -8,7 +8,7 @@ import UIKit
 import Combine
 
 final class OneTimeAskViewController: UIViewController {
-    var coordinator: LoginFlowCoordinator?
+    weak var coordinator: LoginFlowCoordinator?
     private var cancellables: Set<AnyCancellable> = []
     private let viewModel: LoginViewModel
     private let customView = OneTimeAskView()
@@ -30,14 +30,13 @@ final class OneTimeAskViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        customView.registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         bindViewModel()
         print("OTA 화면")
     }
 
     // MARK: - Bindings
     private func bindViewModel() {
-        customView.nextButton
+        customView.registerButton
             .tapPublisher
             .sink { [weak self] _ in
                 
@@ -50,10 +49,5 @@ final class OneTimeAskViewController: UIViewController {
                 print("다음 버튼")
             }
             .store(in: &cancellables)
-    }
-    
-    @objc private func registerButtonTapped() {
-        print("tapped")
-//        coordinator?.done()
     }
 }
