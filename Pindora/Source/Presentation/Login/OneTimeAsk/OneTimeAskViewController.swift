@@ -30,7 +30,9 @@ final class OneTimeAskViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        customView.registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         bindViewModel()
+        print("OTA 화면")
     }
 
     // MARK: - Bindings
@@ -49,8 +51,9 @@ final class OneTimeAskViewController: UIViewController {
             }
             .store(in: &cancellables)
     }
+    
+    @objc private func registerButtonTapped() {
+        print("tapped")
+//        coordinator?.done()
+    }
 }
-
-//#Preview {
-//    OneTimeAskViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl(), userUseCase: StubUserUsecaseImpl()))
-//}

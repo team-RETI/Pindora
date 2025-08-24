@@ -10,7 +10,7 @@ import UIKit
 final class PersonaPreviewView: UIView {
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "아바타2")
+        imageView.image = UIImage(named: "avatar2")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView

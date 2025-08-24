@@ -15,7 +15,7 @@ final class AddPlaceView: UIView {
         likeCount: 159,
         title: "경복궁",
         description: "서울특별시 종로구 사직로 161",
-        imageName: "경복궁",
+        imageName: "sample1",
         date: "2주전"
     )
     private lazy var previewCard = PreviewCardView()
@@ -65,7 +65,7 @@ final class AddPlaceView: UIView {
     }()
     
     private lazy var previewStackView: UIStackView = {
-        let image = UIImageView(image: UIImage(named: "미리보기_w"))
+        let image = UIImageView(image: UIImage(named: "white_preview"))
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

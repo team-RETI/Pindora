@@ -11,9 +11,10 @@ final class CategoryCellView: UIView {
     
     // MARK: - UI Component
     private var button: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
         button.setTitleColor(.black, for: .normal)
+//        button.setTitleColor(.gray3, for: .normal)
         button.backgroundColor = .white
         button.clipsToBounds = true
         return button
@@ -35,13 +36,21 @@ final class CategoryCellView: UIView {
         setupConstraints()
     }
     
+    init(title: String, color: UIColor) {
+        super.init(frame: .zero)
+        button.setTitle(title, for: .normal)
+        button.backgroundColor = color
+        setupUI()
+        setupConstraints()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - (F)UI Setup
     private func setupUI() {
-        setupShadow()
+//        setupShadow()
         addSubview(button)
         clipsToBounds = false 
     }
@@ -67,6 +76,7 @@ final class CategoryCellView: UIView {
     // ✅ 고정된 크기
     override var intrinsicContentSize: CGSize {
         return CGSize(width: 70, height: 30)
+//        return CGSize(width: 74, height: 34)
     }
     
     //CornerRadius 적용
@@ -82,5 +92,7 @@ final class CategoryCellView: UIView {
     func setSelected(_ selected: Bool) {
         button.backgroundColor = selected ? .gray : .white
         button.setTitleColor(selected ? .white : .black, for: .normal)
+//        button.backgroundColor = selected ? .black : .gray1
+//        button.setTitleColor(selected ? .white : .gray3, for: .normal)
     }
 }

@@ -265,7 +265,6 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             
         case .cardDetail:
             let vc = ModuleFactory.shared.makeCardDetailVC()
-//            vc.coordinator = self
             vc.coordinator = self as CardDetailCoordinating
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .pageSheet
@@ -287,7 +286,7 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             bgView.tag = 999  // 나중에 제거용
             
             let backgroundImageView = UIImageView(frame: bgView.bounds)
-            backgroundImageView.image = UIImage(named: "경복궁고화질")
+            backgroundImageView.image = UIImage(named: "sample_main")
             backgroundImageView.contentMode = .scaleAspectFill
             backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             

@@ -17,7 +17,7 @@ final class CustomNavBarView: UIView {
         return button
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .white
@@ -31,9 +31,10 @@ final class CustomNavBarView: UIView {
     }()
     
     // MARK: - Initializer
-    init(title: String) {
+    init(title: String, hideBackButton: Bool) {
          super.init(frame: .zero)
         titleLabel.text = title
+        backButton.isHidden = hideBackButton
         setupUI()
         setupConstraints()
     }
@@ -43,9 +44,12 @@ final class CustomNavBarView: UIView {
     }
     
     // MARK: - Optional Setter
-    func setTitle(_ text: String) {
-        titleLabel.text = text
-    }
+//    func setTitle(_ text: String) {
+//        titleLabel.text = text
+//    }
+//    func hideBackButton(isHide: Bool) {
+//        backButton.isHidden = isHide
+//    }
     
     // MARK: - (F)UI Setup
     private func setupUI() {

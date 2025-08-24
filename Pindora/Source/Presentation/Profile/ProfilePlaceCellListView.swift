@@ -10,6 +10,7 @@ import UIKit
 final class ProfilePlaceCellListView: UICollectionView, UICollectionViewDelegate {
     
     // MARK: - UI Component
+    private var savedPlaceImages: [UIImage] = ["sample1","sample2","sample3","sample4","sample5","sample6","sample7","sample8","sample9","sample10","sample11","sample_main"].compactMap { UIImage(named: $0) }
     private var savedPlaces: [Place] = []
     
     // MARK: - Initializer

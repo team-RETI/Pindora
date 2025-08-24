@@ -60,13 +60,6 @@ final class MapView: UIView {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-        
-    let tagScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
     
     // MARK: - Initializer
     override init(frame: CGRect) {
@@ -95,7 +88,7 @@ final class MapView: UIView {
     private func setupUI() {
         let location = NMGLatLng(lat: 37.579617, lng: 126.977041)
         
-        let photo = UIImage(named: "경복궁") ?? UIImage()
+        let photo = UIImage(named: "sample1") ?? UIImage()
         selectableMarker = SelectableMarker(position: location, image: photo)
         selectableMarker?.attach(to: mapView)
         
@@ -121,7 +114,7 @@ final class MapView: UIView {
         cameraUpdate.animation = .easeIn
         
         // 내 위치 마커 그리기
-        let customIcon = MarkerIconFactory.makeCustomUserIcon(from: UIImage(named: "아바타2") ?? UIImage())
+        let customIcon = MarkerIconFactory.makeCustomUserIcon(from: UIImage(named: "avatar2") ?? UIImage())
         myLocation.position = NMGLatLng(lat: latitude, lng: longitude)
         myLocation.iconImage = NMFOverlayImage(image: customIcon)
         myLocation.width = 64

@@ -17,7 +17,7 @@ final class TagLabelView: UIView {
     // MARK: - UI Component
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "태그")
+        imageView.image = UIImage(named: "tag")
         imageView.tintColor = .black
         imageView.contentMode = .scaleAspectFit
         return imageView

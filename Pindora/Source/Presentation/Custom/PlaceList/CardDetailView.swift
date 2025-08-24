@@ -33,7 +33,7 @@ final class CardDetailView: UIView {
 
     private let closeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "닫기버튼"), for: .normal)
+        button.setImage(UIImage(named: "xmark"), for: .normal)
         button.tintColor = .white
         return button
     }()
@@ -63,7 +63,7 @@ final class CardDetailView: UIView {
 
     private let mainImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "경복궁")
+        imageView.image = UIImage(named: "sample1")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 18
         imageView.clipsToBounds = true

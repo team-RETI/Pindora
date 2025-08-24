@@ -12,7 +12,7 @@ final class ProfileEditView: UIView {
     let imageSelectorView = ImageSelectorView()
     private let personaInfoCardView = PersonaInfoCardView()
     private let personaPreviewView = PersonaPreviewView()
-    let navigationBarView = CustomNavBarView(title: "프로필 수정")
+    let navigationBarView = CustomNavBarView(title: "프로필 수정", hideBackButton: false)
     private let contentView = UIView()
 
     private let imageTitleLabel = UILabel.makeTitleLabel(text: "대표 이미지")
@@ -61,7 +61,7 @@ final class ProfileEditView: UIView {
     }()
     
     private lazy var previewStackView: UIStackView = {
-        let image = UIImageView(image: UIImage(named: "미리보기"))
+        let image = UIImageView(image: UIImage(named: "preview"))
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
