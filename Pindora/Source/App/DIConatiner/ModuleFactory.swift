@@ -90,7 +90,8 @@ final class ModuleFactory {
     
     func makeProfileVC() -> ProfileViewController {
         let viewModel: ProfileViewModel = getOrCreateViewModel(for: .profile) {
-            ProfileViewModel()
+            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
+            return ProfileViewModel(userUseCase: userUseCase)
         }
         return ProfileViewController(viewModel: viewModel)
     }
@@ -114,6 +115,14 @@ final class ModuleFactory {
             AccountSettingViewModel()
         }
         return AccountSettingViewController(viewModel: viewModel)
+    }
+    
+    func makeLoginViewModel() -> LoginViewModel {
+        getOrCreateViewModel(for: .login) {
+            let authUseCase = DIContainer.shared.resolve(AuthUseCaseProtocol.self)
+            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
+            return LoginViewModel(authUseCase: authUseCase, userUseCase: userUseCase)
+        }
     }
 
     

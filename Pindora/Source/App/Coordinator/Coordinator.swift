@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol Coordinator: AnyObject {
     
@@ -423,7 +424,7 @@ final class MyPlaceCoordinator: Coordinator {
 
 final class ProfileCoordinator: Coordinator {
     func didTapLogout() {
-        navigationController.popViewController(animated: true)
+        navigate(to: .logout)
     }
     
     func didTapDeleteAccount() {
@@ -462,6 +463,7 @@ final class ProfileCoordinator: Coordinator {
         case editProfile
         case setting
         case accountSetting
+        case logout
     }
     
     var parentCoordinator: Coordinator?
@@ -503,6 +505,14 @@ final class ProfileCoordinator: Coordinator {
             vc.coordinator = self
             vc.hidesBottomBarWhenPushed = true
             navigationController.pushViewController(vc, animated: true)
+            navigationController.isNavigationBarHidden = true
+            
+        case .logout:
+            ModuleFactory.shared.clearAllViewModels()
+            
+            let loginVM = ModuleFactory.shared.makeLoginViewModel()
+            let loginVC = LoginViewController(viewModel: loginVM)
+            navigationController.setViewControllers([loginVC], animated: true)
             navigationController.isNavigationBarHidden = true
         }
     }

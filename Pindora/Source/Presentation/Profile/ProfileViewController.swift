@@ -5,11 +5,13 @@
 //
 
 import UIKit
+import Combine
 
 final class ProfileViewController: UIViewController {
     weak var coordinator: ProfileCoordinator?
     private let viewModel: ProfileViewModel
     private let customView = ProfileView()
+    private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Initializer
     init(viewModel: ProfileViewModel) {
@@ -40,7 +42,36 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Bindings
     private func bindViewModel() {
-
+        viewModel.$user
+            .compactMap { $0 }
+            .receive(on: RunLoop.main)
+            .sink { [weak self] (user: User) in
+                self?.customView.setProfileTitleLabel(user.personaName)
+                self?.customView.setProfileDescriptionLabel(user.personaDescription)
+                if let urlString = user.userImage, let url = URL(string: urlString) {
+                    self?.loadImage(from: url)
+                }
+                
+                let saved = user.savedPlaces.count
+                let visited = user.visitedPlaces.count
+                let liked = user.likedPlaces.count
+                
+                self?.customView.updatePlaceCount(saved: saved, visited: visited, liked: liked)
+                self?.customView.updateSavedPlaces(user.savedPlaces)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func loadImage(from url: URL) {
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let data, let image = UIImage(data: data), error == nil else {
+                print("이미지 로딩 실패: \(error?.localizedDescription ?? "이미지 오류 발생")")
+                return
+            }
+            DispatchQueue.main.async {
+                self?.customView.setProfileImageView(image)
+            }
+        }.resume()
     }
     
     // 버튼 탭 처리

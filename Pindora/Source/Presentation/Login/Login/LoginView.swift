@@ -48,5 +48,3 @@ final class LoginView: UIView {
 #Preview {
     LoginViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl(), userUseCase: StubUserUsecaseImpl()))
 }
-
-
