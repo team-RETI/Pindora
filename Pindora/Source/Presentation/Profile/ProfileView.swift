@@ -125,7 +125,7 @@ final class ProfileView: UIView {
             profileDescriptionLabel.leadingAnchor.constraint(equalTo: profileStackView.leadingAnchor),
             profileDescriptionLabel.trailingAnchor.constraint(equalTo: profileStackView.trailingAnchor),
                         
-            statsStackView.topAnchor.constraint(equalTo: profileDescriptionLabel.bottomAnchor, constant: 20),
+            statsStackView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 20),
             statsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             statsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             statsStackView.heightAnchor.constraint(equalToConstant: 72),
