@@ -68,6 +68,7 @@ final class LoginViewController: UIViewController {
                 switch result {
                 case .success:
                     print("✅ 애플 로그인 성공")
+//                    self?.coordinator?.navigateToMainTab()
                     self?.coordinator?.didTapLoginButton()
                 case .failure(let error):
                     error.printFullTrace()

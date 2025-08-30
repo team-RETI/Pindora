@@ -87,7 +87,7 @@ final class LoginCoordinator: Coordinator {
         case mainTab    // 기존 사용자 -> 메인 탭
     }
     
-    weak var parentCoordinator: Coordinator?
+    var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
     
@@ -102,6 +102,7 @@ final class LoginCoordinator: Coordinator {
     }
     
     func didTapLoginButton() {
+        parentCoordinator?.childDidFinish(self)
         navigate(to: .loginFlow)
     }
     
@@ -114,18 +115,20 @@ final class LoginCoordinator: Coordinator {
         case .login:
             let vc = ModuleFactory.shared.makeLoginVC()
             vc.coordinator = self
+            //            navigationController.setViewControllers([vc], animated: true)
             navigationController.pushViewController(vc, animated: true)
             
         case .loginFlow:
             let loginFlow = LoginFlowCoordinator(navigationController: navigationController)
             loginFlow.parentCoordinator = self
-            childCoordinators.append(loginFlow)            // ✅ 자식 보관
             loginFlow.start()
+            childCoordinators.append(loginFlow)
             
         case .mainTab:
             let mainTab = MainTabCoordinator(navigationController: navigationController)
             mainTab.parentCoordinator = self
             mainTab.start()
+            childCoordinators.append(mainTab)
         }
     }
 }
@@ -135,7 +138,7 @@ final class LoginFlowCoordinator: Coordinator {
         case oneTimeAsk
     }
     
-    weak var parentCoordinator: Coordinator?
+    var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
     
@@ -165,8 +168,8 @@ final class LoginFlowCoordinator: Coordinator {
         case .oneTimeAsk:
             let vc: OneTimeAskViewController = ModuleFactory.shared.makeOneTimeAskVC()
             vc.coordinator = self
-            navigationController.pushViewController(vc, animated: false)
-            navigationController.isNavigationBarHidden = true // ✅ 요거 추가
+            navigationController.pushViewController(vc, animated: true)
+            //                        navigationController.setViewControllers([vc], animated: true)
         }
     }
 }
@@ -205,7 +208,8 @@ final class MainTabCoordinator: Coordinator {
             self.childCoordinators.append($0) // ✅ 여기
         }
         tabbarController.setViewControllers([homeNav, mapNav, myPlaceNav, profileNav], animated: false)
-        navigationController.setViewControllers([tabbarController], animated: true)
+        //        navigationController.setViewControllers([tabbarController], animated: true)
+        navigationController.pushViewController(tabbarController, animated: true)
         navigationController.isNavigationBarHidden = true // ✅ 요거 추가
         tabbarController.tabBar.tintColor = .gray
         tabbarController.tabBar.unselectedItemTintColor = .lightGray
@@ -217,7 +221,7 @@ protocol CardDetailCoordinating: AnyObject {
     func didTapCell()
     /// 이동
     func didTapPlaceMarker()
-//    func navigateToPlaceDetail()
+    //    func navigateToPlaceDetail()
     // 여기에 필요한 이동 메서드 추가
 }
 
@@ -325,7 +329,7 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
             }
         }
     }
-        
+    
     private enum Route {
         case home
         case cardDetail
@@ -425,7 +429,7 @@ final class MyPlaceCoordinator: Coordinator {
 
 final class ProfileCoordinator: Coordinator {
     func didTapLogout() {
-        navigate(to: .logout)
+        navigateLoginTap()
     }
     
     func didTapDeleteAccount() {
@@ -464,7 +468,7 @@ final class ProfileCoordinator: Coordinator {
         case editProfile
         case setting
         case accountSetting
-        case logout
+//        case logout
     }
     
     var parentCoordinator: Coordinator?
@@ -477,6 +481,19 @@ final class ProfileCoordinator: Coordinator {
     
     func start() {
         navigate(to: .home)
+    }
+    
+    func navigateLoginTap() {
+        finishFlow()
+        if let appCoordinator = parentCoordinator as? MainTabCoordinator {
+            print("here?")
+            appCoordinator.parentCoordinator?.start()
+        }
+    }
+    
+    func finishFlow() {
+        parentCoordinator?.childDidFinish(self)
+        ModuleFactory.shared.clearAllViewModels()
     }
     
     private func navigate(to route: Route) {
@@ -508,13 +525,19 @@ final class ProfileCoordinator: Coordinator {
             navigationController.pushViewController(vc, animated: true)
             navigationController.isNavigationBarHidden = true
             
-        case .logout:
-            ModuleFactory.shared.clearAllViewModels()
-            
-            let loginVM = ModuleFactory.shared.makeLoginViewModel()
-            let loginVC = LoginViewController(viewModel: loginVM)
-            navigationController.setViewControllers([loginVC], animated: true)
-            navigationController.isNavigationBarHidden = true
+//        case .logout:
+//            ModuleFactory.shared.clearAllViewModels()
+//            
+//            
+//            let loginVM = ModuleFactory.shared.makeLoginViewModel()
+//            let loginVC = ModuleFactory.shared.makeLoginVC()
+//            loginVC.coordinator = self
+//            navigationController.pushViewController(loginVC, animated: true)
+//            
+//            
+//            //            let loginVC = LoginViewController(viewModel: loginVM)
+//            //            navigationController.setViewControllers([loginVC], animated: true)
+//            navigationController.isNavigationBarHidden = true
         }
     }
 }
