@@ -180,6 +180,13 @@ final class MainTabCoordinator: Coordinator {
         self.navigationController = navigationController
     }
     
+    func navigateToLogin() {
+        parentCoordinator?.childDidFinish(self)
+        if let appCoordinator = parentCoordinator as? LoginCoordinator {
+            appCoordinator.start()
+        }
+    }
+    
     func start() {
         let homeNav = UINavigationController()
         let mapNav = UINavigationController()
@@ -424,7 +431,7 @@ final class MyPlaceCoordinator: Coordinator {
 
 final class ProfileCoordinator: Coordinator {
     func didTapLogout() {
-        navigateLoginTap()
+        navigateToLogin()
     }
     
     func didTapDeleteAccount() {
@@ -477,10 +484,10 @@ final class ProfileCoordinator: Coordinator {
         navigate(to: .home)
     }
     
-    func navigateLoginTap() {
+    func navigateToLogin() {
         finishFlow()
         if let appCoordinator = parentCoordinator as? MainTabCoordinator {
-            appCoordinator.parentCoordinator?.start()
+            appCoordinator.navigateToLogin()
         }
     }
     

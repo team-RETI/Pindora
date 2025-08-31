@@ -12,11 +12,11 @@ import Combine
 final class MapViewController: UIViewController, CLLocationManagerDelegate {
     weak var coordinator: MapCoordinator?
     private let viewModel: MapViewModel
-    private let locationManager = CLLocationManager()
-    private let kakaoApiManager =  KakaoSearchAPIManager.shared
-    private var cancellables = Set<AnyCancellable>()
     private let customView = MapView()
     
+    private let kakaoApiManager =  KakaoSearchAPIManager.shared
+//    private let locationManager = CLLocationManager()
+    private var cancellable = Set<AnyCancellable>()
     private var tagsVisible = false
     
     
@@ -37,12 +37,13 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        customView.locationButton.addTarget(self, action:  #selector(locationButtonTapped), for: .touchUpInside)
-        customView.tagToggleButton.addTarget(self, action: #selector(toggleTags), for: .touchUpInside)
-        
-        selectableHandler()
-        requestLocationPermission()
+//        customView.locationButton.addTarget(self, action:  #selector(locationButtonTapped), for: .touchUpInside)
+//        customView.tagToggleButton.addTarget(self, action: #selector(toggleTags), for: .touchUpInside)
+//        selectableHandler()
+//        requestLocationPermission()
+        bindViewEvent()
         bindViewModel()
+        selectableHandler()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,8 +54,28 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - Bindings
     private func bindViewModel() {
+        let input = MapViewModel.Input(
+            requestPermissionTapped: customView.locationButtonTapped.eraseToAnyPublisher()
+        )
+        
+        let output = viewModel.transform(input: input)
 
+        output.location
+            .sink { [weak self] coordinate in
+                self?.customView.updateMyLocation(lat: coordinate.coordinate.latitude, lng: coordinate.coordinate.longitude)
+            }
+            .store(in: &cancellable)
     }
+    
+    private func bindViewEvent() {
+        customView.locationButtonTapped
+            .sink { [weak self] in self?.handleLocationButtonTapped() }
+            .store(in: &cancellable)
+        customView.tagToggleButtonTapped
+            .sink { [weak self] in self?.toggleTags() }
+            .store(in: &cancellable)
+    }
+
 
     private func selectableHandler() {
         customView.selectableMarker?.marker.touchHandler = { [weak self] _ in
@@ -103,7 +124,7 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
                 print("받은 장소 수:", places.count)
                 self.customView.renderPlacesOnMap(places)
             }
-            .store(in: &cancellables)
+            .store(in: &cancellable)
     }
     
     @objc private func toggleTags() {
@@ -131,21 +152,24 @@ final class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    @objc private func locationButtonTapped() {
-        guard let loc = locationManager.location else { return }
-        let latLng = NMGLatLng(lat: loc.coordinate.latitude, lng: loc.coordinate.longitude)
-
-        let update = NMFCameraUpdate(scrollTo: latLng, zoomTo: 15)
-        update.animation = .easeIn
-        customView.mapView.moveCamera(update)
-
-        // 이미 만든 마커만 위치만 갱신
-        customView.myLocation.position = latLng
+//    @objc private func locationButtonTapped() {
+//        guard let loc = locationManager.location else { return }
+//        let latLng = NMGLatLng(lat: loc.coordinate.latitude, lng: loc.coordinate.longitude)
+//
+//        let update = NMFCameraUpdate(scrollTo: latLng, zoomTo: 15)
+//        update.animation = .easeIn
+//        customView.mapView.moveCamera(update)
+//
+//        // 이미 만든 마커만 위치만 갱신
+//        customView.myLocation.position = latLng
+        private func handleLocationButtonTapped() {
+            // This is now handled by viewModel and updateMyLocation
+            // You can add additional UI logic here if needed
     }
     
-    private func requestLocationPermission() {
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
+//    private func requestLocationPermission() {
+//        locationManager.delegate = self
+//        locationManager.requestWhenInUseAuthorization()
+//        locationManager.startUpdatingLocation()
+//    }
 }

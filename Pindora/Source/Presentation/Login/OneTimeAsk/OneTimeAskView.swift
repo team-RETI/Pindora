@@ -77,8 +77,6 @@ final class OneTimeAskView: UIView {
         setupUI()
         setupConstraints()
         bindCloud()
-        
-        //        card.inkMode = .fixedCenter
         card.inkMode = .accumulateUnion
     }
     
@@ -128,7 +126,7 @@ final class OneTimeAskView: UIView {
                 let anchor = self.inkAnchors[self.inkAnchorIndex]
                 self.inkAnchorIndex = (self.inkAnchorIndex + 1) % self.inkAnchors.count
                 
-                let step = CGFloat(Int.random(in: 10...15)) / 100.0
+                let step = CGFloat(Int.random(in: 20...25)) / 100.0
                 self.progress = min(1.0, self.progress + step)
                 
                 // 누적 잉크: 선택한 앵커에서 원 추가
@@ -142,7 +140,7 @@ final class OneTimeAskView: UIView {
                 
             } else {
                 // ❌ 해제 시 감소
-                let step = CGFloat(Int.random(in: 10...15)) / 100.0
+                let step = CGFloat(Int.random(in: 20...25)) / 100.0
                 self.progress = max(0.0, self.progress - step)
                 
                 // 👉 카드에서 "잉크 제거" 로직 필요 시 구현
