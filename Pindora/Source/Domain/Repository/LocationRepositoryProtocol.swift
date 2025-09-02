@@ -26,11 +26,5 @@ protocol LocationRepositoryProtocol {
     func stopUpdating()
     
     /// [변경 예정]
-    var errorPublisher: AnyPublisher<LocationError, Never> { get }
-}
-// [변경예정]
-enum LocationError: Error {
-    case authorizationDenied
-    case authorizationRestricted
-    case locationUpdateFailed(Error)
+    var errorPublisher: AnyPublisher<Void, InfraError> { get }
 }

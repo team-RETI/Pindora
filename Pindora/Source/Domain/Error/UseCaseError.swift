@@ -36,6 +36,11 @@ enum UseCaseError: Error, NestedError, LocalizedError {
     
     case firebaseError(RepositoryError)
     
+    case locationAuthorizationDenied(RepositoryError)
+    case locationAuthorizationRestricted(RepositoryError)
+    case locationServicesDisabled(RepositoryError)
+    case locationManagerError(RepositoryError)
+    
     case unknown(RepositoryError)
     
 
@@ -46,6 +51,10 @@ enum UseCaseError: Error, NestedError, LocalizedError {
              .appleNonceMissing(let e),
              .appleIDTokenParsingFailed(let e),
              .appleCanceled(let e),
+             .locationAuthorizationDenied(let e),
+             .locationAuthorizationRestricted(let e),
+             .locationServicesDisabled(let e),
+             .locationManagerError(let e),
              .unknown(let e),
              .appleError(let e),
              .firebaseError(let e):
@@ -58,44 +67,36 @@ enum UseCaseError: Error, NestedError, LocalizedError {
     // MARK: - User-facing Error Description
     var errorDescription: String? {
         switch self {
-        case .invalidState:
-            return "⚠️ 잘못된 요청 상태입니다."
-        case .userNotFound:
-            return "⚠️ 사용자를 찾을 수 없습니다."
-        case .appleInvalidCredential:
-            return "⚠️ 애플 인증 자격이 유효하지 않습니다."
-        case .appleNonceMissing:
-            return "⚠️ 인증 nonce가 누락되었습니다."
-        case .appleIDTokenParsingFailed:
-            return "⚠️ 애플 토큰 파싱에 실패했습니다."
-        case .appleCanceled:
-            return "⚠️ 사용자가 애플 로그인을 취소했습니다."
-        case .unknown:
-            return "⚠️ 알 수 없는 오류입니다."
-        case .appleError:
-            return "⚠️ 로그인에 실패하였습니다."
-        case .firebaseError:
-            return "⚠️ 서버 오류입니다."
+        case .invalidState: return "⚠️ 잘못된 요청 상태입니다."
+        case .userNotFound: return "⚠️ 사용자를 찾을 수 없습니다."
+        case .appleInvalidCredential: return "⚠️ 애플 인증 자격이 유효하지 않습니다."
+        case .appleNonceMissing: return "⚠️ 인증 nonce가 누락되었습니다."
+        case .appleIDTokenParsingFailed: return "⚠️ 애플 토큰 파싱에 실패했습니다."
+        case .appleCanceled: return "⚠️ 사용자가 애플 로그인을 취소했습니다."
+        case .unknown: return "⚠️ 알 수 없는 오류입니다."
+        case .appleError: return "⚠️ 로그인에 실패하였습니다."
+        case .firebaseError: return "⚠️ 서버 오류입니다."
+        case .locationAuthorizationDenied: return "📡 위치 권한이 거부되어 현재 위치를 사용할 수 없습니다. 설정에서 권한을 허용해주세요."
+        case .locationAuthorizationRestricted: return "📡 기기 정책/제한으로 인해 위치 권한을 사용할 수 없습니다."
+        case .locationServicesDisabled: return "📡 시스템 위치 서비스가 꺼져 있습니다. 설정에서 켜주세요."
+        case .locationManagerError: return "📡 위치를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요."
         }
     }
 
     // MARK: - RepositoryError → UseCaseError 변환
     static func map(from error: RepositoryError) -> UseCaseError {
         switch error {
-        case .appleInvalidCredential:
-            return .appleInvalidCredential(error)
-        case .appleNonceMissing:
-            return .appleNonceMissing(error)
-        case .appleIDTokenParsingFailed:
-            return .appleIDTokenParsingFailed(error)
-        case .appleCanceled:
-            return .appleCanceled(error)
-        case .appleError(let e):
-            return .appleError(.appleCanceled(e))
-        case .firebaseError(let e):
-            return .firebaseError(.firebaseError(e))
-        case .unknown(let e):
-            return .unknown(.unknown(e))
+        case .appleInvalidCredential: return .appleInvalidCredential(error)
+        case .appleNonceMissing: return .appleNonceMissing(error)
+        case .appleIDTokenParsingFailed: return .appleIDTokenParsingFailed(error)
+        case .appleCanceled: return .appleCanceled(error)
+        case .appleError(let e): return .appleError(.appleCanceled(e))
+        case .firebaseError(let e): return .firebaseError(.firebaseError(e))
+        case .unknown(let e): return .unknown(.unknown(e))
+        case .locationAuthorizationDenied: return .locationAuthorizationDenied(error)
+        case .locationAuthorizationRestricted: return .locationAuthorizationRestricted(error)
+        case .locationServicesDisabled: return .locationServicesDisabled(error)
+        case .locationManagerError: return .locationManagerError(error)
         }
     }
 }

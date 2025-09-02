@@ -14,7 +14,8 @@ final class LocationRepositoryImpl: NSObject, LocationRepositoryProtocol {
     private let locationManager: CLLocationManager
     private let authorizationStatusSubject = PassthroughSubject<CLAuthorizationStatus, Never>()
     private let locationSubject = PassthroughSubject<CLLocation, Never>()
-    private let errorSubject = PassthroughSubject<LocationError, Never>()
+    private let errorSubject = PassthroughSubject<Void ,InfraError>()
+    
 
     // 퍼블리셔로 외부에 노출
     var authorizationStatusPublisher: AnyPublisher<CLAuthorizationStatus, Never> {
@@ -25,9 +26,10 @@ final class LocationRepositoryImpl: NSObject, LocationRepositoryProtocol {
         locationSubject.eraseToAnyPublisher()
     }
 
-    var errorPublisher: AnyPublisher<LocationError, Never> {
+    var errorPublisher: AnyPublisher<Void, InfraError> {
         errorSubject.eraseToAnyPublisher()
     }
+
     // 초기화
     override init() {
         self.locationManager = CLLocationManager()
