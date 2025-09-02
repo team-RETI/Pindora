@@ -185,6 +185,10 @@ final class MainTabCoordinator: Coordinator {
         if let appCoordinator = parentCoordinator as? LoginCoordinator {
             appCoordinator.start()
         }
+        if let appCoordinator = parentCoordinator as? AppCoordinator {
+            appCoordinator.isLoggedIn = false
+            appCoordinator.start()
+        }
     }
     
     func start() {
