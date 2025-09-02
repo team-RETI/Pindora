@@ -43,6 +43,7 @@ extension DIContainer {
         let authRepository = AuthRepositoryImpl()
         let storageRepository = StorageRepositoryImpl()
         let databaseRepository = DatabaseRepositoryImpl()
+        let locationRepository = LocationRepositoryImpl()
         
         if !useStub {
             // MARK: - Usecase 등록
@@ -50,14 +51,19 @@ extension DIContainer {
                 AuthUseCaseProtocol.self,
                 dependency: AuthUseCaseImpl(authRepository: authRepository)
             )
-            
             self.shared.register(
                 ImageUsecaseProtocol.self,
-                dependency: ImageUsecaseImpl(storageRepository: storageRepository))
-            
+                dependency: ImageUsecaseImpl(storageRepository: storageRepository)
+            )
             self.shared.register(
                 UserUseCaseProtocol.self,
-                dependency: UserUseCaseImpl(repository: databaseRepository))
+                dependency: UserUseCaseImpl(repository: databaseRepository)
+            )
+            self.shared.register(
+                LocationUseCaseProtocol.self,
+                dependency: LocationUseCaseImpl(repository: locationRepository)
+            )
+                
         } else {
             
             // MARK: - Stub Usecase

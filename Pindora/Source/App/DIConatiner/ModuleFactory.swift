@@ -69,7 +69,8 @@ final class ModuleFactory {
     
     func makeMapVC() -> MapViewController {
         let viewModel: MapViewModel = getOrCreateViewModel(for: .map) {
-            MapViewModel()
+            let locationUseCase: LocationUseCaseProtocol = DIContainer.shared.resolve(LocationUseCaseProtocol.self)
+            return MapViewModel(locationUseCase: locationUseCase)
         }
         return MapViewController(viewModel: viewModel)
     }

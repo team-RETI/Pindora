@@ -7,6 +7,7 @@
 import UIKit
 import NMapsMap
 import CoreLocation
+import Combine
 
 // MARK: - (C)MapView
 final class MapView: UIView {
@@ -14,9 +15,9 @@ final class MapView: UIView {
     // MARK: - UI Component
     var mapView = NMFMapView()
     var selectableMarker: SelectableMarker?
-    var locationManager = CLLocationManager()
-    var currentLocation = CLLocationCoordinate2D()
-    var findLocation = CLLocation()
+//    var locationManager = CLLocationManager()
+//    var currentLocation = CLLocationCoordinate2D()
+//    var findLocation = CLLocation()
 
     var longitude_HVC = 0.0
     var latitude_HVC = 0.0
@@ -30,6 +31,9 @@ final class MapView: UIView {
     var selectedTag: String?
     
     private var placeMarkers: [NMFMarker] = []
+    
+    let locationButtonTapped = PassthroughSubject<Void, Never>()
+    let tagToggleButtonTapped = PassthroughSubject<Void, Never>()
 
     func clearPlaceMarkers() {
         placeMarkers.forEach { $0.mapView = nil }  // 지도에서 제거
@@ -67,22 +71,23 @@ final class MapView: UIView {
         setupUI()
         setupConstraints()
         mapView.touchDelegate = self
-        
+        setupBinding()
         // delegate 설정
-        locationManager.delegate = self
+//        locationManager.delegate = self
         // 사용자에게 허용 받기 alert 띄우기
-        self.locationManager.requestWhenInUseAuthorization()
-        requestAuthorization()
+//        self.locationManager.requestWhenInUseAuthorization()
+//        requestAuthorization()
 
         // 내 위치 가져오기
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.requestWhenInUseAuthorization()
+//        locationManager.startUpdatingLocation()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
 
     // MARK: - (F)UI Setup
     private func setupUI() {
@@ -106,8 +111,8 @@ final class MapView: UIView {
         
         //x,y : 37.17555079934496,127.12561734444992
         // 위도, 경도 가져오기
-        let latitude = locationManager.location?.coordinate.latitude ?? 0 //37.5759
-        let longitude = locationManager.location?.coordinate.longitude ?? 0 //126.9769
+        let latitude = 37.5759 //locationManager.location?.coordinate.latitude ?? 0
+        let longitude = 126.9769 //locationManager.location?.coordinate.longitude ?? 0 //
         print("x,y : \(latitude),\(longitude)")
         let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude), zoomTo: 15.0)
         mapView.moveCamera(cameraUpdate)
@@ -182,6 +187,29 @@ final class MapView: UIView {
         }
         placeMarkers = newMarkers
     }
+    
+    
+    func updateMyLocation(lat: Double, lng: Double) {
+        let latLng = NMGLatLng(lat: lat, lng: lng)
+        myLocation.position = latLng
+        let update = NMFCameraUpdate(scrollTo: latLng, zoomTo: 15)
+        update.animation = .easeIn
+        mapView.moveCamera(update)
+        print(latLng)
+    }
+    
+    private func setupBinding() {
+        locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
+        tagToggleButton.addTarget(self, action: #selector(tagToggleButtonAction), for: .touchUpInside)
+    }
+    
+    @objc private func locationButtonAction() {
+        locationButtonTapped.send()
+    }
+    
+    @objc private func tagToggleButtonAction() {
+        tagToggleButtonTapped.send()
+    }
 }
 
 extension MapView: NMFMapViewTouchDelegate {
@@ -192,50 +220,50 @@ extension MapView: NMFMapViewTouchDelegate {
     }
 }
 
-extension MapView: CLLocationManagerDelegate {
-    private func requestAuthorization() {
-        //정확도 검사
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        //앱 사용할때 권한요청
-
-        switch locationManager.authorizationStatus {
-        case .restricted, .denied:
-            print("restricted n denied")
-            locationManager.requestWhenInUseAuthorization()
-        case .authorizedWhenInUse, .authorizedAlways:
-            print("권한있음")
-            locationManagerDidChangeAuthorization(locationManager)
-        default:
-            locationManager.startUpdatingLocation()
-            print("default")
-        }
-
-        locationManagerDidChangeAuthorization(locationManager)
-
-        if(latitude_HVC == 0.0 || longitude_HVC == 0.0){
-            print("위치를 가져올 수 없습니다.")
-        }
-
-    }
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        if manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways {
-            if let currentLocation = locationManager.location?.coordinate{
-                print("coordinate")
-                longitude_HVC = currentLocation.longitude
-                latitude_HVC = currentLocation.latitude
-            }
-        }
-        else{
-            print("else")
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            latitude_HVC =  location.coordinate.latitude
-            longitude_HVC = location.coordinate.longitude
-        }
-    }
-}
+//extension MapView: CLLocationManagerDelegate {
+//    private func requestAuthorization() {
+//        //정확도 검사
+//        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+//        //앱 사용할때 권한요청
+//
+//        switch locationManager.authorizationStatus {
+//        case .restricted, .denied:
+//            print("restricted n denied")
+//            locationManager.requestWhenInUseAuthorization()
+//        case .authorizedWhenInUse, .authorizedAlways:
+//            print("권한있음")
+//            locationManagerDidChangeAuthorization(locationManager)
+//        default:
+//            locationManager.startUpdatingLocation()
+//            print("default")
+//        }
+//
+//        locationManagerDidChangeAuthorization(locationManager)
+//
+//        if(latitude_HVC == 0.0 || longitude_HVC == 0.0){
+//            print("위치를 가져올 수 없습니다.")
+//        }
+//
+//    }
+//    
+//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+//        if manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways {
+//            if let currentLocation = locationManager.location?.coordinate{
+//                print("coordinate")
+//                longitude_HVC = currentLocation.longitude
+//                latitude_HVC = currentLocation.latitude
+//            }
+//        }
+//        else{
+//            print("else")
+//        }
+//    }
+//
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        if let location = locations.last {
+//            latitude_HVC =  location.coordinate.latitude
+//            longitude_HVC = location.coordinate.longitude
+//        }
+//    }
+//}
 

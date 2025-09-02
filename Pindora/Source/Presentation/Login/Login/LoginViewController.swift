@@ -13,6 +13,9 @@ final class LoginViewController: UIViewController {
     private let viewModel: LoginViewModel
     private var hostingController: UIHostingController<LoginView>?
     
+    // 👇 SwiftUI 버튼 탭을 브리지할 Subject
+    private let appleTap = PassthroughSubject<Void, Never>()
+
     // MARK: - Initializer
     init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
@@ -29,7 +32,7 @@ final class LoginViewController: UIViewController {
 
         // 1) SwiftUI 뷰 생성 + 콜백 주입
         let swiftUIView = LoginView(onContinue: { [weak self] in
-            self?.coordinator?.didTapLoginButton()   // ← LoginCoordinator로 라우팅
+            self?.appleTap.send()
         })
 
         // 2) HostingController로 감싸기
@@ -54,8 +57,9 @@ final class LoginViewController: UIViewController {
 
     // MARK: - Bindings
     private func bindViewModel() {
-        let input = LoginViewModel.Input(appleLoginTapped: customView.appleLoginButton.tapPublisher.eraseToAnyPublisher())
-        
+        let input = LoginViewModel.Input(
+                    appleLoginTapped: appleTap.eraseToAnyPublisher()
+                )
         let output = viewModel.transform(input: input)
         
         output.loginResult
@@ -64,15 +68,12 @@ final class LoginViewController: UIViewController {
                 switch result {
                 case .success:
                     print("✅ 애플 로그인 성공")
+//                    self?.coordinator?.navigateToMainTab()
                     self?.coordinator?.didTapLoginButton()
                 case .failure(let error):
                     error.printFullTrace()
                 }
             }
             .store(in: &cancellables)
-    }
-    
-    @objc private func appleButtonTapped() {
-//        coordinator?.didTapLogin()
     }
 }

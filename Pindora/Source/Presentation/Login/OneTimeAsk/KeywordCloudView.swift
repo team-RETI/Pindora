@@ -41,6 +41,7 @@ final class KeywordCloudView: UIView {
         stack.layer.masksToBounds = true
         stack.isLayoutMarginsRelativeArrangement = true
         let offset = [0,32,0,32]
+        
         for i in 0..<rowCount {
             let keywordListView = CategoryCellListView(frame: .zero, color: .gray1) // 👈 새로운 인스턴스 생성
             stack.addArrangedSubview(keywordListView)
@@ -48,7 +49,7 @@ final class KeywordCloudView: UIView {
             
             DispatchQueue.main.async { [weak keywordListView] in
                 guard let keywordListView else { return }
-                keywordListView.setContentOffset(CGPoint(x: offset[i], y: 0), animated: false)
+                keywordListView.setContentOffset(CGPoint(x: offset[i], y: 0), animated: true)
             }
         }
         return stack

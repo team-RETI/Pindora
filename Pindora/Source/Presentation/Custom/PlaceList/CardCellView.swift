@@ -136,27 +136,22 @@ final class CardCellView: UITableViewCell {
     
     // 데이터 연결 (viewModel 구현 후 지울예정)
     func configure(with place: Place) {
+        tagLabelView.title = place.category
+        likeCountLabelView.count = place.likedCount?.description
         titleLabel.text = place.placeName
         descriptionLabel.text = place.placeAddress
+        dateLabel.text = place.addedDate.toString()
         
-        if let urlString = place.imageURL, let url = URL(string: urlString) {
-            URLSession.shared.dataTask(with: url) { data, _, _ in
-                guard let data, let image = UIImage(data: data) else { return }
-                DispatchQueue.main.async {
-                    self.thumbnailImageView.image = image
-                }
-            }.resume()
-        } else {
-            thumbnailImageView.image = UIImage(named: "placeholder")
-        }
+//        if let urlString = place.imageURL, let url = URL(string: urlString) {
+//            URLSession.shared.dataTask(with: url) { data, _, _ in
+//                guard let data, let image = UIImage(data: data) else { return }
+//                DispatchQueue.main.async {
+//                    self.thumbnailImageView.image = image
+//                }
+//            }.resume()
+//        } else {
+//            thumbnailImageView.image = UIImage(named: "placeholder")
+//        }
+        thumbnailImageView.image = UIImage(named: place.imageURL ?? "placeholder")
     }
-}
-
-struct PlaceModel {
-    let category: String
-    let likeCount: Int
-    let title: String
-    let description: String
-    let imageName: String
-    let date: String
 }

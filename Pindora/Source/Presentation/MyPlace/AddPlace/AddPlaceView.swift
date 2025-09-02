@@ -10,13 +10,16 @@ import UIKit
 final class AddPlaceView: UIView {
     private let contentView = UIView()
     let categories = ["도서관", "카페", "관광지", "식당", "숙소", "기타", "도서관", "카페"]
-    private let dummyPlace = PlaceModel(
+    private let dummyPlace = Place(
+        placeId: UUID().uuidString,
+        placeName: "경복궁",
+        placeAddress: "서울특별시 종로구 사직로 161",
+        latitude: 0.0,
+        longitude: 0.0,
         category: "관광지",
-        likeCount: 159,
-        title: "경복궁",
-        description: "서울특별시 종로구 사직로 161",
-        imageName: "sample1",
-        date: "2주전"
+        addedDate: Calendar.current.date(byAdding: .weekOfMonth, value: -2, to: Date()) ?? Date(),
+        likedCount: 159,
+        imageURL: "sample1"
     )
     private lazy var previewCard = PreviewCardView()
     private let searchField = SearchBarView()

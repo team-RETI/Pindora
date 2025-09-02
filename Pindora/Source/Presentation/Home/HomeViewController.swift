@@ -16,11 +16,11 @@ final class HomeViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private var placeList: [Place] = []
     
-    private let dummyData: [(title: String, description: String, imageName: String)] = [
-        ("카페 드롭탑", "분위기 좋은 루프탑 카페", "경복궁"),
-        ("연남동 돈까스", "수요미식회에도 나온 맛집", "경복궁고화질"),
-        ("책방 무대륙", "힐링하기 좋은 독립 서점", "스타필드"),
-        ("서울숲 카페", "분위기 좋은 루프탑 카페", "남산타워"),
+    private let dummyData: [(category: String, likedCount: Int, title: String, address: String, imageURL: String, date: Date)] = [
+        ("관광지",159,"경복궁", "서울특별시 종로구 사직로 161", "sample1", ISO8601DateFormatter().date(from: "2025-08-01T00:00:00Z") ?? Date()),
+        ("카페",55,"스타벅스 시청점", "도로명서울 중구 을지로 19 삼성화재삼성빌딩 1층", "sample6", Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()),
+        ("공원",595,"여의도 한강공원", "서울 영등포구 여의동로 330", "sample9", Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? Date()),
+        ("관광지",111,"남산타워", "서울 영등포구 여의동로 330", "sample4", Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date()),
     ]
     
     // MARK: - Initializer
@@ -85,7 +85,9 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return placeList.count
+//        return placeList.count
+        // 목업 테스트용
+        return dummyData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,9 +95,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let place = placeList[indexPath.row]
-        //let placeModel = PlaceModel(title: place.title, description: place.description, imageName: place.imageName)
-        cell.configure(with: place)
+        let placeTuple = dummyData[indexPath.row]
+        let placeModel = Place(
+            placeId: UUID().uuidString, // 임시 고유 ID
+            placeName: placeTuple.title,
+            placeAddress: placeTuple.address,
+            latitude: 0.0,
+            longitude: 0.0,
+            category: placeTuple.category,
+            addedDate: placeTuple.date,
+            likedCount: placeTuple.likedCount,
+            naviLink: nil,
+            instaLink: nil,
+            bookLink: nil,
+            imageURL: placeTuple.imageURL // 또는 "https://~~" 형태로 테스트용 이미지 URL 넣어도 됨
+        )
+        cell.configure(with: placeModel)
         return cell
     }
     

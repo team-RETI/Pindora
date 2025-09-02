@@ -70,18 +70,16 @@ final class OneTimeAskView: UIView {
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return button
     }()
-
+    
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
         setupConstraints()
         bindCloud()
-        
-//        card.inkMode = .fixedCenter
-         card.inkMode = .accumulateUnion
+        card.inkMode = .accumulateUnion
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -94,7 +92,7 @@ final class OneTimeAskView: UIView {
             recomputeInkAnchors()
         }
     }
-
+    
     private func recomputeInkAnchors() {
         // 가장자리 너무 붙지 않게 살짝 여유(디자인에 맞게 조절)
         let inset: CGFloat = 24
@@ -113,7 +111,7 @@ final class OneTimeAskView: UIView {
         for categoryView in cloud.rows {
             categoryView.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
         }
-
+        
         onKeywordTapped = { [weak self] button, isSelected in
             guard let self = self else { return }
             
@@ -128,7 +126,7 @@ final class OneTimeAskView: UIView {
                 let anchor = self.inkAnchors[self.inkAnchorIndex]
                 self.inkAnchorIndex = (self.inkAnchorIndex + 1) % self.inkAnchors.count
                 
-                let step = CGFloat(Int.random(in: 10...15)) / 100.0
+                let step = CGFloat(Int.random(in: 20...25)) / 100.0
                 self.progress = min(1.0, self.progress + step)
                 
                 // 누적 잉크: 선택한 앵커에서 원 추가
@@ -142,7 +140,7 @@ final class OneTimeAskView: UIView {
                 
             } else {
                 // ❌ 해제 시 감소
-                let step = CGFloat(Int.random(in: 10...15)) / 100.0
+                let step = CGFloat(Int.random(in: 20...25)) / 100.0
                 self.progress = max(0.0, self.progress - step)
                 
                 // 👉 카드에서 "잉크 제거" 로직 필요 시 구현
@@ -169,7 +167,7 @@ final class OneTimeAskView: UIView {
         addSubview(card)
         addSubview(registerButton)
     }
-
+    
     // MARK: - (F)Constraints
     private func setupConstraints() {
         barView.translatesAutoresizingMaskIntoConstraints = false
@@ -211,10 +209,6 @@ final class OneTimeAskView: UIView {
             registerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             registerButton.heightAnchor.constraint(equalToConstant: 50),
             registerButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -35)
-            nextButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40),
-            nextButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            nextButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            nextButton.heightAnchor.constraint(equalToConstant: 45),
         ])
     }
     
@@ -223,14 +217,9 @@ final class OneTimeAskView: UIView {
             print("❌ CategoryCellView로 캐스팅 실패 - sender.superview: \(String(describing: sender.superview))")
             return
         }
-
+        
         let now = !sender.isSelected
         sender.isSelected = now
-        
-//        for view in cloud.rows {
-//            view.setSelected(false)
-//        }
-//        cellView.setSelected(true)
         UIView.animate(withDuration: 0.15) {
             if now {
                 sender.backgroundColor = .black
@@ -242,27 +231,10 @@ final class OneTimeAskView: UIView {
                 sender.transform = .identity
             }
         }
-
+        
         let selectedTitle = cellView.titleText
         print("✅ 선택된 카테고리: \(selectedTitle ?? "-")")
         
         onKeywordTapped?(sender, now)
     }
-    
-    // MARK: - Action
-    @objc private func tagTapped(_ sender: UIButton) {
-        let now = !sender.isSelected
-        sender.isSelected = now
-
-        UIView.animate(withDuration: 0.15) {
-            if now {
-                sender.backgroundColor = .black
-                sender.setTitleColor(.white, for: .normal)
-                sender.transform = CGAffineTransform(scaleX: 1.04, y: 1.04)
-            } else {
-                sender.backgroundColor = UIColor(white: 0.88, alpha: 1)
-                sender.setTitleColor(.label, for: .normal)
-                sender.transform = .identity
-            }
-        }
-    }
+}
