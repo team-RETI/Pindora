@@ -32,7 +32,11 @@ final class ProfileViewController: UIViewController {
         super.viewDidLoad()
         customView.editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
         customView.settingsButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
+        customView.gptRefreshButton.addTarget(self, action: #selector(gptRefreshTapped), for: .touchUpInside)
         bindViewModel()
+        
+        print(Bundle.main.infoDictionary?["GPT_API_KEY"])
+        print(Bundle.main.infoDictionary?["NAVER_CLIENT_ID"])
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,6 +86,10 @@ final class ProfileViewController: UIViewController {
         coordinator?.didTapSetting()
     }
 
+    @objc private func gptRefreshTapped() {
+        let keyword = ["청계천", "망원한강공원", "카페 어니언 안국점", "한국은행 본점", "국회의사당", "서울대학교", "롯데월드타워", "김포공항"]
+        viewModel.generatePersona(for: keyword)
+    }
 }
 
 

@@ -13,6 +13,14 @@ final class ProfileView: UIView {
     private let collectionView = ProfilePlaceCellListView()
     
     // MARK: - UI Component
+    let gptRefreshButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "sparkles"), for: .normal)
+        button.tintColor = .black
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private let profileImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "avatar2"))
         imageView.contentMode = .scaleAspectFit
@@ -91,13 +99,15 @@ final class ProfileView: UIView {
         addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         [profileImageView, profileTitleLabel, profileDescriptionLabel, profileStackView, statsStackView,
-         editProfileButton, settingsButton, sectionTitleLabel]
+         editProfileButton, settingsButton, sectionTitleLabel, gptRefreshButton]
             .forEach { contentView.addSubview($0); $0.translatesAutoresizingMaskIntoConstraints = false }
 
         addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(gptRefreshButton)
     }
     
     // MARK: - (F)Constraints
@@ -151,7 +161,12 @@ final class ProfileView: UIView {
             collectionView.topAnchor.constraint(equalTo: sectionTitleLabel.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            gptRefreshButton.topAnchor.constraint(equalTo: profileStackView.bottomAnchor, constant: 50),
+            gptRefreshButton.leadingAnchor.constraint(equalTo: profileStackView.leadingAnchor),
+            gptRefreshButton.widthAnchor.constraint(equalToConstant: 24),
+            gptRefreshButton.heightAnchor.constraint(equalToConstant: 24)
         ])
     }
 }

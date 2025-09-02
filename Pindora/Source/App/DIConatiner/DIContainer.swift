@@ -63,7 +63,10 @@ extension DIContainer {
                 LocationUseCaseProtocol.self,
                 dependency: LocationUseCaseImpl(repository: locationRepository)
             )
-                
+            self.shared.register(
+                GPTUseCaseProtocol.self,
+                dependency: GPTUseCaseImpl(gptRepository: GPTRepositoryImpl())
+            )
         } else {
             
             // MARK: - Stub Usecase

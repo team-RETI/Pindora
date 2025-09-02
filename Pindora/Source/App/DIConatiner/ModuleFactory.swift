@@ -92,11 +92,20 @@ final class ModuleFactory {
     func makeProfileVC() -> ProfileViewController {
         let viewModel: ProfileViewModel = getOrCreateViewModel(for: .profile) {
             let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
-            return ProfileViewModel(userUseCase: userUseCase)
+            let gptUseCase = DIContainer.shared.resolve(GPTUseCaseProtocol.self)
+            return ProfileViewModel(userUseCase: userUseCase, gptUseCase: gptUseCase)
         }
         return ProfileViewController(viewModel: viewModel)
     }
     
+//    func makeProfileVC() -> ProfileViewController {
+//        let viewModel: ProfileViewModel = getOrCreateViewModel(for: .profile) {
+//            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
+//            return ProfileViewModel(userUseCase: userUseCase)
+//        }
+//        return ProfileViewController(viewModel: viewModel)
+//    }
+//    
     func makeProfileEditVC() -> ProfileEditViewController {
         let viewModel: ProfileEditViewModel = getOrCreateViewModel(for: .editProfile) {
             ProfileEditViewModel()
