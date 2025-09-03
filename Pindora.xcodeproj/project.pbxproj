@@ -23,6 +23,11 @@
 		89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */; };
 		899ECE7F2E40403800EE7105 /* PlaceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899ECE7E2E40403800EE7105 /* PlaceUseCase.swift */; };
 		899ECE812E4056A800EE7105 /* PlaceUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899ECE802E4056A800EE7105 /* PlaceUseCaseImpl.swift */; };
+		89A18E1A2E6718340052536C /* GPTAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A18E192E6718340052536C /* GPTAPIManager.swift */; };
+		89A18E1C2E6719010052536C /* GPTRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A18E1B2E6719010052536C /* GPTRepositoryProtocol.swift */; };
+		89A18E1E2E67199C0052536C /* GPTRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A18E1D2E67199C0052536C /* GPTRepositoryImpl.swift */; };
+		89A18E202E6719CE0052536C /* GPTUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A18E1F2E6719CE0052536C /* GPTUseCaseProtocol.swift */; };
+		89A18E222E6719F10052536C /* GPTUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A18E212E6719F10052536C /* GPTUseCaseImpl.swift */; };
 		89AC93FC2E38AA21006446CD /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */; };
 		89AC93FE2E38D7B6006446CD /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AC93FD2E38D7B5006446CD /* UserDTO.swift */; };
 		A70014732E64704200CD5572 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70014722E64704200CD5572 /* String+.swift */; };
@@ -190,6 +195,11 @@
 		89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImpl.swift; sourceTree = "<group>"; };
 		899ECE7E2E40403800EE7105 /* PlaceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceUseCase.swift; sourceTree = "<group>"; };
 		899ECE802E4056A800EE7105 /* PlaceUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceUseCaseImpl.swift; sourceTree = "<group>"; };
+		89A18E192E6718340052536C /* GPTAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTAPIManager.swift; sourceTree = "<group>"; };
+		89A18E1B2E6719010052536C /* GPTRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTRepositoryProtocol.swift; sourceTree = "<group>"; };
+		89A18E1D2E67199C0052536C /* GPTRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTRepositoryImpl.swift; sourceTree = "<group>"; };
+		89A18E1F2E6719CE0052536C /* GPTUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTUseCaseProtocol.swift; sourceTree = "<group>"; };
+		89A18E212E6719F10052536C /* GPTUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTUseCaseImpl.swift; sourceTree = "<group>"; };
 		89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		89AC93FD2E38D7B5006446CD /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		89AD9B372E5218A30083B2FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -399,6 +409,14 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		89A18E182E67181B0052536C /* GPT */ = {
+			isa = PBXGroup;
+			children = (
+				89A18E192E6718340052536C /* GPTAPIManager.swift */,
+			);
+			path = GPT;
+			sourceTree = "<group>";
+		};
 		A725E9A22E2FA11F00EEA3F5 /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -578,6 +596,7 @@
 				89728D912E33DDEF002B3ACE /* ImageUseCaseProtocol.swift */,
 				89728D9F2E33DEE8002B3ACE /* UserUseCaseProtocol.swift */,
 				A70014762E64923C00CD5572 /* LocationUseCaseProtocol.swift */,
+				89A18E1F2E6719CE0052536C /* GPTUseCaseProtocol.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -589,6 +608,7 @@
 				89728D812E33DC38002B3ACE /* StorageRepositoryProtocol.swift */,
 				89728D972E33DE58002B3ACE /* DatabaseRepositoryProtocol.swift */,
 				A700147A2E649C3300CD5572 /* LocationRepositoryProtocol.swift */,
+				89A18E1B2E6719010052536C /* GPTRepositoryProtocol.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -827,6 +847,7 @@
 				89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */,
 				899ECE802E4056A800EE7105 /* PlaceUseCaseImpl.swift */,
 				A70014782E64928100CD5572 /* LocationUseCaseImpl.swift */,
+				89A18E212E6719F10052536C /* GPTUseCaseImpl.swift */,
 			);
 			path = UseCaseImpl;
 			sourceTree = "<group>";
@@ -889,6 +910,7 @@
 				DF883AC22E34B5C200F67BF9 /* Firebase */,
 				DF883AC32E34B5C200F67BF9 /* Naver */,
 				A7854E3A2E4B30C6002A5C2A /* KaKao */,
+				89A18E182E67181B0052536C /* GPT */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -900,6 +922,7 @@
 				89728D852E33DC71002B3ACE /* StorageRepositoryImpl.swift */,
 				89728D992E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift */,
 				A700147C2E649C5E00CD5572 /* LocationRepositoryImpl.swift */,
+				89A18E1D2E67199C0052536C /* GPTRepositoryImpl.swift */,
 			);
 			path = RepositoryImpl;
 			sourceTree = "<group>";
@@ -1181,7 +1204,9 @@
 				89728D862E33DC71002B3ACE /* StorageRepositoryImpl.swift in Sources */,
 				A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */,
 				A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */,
+				89A18E222E6719F10052536C /* GPTUseCaseImpl.swift in Sources */,
 				A70014752E64709F00CD5572 /* Date+.swift in Sources */,
+				89A18E202E6719CE0052536C /* GPTUseCaseProtocol.swift in Sources */,
 				A725E9A52E2FA30300EEA3F5 /* ProfileEditView.swift in Sources */,
 				A725E9B72E2FE6A800EEA3F5 /* AccountSettingViewModel.swift in Sources */,
 				A7D418BD2E2A281200B17044 /* ProfilePlaceCellListView.swift in Sources */,
@@ -1222,6 +1247,7 @@
 				A78A13512E53446100204D8D /* AppleCardInkProgressView.swift in Sources */,
 				DF1F40E62E279E8200BE27AC /* LoginViewModel.swift in Sources */,
 				899ECE812E4056A800EE7105 /* PlaceUseCaseImpl.swift in Sources */,
+				89A18E1A2E6718340052536C /* GPTAPIManager.swift in Sources */,
 				A700147D2E649C5E00CD5572 /* LocationRepositoryImpl.swift in Sources */,
 				A7F5454A2E37BE5E0014EB85 /* AddPlaceViewModel.swift in Sources */,
 				DF1F3FB52E279C4100BE27AC /* HomeViewModel.swift in Sources */,
@@ -1252,6 +1278,7 @@
 				A700147B2E649C3300CD5572 /* LocationRepositoryProtocol.swift in Sources */,
 				A70014732E64704200CD5572 /* String+.swift in Sources */,
 				DF883AC92E34B5C200F67BF9 /* AuthRepositoryImpl.swift in Sources */,
+				89A18E1E2E67199C0052536C /* GPTRepositoryImpl.swift in Sources */,
 				A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */,
 				A7F5454C2E37BE690014EB85 /* AddPlaceViewController.swift in Sources */,
 				A732BA2B2E27E2BB009EB6BF /* CategoryCellView.swift in Sources */,
@@ -1263,6 +1290,7 @@
 				DF5A0BB12E350D9100CF61BF /* Constants.swift in Sources */,
 				DF7A8B9E2E27804600378AC3 /* AuthRepositoryProtocol.swift in Sources */,
 				DF1F40DE2E279E7F00BE27AC /* OneTimeAskView.swift in Sources */,
+				89A18E1C2E6719010052536C /* GPTRepositoryProtocol.swift in Sources */,
 				A78A134D2E533DA600204D8D /* KeywordCloudView.swift in Sources */,
 				A725E9A92E2FA36300EEA3F5 /* SettingListView.swift in Sources */,
 				A7F545512E38A5C20014EB85 /* CardDetailViewController.swift in Sources */,

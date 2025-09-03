@@ -17,9 +17,53 @@ final class ProfileViewModel {
     private let userUseCase: UserUseCaseProtocol
     private var cancellables = Set<AnyCancellable>()
     
-    init(userUseCase: UserUseCaseProtocol) {
+    private let gptUseCase: GPTUseCaseProtocol
+
+    init(userUseCase: UserUseCaseProtocol, gptUseCase: GPTUseCaseProtocol) {
         self.userUseCase = userUseCase
+        self.gptUseCase = gptUseCase
         loadUser()
+    }
+    
+//    init(userUseCase: UserUseCaseProtocol) {
+//        self.userUseCase = userUseCase
+//        loadUser()
+//    }
+    
+    func generatePersona(for location: [String]) {
+        gptUseCase.createPersonaNameAndDescription(from: location)
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    print("GPT 에러: \(error)")
+                }
+            }, receiveValue: { [weak self] result in
+                self?.user?.personaName = result.name
+                self?.user?.personaDescription = result.description
+                print("이름: \(result.name), 설명: \(result.description)")
+                self?.savePersonaToFirestore(name: result.name, description: result.description)
+            })
+            .store(in: &cancellables)
+    }
+    
+    func savePersonaToFirestore(name: String, description: String) {
+        guard var currentUser = user else {
+            print("❌ 현재 사용자 없음")
+            return
+        }
+        currentUser.personaName = name
+        currentUser.personaDescription = description
+
+        userUseCase.saveUser(user: currentUser)
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    print("🔥 Firestore 저장 실패: \(error)")
+                } else {
+                    print("✅ Firestore 저장 완료!")
+                }
+            }, receiveValue: { _ in })
+            .store(in: &cancellables)
     }
     
     func loadUser() {
