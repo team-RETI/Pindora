@@ -24,7 +24,12 @@ enum InfraError: Error, LocalizedError, NestedError {
     case locationAuthorizationDenied           // 설정에서 거부
     case locationAuthorizationRestricted       // 스크린타임/기관 제한 등
     case locationServicesDisabled              // 시스템 차원의 위치서비스 OFF
-    case locationManagerError(Error)                // CLLocationManager 내부 에러 wrapping
+    case locationManagerError(Error)           // CLLocationManager 내부 에러 wrapping
+    
+    // MARK: - Search (Kakao API)
+    case invalidURL
+    case network(Error)
+    case decoding(Error)
     
     // MARK: - Unknown
     case unknown(Error)
@@ -61,6 +66,9 @@ extension InfraError {
         case .locationAuthorizationRestricted: return "🛠️ locationAuthorizationRestricted"
         case .locationServicesDisabled: return "🛠️ locationServicesDisabled"
         case .locationManagerError: return "🛠️ locationManagerError"
+        case .invalidURL: return "🛠️ invalidURL"
+        case .decoding: return "🛠️ decodingError"
+        case .network: return "🛠️ networkError"
         }
     }
 }

@@ -41,6 +41,10 @@ enum UseCaseError: Error, NestedError, LocalizedError {
     case locationServicesDisabled(RepositoryError)
     case locationManagerError(RepositoryError)
     
+    case invalidURL(RepositoryError)
+    case network(RepositoryError)
+    case decoding(RepositoryError)
+    
     case unknown(RepositoryError)
     
 
@@ -57,6 +61,9 @@ enum UseCaseError: Error, NestedError, LocalizedError {
              .locationManagerError(let e),
              .unknown(let e),
              .appleError(let e),
+             .invalidURL(let e),
+             .network(let e),
+             .decoding(let e),
              .firebaseError(let e):
             return e
         case .invalidState, .userNotFound:
@@ -76,10 +83,13 @@ enum UseCaseError: Error, NestedError, LocalizedError {
         case .unknown: return "⚠️ 알 수 없는 오류입니다."
         case .appleError: return "⚠️ 로그인에 실패하였습니다."
         case .firebaseError: return "⚠️ 서버 오류입니다."
-        case .locationAuthorizationDenied: return "📡 위치 권한이 거부되어 현재 위치를 사용할 수 없습니다. 설정에서 권한을 허용해주세요."
-        case .locationAuthorizationRestricted: return "📡 기기 정책/제한으로 인해 위치 권한을 사용할 수 없습니다."
-        case .locationServicesDisabled: return "📡 시스템 위치 서비스가 꺼져 있습니다. 설정에서 켜주세요."
-        case .locationManagerError: return "📡 위치를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요."
+        case .locationAuthorizationDenied: return "⚠️ 위치 권한이 거부되어 현재 위치를 사용할 수 없습니다. 설정에서 권한을 허용해주세요."
+        case .locationAuthorizationRestricted: return "⚠️ 기기 정책/제한으로 인해 위치 권한을 사용할 수 없습니다."
+        case .locationServicesDisabled: return "⚠️ 시스템 위치 서비스가 꺼져 있습니다. 설정에서 켜주세요."
+        case .locationManagerError: return "⚠️ 위치를 가져오는 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요."
+        case .invalidURL: return "⚠️ 유효하지 않은 URL입니다. 다시 시도해주세요."
+        case .network: return "⚠️ 네트워크 오류가 발생했습니다"
+        case .decoding: return "⚠️ 데이터 파싱에 실패했습니다."
         }
     }
 
@@ -97,6 +107,9 @@ enum UseCaseError: Error, NestedError, LocalizedError {
         case .locationAuthorizationRestricted: return .locationAuthorizationRestricted(error)
         case .locationServicesDisabled: return .locationServicesDisabled(error)
         case .locationManagerError: return .locationManagerError(error)
+        case .invalidURL: return .invalidURL(error)
+        case .network: return .network(error)
+        case .decoding: return .decoding(error)
         }
     }
 }

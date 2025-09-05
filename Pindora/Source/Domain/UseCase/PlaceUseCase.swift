@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol PlaceUseCase {
-    func fetchPlaces() -> AnyPublisher<[Place], Error>
+    func fetchPlaces() -> AnyPublisher<[Place], Error> 
 }
