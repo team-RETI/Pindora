@@ -350,6 +350,11 @@
 			path = PindoraShareExtension;
 			sourceTree = "<group>";
 		};
+		DFBF267D2E6AE4CF003DAD30 /* Search */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Search;
+			sourceTree = "<group>";
+		};
 		DFF8A66E2E50DCF900F07F72 /* Error */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -596,6 +601,7 @@
 		A7F2E17C2E2008780045D175 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				DFBF267D2E6AE4CF003DAD30 /* Search */,
 				A778D2E02E28F212006B3309 /* HomeView.swift */,
 				DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */,
 				DF1F3FB42E279C4100BE27AC /* HomeViewModel.swift */,
@@ -979,6 +985,9 @@
 			);
 			dependencies = (
 				DF7487B52E38A95200CF9864 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DFBF267D2E6AE4CF003DAD30 /* Search */,
 			);
 			name = Pindora;
 			packageProductDependencies = (
