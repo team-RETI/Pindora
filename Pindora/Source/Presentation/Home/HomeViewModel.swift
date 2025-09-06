@@ -11,14 +11,14 @@ final class HomeViewModel {
     @Published var places: [Place] = []
     
     // 파이어베이스에 저장된 키웓,
-    @Published private var keywords: [String] = [] {
+    @Published var keywords: [String] = [] {
         didSet {
             print("파이어베이스 키워드: \(keywords)")
         }
     }
     
     // 필터링된 결과
-    @Published private var filteredKeywords: [String] = [] {
+    @Published var filteredKeywords: [String] = [] {
         didSet {
             print("필터링된 키워드: \(filteredKeywords)")
         }
