@@ -10,6 +10,7 @@ import UIKit
 final class SearchDetailView: UIView {
     
     // MARK: - UI Component
+    let searchBarView = SearchBarDetailView()
 
     // MARK: - Initializer
     override init(frame: CGRect) {
@@ -25,17 +26,25 @@ final class SearchDetailView: UIView {
     // MARK: - (F)UI Setup
     private func setupUI() {
         backgroundColor = .white
-
+        
+        [searchBarView].forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
 
     // MARK: - (F)Constraints
     private func setupConstraints() {
+        
         NSLayoutConstraint.activate([
-
+            searchBarView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            searchBarView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            searchBarView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            searchBarView.heightAnchor.constraint(equalToConstant: 34)
         ])
     }
 }
 
 #Preview {
-    SearchDetailView()
+    SearchDetailViewController(viewModel: HomeViewModel(placeUseCase: PlaceUseCaseImpl(repository: DatabaseRepositoryImpl())))
 }

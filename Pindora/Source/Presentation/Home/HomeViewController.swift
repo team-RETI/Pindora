@@ -45,6 +45,7 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
         customView.searchBarView.textField.delegate = self
         bindViewModel()
         viewModel.fetchPlaces()
+        viewModel.fetchKeywords()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,44 +83,17 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
         print("✅ 선택된 카테고리: \(selectedTitle ?? "-")")
     }
     
-    /*
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         // 키보드 자동 올라오기 방지
         textField.resignFirstResponder()
-        
-        print("textFieldDidGeginEditing")
         
         // 시트로 화면 올라오기
         let searchDetailVC = SearchDetailViewController(viewModel: viewModel)
         let nav = UINavigationController(rootViewController: searchDetailVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: false, completion: nil)
-    }
-     */
     
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-         // 시트로 화면 올라오기
-         let searchDetailVC = SearchDetailViewController(viewModel: viewModel)
-         let nav = UINavigationController(rootViewController: searchDetailVC)
-         
-         if let sheet = nav.sheetPresentationController {
-             /*
-             sheet.detents = [.medium(), .large()]
-             sheet.prefersGrabberVisible = true
-              */
-             // 시트 높이 설정 (70% 정도 올라오게)
-             sheet.detents = [
-                 .custom { context in
-                     context.maximumDetentValue * 0.7 // 전체 화면 높이의 70%
-                 }
-             ]
-             sheet.prefersGrabberVisible = true // 위에 작은 바(잡는 손잡이) 표시
-         }
-         
-         present(nav, animated: true, completion: nil)
-         
          // false → 키보드 안 올라오게
          return false
      }

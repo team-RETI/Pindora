@@ -10,4 +10,5 @@ import Combine
 
 protocol PlaceUseCase {
     func fetchPlaces() -> AnyPublisher<[Place], Error>
+    func fetchKeywords() -> AnyPublisher<[String], Error>
 }
