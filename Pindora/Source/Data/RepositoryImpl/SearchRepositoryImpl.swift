@@ -17,12 +17,12 @@ final class SearchRepositoryImpl: SearchRepositoryProtocol {
     }
     
     func search(keyword: String) -> AnyPublisher<[Place], InfraError> {
-        searchManager.searchPlaces(keyword: keyword, x: 1.0, y: 1.0)
+        searchManager.searchPlaces(keyword: keyword, x: 0.0, y: 0.0)
             .eraseToAnyPublisher()
     }
     
-    func search(keyword: String, center: CLLocationCoordinate2D?) -> AnyPublisher<[Place], InfraError> {
-        searchManager.searchPlaces(keyword: keyword, x: 1.0, y: 1.0)
+    func search(keyword: String, center: CLLocationCoordinate2D) -> AnyPublisher<[Place], InfraError> {
+        searchManager.searchPlaces(keyword: keyword, x: center.longitude, y: center.latitude)
             .eraseToAnyPublisher()
     }
 }

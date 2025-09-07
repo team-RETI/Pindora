@@ -104,6 +104,7 @@ final class MapViewController: UIViewController {
         customView.locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
         customView.tagToggleButton.addTarget(self, action: #selector(toggleTags), for: .touchUpInside)
     }
+    
     private func bindMarker(lat: Double, lng: Double) {
         
         // 예시 장소마커 (경복궁)
@@ -183,8 +184,7 @@ final class MapViewController: UIViewController {
         let update = NMFCameraUpdate(scrollTo: latLng, zoomTo: 15)
         update.animation = .easeIn
         customView.mapView.moveCamera(update)
-        mapCenterSubject.send(firstCoordinate)
-//        print(latLng)
+        mapCenterSubject.send(latLng.clCoordinate)
     }
     
     @objc private func toggleTags() {

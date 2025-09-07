@@ -23,8 +23,8 @@ final class SearchUseCaseImpl: SearchUseCaseProtocol {
             .eraseToAnyPublisher()
     }
     
-    func search(keyword: String, center: CLLocationCoordinate2D?) -> AnyPublisher<[Place], UseCaseError> {
-        return repository.search(keyword: keyword)
+    func search(keyword: String, center: CLLocationCoordinate2D) -> AnyPublisher<[Place], UseCaseError> {
+        return repository.search(keyword: keyword, center: center)
             .mapError { RepositoryError.map(from: $0) }
             .mapError { UseCaseError.map(from: $0) }
             .eraseToAnyPublisher()

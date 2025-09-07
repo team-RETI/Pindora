@@ -85,6 +85,7 @@
 		A7FEFC002E69A3FD0065532C /* SearchUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEFBFF2E69A3FD0065532C /* SearchUseCaseImpl.swift */; };
 		A7FEFC022E69A59D0065532C /* SearchRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEFC012E69A59D0065532C /* SearchRepositoryProtocol.swift */; };
 		A7FEFC042E69B8980065532C /* SearchRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEFC032E69B8980065532C /* SearchRepositoryImpl.swift */; };
+		A7FEFC062E6B35D30065532C /* NaverMap+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEFC052E6B35D30065532C /* NaverMap+.swift */; };
 		DF0CA2202E376D5E007E7904 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF0CA21F2E376D5E007E7904 /* GoogleService-Info.plist */; };
 		DF0CA2212E376EC6007E7904 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */; };
 		DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E752E27859B00BE27AC /* AppDelegate.swift */; };
@@ -266,6 +267,7 @@
 		A7FEFBFF2E69A3FD0065532C /* SearchUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUseCaseImpl.swift; sourceTree = "<group>"; };
 		A7FEFC012E69A59D0065532C /* SearchRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryProtocol.swift; sourceTree = "<group>"; };
 		A7FEFC032E69B8980065532C /* SearchRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryImpl.swift; sourceTree = "<group>"; };
+		A7FEFC052E6B35D30065532C /* NaverMap+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NaverMap+.swift"; sourceTree = "<group>"; };
 		DF0CA21F2E376D5E007E7904 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF18A7782E34E59900956881 /* Pindora.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Pindora.xctestplan; path = ../Pindora.xctestplan; sourceTree = "<group>"; };
 		DF1F3E752E27859B00BE27AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -582,6 +584,7 @@
 				A75AB1162E339A4D006DA6EB /* UILabel+.swift */,
 				A70014722E64704200CD5572 /* String+.swift */,
 				A70014742E64709F00CD5572 /* Date+.swift */,
+				A7FEFC052E6B35D30065532C /* NaverMap+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1291,6 +1294,7 @@
 				DFA2CB3D2E27DC8E00C4F32B /* Documentation.docc in Sources */,
 				A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */,
 				A700147B2E649C3300CD5572 /* LocationRepositoryProtocol.swift in Sources */,
+				A7FEFC062E6B35D30065532C /* NaverMap+.swift in Sources */,
 				A70014732E64704200CD5572 /* String+.swift in Sources */,
 				A7FEFBFE2E699F140065532C /* SearchUseCaseProtocol.swift in Sources */,
 				DF883AC92E34B5C200F67BF9 /* AuthRepositoryImpl.swift in Sources */,

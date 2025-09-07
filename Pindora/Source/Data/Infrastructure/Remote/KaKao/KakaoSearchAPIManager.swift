@@ -87,7 +87,7 @@ final class KakaoSearchAPIManager {
         keyword: String,
         x lng: Double,
         y lat: Double,
-        radius: Int = 3000,
+        radius: Int = 500,
         page: Int = 1,
         size: Int = 15
     ) -> AnyPublisher<[Place], InfraError> {
@@ -110,7 +110,7 @@ final class KakaoSearchAPIManager {
         var req = URLRequest(url: url)
         req.httpMethod = "GET"
         req.setValue("KakaoAK \(Constants.KakaoAPI.restApiKey)", forHTTPHeaderField: "Authorization")
-        
+
         return URLSession.shared.dataTaskPublisher(for: req)
             // 네트워크 레벨 에러 -> KakaoSearchAPIError.network 로 변환
             .mapError { InfraError.network($0) }
