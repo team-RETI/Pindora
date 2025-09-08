@@ -42,6 +42,7 @@ final class SearchDetailViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
@@ -99,6 +100,7 @@ final class SearchDetailViewController: UIViewController {
     }
 }
 
+// MARK: - DataSource
 extension SearchDetailViewController: UITableViewDataSource {
     
     // 필터링 여부
@@ -123,6 +125,18 @@ extension SearchDetailViewController: UISearchResultsUpdating {
         let query = searchController.searchBar.text ?? ""
         viewModel.filteredKeywords = viewModel.keywords.filter { $0.lowercased().contains(query.lowercased()) }
         tableView.reloadData()
+    }
+}
+
+// MARK: - Delegate
+extension SearchDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let text = isFiltering ? viewModel.filteredKeywords[indexPath.row] : viewModel.keywords[indexPath.row]
+        print("선택된 셀: \(text)")
+        
+        // 선택된 셀 하이라이트 제거
+        tableView.deselectRow(at: indexPath, animated: true)
+        dismiss(animated: true)
     }
 }
 
