@@ -8,8 +8,8 @@ import UIKit
 import Combine
 
 final class HomeViewModel {
-    @Published var places: [Place] = []
     
+    // MARK: - 키워드 관련
     // 파이어베이스에 저장된 키웓,
     @Published var keywords: [String] = [] {
         didSet {
@@ -24,6 +24,8 @@ final class HomeViewModel {
         }
     }
     
+    // MARK: - Place 관련
+    @Published var places: [Place] = []
     private var cancellables = Set<AnyCancellable>()
     private let placeUseCase: PlaceUseCase
     
@@ -42,7 +44,10 @@ final class HomeViewModel {
                 self?.places = placeList
             }.store(in: &cancellables)
     }
-    
+}
+
+// MARK: - 키워드 관련 로직
+extension HomeViewModel {
     func fetchKeywords() {
         placeUseCase.fetchKeywords()
             .receive(on: DispatchQueue.main)
