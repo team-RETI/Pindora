@@ -30,6 +30,7 @@ enum InfraError: Error, LocalizedError, NestedError {
     case invalidURL
     case network(Error)
     case decoding(Error)
+    case invalidQuery
     
     // MARK: - Unknown
     case unknown(Error)
@@ -39,6 +40,8 @@ enum InfraError: Error, LocalizedError, NestedError {
         case .appleError(let e),
                 .firebaseError(let e),
                 .locationManagerError(let e),
+                .network(let e),
+                .decoding(let e),
                 .unknown(let e):
             return e
         default:
@@ -67,6 +70,7 @@ extension InfraError {
         case .locationServicesDisabled: return "🛠️ locationServicesDisabled"
         case .locationManagerError: return "🛠️ locationManagerError"
         case .invalidURL: return "🛠️ invalidURL"
+        case .invalidQuery: return "🛠️ invalidQuery"
         case .decoding: return "🛠️ decodingError"
         case .network: return "🛠️ networkError"
         }

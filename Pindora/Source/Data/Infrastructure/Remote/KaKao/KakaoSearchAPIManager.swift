@@ -21,7 +21,6 @@ struct KakaoSearchResponse: Decodable {
 
 final class KakaoSearchAPIManager {
     static let shared = KakaoSearchAPIManager()
-//    private init() {}
     
     func searchPlaces (
         keyword: String,
@@ -112,7 +111,7 @@ final class KakaoSearchAPIManager {
         req.setValue("KakaoAK \(Constants.KakaoAPI.restApiKey)", forHTTPHeaderField: "Authorization")
 
         return URLSession.shared.dataTaskPublisher(for: req)
-            // 네트워크 레벨 에러 -> KakaoSearchAPIError.network 로 변환
+            // 네트워크 레벨 에러 -> Infra.network 로 변환
             .mapError { InfraError.network($0) }
             // HTTP 상태코드 검사
             .tryMap { output -> Data in

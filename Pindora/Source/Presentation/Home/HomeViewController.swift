@@ -12,6 +12,11 @@ final class HomeViewController: UIViewController {
     private let viewModel: HomeViewModel
     private let customView = HomeView()
     
+    //test setting
+    private let manager = NaverImageAPIManager()
+    private var items: [NaverImageResponse.Item] = []
+
+    
     private lazy var placeListView: CardCellListView = customView.placeListView
     private var cancellables = Set<AnyCancellable>()
     private var placeList: [Place] = []
@@ -43,6 +48,7 @@ final class HomeViewController: UIViewController {
         placeListView.dataSource = self
         placeListView.delegate = self
         bindViewModel()
+//        test()
         viewModel.fetchPlaces()
     }
     
@@ -51,9 +57,20 @@ final class HomeViewController: UIViewController {
         for categoryView in customView.categoryListView.categoryViews {
             categoryView.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
         }
-
+        
         print("HomeViewController")
     }
+//    private func test() {
+//        self.manager.searchImage(query: "스타벅스", display: 10)
+//            .receive(on: DispatchQueue.main)
+//            .sink { completion in
+//                if case let .failure(error) = completion {
+//                    print("장소 로딩 실패: \(error.localizedDescription)")
+//                }
+//            } receiveValue: { [weak self] placeList in
+//                self?.items = placeList
+//            }.store(in: &cancellables)
+//    }
     
     // MARK: - Bindings
     private func bindViewModel() {
@@ -63,6 +80,34 @@ final class HomeViewController: UIViewController {
                 self?.placeList = places
                 self?.placeListView.reloadData()
             }.store(in: &cancellables)
+        
+        // test
+        customView.searchBarView.textField.textPublisher
+            .debounce(for: .milliseconds(350), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .flatMap { [weak self] query -> AnyPublisher<[NaverImageResponse.Item], Never> in
+                guard let self, query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false else {
+                    return Just([]).eraseToAnyPublisher()
+                }
+                return self.manager.searchImage(query: query, display: 10)
+                    .handleEvents(
+                        receiveSubscription: { _ in print("🔎 Naver search start: \(query)") },
+                        receiveOutput: { items in print("✅ Naver items count: \(items.count)") },
+                        receiveCompletion: { completion in
+                            if case let .failure(err) = completion {
+                                print("❌ Naver search error:", err)
+                            }
+                        }
+                    )
+                    .catch { _ in Just([]) } // ⚠️ 여기서만 빈 배열로 대체
+                    .eraseToAnyPublisher()
+            }
+            .receive(on: RunLoop.main)
+            .sink { [weak self] items in
+                self?.items = items
+                self?.customView.placeListView.reloadData()
+            }
+            .store(in: &cancellables)
     }
     
     @objc private func categoryTapped(_ sender: UIButton) {
@@ -87,7 +132,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return placeList.count
         // 목업 테스트용
-        return dummyData.count
+//        return dummyData.count
+        min(dummyData.count, items.count)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -108,8 +154,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             naviLink: nil,
             instaLink: nil,
             bookLink: nil,
-            imageURL: placeTuple.imageURL // 또는 "https://~~" 형태로 테스트용 이미지 URL 넣어도 됨
+            //imageURL: placeTuple.imageURL // 또는 "https://~~" 형태로 테스트용 이미지 URL 넣어도 됨
         )
+        
+        //test
+//        let item = items[indexPath.row]
+//        let urlString = item.thumbnail ?? item.link
+//        cell.setImage(urlString: urlString)
+//        
+        if items.indices.contains(indexPath.row) {
+            let item = items[indexPath.row]
+            let urlString = item.thumbnail ?? item.link
+            cell.setImage(urlString: urlString)
+        } else {
+            cell.setImage(urlString: "placeholder") // 또는 placeholder 세팅
+        }
+        
         cell.configure(with: placeModel)
         return cell
     }
@@ -118,5 +178,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         print("사용자가 \(dummyData[indexPath.row]) 셀을 눌렀습니다.")
         coordinator?.didTapCell()
     }
+    
+
 }
 

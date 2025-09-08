@@ -56,6 +56,7 @@
 		A732BA2B2E27E2BB009EB6BF /* CategoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA272E27E2BB009EB6BF /* CategoryCellView.swift */; };
 		A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA242E27E2BB009EB6BF /* CardCellListView.swift */; };
 		A742A98D2E5996C2003DA057 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A742A98C2E5996C2003DA057 /* IntroModel.swift */; };
+		A75841462E6D86C500D214C8 /* NaverImageAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75841452E6D86C500D214C8 /* NaverImageAPIManager.swift */; };
 		A75AB1172E339A4D006DA6EB /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75AB1162E339A4D006DA6EB /* UILabel+.swift */; };
 		A778D2E12E28F212006B3309 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E02E28F212006B3309 /* HomeView.swift */; };
 		A778D2E32E29756E006B3309 /* ProfilePlaceCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */; };
@@ -237,6 +238,7 @@
 		A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		A732BA2F2E27E9D0009EB6BF /* Inter 24pt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter 24pt.ttf"; sourceTree = "<group>"; };
 		A742A98C2E5996C2003DA057 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
+		A75841452E6D86C500D214C8 /* NaverImageAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverImageAPIManager.swift; sourceTree = "<group>"; };
 		A75AB1162E339A4D006DA6EB /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		A778D2E02E28F212006B3309 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePlaceCellView.swift; sourceTree = "<group>"; };
@@ -913,6 +915,7 @@
 			children = (
 				DF883AD02E34B5CC00F67BF9 /* .gitkeep */,
 				DF883AD22E34B67800F67BF9 /* NaverSearchAPIManager.swift */,
+				A75841452E6D86C500D214C8 /* NaverImageAPIManager.swift */,
 			);
 			path = Naver;
 			sourceTree = "<group>";
@@ -1220,6 +1223,7 @@
 				89728D862E33DC71002B3ACE /* StorageRepositoryImpl.swift in Sources */,
 				A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */,
 				A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */,
+				A75841462E6D86C500D214C8 /* NaverImageAPIManager.swift in Sources */,
 				89A18E222E6719F10052536C /* GPTUseCaseImpl.swift in Sources */,
 				A70014752E64709F00CD5572 /* Date+.swift in Sources */,
 				89A18E202E6719CE0052536C /* GPTUseCaseProtocol.swift in Sources */,

@@ -42,35 +42,37 @@ enum UseCaseError: Error, NestedError, LocalizedError {
     case locationManagerError(RepositoryError)
     
     case invalidURL(RepositoryError)
+    case invalidQuery(RepositoryError)
     case network(RepositoryError)
     case decoding(RepositoryError)
     
     case unknown(RepositoryError)
     
-
+    
     // MARK: - NestedError
     var underlying: Error? {
         switch self {
         case .appleInvalidCredential(let e),
-             .appleNonceMissing(let e),
-             .appleIDTokenParsingFailed(let e),
-             .appleCanceled(let e),
-             .locationAuthorizationDenied(let e),
-             .locationAuthorizationRestricted(let e),
-             .locationServicesDisabled(let e),
-             .locationManagerError(let e),
-             .unknown(let e),
-             .appleError(let e),
-             .invalidURL(let e),
-             .network(let e),
-             .decoding(let e),
-             .firebaseError(let e):
+                .appleNonceMissing(let e),
+                .appleIDTokenParsingFailed(let e),
+                .appleCanceled(let e),
+                .locationAuthorizationDenied(let e),
+                .locationAuthorizationRestricted(let e),
+                .locationServicesDisabled(let e),
+                .locationManagerError(let e),
+                .unknown(let e),
+                .appleError(let e),
+                .invalidURL(let e),
+                .network(let e),
+                .invalidQuery(let e),
+                .decoding(let e),
+                .firebaseError(let e):
             return e
         case .invalidState, .userNotFound:
             return nil
         }
     }
-
+    
     // MARK: - User-facing Error Description
     var errorDescription: String? {
         switch self {
@@ -90,9 +92,10 @@ enum UseCaseError: Error, NestedError, LocalizedError {
         case .invalidURL: return "⚠️ 유효하지 않은 URL입니다. 다시 시도해주세요."
         case .network: return "⚠️ 네트워크 오류가 발생했습니다"
         case .decoding: return "⚠️ 데이터 파싱에 실패했습니다."
+        case .invalidQuery: return "⚠️ 유효하지 않은 쿼리입니다."
         }
     }
-
+    
     // MARK: - RepositoryError → UseCaseError 변환
     static func map(from error: RepositoryError) -> UseCaseError {
         switch error {
@@ -110,6 +113,7 @@ enum UseCaseError: Error, NestedError, LocalizedError {
         case .invalidURL: return .invalidURL(error)
         case .network: return .network(error)
         case .decoding: return .decoding(error)
+        case .invalidQuery: return .invalidQuery(error)
         }
     }
 }

@@ -8,6 +8,7 @@
 import UIKit
 
 final class CardCellView: UITableViewCell {
+    private var task: URLSessionDataTask?
     
     // MARK: - UI Component
     private let tagLabelView = TagLabelView()
@@ -152,6 +153,15 @@ final class CardCellView: UITableViewCell {
 //        } else {
 //            thumbnailImageView.image = UIImage(named: "placeholder")
 //        }
-        thumbnailImageView.image = UIImage(named: place.imageURL ?? "placeholder")
+//        thumbnailImageView.image = UIImage(named: place.imageURL ?? "placeholder")
+    }
+    
+    func setImage(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        task = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+            guard let data, let img = UIImage(data: data) else { return }
+            DispatchQueue.main.async { self?.thumbnailImageView.image = img }
+        }
+        task?.resume()
     }
 }
