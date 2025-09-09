@@ -26,7 +26,7 @@ final class MapViewModel {
         let viewDidLoad: AnyPublisher<Void, Never>
         /// 현재위치 버튼이 눌리면 사용자 현재 좌표 스트림
         let mapCenter: AnyPublisher<CLLocationCoordinate2D, Never>
-        /// 권한 요청 트리거
+        /// 위치권한 요청 트리거
         let locationButtonTapped: AnyPublisher<Void, Never>
         /// 카테고리 버튼이 선택될 때 선택된 태그(이름) 스트림
         let categorySelected: AnyPublisher<String, Never>

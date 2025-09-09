@@ -29,4 +29,16 @@ final class SearchUseCaseImpl: SearchUseCaseProtocol {
             .mapError { UseCaseError.map(from: $0) }
             .eraseToAnyPublisher()
     }
+    
+    func searchImage(
+        query: String,
+        display: Int,
+        start: Int,
+        sort: String,
+        filter: String) -> AnyPublisher<[NaverImageResponse.Item], UseCaseError> {
+            return  repository.searchImage(query: query, display: display, start: start, sort: sort, filter: filter)
+                .mapError { RepositoryError.map(from: $0) }
+                .mapError { UseCaseError.map(from: $0) }
+                .eraseToAnyPublisher()
+    }
 }

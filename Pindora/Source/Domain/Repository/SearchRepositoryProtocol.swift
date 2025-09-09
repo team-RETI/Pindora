@@ -22,4 +22,20 @@ protocol SearchRepositoryProtocol {
     ///   - center: 위치 정보(좌표)
     /// - Returns: 장소리스트 AnyPublisher<[Place], UseCaseError>
     func search(keyword: String, center: CLLocationCoordinate2D) -> AnyPublisher<[Place], InfraError>
+    
+    /// 이미지 검색
+    /// - Parameters:
+    ///   - query: 사용자 입력 + 카테고리 키워드
+    ///   - display: 10..100 한번에 표시할 이미지 수
+    ///   - start: 1...1000 검색 시작 위치
+    ///   - sort: 검색 결과 정렬 방법( sim: 정확도, date: 날짜순)
+    ///   - filter: 크기별 검색 결과 필더 (all: 모든이미지, large: 큰이미지, medium: 중간, small: 작은)
+    /// - Returns: 이미지를 포함한 결과 AnyPublisher<[NaverImage]>
+    func searchImage(
+        query: String,
+        display: Int,
+        start: Int,
+        sort: String,
+        filter: String
+    ) -> AnyPublisher<[NaverImageResponse.Item], InfraError>
 }

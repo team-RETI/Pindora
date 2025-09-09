@@ -33,7 +33,8 @@ final class NaverImageAPIManager {
         query: String,
         display: Int = 10,
         start: Int = 1,
-        sort: String = "sim"
+        sort: String = "sim",
+        filter: String = "all"
     ) -> AnyPublisher<[NaverImageResponse.Item], InfraError> {
         
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -56,8 +57,6 @@ final class NaverImageAPIManager {
         var req = URLRequest(url: url)
         req.setValue(Constants.NaverAPI.APIClientId, forHTTPHeaderField: "X-Naver-Client-Id")
         req.setValue(Constants.NaverAPI.APISecretId, forHTTPHeaderField: "X-Naver-Client-Secret")
-        print("id: \(Constants.NaverAPI.APIClientId)")
-        print("secret: \(Constants.NaverAPI.APISecretId)")
         return URLSession.shared.dataTaskPublisher(for: req)
             // 네트워크 레벨 에러 -> Infra.network 로 변환
             .mapError { InfraError.network($0) }

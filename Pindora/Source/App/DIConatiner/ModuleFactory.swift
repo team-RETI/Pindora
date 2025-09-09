@@ -52,10 +52,20 @@ final class ModuleFactory {
         return OneTimeAskViewController(viewModel: viewModel)
     }
     
+//    func makeHomeVC() -> HomeViewController {
+//        let viewModel: HomeViewModel = getOrCreateViewModel(for: .home) {
+//            let useCase = DIContainer.shared.resolve(PlaceUseCase.self)
+//            return HomeViewModel(placeUseCase: useCase)
+//        }
+//        return HomeViewController(viewModel: viewModel)
+//    }
     func makeHomeVC() -> HomeViewController {
         let viewModel: HomeViewModel = getOrCreateViewModel(for: .home) {
-            let useCase = DIContainer.shared.resolve(PlaceUseCase.self)
-            return HomeViewModel(placeUseCase: useCase)
+            let locationUseCase = DIContainer.shared.resolve(LocationUseCaseProtocol.self)
+            let searchUseCase: SearchUseCaseProtocol = DIContainer.shared.resolve(SearchUseCaseProtocol.self)
+            let placeUseCase = DIContainer.shared.resolve(PlaceUseCase.self)
+            let imageUseCase = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
+            return HomeViewModel(locationUseCase: locationUseCase, searchUseCase: searchUseCase, imageUseCase: imageUseCase, placeUseCase: placeUseCase)
         }
         return HomeViewController(viewModel: viewModel)
     }
