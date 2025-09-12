@@ -26,7 +26,7 @@ final class KakaoSearchAPIManager {
         keyword: String,
         x lng: Double,
         y lat: Double,
-        radius: Int = 1500,
+        radius: Int = 3000,
         page: Int = 1,
         size: Int = 15,
         completion: @escaping (Result<[KakaoPlaceDTO], InfraError>) -> Void
@@ -86,9 +86,9 @@ final class KakaoSearchAPIManager {
         keyword: String,
         x lng: Double,
         y lat: Double,
-        radius: Int = 500,
+        radius: Int = 3000,
         page: Int = 1,
-        size: Int = 15
+        size: Int = 10
     ) -> AnyPublisher<[Place], InfraError> {
         
         // URL 구성

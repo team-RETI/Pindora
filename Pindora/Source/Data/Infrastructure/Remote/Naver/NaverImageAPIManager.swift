@@ -31,10 +31,10 @@ final class NaverImageAPIManager {
     /// - Returns: 이미지를 포함한 결과
     func searchImage(
         query: String,
-        display: Int = 10,
+        display: Int = 1,
         start: Int = 1,
         sort: String = "sim",
-        filter: String = "all"
+        filter: String = "large"
     ) -> AnyPublisher<[NaverImageResponse.Item], InfraError> {
         
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -55,8 +55,8 @@ final class NaverImageAPIManager {
         }
 
         var req = URLRequest(url: url)
-        req.setValue(Constants.NaverAPI.APIClientId, forHTTPHeaderField: "X-Naver-Client-Id")
-        req.setValue(Constants.NaverAPI.APISecretId, forHTTPHeaderField: "X-Naver-Client-Secret")
+        req.setValue(Constants.NaverAPI.apiClientId, forHTTPHeaderField: "X-Naver-Client-Id")
+        req.setValue(Constants.NaverAPI.apiSecretId, forHTTPHeaderField: "X-Naver-Client-Secret")
         return URLSession.shared.dataTaskPublisher(for: req)
             // 네트워크 레벨 에러 -> Infra.network 로 변환
             .mapError { InfraError.network($0) }

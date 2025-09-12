@@ -14,8 +14,8 @@ enum Constants {
         // 네이버는 맵, API 두개가 다른 서비스이기에 하나의 ClientId, SecretId로 구현안되고 각각 필요함
         static let clientID = Bundle.main.infoDictionary?["NAVER_CLIENT_ID"] as? String ?? ""
         static let clientSecret = Bundle.main.infoDictionary?["NAVER_CLIENT_SECRET"] as? String ?? ""
-        static let APIClientId = Bundle.main.infoDictionary?["NAVER_API_CLIENT_ID"] as? String ?? ""
-        static let APISecretId = Bundle.main.infoDictionary?["NAVER_API_SECRET_ID"] as? String ?? ""
+        static let apiClientId = Bundle.main.infoDictionary?["NAVER_API_CLIENT_ID"] as? String ?? ""
+        static let apiSecretId = Bundle.main.infoDictionary?["NAVER_API_SECRET_ID"] as? String ?? ""
         static let searchURL = "https://openapi.naver.com/v1/search/local.json"
     }
     

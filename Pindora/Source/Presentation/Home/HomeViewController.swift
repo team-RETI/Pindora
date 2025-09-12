@@ -5,27 +5,24 @@
 //
 
 import UIKit
+import NMapsMap
 import Combine
+import CoreLocation
 
 final class HomeViewController: UIViewController {
     weak var coordinator: HomeCoordinator?
     private let viewModel: HomeViewModel
     private let customView = HomeView()
+    private var cancellable = Set<AnyCancellable>()
     
     // MARK: - Subjects (Input 소스)
     private let searchTextSubject = PassthroughSubject<String, Never>()
     private let categorySelectedSubject = PassthroughSubject<String, Never>()
+    private let mapCenterSubject = PassthroughSubject<CLLocationCoordinate2D, Never>()
     
+    // MARK: - UI(CellView)
     private lazy var placeListView: CardCellListView = customView.placeListView
-    private var cancellable = Set<AnyCancellable>()
-    private var placeList: [Place] = []
-    
-//    private let dummyData: [(category: String, likedCount: Int, title: String, address: String, imageURL: String, date: Date)] = [
-//        ("관광지",159,"경복궁", "서울특별시 종로구 사직로 161", "sample1", ISO8601DateFormatter().date(from: "2025-08-01T00:00:00Z") ?? Date()),
-//        ("카페",55,"스타벅스 시청점", "도로명서울 중구 을지로 19 삼성화재삼성빌딩 1층", "sample6", Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()),
-//        ("공원",595,"여의도 한강공원", "서울 영등포구 여의동로 330", "sample9", Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? Date()),
-//        ("관광지",111,"남산타워", "서울 영등포구 여의동로 330", "sample4", Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date()),
-//    ]
+    private var dataSource: UITableViewDiffableDataSource<Place.PlaceSection, Place>?
     
     // MARK: - Initializer
     init(viewModel: HomeViewModel) {
@@ -40,12 +37,13 @@ final class HomeViewController: UIViewController {
     // MARK: - LifeCycle
     override func loadView() {
         self.view = customView
+        // 장소 리스트 관련 델리게이트 설정
+        placeListView.delegate = self
+        configureDataSource()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        placeListView.dataSource = self
-        placeListView.delegate = self
         bindViewModel()
     }
     
@@ -61,25 +59,29 @@ final class HomeViewController: UIViewController {
         let input = HomeViewModel.Input(
             viewDidLoad: Just(()).eraseToAnyPublisher(),
             keyword: searchTextSubject.eraseToAnyPublisher(),
+            mapCenter: mapCenterSubject.eraseToAnyPublisher(),
             categorySelected: categorySelectedSubject.eraseToAnyPublisher()
         )
         
         let output = viewModel.transform(input: input)
         
+        // 장소 렌더링
         output.places
+            .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] places in
-                self?.placeList = places
-                self?.placeListView.reloadData()
+                self?.applySnapshot(places: places)
             })
             .store(in: &cancellable)
         
+        // 위치 스트리밍
         output.location
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] coordinate in
-//                self?.updateMyLocation(lat: coordinate.coordinate.latitude, lng: coordinate.coordinate.longitude)
-//                self?.firstCoordinate = coordinate.coordinate
+                self?.updateMyLocation(location: coordinate)
             }
             .store(in: &cancellable)
         
+        // 카테고리 선택 상태변경
         output.selectedCategory
             .sink { [weak self] selected in
                 guard let self else { return }
@@ -87,12 +89,10 @@ final class HomeViewController: UIViewController {
                 for view in self.customView.categoryListView.categoryViews {
                     view.setSelected(view.titleText == selected)
                 }
-//                self.selectedTag = selected
-//                self.clearPlaceMarkers()
             }
             .store(in: &cancellable)
         
-        //        viewModel.$places
+        //viewModel.$places
         //            .receive(on: DispatchQueue.main)
         //            .sink { [weak self] places in
         //                self?.placeList = places
@@ -111,55 +111,64 @@ final class HomeViewController: UIViewController {
         }
     }
     private func setupSearchBarTarget() {
+        // 사용자가 타이핑할 때마다 문자열을 방출하는 퍼블리셔
         customView.searchBarView.textField.textPublisher
+            // 0.35초 동안 입력이 멈출 때만 이벤트를 흘려보냄
             .debounce(for: .milliseconds(350), scheduler: RunLoop.main)
-            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .removeDuplicates()
-            .filter { !$0.isEmpty } // 빈 검색어 건너뜀
             .sink { [weak self] query in
-                self?.searchTextSubject.send(query) // ✅ 키워드만 전달
+                self?.searchTextSubject.send(query)
             }
             .store(in: &cancellable)
     }
+    private func updateMyLocation(location: CLLocationCoordinate2D) {
+        mapCenterSubject.send(location)
+    }
 }
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+extension HomeViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return placeList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardCellView", for: indexPath) as? CardCellView else {
-            return UITableViewCell()
-        }
-        
-        let placeTuple = placeList[indexPath.row]
-        let placeModel = Place(
-            placeId: UUID().uuidString, // 임시 고유 ID
-            placeName: placeTuple.placeName,
-            placeAddress: placeTuple.placeAddress,
-            latitude: 0.0,
-            longitude: 0.0,
-            category: placeTuple.category,
-            addedDate: placeTuple.addedDate,
-            likedCount: placeTuple.likedCount,
-            naviLink: nil,
-            instaLink: nil,
-            bookLink: nil,
-//            imageURL: placeTuple.imageURL // 또는 "https://~~" 형태로 테스트용 이미지 URL 넣어도 됨
-        )
+    private func configureDataSource() {
+        dataSource = UITableViewDiffableDataSource<Place.PlaceSection, Place>(
+            tableView: placeListView
+        ) { tableView, indexPath, place in
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: "CardCellView",
+                for: indexPath
+            ) as? CardCellView else {
+                return UITableViewCell()
+            }
 
-        cell.setImage(urlString: placeTuple.imageURL ?? "placeholder") // 또는 placeholder 세팅
-        cell.configure(with: placeModel)
-        return cell
+            // 셀 구성
+            cell.configure(with: place)
+            cell.setImage(
+                urlString: place.imageURL,
+                category: place.category
+            )
+            return cell
+        }
+
+        // 초기 스냅샷(빈 값)
+        var snapshot = NSDiffableDataSourceSnapshot<Place.PlaceSection, Place>()
+        snapshot.appendSections([.main])
+        dataSource?.apply(snapshot, animatingDifferences: false)
     }
     
+    private func applySnapshot(places: [Place]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Place.PlaceSection, Place>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(places, toSection: .main)
+
+        UIView.transition(with: placeListView,
+                          duration: 0.25,
+                          options: .transitionCrossDissolve,
+                          animations: { [weak self] in
+            // Diffable 자체 애니메이션은 끄기
+            self?.dataSource?.apply(snapshot, animatingDifferences: false)
+        })
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("사용자가 \(placeList[indexPath.row]) 셀을 눌렀습니다.")
         coordinator?.didTapCell()
     }
-    
-    
 }
 

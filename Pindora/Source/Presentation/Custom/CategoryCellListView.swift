@@ -11,10 +11,10 @@ final class CategoryCellListView: UIScrollView {
     
     // MARK: - UI Component
     // 더미 데이터 (ViewModel 구현후 없앨예정)
-    let categoriesDummy = ["도서관", "카페", "관광지", "식당", "숙소", "기타", "도서관", "카페", "관광지", "식당", "숙소", "기타"]
+    let categoriesDummy = ["편의점", "카페", "은행", "음식점", "약국", "주차장", "숙박", "학원", "학교", "주유소"]
     
-    lazy var categories: [KakaoCategory] = {
-        categoriesDummy.compactMap { KakaoCategory(displayName: $0) }
+    lazy var categories: [KakaoCategoryGroup] = {
+        categoriesDummy.compactMap { KakaoCategoryGroup.from(displayName: $0) }
     }()
 
     lazy var categoryViews: [CategoryCellView] = {

@@ -35,7 +35,7 @@ final class CardCellView: UITableViewCell {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         return view
     }()
-
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 24)
@@ -91,7 +91,7 @@ final class CardCellView: UITableViewCell {
     
     // MARK: - (F)Constraints
     private func setupConstraints() {
-
+        
         thumbnailContainerView.translatesAutoresizingMaskIntoConstraints = false
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         overlayView.translatesAutoresizingMaskIntoConstraints = false
@@ -143,25 +143,43 @@ final class CardCellView: UITableViewCell {
         descriptionLabel.text = place.placeAddress
         dateLabel.text = place.addedDate.toString()
         
-//        if let urlString = place.imageURL, let url = URL(string: urlString) {
-//            URLSession.shared.dataTask(with: url) { data, _, _ in
-//                guard let data, let image = UIImage(data: data) else { return }
-//                DispatchQueue.main.async {
-//                    self.thumbnailImageView.image = image
-//                }
-//            }.resume()
-//        } else {
-//            thumbnailImageView.image = UIImage(named: "placeholder")
-//        }
-//        thumbnailImageView.image = UIImage(named: place.imageURL ?? "placeholder")
+        //        if let urlString = place.imageURL, let url = URL(string: urlString) {
+        //            URLSession.shared.dataTask(with: url) { data, _, _ in
+        //                guard let data, let image = UIImage(data: data) else { return }
+        //                DispatchQueue.main.async {
+        //                    self.thumbnailImageView.image = image
+        //                }
+        //            }.resume()
+        //        } else {
+        //            thumbnailImageView.image = UIImage(named: "placeholder")
+        //        }
+        //        thumbnailImageView.image = UIImage(named: place.imageURL ?? "placeholder")
     }
     
-    func setImage(urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        task = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
-            guard let data, let img = UIImage(data: data) else { return }
-            DispatchQueue.main.async { self?.thumbnailImageView.image = img }
+
+    func setImage(urlString: String?, category: String) {
+        // 기본값: placeholder
+        thumbnailImageView.image = UIImage(named: "placeholder")
+        // 1) 입력 정리
+        let raw = urlString?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        
+        guard raw.isEmpty == false else {
+            let category = KakaoCategoryGroup.from(displayName: category)?.rawValue ?? "placeholder"
+            thumbnailImageView.image = UIImage(named: category)
+            return
         }
-        task?.resume()
+
+        // 2) http/https URL이면 네트워크 로드
+        if let url = URL(string: raw),
+           let scheme = url.scheme?.lowercased(),
+           (scheme == "http" || scheme == "https") {
+
+            task = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+                guard let self, let data, let img = UIImage(data: data) else { return }
+                DispatchQueue.main.async { self.thumbnailImageView.image = img }
+            }
+            task?.resume()
+            return
+        }
     }
 }
