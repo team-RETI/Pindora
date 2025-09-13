@@ -28,9 +28,12 @@ final class HomeViewModel {
     @Published var places: [Place] = []
     private var cancellables = Set<AnyCancellable>()
     private let placeUseCase: PlaceUseCase
+    static let clientID = Bundle.main.infoDictionary?["GPT_API_KEY"] as? String ?? ""
     
     init(placeUseCase: PlaceUseCase) {
         self.placeUseCase = placeUseCase
+        
+        print("테스트: \(HomeViewModel.clientID)")
     }
     
     func fetchPlaces() {

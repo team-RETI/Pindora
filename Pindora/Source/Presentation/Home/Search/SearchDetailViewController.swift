@@ -9,7 +9,6 @@ import Combine
 
 final class SearchDetailViewController: UIViewController {
     private let viewModel: HomeViewModel
-    private let customView = SearchDetailView()
     private var cancellables = Set<AnyCancellable>()
     private var searchController = UISearchController(searchResultsController: nil)
     private let tableView = UITableView()
