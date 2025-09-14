@@ -142,21 +142,13 @@ final class CardCellView: UITableViewCell {
         titleLabel.text = place.placeName
         descriptionLabel.text = place.placeAddress
         dateLabel.text = place.addedDate.toString()
-        
-        //        if let urlString = place.imageURL, let url = URL(string: urlString) {
-        //            URLSession.shared.dataTask(with: url) { data, _, _ in
-        //                guard let data, let image = UIImage(data: data) else { return }
-        //                DispatchQueue.main.async {
-        //                    self.thumbnailImageView.image = image
-        //                }
-        //            }.resume()
-        //        } else {
-        //            thumbnailImageView.image = UIImage(named: "placeholder")
-        //        }
-        //        thumbnailImageView.image = UIImage(named: place.imageURL ?? "placeholder")
     }
     
-
+    
+    /// 이미지 연결
+    /// - Parameters:
+    ///   - urlString: 이미지 URL 혹은 nil
+    ///   - category: 이미지 실패 시 카테코리를 이용한 이미지 매칭
     func setImage(urlString: String?, category: String) {
         // 기본값: placeholder
         thumbnailImageView.image = UIImage(named: "placeholder")
@@ -168,9 +160,11 @@ final class CardCellView: UITableViewCell {
             thumbnailImageView.image = UIImage(named: category)
             return
         }
-
+        
+        let secure = raw.hasPrefix("http://") ? raw.replacingOccurrences(of: "http://", with: "https://") : raw
+        
         // 2) http/https URL이면 네트워크 로드
-        if let url = URL(string: raw),
+        if let url = URL(string: secure),
            let scheme = url.scheme?.lowercased(),
            (scheme == "http" || scheme == "https") {
 

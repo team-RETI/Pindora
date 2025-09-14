@@ -52,17 +52,10 @@ final class ModuleFactory {
         return OneTimeAskViewController(viewModel: viewModel)
     }
     
-//    func makeHomeVC() -> HomeViewController {
-//        let viewModel: HomeViewModel = getOrCreateViewModel(for: .home) {
-//            let useCase = DIContainer.shared.resolve(PlaceUseCase.self)
-//            return HomeViewModel(placeUseCase: useCase)
-//        }
-//        return HomeViewController(viewModel: viewModel)
-//    }
     func makeHomeVC() -> HomeViewController {
         let viewModel: HomeViewModel = getOrCreateViewModel(for: .home) {
             let locationUseCase = DIContainer.shared.resolve(LocationUseCaseProtocol.self)
-            let searchUseCase: SearchUseCaseProtocol = DIContainer.shared.resolve(SearchUseCaseProtocol.self)
+            let searchUseCase = DIContainer.shared.resolve(SearchUseCaseProtocol.self)
             let placeUseCase = DIContainer.shared.resolve(PlaceUseCase.self)
             let imageUseCase = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
             return HomeViewModel(locationUseCase: locationUseCase, searchUseCase: searchUseCase, imageUseCase: imageUseCase, placeUseCase: placeUseCase)
@@ -70,11 +63,13 @@ final class ModuleFactory {
         return HomeViewController(viewModel: viewModel)
     }
     
-    func makeCardDetailVC() -> CardDetailViewController {
+    func makeCardDetailVC(place: Place) -> CardDetailViewController {
         let viewModel: CardDetailViewModel = getOrCreateViewModel(for: .cardDetail) {
-            CardDetailViewModel()
+            let placeUseCase = DIContainer.shared.resolve(PlaceUseCase.self)
+            let imageUseCase = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
+            return CardDetailViewModel(place: place, placeUseCase: placeUseCase, imageUseCase: imageUseCase)
         }
-        return CardDetailViewController(viewModel: viewModel)
+        return CardDetailViewController(viewModel: viewModel, place: place)
     }
     
     func makeMapVC() -> MapViewController {
@@ -88,7 +83,10 @@ final class ModuleFactory {
     
     func makeMyPlaceVC() -> MyPlaceViewController {
         let viewModel: MyPlaceViewModel = getOrCreateViewModel(for: .myPlace) {
-            MyPlaceViewModel()
+            let searchUseCase = DIContainer.shared.resolve(SearchUseCaseProtocol.self)
+            let placeUseCase = DIContainer.shared.resolve(PlaceUseCase.self)
+            let imageUseCase = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
+            return MyPlaceViewModel(searchUseCase: searchUseCase, placeUseCase: placeUseCase, imageUseCase: imageUseCase)
         }
         return MyPlaceViewController(viewModel: viewModel)
     }
@@ -109,14 +107,6 @@ final class ModuleFactory {
         return ProfileViewController(viewModel: viewModel)
     }
     
-//    func makeProfileVC() -> ProfileViewController {
-//        let viewModel: ProfileViewModel = getOrCreateViewModel(for: .profile) {
-//            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
-//            return ProfileViewModel(userUseCase: userUseCase)
-//        }
-//        return ProfileViewController(viewModel: viewModel)
-//    }
-//    
     func makeProfileEditVC() -> ProfileEditViewController {
         let viewModel: ProfileEditViewModel = getOrCreateViewModel(for: .editProfile) {
             ProfileEditViewModel()

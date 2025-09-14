@@ -20,7 +20,7 @@ final class HomeViewController: UIViewController {
     private let categorySelectedSubject = PassthroughSubject<String, Never>()
     private let mapCenterSubject = PassthroughSubject<CLLocationCoordinate2D, Never>()
     
-    // MARK: - UI(CellView)
+    // MARK: - UI(테이블 뷰)
     private lazy var placeListView: CardCellListView = customView.placeListView
     private var dataSource: UITableViewDiffableDataSource<Place.PlaceSection, Place>?
     
@@ -50,7 +50,7 @@ final class HomeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupSearchBarTarget()
-        setupCategoryTargets()
+        setupCategoryTarget()
         print("HomeViewController")
     }
     
@@ -105,7 +105,7 @@ final class HomeViewController: UIViewController {
         guard let name = cellView.titleText else { return }
         categorySelectedSubject.send(name)
     }
-    private func setupCategoryTargets() {
+    private func setupCategoryTarget() {
         for categoryView in customView.categoryListView.categoryViews {
             categoryView.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
         }
@@ -168,7 +168,9 @@ extension HomeViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coordinator?.didTapCell()
+        if let place = dataSource?.itemIdentifier(for: indexPath) {
+            coordinator?.didTapCell(place: place)
+        }
     }
 }
 

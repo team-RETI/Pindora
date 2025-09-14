@@ -21,12 +21,14 @@ final class MapViewController: UIViewController {
     private let locationButtonTappedSubject = PassthroughSubject<Void, Never>()
     
     // NaverMap SDK
-    var selectableMarker: SelectableMarker?
     var isExpanded = false              // 태그 상태 저장용
     var isMarkerSelected = false        // 마커 상태 저장용
     var selectedTag: String?            // 태그이름 저장용
-    var placeMarkers: [NMFMarker] = []  // 마커 배열
+    var placeMarkers: [SelectableMarker] = []  // 마커 배열
+    private weak var currentSelectedMarker: SelectableMarker?
     var myLocation = NMFMarker()        // 내 현재 위치마커
+    private let imageCache = NSCache<NSString, UIImage>() // 간단 메모리 캐시
+    private let defaultMarkerImage = UIImage(named: "placeholder") ?? UIImage()
     var firstCoordinate = CLLocationCoordinate2D() // 처음 위치 저장용
     
     // MARK: - Initializer
@@ -42,7 +44,7 @@ final class MapViewController: UIViewController {
     // MARK: - LifeCycle
     override func loadView() {
         self.view = customView
-        /// map 터치 관련 델리게이트 설정
+        // map 터치 관련 델리게이트 설정
         customView.mapView.touchDelegate = self
     }
     
@@ -51,7 +53,7 @@ final class MapViewController: UIViewController {
         bindViewEvent()
         bindViewModel()
         bindMarker(lat: firstCoordinate.latitude, lng: firstCoordinate.longitude)
-        bindMarkerHandler()
+//        bindMarkerHandler()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -94,8 +96,9 @@ final class MapViewController: UIViewController {
         // 위치 스트리밍
         output.location
             .sink { [weak self] coordinate in
-                self?.updateMyLocation(lat: coordinate.coordinate.latitude, lng: coordinate.coordinate.longitude)
-                self?.firstCoordinate = coordinate.coordinate
+                self?.updateMyLocation(lat: coordinate.latitude, lng: coordinate.longitude)
+                self?.updateMyLocationMarker(to: coordinate)
+                self?.firstCoordinate = coordinate
             }
             .store(in: &cancellable)
     }
@@ -107,13 +110,13 @@ final class MapViewController: UIViewController {
     
     private func bindMarker(lat: Double, lng: Double) {
         
-        // 예시 장소마커 (경복궁)
-        let location = NMGLatLng(lat: 37.579617, lng: 126.977041)
-        let photo = UIImage(named: "sample1") ?? UIImage()
-        selectableMarker = SelectableMarker(position: location, image: photo)
-        
-        // mapView에 등록
-        selectableMarker?.attach(to: customView.mapView)
+//        // 예시 장소마커 (경복궁)
+//        let location = NMGLatLng(lat: 37.579617, lng: 126.977041)
+//        let photo = UIImage(named: "CE7") ?? UIImage()
+//        selectableMarker = SelectableMarker(position: location, image: photo)
+//        
+//        // mapView에 등록
+//        selectableMarker?.attach(to: customView.mapView)
         
         // 내 위치마커 (서울시청)
         let customIcon = MarkerIconFactory.makeCustomUserIcon(from: UIImage(named: "avatar2") ?? UIImage())
@@ -127,54 +130,102 @@ final class MapViewController: UIViewController {
         myLocation.mapView = customView.mapView
     }
     
-    private func bindMarkerHandler() {
-        selectableMarker?.marker.touchHandler = { [weak self] _ in
-            guard let self = self else { return false }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                self.isMarkerSelected.toggle()
-                self.selectableMarker?.setSelected(self.isMarkerSelected)
-                // dismiss용 콜백
-                self.coordinator?.didTapPlaceMarker { [weak self] in
-                    guard let self else { return }
-                    self.isMarkerSelected.toggle()
-                    self.selectableMarker?.setSelected(self.isMarkerSelected)
-                }
-            }
-            return true
-        }
-    }
+//    private func bindMarkerHandler() {
+//        selectableMarker?.marker.touchHandler = { [weak self] _ in
+//            guard let self = self else { return false }
+//            
+//            DispatchQueue.main.asyncAfter(deadline: .now()) {
+//                self.isMarkerSelected.toggle()
+//                self.selectableMarker?.setSelected(self.isMarkerSelected)
+//                // dismiss용 콜백
+//                self.coordinator?.didTapPlaceMarker { [weak self] in
+//                    guard let self else { return }
+//                    self.isMarkerSelected.toggle()
+//                    self.selectableMarker?.setSelected(self.isMarkerSelected)
+//                }
+//            }
+//            return true
+//        }
+//    }
     
     private func renderPlacesOnMap(_ places: [Place]) {
         // 혹시 모를 중복 방지
         clearPlaceMarkers()
-
-        var newMarkers: [NMFMarker] = []
+        
         for place in places {
             let lat = place.latitude
             let lng = place.longitude
+            let position = NMGLatLng(lat: lat, lng: lng)
             
-            let marker = NMFMarker()
-            marker.position = NMGLatLng(lat: lat, lng: lng)
-            marker.iconImage = NMF_MARKER_IMAGE_BLACK
-            marker.width = CGFloat(NMF_MARKER_SIZE_AUTO)
-            marker.height = CGFloat(NMF_MARKER_SIZE_AUTO)
+            // 마커 썸네일 이미지 준비 (URL or 카테고리 에셋)
+            loadMarkerImage(for: place) { [weak self] image in
+                guard let self else { return }
+                let photo = image ?? self.defaultMarkerImage
+                
+                let marker = SelectableMarker(position: position, image: photo)
+                marker.marker.captionRequestedWidth = 50
+                marker.marker.captionText = place.placeName
+                marker.marker.isHideCollidedCaptions = true
+                
+                marker.attach(to: self.customView.mapView)
+                self.placeMarkers.append(marker)
+                
+                // 터치 핸들러는 "방금 만든 marker"를 대상으로 동작해야 함
+                marker.marker.touchHandler = { [weak self, weak marker] _ in
+                    guard let self, let marker else { return false }
+                    
+                    // UI는 메인에서
+                    DispatchQueue.main.async {
+                        // 같은 마커 재탭: 해제
+                        if self.currentSelectedMarker === marker {
+                            marker.setSelected(false)
+                            self.currentSelectedMarker = nil
+                        } else {
+                            // 이전 선택 해제 후 새 선택
+                            self.currentSelectedMarker?.setSelected(false)
+                            marker.setSelected(true)
+                            self.currentSelectedMarker = marker
+                        }
 
-            // 캡션
-            marker.captionRequestedWidth = 50
-            marker.captionText = place.placeName
-            marker.isHideCollidedCaptions = true
-            
-            marker.mapView = customView.mapView
-            newMarkers.append(marker)
-            
-//            print("장소이름: \(place.placeName)")
+                        // 시트 띄우고, dismiss 시 현재 선택 해제
+                        self.coordinator?.didTapPlaceMarker { [weak self] in
+                            guard let self else { return }
+                            self.currentSelectedMarker?.setSelected(false)
+                            self.currentSelectedMarker = nil
+                        }
+                    }
+                    return true
+                }
+            }
         }
-        placeMarkers = newMarkers
+
+        // 3) 내 위치 마커 갱신
+//        updateMyLocationMarker(to: myCoord)
+
+//        var newMarkers: [NMFMarker] = []
+//        for place in places {
+//            let lat = place.latitude
+//            let lng = place.longitude
+//            
+//            let marker = NMFMarker()
+//            marker.position = NMGLatLng(lat: lat, lng: lng)
+//            marker.iconImage = NMF_MARKER_IMAGE_BLACK
+//            marker.width = CGFloat(NMF_MARKER_SIZE_AUTO)
+//            marker.height = CGFloat(NMF_MARKER_SIZE_AUTO)
+//
+//            // 캡션
+//            marker.captionRequestedWidth = 50
+//            marker.captionText = place.placeName
+//            marker.isHideCollidedCaptions = true
+//            
+//            marker.mapView = customView.mapView
+//            newMarkers.append(marker)
+//        }
+//        placeMarkers = newMarkers
     }
     
     private func clearPlaceMarkers() {
-        placeMarkers.forEach { $0.mapView = nil }  // 지도에서 제거
+        placeMarkers.forEach { $0.marker.mapView = nil }  // 지도에서 제거
         placeMarkers.removeAll()
     }
     
@@ -185,6 +236,54 @@ final class MapViewController: UIViewController {
         update.animation = .easeIn
         customView.mapView.moveCamera(update)
         mapCenterSubject.send(latLng.clCoordinate)
+    }
+    
+    /// 내 위치 마커를 갱신하여 지도에 표시
+    private func updateMyLocationMarker(to coord: CLLocationCoordinate2D) {
+        let customIcon = MarkerIconFactory.makeCustomUserIcon(
+            from: UIImage(named: "avatar2") ?? UIImage()
+        )
+        myLocation.position = NMGLatLng(lat: coord.latitude, lng: coord.longitude)
+        myLocation.iconImage = NMFOverlayImage(image: customIcon)
+        myLocation.width = 64
+        myLocation.height = 64
+        myLocation.anchor = CGPoint(x: 0.5, y: 1.0)
+        myLocation.mapView = customView.mapView
+    }
+    
+    /// 마커에 사용할 이미지를 로드 (URL → 다운로드, 실패 시 카테고리 기본 이미지)
+    private func loadMarkerImage(for place: Place, completion: @escaping (UIImage?) -> Void) {
+        // 1) URL이 있으면 우선 시도
+        if let raw = place.imageURL?.trimmingCharacters(in: .whitespacesAndNewlines),
+           raw.isEmpty == false {
+
+            // ATS 대비: http -> https 강제
+            let secure = raw.hasPrefix("http://")
+            ? raw.replacingOccurrences(of: "http://", with: "https://")
+            : raw
+
+            // 캐시 hit
+            if let cached = imageCache.object(forKey: NSString(string: secure)) {
+                completion(cached)
+                return
+            }
+
+            if let url = URL(string: secure) {
+                URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+                    guard let self, let data, let img = UIImage(data: data) else {
+                        // 실패 시 카테고리 기본 이미지로 대체
+//                        completion(self?.categoryFallbackImage(for: place.category))
+                        return
+                    }
+                    self.imageCache.setObject(img, forKey: NSString(string: secure))
+                    DispatchQueue.main.async { completion(img) }
+                }.resume()
+                return
+            }
+        }
+
+        // 2) URL이 없거나 실패 → 카테고리 에셋
+//        completion(categoryFallbackImage(for: place.category))
     }
     
     @objc private func toggleTags() {

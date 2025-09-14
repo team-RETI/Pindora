@@ -224,7 +224,7 @@ final class MainTabCoordinator: Coordinator {
 
 protocol CardDetailCoordinating: AnyObject {
     /// 이동
-    func didTapCell()
+    func didTapCell(place: Place)
     /// 이동
     func didTapPlaceMarker(onDismiss: @escaping () -> Void)
     //    func navigateToPlaceDetail()
@@ -233,10 +233,12 @@ protocol CardDetailCoordinating: AnyObject {
 
 final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationControllerDelegate, CardDetailCoordinating {
     private var onPlaceSheetDismiss: (() -> Void)?
+    private var place: Place?
+    
     func didTapPlaceMarker(onDismiss: @escaping () -> Void) {
     }
-    
-    func didTapCell() {
+    func didTapCell(place: Place) {
+        self.place = place
         navigate(to: .cardDetail)
     }
     
@@ -285,7 +287,8 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             
             
         case .cardDetail:
-            let vc = ModuleFactory.shared.makeCardDetailVC()
+            guard let place else { return }
+            let vc = ModuleFactory.shared.makeCardDetailVC(place: place)
             vc.coordinator = self as CardDetailCoordinating
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .pageSheet
@@ -328,8 +331,9 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
 
 final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAdaptivePresentationControllerDelegate {
     private var onPlaceSheetDismiss: (() -> Void)?
-    
-    func didTapCell() {
+    private var place: Place?
+    func didTapCell(place: Place) {
+        self.place = place
         navigate(to: .home)
     }
     
@@ -382,7 +386,8 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
             navigationController.isNavigationBarHidden = true
             
         case .cardDetail:
-            let vc = ModuleFactory.shared.makeCardDetailVC()
+            guard let place else { return }
+            let vc = ModuleFactory.shared.makeCardDetailVC(place: place)
             vc.coordinator = self as CardDetailCoordinating
             
             let nav = UINavigationController(rootViewController: vc)
@@ -403,16 +408,41 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
     }
 }
 
-final class MyPlaceCoordinator: Coordinator {
+final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAdaptivePresentationControllerDelegate {
+    private var onPlaceSheetDismiss: (() -> Void)?
+    private var place: Place?
+    
+    func didTapPlaceMarker(onDismiss: @escaping () -> Void) { }
     func didTapAddPlace() {
         navigate(to: .addPlace)
+    }
+    func didTapCell(place: Place) {
+        self.place = place
+        navigate(to: .cardDetail)
+    }
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        let fireDismiss: () -> Void = { [weak self] in
+            self?.onPlaceSheetDismiss?()
+            self?.onPlaceSheetDismiss = nil
+        }
+
+        if let bgView = navigationController.view.viewWithTag(999) {
+            UIView.animate(withDuration: 0.25, animations: {
+                bgView.alpha = 0
+            }, completion: { _ in
+                bgView.removeFromSuperview()
+                fireDismiss() // ✅ 페이드 완전히 끝난 뒤 콜백
+            })
+        } else {
+            fireDismiss()     // ✅ 배경 없으면 바로 콜백
+        }
     }
     
     private enum Route {
         case home
         case addPlace
+        case cardDetail
     }
-    
     var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
@@ -420,7 +450,6 @@ final class MyPlaceCoordinator: Coordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-    
     func start() {
         navigate(to: .home)
     }
@@ -449,6 +478,46 @@ final class MyPlaceCoordinator: Coordinator {
                 
             }
             nav.isNavigationBarHidden = true // ✅ 요거 추가
+            navigationController.present(nav, animated: true)
+            
+        case .cardDetail:
+            guard let place else { return }
+            let vc = ModuleFactory.shared.makeCardDetailVC(place: place)
+            vc.coordinator = self as CardDetailCoordinating
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .pageSheet
+            nav.view.backgroundColor = .clear
+            vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+            vc.presentationController?.delegate = self
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [
+                    .custom(resolver: { context in
+                        return context.maximumDetentValue * 0.98
+                    })
+                ]
+                sheet.prefersGrabberVisible = false
+            }
+            
+            // ✅ 배경 뷰 추가
+            let bgView = UIView(frame: navigationController.view.bounds)
+            bgView.alpha = 0
+            bgView.tag = 999  // 나중에 제거용
+            
+            let backgroundImageView = UIImageView(frame: bgView.bounds)
+            backgroundImageView.image = UIImage(named: "sample_main")
+            backgroundImageView.contentMode = .scaleAspectFill
+            backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            bgView.addSubview(backgroundImageView)
+            navigationController.view.addSubview(bgView)
+            
+            UIView.animate(withDuration: 0.5) {
+                bgView.alpha = 1
+            }
+            
+            // ✅ delegate 설정
+            nav.presentationController?.delegate = self
+            nav.isNavigationBarHidden = true
             navigationController.present(nav, animated: true)
         }
     }

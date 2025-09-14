@@ -14,8 +14,11 @@ final class CardDetailView: UIView {
     private let contentView = UIView()
     private let tagLabelView = TagLabelView(title: "관광지")
     private let likeCountLabelView = LikeCountLabelView(count: 159)
+    lazy var pinButton  = UIButton.detailButtonStyle(name: "pin")
+    lazy var instaButton = UIButton.detailButtonStyle(name: "insta")
+    lazy var flagButton  = UIButton.detailButtonStyle(name: "flag")
     
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .white
@@ -23,7 +26,7 @@ final class CardDetailView: UIView {
         return label
     }()
 
-    private let addressLabel: UILabel = {
+    let addressLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
         label.textColor = .lightGray
@@ -31,7 +34,7 @@ final class CardDetailView: UIView {
         return label
     }()
 
-    private let closeButton: UIButton = {
+    let closeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "xmark"), for: .normal)
         button.tintColor = .white
@@ -47,14 +50,8 @@ final class CardDetailView: UIView {
         return label
     }()
     
-    private let buttonStack: UIStackView = {
-        let buttons = [
-            UIButton.detailButtonStyle(name: "pin"),
-            UIButton.detailButtonStyle(name: "insta"),
-            UIButton.detailButtonStyle(name: "flag"),
-        ]
-        
-        let stack = UIStackView(arrangedSubviews: buttons)
+    lazy var buttonStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [pinButton, instaButton, flagButton])
         stack.axis = .horizontal
         stack.spacing = 16
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -106,14 +103,17 @@ final class CardDetailView: UIView {
     // MARK: - (F)UI Setup
     private func setupUI() {
         backgroundColor = .black
-        addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
-        scrollView.addSubview(contentView)
+//        addSubview(scrollView)
+//        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        
+//        scrollView.addSubview(contentView)
+        contentView.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+//        1. 스크롤뷰 2. 스택뷰
         [headerStack, addressLabel, hashtagLabel, buttonStack, mainImageView,
          locationTitleLabel, mapImageView, tagLabelView, likeCountLabelView ].forEach {
+//            scrollView.addSubview($0)
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -121,17 +121,17 @@ final class CardDetailView: UIView {
     // MARK: - (F)Constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            contentView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            scrollView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             
             headerStack.topAnchor.constraint(equalTo: contentView.topAnchor),
             headerStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
@@ -165,6 +165,51 @@ final class CardDetailView: UIView {
             mapImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
             mapImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -28),
             mapImageView.heightAnchor.constraint(equalTo: mapImageView.widthAnchor)
+            
+//            scrollView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+//            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+//            
+//            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+//            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+//            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+//            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+//
+//            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+//            
+//            headerStack.topAnchor.constraint(equalTo: contentView.topAnchor),
+//            headerStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
+//            headerStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -28),
+//            
+//            addressLabel.topAnchor.constraint(equalTo: headerStack.bottomAnchor, constant: 7),
+//            addressLabel.leadingAnchor.constraint(equalTo: headerStack.leadingAnchor),
+//            addressLabel.trailingAnchor.constraint(equalTo: headerStack.trailingAnchor),
+//            
+//            hashtagLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 7),
+//            hashtagLabel.leadingAnchor.constraint(equalTo: headerStack.leadingAnchor),
+//            hashtagLabel.trailingAnchor.constraint(equalTo: headerStack.trailingAnchor),
+//            
+//            buttonStack.topAnchor.constraint(equalTo: hashtagLabel.bottomAnchor, constant: 17),
+//            buttonStack.leadingAnchor.constraint(equalTo: headerStack.leadingAnchor),
+//    
+//            tagLabelView.centerYAnchor.constraint(equalTo: buttonStack.centerYAnchor),
+//            tagLabelView.trailingAnchor.constraint(equalTo: headerStack.trailingAnchor),
+//            likeCountLabelView.centerYAnchor.constraint(equalTo: buttonStack.centerYAnchor),
+//            likeCountLabelView.trailingAnchor.constraint(equalTo: tagLabelView.leadingAnchor, constant: -9),
+//            
+//            mainImageView.topAnchor.constraint(equalTo: buttonStack.bottomAnchor, constant: 25),
+//            mainImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 76),
+//            mainImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -76),
+//            mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor),
+//            
+//            locationTitleLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 40),
+//            locationTitleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+//            
+//            mapImageView.topAnchor.constraint(equalTo: locationTitleLabel.bottomAnchor, constant: 13),
+//            mapImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
+//            mapImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -28),
+//            mapImageView.heightAnchor.constraint(equalTo: mapImageView.widthAnchor)
             ])
     }
 }

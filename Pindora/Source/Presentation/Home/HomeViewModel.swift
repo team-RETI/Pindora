@@ -245,14 +245,14 @@ final class HomeViewModel {
     
     // 🧑‍🔧Input-Output 형식으로 바꾸겠습니다~
     //    func fetchPlaces() {
-    //        placeUseCase.fetchPlaces()
-    //            .receive(on: DispatchQueue.main)
-    //            .sink { completion in
-    //                if case let .failure(error) = completion {
-    //                    print("장소 로딩 실패: \(error.localizedDescription)")
-    //                }
-    //            } receiveValue: { [weak self] placeList in
-    //                self?.places = placeList
-    //            }.store(in: &cancellables)
+//            placeUseCase.fetchPlaces()
+//                .receive(on: DispatchQueue.main)
+//                .sink { completion in
+//                    if case let .failure(error) = completion {
+//                        print("장소 로딩 실패: \(error.localizedDescription)")
+//                    }
+//                } receiveValue: { [weak self] placeList in
+//                    self?.places = placeList
+//                }.store(in: &cancellables)
     //    }
 }

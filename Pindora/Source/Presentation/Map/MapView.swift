@@ -15,7 +15,7 @@ final class MapView: UIView {
     // MARK: - UI Component
     var mapView = NMFMapView()
     let categoryListView = CategoryCellListView()
-   let locationButton: UIButton = {
+    let locationButton: UIButton = {
         let button = UIButton()
         button.configuration = .locationButtonStyle()
         button.addShadow()
@@ -30,7 +30,7 @@ final class MapView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
     lazy var tagStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
@@ -46,12 +46,12 @@ final class MapView: UIView {
         setupUI()
         setupConstraints()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-
+    
+    
     // MARK: - (F)UI Setup
     private func setupUI() {
         addSubview(mapView)
