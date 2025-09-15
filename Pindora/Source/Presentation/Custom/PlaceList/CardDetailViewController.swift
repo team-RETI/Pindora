@@ -69,17 +69,22 @@ final class CardDetailViewController: UIViewController {
     private func buttonTargets() {
 //        customView.pinButton.addTarget(self, action: #selector(pinTapped), for: .touchUpInside)
         customView.flagButton.addTarget(self, action: #selector(addPlaceButtonTapped), for: .touchUpInside)
-//        customView.closeButton.addTarget(self, action: #selector(), for: .touchUpInside)
+        customView.closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
     }
     
     @objc private func addPlaceButtonTapped() {
         print("tapped")
         addButtonSubject.send()
     }
+    
+    @objc private func closeButtonTapped() {
+        print("tapped")
+        dismiss(animated: true)
+    }
 }
 
 
-//문제점 : 0915
-//1. 현재 디테일 뷰 한번 열면 닫고 나서도 같은 장소가 열림
-//2. myPlace뷰가 장소를 추가해도 업데이트가 안됨
+//문제점 : 0916
+// 1. 장소 디테일뷰:장소 백그라운드 이미지 고치기
+
 

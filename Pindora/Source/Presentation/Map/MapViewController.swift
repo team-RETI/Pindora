@@ -17,7 +17,6 @@ final class MapViewController: UIViewController {
     
     // MARK: - Subjects (Input 소스)
     private let categorySelectedSubject = PassthroughSubject<String, Never>()
-    private let mapCenterSubject = PassthroughSubject<CLLocationCoordinate2D, Never>()
     private let locationButtonTappedSubject = PassthroughSubject<Void, Never>()
     
     // NaverMap SDK
@@ -29,7 +28,6 @@ final class MapViewController: UIViewController {
     var myLocation = NMFMarker()        // 내 현재 위치마커
     private let imageCache = NSCache<NSString, UIImage>() // 간단 메모리 캐시
     private let defaultMarkerImage = UIImage(named: "placeholder") ?? UIImage()
-    var firstCoordinate = CLLocationCoordinate2D() // 처음 위치 저장용
     
     // MARK: - Initializer
     init(viewModel: MapViewModel) {
@@ -50,15 +48,13 @@ final class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bindViewEvent()
-        bindViewModel()
-        bindMarker(lat: firstCoordinate.latitude, lng: firstCoordinate.longitude)
-//        bindMarkerHandler()
+        setupCategoryTargets()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setupCategoryTargets()
+        bindViewEvent()
+        bindViewModel()
         print("MapViewController")
     }
     
@@ -66,7 +62,6 @@ final class MapViewController: UIViewController {
     private func bindViewModel() {
         let input = MapViewModel.Input(
             viewDidLoad: Just(()).eraseToAnyPublisher(),
-            mapCenter: mapCenterSubject.eraseToAnyPublisher(),
             locationButtonTapped: locationButtonTappedSubject.eraseToAnyPublisher(),
             categorySelected: categorySelectedSubject.eraseToAnyPublisher(),
         )
@@ -96,9 +91,7 @@ final class MapViewController: UIViewController {
         // 위치 스트리밍
         output.location
             .sink { [weak self] coordinate in
-                self?.updateMyLocation(lat: coordinate.latitude, lng: coordinate.longitude)
                 self?.updateMyLocationMarker(to: coordinate)
-                self?.firstCoordinate = coordinate
             }
             .store(in: &cancellable)
     }
@@ -109,16 +102,6 @@ final class MapViewController: UIViewController {
     }
     
     private func bindMarker(lat: Double, lng: Double) {
-        
-//        // 예시 장소마커 (경복궁)
-//        let location = NMGLatLng(lat: 37.579617, lng: 126.977041)
-//        let photo = UIImage(named: "CE7") ?? UIImage()
-//        selectableMarker = SelectableMarker(position: location, image: photo)
-//        
-//        // mapView에 등록
-//        selectableMarker?.attach(to: customView.mapView)
-        
-        // 내 위치마커 (서울시청)
         let customIcon = MarkerIconFactory.makeCustomUserIcon(from: UIImage(named: "avatar2") ?? UIImage())
         myLocation.position = NMGLatLng(lat: lat, lng: lng)
         myLocation.iconImage = NMFOverlayImage(image: customIcon)
@@ -129,24 +112,6 @@ final class MapViewController: UIViewController {
         // mapView에 등록
         myLocation.mapView = customView.mapView
     }
-    
-//    private func bindMarkerHandler() {
-//        selectableMarker?.marker.touchHandler = { [weak self] _ in
-//            guard let self = self else { return false }
-//            
-//            DispatchQueue.main.asyncAfter(deadline: .now()) {
-//                self.isMarkerSelected.toggle()
-//                self.selectableMarker?.setSelected(self.isMarkerSelected)
-//                // dismiss용 콜백
-//                self.coordinator?.didTapPlaceMarker { [weak self] in
-//                    guard let self else { return }
-//                    self.isMarkerSelected.toggle()
-//                    self.selectableMarker?.setSelected(self.isMarkerSelected)
-//                }
-//            }
-//            return true
-//        }
-//    }
     
     private func renderPlacesOnMap(_ places: [Place]) {
         // 혹시 모를 중복 방지
@@ -188,7 +153,7 @@ final class MapViewController: UIViewController {
                         }
 
                         // 시트 띄우고, dismiss 시 현재 선택 해제
-                        self.coordinator?.didTapPlaceMarker { [weak self] in
+                        self.coordinator?.didTapPlaceMarker(place: place) { [weak self] in
                             guard let self else { return }
                             self.currentSelectedMarker?.setSelected(false)
                             self.currentSelectedMarker = nil
@@ -198,44 +163,11 @@ final class MapViewController: UIViewController {
                 }
             }
         }
-
-        // 3) 내 위치 마커 갱신
-//        updateMyLocationMarker(to: myCoord)
-
-//        var newMarkers: [NMFMarker] = []
-//        for place in places {
-//            let lat = place.latitude
-//            let lng = place.longitude
-//            
-//            let marker = NMFMarker()
-//            marker.position = NMGLatLng(lat: lat, lng: lng)
-//            marker.iconImage = NMF_MARKER_IMAGE_BLACK
-//            marker.width = CGFloat(NMF_MARKER_SIZE_AUTO)
-//            marker.height = CGFloat(NMF_MARKER_SIZE_AUTO)
-//
-//            // 캡션
-//            marker.captionRequestedWidth = 50
-//            marker.captionText = place.placeName
-//            marker.isHideCollidedCaptions = true
-//            
-//            marker.mapView = customView.mapView
-//            newMarkers.append(marker)
-//        }
-//        placeMarkers = newMarkers
     }
     
     private func clearPlaceMarkers() {
         placeMarkers.forEach { $0.marker.mapView = nil }  // 지도에서 제거
         placeMarkers.removeAll()
-    }
-    
-    private func updateMyLocation(lat: Double, lng: Double) {
-        let latLng = NMGLatLng(lat: lat, lng: lng)
-        myLocation.position = latLng
-        let update = NMFCameraUpdate(scrollTo: latLng, zoomTo: 15)
-        update.animation = .easeIn
-        customView.mapView.moveCamera(update)
-        mapCenterSubject.send(latLng.clCoordinate)
     }
     
     /// 내 위치 마커를 갱신하여 지도에 표시
@@ -248,9 +180,15 @@ final class MapViewController: UIViewController {
         myLocation.width = 64
         myLocation.height = 64
         myLocation.anchor = CGPoint(x: 0.5, y: 1.0)
+        resetCameraToMyLocation()
         myLocation.mapView = customView.mapView
     }
-    
+    /// 카메라 위치 현재위치로 조정
+    private func resetCameraToMyLocation() {
+        let update = NMFCameraUpdate(scrollTo: myLocation.position, zoomTo: 15)
+        update.animation = .easeIn
+        customView.mapView.moveCamera(update)
+    }
     /// 마커에 사용할 이미지를 로드 (URL → 다운로드, 실패 시 카테고리 기본 이미지)
     private func loadMarkerImage(for place: Place, completion: @escaping (UIImage?) -> Void) {
         // 1) URL이 있으면 우선 시도
@@ -325,10 +263,11 @@ final class MapViewController: UIViewController {
     
     @objc private func locationButtonAction() {
         locationButtonTappedSubject.send()
+        resetCameraToMyLocation()
     }
 }
 extension MapViewController: NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        print("탭: \(latlng.lat), \(latlng.lng)")
     }
 }
+

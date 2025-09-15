@@ -226,7 +226,7 @@ protocol CardDetailCoordinating: AnyObject {
     /// 이동
     func didTapCell(place: Place)
     /// 이동
-    func didTapPlaceMarker(onDismiss: @escaping () -> Void)
+    func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void)
     //    func navigateToPlaceDetail()
     // 여기에 필요한 이동 메서드 추가
 }
@@ -235,8 +235,7 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
     private var onPlaceSheetDismiss: (() -> Void)?
     private var place: Place?
     
-    func didTapPlaceMarker(onDismiss: @escaping () -> Void) {
-    }
+    func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) {  }
     func didTapCell(place: Place) {
         self.place = place
         navigate(to: .cardDetail)
@@ -246,6 +245,8 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
         let fireDismiss: () -> Void = { [weak self] in
             self?.onPlaceSheetDismiss?()
             self?.onPlaceSheetDismiss = nil
+            self?.place = nil
+            ModuleFactory.shared.removeViewModel(for: .cardDetail)
         }
 
         if let bgView = navigationController.view.viewWithTag(999) {
@@ -306,15 +307,15 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             
             // ✅ 배경 뷰 추가
             let bgView = UIView(frame: navigationController.view.bounds)
+            bgView.backgroundColor = .black
             bgView.alpha = 0
             bgView.tag = 999  // 나중에 제거용
-            
-            let backgroundImageView = UIImageView(frame: bgView.bounds)
-            backgroundImageView.image = UIImage(named: "sample_main")
-            backgroundImageView.contentMode = .scaleAspectFill
-            backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            
-            bgView.addSubview(backgroundImageView)
+
+//            let backgroundImageView = UIImageView(frame: bgView.bounds)
+//            backgroundImageView.image = UIImage(named: "sample_main")
+//            backgroundImageView.contentMode = .scaleAspectFill
+//            backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//            bgView.addSubview(backgroundImageView)
             navigationController.view.addSubview(bgView)
             
             UIView.animate(withDuration: 0.5) {
@@ -337,8 +338,9 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
         navigate(to: .home)
     }
     
-    func didTapPlaceMarker(onDismiss: @escaping () -> Void) {
+    func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) {
         self.onPlaceSheetDismiss = onDismiss
+        self.place = place
         navigate(to: .cardDetail)
     }
     
@@ -346,6 +348,8 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
         let fireDismiss: () -> Void = { [weak self] in
             self?.onPlaceSheetDismiss?()
             self?.onPlaceSheetDismiss = nil
+            self?.place = nil
+            ModuleFactory.shared.removeViewModel(for: .cardDetail)
         }
 
         if let bgView = navigationController.view.viewWithTag(999) {
@@ -412,7 +416,7 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
     private var onPlaceSheetDismiss: (() -> Void)?
     private var place: Place?
     
-    func didTapPlaceMarker(onDismiss: @escaping () -> Void) { }
+    func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) { }
     func didTapAddPlace() {
         navigate(to: .addPlace)
     }
@@ -424,6 +428,8 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
         let fireDismiss: () -> Void = { [weak self] in
             self?.onPlaceSheetDismiss?()
             self?.onPlaceSheetDismiss = nil
+            self?.place = nil
+            ModuleFactory.shared.removeViewModel(for: .cardDetail)
         }
 
         if let bgView = navigationController.view.viewWithTag(999) {
@@ -500,15 +506,16 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
             
             // ✅ 배경 뷰 추가
             let bgView = UIView(frame: navigationController.view.bounds)
+            bgView.backgroundColor = .black
             bgView.alpha = 0
             bgView.tag = 999  // 나중에 제거용
             
-            let backgroundImageView = UIImageView(frame: bgView.bounds)
-            backgroundImageView.image = UIImage(named: "sample_main")
-            backgroundImageView.contentMode = .scaleAspectFill
-            backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            
-            bgView.addSubview(backgroundImageView)
+//            let backgroundImageView = UIImageView(frame: bgView.bounds)
+//            backgroundImageView.image = UIImage(named: "sample_main")
+//            backgroundImageView.contentMode = .scaleAspectFill
+//            backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//
+//            bgView.addSubview(backgroundImageView)
             navigationController.view.addSubview(bgView)
             
             UIView.animate(withDuration: 0.5) {
