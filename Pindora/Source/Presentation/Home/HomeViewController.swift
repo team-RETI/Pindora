@@ -7,7 +7,7 @@
 import UIKit
 import Combine
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, UITextFieldDelegate {
     weak var coordinator: HomeCoordinator?
     private let viewModel: HomeViewModel
     private let customView = HomeView()
@@ -42,8 +42,10 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         placeListView.dataSource = self
         placeListView.delegate = self
+        customView.searchBarView.textField.delegate = self
         bindViewModel()
         viewModel.fetchPlaces()
+        viewModel.fetchKeywords()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,6 +82,21 @@ final class HomeViewController: UIViewController {
         let selectedTitle = cellView.titleText
         print("✅ 선택된 카테고리: \(selectedTitle ?? "-")")
     }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        // 키보드 자동 올라오기 방지
+        textField.resignFirstResponder()
+        
+        // 시트로 화면 올라오기
+        let searchDetailVC = SearchDetailViewController(viewModel: viewModel)
+        let nav = UINavigationController(rootViewController: searchDetailVC)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: false, completion: nil)
+    
+         // false → 키보드 안 올라오게
+         return false
+     }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {

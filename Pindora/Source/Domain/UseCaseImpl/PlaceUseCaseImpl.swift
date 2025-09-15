@@ -16,8 +16,14 @@ final class PlaceUseCaseImpl: PlaceUseCase {
         self.repository = repository
     }
     
-    func fetchPlaces() -> AnyPublisher<[Place], any Error> {
+    func fetchPlaces() -> AnyPublisher<[Place], Error> {
         repository.fetchAll(from: collection, as: PlaceDTO.self).map {
             $0.map { $0.toEntity() } }.eraseToAnyPublisher()
+    }
+    
+    func fetchKeywords() -> AnyPublisher<[String], Error> {
+        repository.fetch(from: "Keywords", id: "Recommand", as: KeywordDTO.self)
+            .map { $0.words }
+            .eraseToAnyPublisher()
     }
 }

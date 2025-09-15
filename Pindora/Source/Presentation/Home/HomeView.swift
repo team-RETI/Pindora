@@ -10,7 +10,7 @@ import UIKit
 // MARK: -(c)HomeView
 final class HomeView: UIView {
     
-    private let searchBarView = SearchBarView()
+    let searchBarView = SearchBarView()
     let categoryListView = CategoryCellListView()
     private let sortButton = UIButton()
     let placeListView = CardCellListView()
@@ -100,7 +100,6 @@ final class HomeView: UIView {
         blackHeaderContainerView.translatesAutoresizingMaskIntoConstraints = false
         recommendLabel.translatesAutoresizingMaskIntoConstraints = false
         buttonLabel.translatesAutoresizingMaskIntoConstraints = false
-//        sortButton.translatesAutoresizingMaskIntoConstraints = false
         placeListView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
