@@ -30,4 +30,10 @@ final class PlaceUseCaseImpl: PlaceUseCase {
             .mapToUseCaseError()
             .eraseToAnyPublisher()
     }
+    
+    func fetchKeywords() -> AnyPublisher<[String], Error> {
+        repository.fetch(from: "Keywords", id: "Recommand", as: KeywordDTO.self)
+            .map { $0.words }
+            .eraseToAnyPublisher()
+    }
 }

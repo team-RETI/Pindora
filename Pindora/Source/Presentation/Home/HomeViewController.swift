@@ -9,7 +9,7 @@ import NMapsMap
 import Combine
 import CoreLocation
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, UITextFieldDelegate {
     weak var coordinator: HomeCoordinator?
     private let viewModel: HomeViewModel
     private let customView = HomeView()
@@ -45,6 +45,9 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bindViewModel()
+        customView.searchBarView.textField.delegate = self
+        viewModel.fetchPlaces()
+        viewModel.fetchKeywords()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -123,6 +126,21 @@ final class HomeViewController: UIViewController {
     private func updateMyLocation(location: CLLocationCoordinate2D) {
         mapCenterSubject.send(location)
     }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        // 키보드 자동 올라오기 방지
+        textField.resignFirstResponder()
+        
+        // 시트로 화면 올라오기
+        let searchDetailVC = SearchDetailViewController(viewModel: viewModel)
+        let nav = UINavigationController(rootViewController: searchDetailVC)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: false, completion: nil)
+    
+         // false → 키보드 안 올라오게
+         return false
+     }
 }
 
 extension HomeViewController: UITableViewDelegate {

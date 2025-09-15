@@ -100,7 +100,6 @@ final class HomeView: UIView {
         blackHeaderContainerView.translatesAutoresizingMaskIntoConstraints = false
         recommendLabel.translatesAutoresizingMaskIntoConstraints = false
         buttonLabel.translatesAutoresizingMaskIntoConstraints = false
-//        sortButton.translatesAutoresizingMaskIntoConstraints = false
         placeListView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

@@ -109,6 +109,7 @@
 		DF1F40FA2E279F9000BE27AC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40F62E279F9000BE27AC /* ProfileViewController.swift */; };
 		DF38C6212E34E4B40011DFE7 /* ManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF38C61E2E34E4B40011DFE7 /* ManagerTest.swift */; };
 		DF38C6222E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF38C61F2E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift */; };
+		DF45C1A72E6C0FA10005550F /* KeywordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF45C1A62E6C0FA10005550F /* KeywordDTO.swift */; };
 		DF530C8B2E4C7DFA00C31301 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DF530C8A2E4C7DFA00C31301 /* CombineCocoa */; };
 		DF5A0BB12E350D9100CF61BF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A0BAF2E350D9100CF61BF /* Constants.swift */; };
 		DF5F69162E560853004E98BE /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F69102E560853004E98BE /* NextButton.swift */; };
@@ -292,6 +293,7 @@
 		DF1F40F72E279F9000BE27AC /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		DF38C61E2E34E4B40011DFE7 /* ManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerTest.swift; sourceTree = "<group>"; };
 		DF38C61F2E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPIManagerTest.swift; sourceTree = "<group>"; };
+		DF45C1A62E6C0FA10005550F /* KeywordDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordDTO.swift; sourceTree = "<group>"; };
 		DF5A0BAF2E350D9100CF61BF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DF5F69102E560853004E98BE /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		DF5F69112E560853004E98BE /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
@@ -370,6 +372,11 @@
 				89A9E78E2E39ED8600BF9098 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */,
 			);
 			path = PindoraShareExtension;
+			sourceTree = "<group>";
+		};
+		DFBF267D2E6AE4CF003DAD30 /* Search */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		DFF8A66E2E50DCF900F07F72 /* Error */ = {
@@ -631,6 +638,7 @@
 		A7F2E17C2E2008780045D175 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				DFBF267D2E6AE4CF003DAD30 /* Search */,
 				A778D2E02E28F212006B3309 /* HomeView.swift */,
 				DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */,
 				DF1F3FB42E279C4100BE27AC /* HomeViewModel.swift */,
@@ -891,6 +899,7 @@
 			isa = PBXGroup;
 			children = (
 				DF883ACC2E34B5CA00F67BF9 /* .gitkeep */,
+				DF45C1A62E6C0FA10005550F /* KeywordDTO.swift */,
 				DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */,
 				A7854E3D2E4B3132002A5C2A /* KakaoPlaceDTO.swift */,
 				DFE039AF2E352B7500A2060D /* PlaceDTO.swift */,
@@ -1020,6 +1029,9 @@
 			);
 			dependencies = (
 				DF7487B52E38A95200CF9864 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DFBF267D2E6AE4CF003DAD30 /* Search */,
 			);
 			name = Pindora;
 			packageProductDependencies = (
@@ -1296,6 +1308,7 @@
 				DFA2CB392E27C7B000C4F32B /* ModuleFactory.swift in Sources */,
 				899ECE7F2E40403800EE7105 /* PlaceUseCase.swift in Sources */,
 				DFA2CB3D2E27DC8E00C4F32B /* Documentation.docc in Sources */,
+				DF45C1A72E6C0FA10005550F /* KeywordDTO.swift in Sources */,
 				A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */,
 				A700147B2E649C3300CD5572 /* LocationRepositoryProtocol.swift in Sources */,
 				A7FEFC062E6B35D30065532C /* NaverMap+.swift in Sources */,

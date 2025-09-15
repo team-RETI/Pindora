@@ -19,6 +19,24 @@ final class HomeViewModel {
     // Combine
     private var cancellable: Set<AnyCancellable> = []
     
+    // MARK: - 키워드 관련
+    // 파이어베이스에 저장된 키웓,
+    @Published var keywords: [String] = [] {
+        didSet {
+            print("파이어베이스 키워드: \(keywords)")
+        }
+    }
+    
+    // 필터링된 결과
+    @Published var filteredKeywords: [String] = [] {
+        didSet {
+            print("필터링된 키워드: \(filteredKeywords)")
+        }
+    }
+    
+    // MARK: - Place 관련
+    @Published var places: [Place] = []
+    static let clientID = Bundle.main.infoDictionary?["GPT_API_KEY"] as? String ?? ""
     
     init(
         locationUseCase: LocationUseCaseProtocol,
@@ -29,7 +47,8 @@ final class HomeViewModel {
         self.placeUseCase = placeUseCase
         self.locationUseCase = locationUseCase
         self.searchUseCase = searchUseCase
-        self.imageUseCase = imageUseCase
+        self.imageUseCase = imageUseCase        
+        print("테스트: \(HomeViewModel.clientID)")
     }
     
     struct Input {
@@ -255,4 +274,34 @@ final class HomeViewModel {
 //                    self?.places = placeList
 //                }.store(in: &cancellables)
     //    }
+}
+
+// MARK: - 키워드 관련 로직
+extension HomeViewModel {
+    func fetchKeywords() {
+        placeUseCase.fetchKeywords()
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    print("키워드 로딩 실패: \(error.localizedDescription)")
+                }
+            } receiveValue: { [weak self] keywordList in
+                self?.keywords = keywordList
+            }.store(in: &cancellables)
+    }
+    
+    func filterKeywords(query: String) {
+        if query.isEmpty {
+            filteredKeywords = []
+        } else {
+            filteredKeywords = keywords.filter {
+                /// localizedCaseInsensitiveContains: 대소문자 무시, 로케일 고려, 부분문자열 검색 가능
+                $0.localizedStandardContains(query)
+            }
+        }
+    }
+    
+    func resetFilter() {
+        filteredKeywords = []
+    }
 }

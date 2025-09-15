@@ -42,7 +42,8 @@ final class FirebaseAuthManager: NSObject {
     /// Firebase 애플 로그인 인증 - 클로저 기반
     /// Apple 로그인으로 얻은 idToken과 rawNonce를 바탕으로 Firebase 인증을 수행한다.
     private func authenticateWithApple(idToken: String, rawNonce: String, completion: @escaping (Result<Void, InfraError>) -> Void) {
-        let credential = OAuthProvider.appleCredential(
+        let credential =
+        OAuthProvider.appleCredential(
             withIDToken: idToken,
             rawNonce: rawNonce,
             fullName: nil
