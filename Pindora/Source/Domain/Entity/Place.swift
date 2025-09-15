@@ -171,3 +171,18 @@ extension Place {
     }
 }
 
+// MARK: - Diffable(부드럽고 안정적인 업데이트) 확장용
+extension Place {
+    static func == (lhs: Place, rhs: Place) -> Bool {
+        return lhs.placeId == rhs.placeId
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(placeId)
+    }
+    
+    // Snapshot : Diffable은 Section → Items 구조라, Section을 먼저 정의
+    enum PlaceSection {
+        case main
+    }
+}
+

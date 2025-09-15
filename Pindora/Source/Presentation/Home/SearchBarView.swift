@@ -6,6 +6,8 @@
 //
 
 import UIKit
+//test
+import Combine
 
 final class SearchBarView: UIView {
 
@@ -78,6 +80,53 @@ final class SearchBarView: UIView {
             textField.centerYAnchor.constraint(equalTo: centerYAnchor),
             textField.heightAnchor.constraint(equalToConstant: 34)
         ])
+    }
+}
+
+extension UITextField {
+    var textPublisher: AnyPublisher<String, Never> {
+        publisher(for: .editingChanged)   // ✅ 이제 UIControl 확장에서 호출
+            .map { [weak self] in self?.text ?? "" }
+            .eraseToAnyPublisher()
+    }
+}
+
+extension UIControl {
+    /// 특정 이벤트 발생을 Combine 퍼블리셔로 래핑
+    func publisher(for events: UIControl.Event) -> AnyPublisher<Void, Never> {
+        UIControlPublisher(control: self, events: events).eraseToAnyPublisher()
+    }
+}
+
+/// 내부 구현
+private struct UIControlPublisher: Publisher {
+    typealias Output = Void
+    typealias Failure = Never
+
+    weak var control: UIControl?
+    let events: UIControl.Event
+
+    func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
+        let subscription = Subscription(subscriber: subscriber, control: control, events: events)
+        subscriber.receive(subscription: subscription)
+    }
+
+    final class Subscription<S: Subscriber>: Combine.Subscription where S.Input == Void {
+        private var subscriber: S?
+        weak var control: UIControl?
+        let events: UIControl.Event
+
+        init(subscriber: S, control: UIControl?, events: UIControl.Event) {
+            self.subscriber = subscriber
+            self.control = control
+            self.events = events
+            control?.addTarget(self, action: #selector(handle), for: events)
+        }
+
+        func request(_ demand: Subscribers.Demand) {}
+        func cancel() { subscriber = nil }
+
+        @objc private func handle() { _ = subscriber?.receive(()) }
     }
 }
 
@@ -162,4 +211,3 @@ final class SearchBarDetailView: UIView {
         backButtonTapped?()
     }
 }
-

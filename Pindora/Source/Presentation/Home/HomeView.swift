@@ -12,7 +12,7 @@ final class HomeView: UIView {
     
     let searchBarView = SearchBarView()
     let categoryListView = CategoryCellListView()
-    private let sortButton = UIButton()
+    let sortButton = UIButton()
     let placeListView = CardCellListView()
     
     // MARK: - UI Component

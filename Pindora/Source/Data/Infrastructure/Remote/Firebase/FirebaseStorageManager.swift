@@ -17,6 +17,7 @@ final class FirebaseStorageManager {
     
     func uploadImage(_ data: Data, to path: String) -> AnyPublisher<URL, Error> {
         Future<URL, Error> { promise in
+            print("uploadImage: \(path)")
             let ref = self.storage.reference().child(path)
             ref.putData(data, metadata: nil) { _, error in
                 if let error = error {

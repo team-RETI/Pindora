@@ -14,7 +14,7 @@ final class StorageRepositoryImpl: StorageRepositoryProtocol {
         guard let data = image.jpegData(compressionQuality: 0.8) else {
             return Fail(error: NSError(domain: "ImageError", code: -1)).eraseToAnyPublisher()
         }
-        let path = "\(folder)/\(fileName).jpg"
+        let path = "\(folder)/\(fileName)"
         return FirebaseStorageManager.shared.uploadImage(data, to: path)
     }
     

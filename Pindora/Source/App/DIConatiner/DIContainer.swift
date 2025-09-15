@@ -44,6 +44,7 @@ extension DIContainer {
         let storageRepository = StorageRepositoryImpl()
         let databaseRepository = DatabaseRepositoryImpl()
         let locationRepository = LocationRepositoryImpl()
+        let searchRepository = SearchRepositoryImpl()
         
         if !useStub {
             // MARK: - Usecase 등록
@@ -66,6 +67,10 @@ extension DIContainer {
             self.shared.register(
                 GPTUseCaseProtocol.self,
                 dependency: GPTUseCaseImpl(gptRepository: GPTRepositoryImpl())
+            )
+            self.shared.register(
+                SearchUseCaseProtocol.self,
+                dependency: SearchUseCaseImpl(repository: searchRepository)
             )
         } else {
             
