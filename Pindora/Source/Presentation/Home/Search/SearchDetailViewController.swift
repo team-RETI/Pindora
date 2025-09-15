@@ -13,6 +13,9 @@ final class SearchDetailViewController: UIViewController {
     private var searchController = UISearchController(searchResultsController: nil)
     private let tableView = UITableView()
     
+    // MARK: - 외부에서 로직 처리
+    var onKeywordSelected: ((String) -> Void)?
+    
     // MARK: - Initializer
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
@@ -50,6 +53,7 @@ final class SearchDetailViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "검색어를 입력하세요"
         searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
@@ -77,12 +81,10 @@ final class SearchDetailViewController: UIViewController {
              .removeDuplicates()
              .sink { [weak self] query in
                  guard let self = self else { return }
-                 let text = query ?? ""
-                 
-                 if text.isEmpty {
+                 if query.isEmpty {
                      self.viewModel.resetFilter()
                  } else {
-                     self.viewModel.filterKeywords(query: text)
+                     self.viewModel.filterKeywords(query: query)
                  }
              }
              .store(in: &cancellables)
@@ -119,6 +121,17 @@ extension SearchDetailViewController: UITableViewDataSource {
     }
 }
 
+extension SearchDetailViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let query = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        guard !query.isEmpty else { return }
+        print("검색 버튼 클릭: \(query)")
+        
+        onKeywordSelected?(query)
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+}
+
 extension SearchDetailViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let query = searchController.searchBar.text ?? ""
@@ -133,13 +146,15 @@ extension SearchDetailViewController: UITableViewDelegate {
         let text = isFiltering ? viewModel.filteredKeywords[indexPath.row] : viewModel.keywords[indexPath.row]
         print("선택된 셀: \(text)")
         
+        // homeViewController로 검색어 전달
+        onKeywordSelected?(text)
+        
         // 선택된 셀 하이라이트 제거
         tableView.deselectRow(at: indexPath, animated: true)
-        dismiss(animated: true)
+        navigationController?.dismiss(animated: true, completion: nil)
     }
 }
 
-
-#Preview {
-    SearchDetailViewController(viewModel: HomeViewModel(placeUseCase: PlaceUseCaseImpl(repository: DatabaseRepositoryImpl())))
-}
+//#Preview {
+//    SearchDetailViewController(viewModel: HomeViewModel(placeUseCase: PlaceUseCaseImpl(repository: DatabaseRepositoryImpl())))
+//}

@@ -94,13 +94,6 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
                 }
             }
             .store(in: &cancellable)
-        
-        //viewModel.$places
-        //            .receive(on: DispatchQueue.main)
-        //            .sink { [weak self] places in
-        //                self?.placeList = places
-        //                self?.placeListView.reloadData()
-        //            }.store(in: &cancellables)
     }
     
     @objc private func categoryTapped(_ sender: UIButton) {
@@ -134,6 +127,12 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
         
         // 시트로 화면 올라오기
         let searchDetailVC = SearchDetailViewController(viewModel: viewModel)
+        
+        // 리스트 업데이트
+        searchDetailVC.onKeywordSelected = { [weak self] keyword in
+            self?.performSearch(keyword: keyword)
+        }
+        
         let nav = UINavigationController(rootViewController: searchDetailVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: false, completion: nil)
@@ -192,3 +191,8 @@ extension HomeViewController: UITableViewDelegate {
     }
 }
 
+extension HomeViewController {
+    func performSearch(keyword: String) {
+        searchTextSubject.send(keyword)
+    }
+}

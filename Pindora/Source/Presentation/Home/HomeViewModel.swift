@@ -189,7 +189,7 @@ final class HomeViewModel {
                         var result = places // 원본 리스트 복사(이미지 미조회 항목 포함)
                         // 인덱스 기준으로 정렬해 원래 순서에 맞는 위치에 덮어쓰기
                         for (idx, p) in pairs.sorted(by: { $0.0 < $1.0 }) {
-                            result[idx] = p
+                            result [idx] = p
                         }
                         print("✅ 최종 이미지 주입 완료:", result.count)
                         return result // 이미지 URL이 채워진 [Place]
@@ -204,53 +204,6 @@ final class HomeViewModel {
             })
             .eraseToAnyPublisher()
         
-        // 저장: Place.imageURL이 있는 경우만 이미지 파일로 변환 후 업로드
-        // imageUseCase: 이미지 파일을 업로드
-        // placeUseCase: 장소에 대한 정보를 저장
-//        placeList
-//            .flatMap { [weak self] places -> AnyPublisher<[URL], Never> in
-//                guard let self else { return Just([]).eraseToAnyPublisher() }
-//
-//                // 업로드 요청을 담을 퍼블리셔 배열
-//                let uploadPublishers: [AnyPublisher<URL, Never>] = places.compactMap { place in
-//                    guard
-//                        let urlString = place.imageURL,
-//                        let url = URL(string: urlString)
-//                    else {
-//                        return nil // 이미지 URL이 없는 경우 스킵
-//                    }
-//
-//                    // 1) 네트워크에서 UIImage 다운로드
-//                    return URLSession.shared.dataTaskPublisher(for: url)
-//                        .mapError { $0 as Error }                    // URLError -> Error
-//                        .compactMap { UIImage(data: $0.data) }       // Data -> UIImage
-//                        .flatMap { image in
-//                            // 2) 변환된 UIImage를 DB 업로드
-//                            self.imageUseCase.upload(
-//                                image: image,
-//                                folder: "PlaceImage",                       // 원하는 폴더명
-//                                fileName: "\(place.placeName).jpg"        // 고유 파일명
-//                            )
-//                        }
-//                        .catch { error in
-//                            print("❌ 이미지 업로드 실패:", error.caseName)
-//                            return Empty<URL, Never>() // 실패 시 이 이미지 스킵
-//                        }
-//                        .eraseToAnyPublisher()
-//                }
-//
-//                // 여러 업로드를 병렬 실행 후, 완료된 URL들을 [URL]로 모음
-//                return Publishers.MergeMany(uploadPublishers)
-//                    .collect()
-//                    .eraseToAnyPublisher()
-//            }
-//            .sink { uploadedURLs in
-//                // ✅ 업로드 성공한 이미지 URL 배열
-////                print("📸 업로드 완료된 이미지 개수:", uploadedURLs.count)
-//                // 필요하다면 여기서 DB에 URL 참조를 저장하거나, place 객체 갱신 가능
-//            }
-//            .store(in: &cancellable)
-        
         /// 이미지 검색 후 ImageUseCase 이용하여 저장
         /// 장소 추합된 이후 PlaceUseCase 이용하여 저장
         return Output(
@@ -263,17 +216,17 @@ final class HomeViewModel {
     
     
     // 🧑‍🔧Input-Output 형식으로 바꾸겠습니다~
-    //    func fetchPlaces() {
-//            placeUseCase.fetchPlaces()
-//                .receive(on: DispatchQueue.main)
-//                .sink { completion in
-//                    if case let .failure(error) = completion {
-//                        print("장소 로딩 실패: \(error.localizedDescription)")
-//                    }
-//                } receiveValue: { [weak self] placeList in
-//                    self?.places = placeList
-//                }.store(in: &cancellables)
-    //    }
+        func fetchPlaces() {
+            placeUseCase.fetchPlaces()
+                .receive(on: DispatchQueue.main)
+                .sink { completion in
+                    if case let .failure(error) = completion {
+                        print("장소 로딩 실패: \(error.localizedDescription)")
+                    }
+                } receiveValue: { [weak self] placeList in
+                    self?.places = placeList
+                }.store(in: &cancellable)
+        }
 }
 
 // MARK: - 키워드 관련 로직
@@ -287,7 +240,7 @@ extension HomeViewModel {
                 }
             } receiveValue: { [weak self] keywordList in
                 self?.keywords = keywordList
-            }.store(in: &cancellables)
+            }.store(in: &cancellable)
     }
     
     func filterKeywords(query: String) {
