@@ -77,3 +77,9 @@ final class CardDetailViewController: UIViewController {
         addButtonSubject.send()
     }
 }
+
+
+//문제점 : 0915
+//1. 현재 디테일 뷰 한번 열면 닫고 나서도 같은 장소가 열림
+//2. myPlace뷰가 장소를 추가해도 업데이트가 안됨
+
