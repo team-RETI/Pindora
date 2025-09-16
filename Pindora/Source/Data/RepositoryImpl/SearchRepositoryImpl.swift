@@ -40,4 +40,11 @@ final class SearchRepositoryImpl: SearchRepositoryProtocol {
             return  searchImageManager.searchImage(query: query, display: display, start: start, sort: sort, filter: filter)
                 .eraseToAnyPublisher()
     }
-}
+    
+    func searchGeocode(
+        query: String,
+        page: Int,
+        size: Int) -> AnyPublisher<Place, InfraError> {
+            return  searchManager.geocodeAddress(query: query, page: page, size: size)
+                .eraseToAnyPublisher()
+    }}

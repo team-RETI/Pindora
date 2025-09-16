@@ -22,7 +22,7 @@ final class AddPlaceView: UIView {
         imageURL: "sample1"
     )
     private lazy var previewCard = PreviewCardView()
-    private let searchField = SearchBarView()
+    let searchBarView = SearchBarView()
     // MARK: - UI 컴포넌트
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -141,7 +141,7 @@ final class AddPlaceView: UIView {
         contentView.clipsToBounds = false
         addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        [cancelButton, titleLabel, subtitleLabel, addressLabel, searchField, categoryLabel, categoryStack, previewStackView, previewCard]
+        [cancelButton, titleLabel, subtitleLabel, addressLabel, searchBarView, categoryLabel, categoryStack, previewStackView, previewCard]
             .forEach { contentView.addSubview($0); $0.translatesAutoresizingMaskIntoConstraints = false }
         
         addSubview(confirmButton)
@@ -170,12 +170,12 @@ final class AddPlaceView: UIView {
             addressLabel.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 25),
             addressLabel.leadingAnchor.constraint(equalTo: subtitleLabel.leadingAnchor),
             
-            searchField.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 10),
-            searchField.heightAnchor.constraint(equalToConstant: 31),
-            searchField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            searchField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            searchBarView.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 10),
+            searchBarView.heightAnchor.constraint(equalToConstant: 31),
+            searchBarView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
+            searchBarView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             
-            categoryLabel.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 24),
+            categoryLabel.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 24),
             categoryLabel.leadingAnchor.constraint(equalTo: subtitleLabel.leadingAnchor),
             
             categoryStack.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor,constant: 10),

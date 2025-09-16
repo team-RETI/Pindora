@@ -84,7 +84,5 @@ final class CardDetailViewController: UIViewController {
 }
 
 
-//문제점 : 0916
-// 1. 장소 디테일뷰:장소 백그라운드 이미지 고치기
 
 

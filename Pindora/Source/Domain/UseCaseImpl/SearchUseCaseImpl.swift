@@ -41,4 +41,14 @@ final class SearchUseCaseImpl: SearchUseCaseProtocol {
                 .mapError { UseCaseError.map(from: $0) }
                 .eraseToAnyPublisher()
     }
+    
+    func searchGeocode(
+        query: String,
+        page: Int,
+        size: Int) -> AnyPublisher<Place, UseCaseError> {
+            return  repository.searchGeocode(query: query, page: page, size: size)
+                .mapError { RepositoryError.map(from: $0) }
+                .mapError { UseCaseError.map(from: $0) }
+                .eraseToAnyPublisher()
+    }
 }

@@ -140,6 +140,6 @@ extension SearchDetailViewController: UITableViewDelegate {
 }
 
 
-#Preview {
-    SearchDetailViewController(viewModel: HomeViewModel(placeUseCase: PlaceUseCaseImpl(repository: DatabaseRepositoryImpl())))
-}
+//#Preview {
+//    SearchDetailViewController(viewModel: HomeViewModel(placeUseCase: PlaceUseCaseImpl(repository: DatabaseRepositoryImpl())))
+//}
