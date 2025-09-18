@@ -48,6 +48,7 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
 //        customView.searchBarView.textField.delegate = self
 //        viewModel.fetchPlaces()
 //        viewModel.fetchKeywords()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
