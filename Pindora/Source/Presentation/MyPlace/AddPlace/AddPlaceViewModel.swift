@@ -38,6 +38,7 @@ final class AddPlaceViewModel {
     struct Output {
         let selectedCategory: AnyPublisher<String, Never>
         let place: AnyPublisher<Place, Never>
+        let saveResult: AnyPublisher<Result<Void, Error>, Never>
     }
     
     func transform(input: Input) -> Output {
@@ -90,41 +91,69 @@ final class AddPlaceViewModel {
             .sink { latestCategory.send($0) }
             .store(in: &cancellable)
         
+        // 4-2) 저장을 할 수 있는 상황인지 알림
+        // 저장 트리거를 케이스로 분기
+        enum SaveTrigger {
+            case missingPlace
+            case missingCategory
+            case ready(Place, String)
+        }
+        
         // 5) 확인 버튼 탭 → 최신 Place 저장
-        input.confirmButtonTapped
-            .compactMap { [weak latestPlace, weak latestCategory] _ -> (Place, String)? in
-                guard
-                    let place = latestPlace?.value,
-                    let category = latestCategory?.value,
-                    !category.isEmpty
-                else {
-                    print("⚠️ 저장 스킵: place/category 없음")
-                    return nil
+        let trigger = input.confirmButtonTapped
+            .map { _ -> SaveTrigger in
+                let p = latestPlace.value
+                let c = latestCategory.value?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                if p == nil { return .missingPlace }
+                if c.isEmpty { return .missingCategory }
+                return .ready(p!, c)
+            }
+            .eraseToAnyPublisher()
+
+        let saveResultSubject = PassthroughSubject<Result<Void, Error>, Never>()
+
+        trigger
+            .flatMap { [weak self] t -> AnyPublisher<Result<Void, Error>, Never> in
+                guard let self = self else { return Just(.failure(SaveError.backend(NSError(domain: "deinit", code: -1)))).eraseToAnyPublisher() }
+
+                switch t {
+                case .missingPlace:
+                    return Just(.failure(SaveError.missingPlace)).eraseToAnyPublisher()
+
+                case .missingCategory:
+                    return Just(.failure(SaveError.missingCategory)).eraseToAnyPublisher()
+
+                case .ready(var place, let category):
+                    place = place.withCategory(category)
+                    print("💾 try save:", place)
+                    return self.placeUseCase
+                        .savePlace(place: place)        // -> AnyPublisher<Void, Error>
+                        .map { .success(()) }
+                        .catch { Just(.failure(SaveError.backend($0))) }
+                        .eraseToAnyPublisher()
                 }
-                return (place, category)
             }
-            .flatMap { [weak self] (place, category) -> AnyPublisher<Void, Never> in
-                guard let self = self else { return Empty().eraseToAnyPublisher() }
-                let placeToSave = place.withCategory(category)
-                return self.placeUseCase
-                    .savePlace(place: placeToSave)
-                    .handleEvents(
-                        receiveSubscription: { _ in print("💾 saving place:", placeToSave) },
-                        receiveCompletion: { print("✅ save completion:", $0) }
-                    )
-                    .map { _ in () }
-                    .catch { err -> AnyPublisher<Void, Never> in
-                        print("💥 save failed:", err)
-                        return Empty().eraseToAnyPublisher()
-                    }
-                    .eraseToAnyPublisher()
-            }
-            .sink { /* 저장 후 토스트/닫기 등 */ }
+            .subscribe(saveResultSubject)
             .store(in: &cancellable)
         
         return Output(
             selectedCategory: selectedCategory,
-            place: place
+            place: place,
+            saveResult: saveResultSubject.eraseToAnyPublisher()
         )
+    }
+}
+
+enum SaveError: LocalizedError {
+    case missingPlace
+    case missingCategory
+    case backend(Error)
+
+    var errorDescription: String? {
+        switch self {
+        case .missingPlace:    return "주소(장소) 정보가 없어요. 주소를 먼저 입력해 주세요."
+        case .missingCategory: return "카테고리를 선택해 주세요."
+        case .backend(let e):  return e.localizedDescription
+        }
     }
 }

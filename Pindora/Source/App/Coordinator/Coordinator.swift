@@ -414,6 +414,7 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
 
 final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAdaptivePresentationControllerDelegate {
     private var onPlaceSheetDismiss: (() -> Void)?
+    var onPlaceSaved: (() -> Void)?
     private var place: Place?
     
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) { }
@@ -470,6 +471,11 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
             
         case .addPlace:
             let vc = ModuleFactory.shared.makeAddPlaceVC()
+            
+            vc.onSaved = { [weak self] in
+                 self?.onPlaceSaved?() 
+             }
+            
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .popover//.pageSheet
             

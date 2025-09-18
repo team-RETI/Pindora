@@ -16,6 +16,7 @@ final class MyPlaceViewController: UIViewController {
     
     // MARK: - Subjects (Input 소스)
     private let addButtonSubject = PassthroughSubject<String, Never>()
+    private let reloadSubject = PassthroughSubject<Void, Never>()
     
     // MARK: - UI(테이블 뷰)
     private lazy var placeListView = customView.placeListView
@@ -40,12 +41,15 @@ final class MyPlaceViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindViewModel()
         addButtonTarget()
+        coordinator?.onPlaceSaved = { [weak self] in
+            self?.reloadSubject.send(())
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        bindViewModel()
         print("MyPlaceViewController")
     }
 
@@ -53,7 +57,8 @@ final class MyPlaceViewController: UIViewController {
     private func bindViewModel() {
         let input = MyPlaceViewModel.Input(
             viewDidLoad: Just(()).eraseToAnyPublisher(),
-            addPlace: addButtonSubject.eraseToAnyPublisher()
+            addPlace: addButtonSubject.eraseToAnyPublisher(),
+            reload: reloadSubject.eraseToAnyPublisher()
         )
         
         let output = viewModel.transform(input: input)
