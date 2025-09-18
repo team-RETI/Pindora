@@ -19,6 +19,9 @@ final class HomeViewModel {
     // Combine
     private var cancellable: Set<AnyCancellable> = []
     
+    // MARK: - 현재 위치 저장
+    private var currentLocation: CLLocation?
+    
     // MARK: - 키워드 관련
     // 파이어베이스에 저장된 키웓,
     @Published var keywords: [String] = [] {
@@ -36,7 +39,6 @@ final class HomeViewModel {
     
     // MARK: - Place 관련
     @Published var places: [Place] = []
-    static let clientID = Bundle.main.infoDictionary?["GPT_API_KEY"] as? String ?? ""
     
     init(
         locationUseCase: LocationUseCaseProtocol,
@@ -48,7 +50,6 @@ final class HomeViewModel {
         self.locationUseCase = locationUseCase
         self.searchUseCase = searchUseCase
         self.imageUseCase = imageUseCase        
-        print("테스트: \(HomeViewModel.clientID)")
     }
     
     struct Input {
@@ -88,8 +89,9 @@ final class HomeViewModel {
                 abs(lhs.latitude - rhs.latitude) < 0.0001 &&
                 abs(lhs.longitude - rhs.longitude) < 0.0001
             }
-            .handleEvents(receiveOutput: { loc in
+            .handleEvents(receiveOutput: { [weak self] loc in
                 print("📌 location:", loc.latitude, loc.longitude)
+                self?.updateLocation(loc)
             })
             .share()
             .eraseToAnyPublisher()
@@ -256,5 +258,37 @@ extension HomeViewModel {
     
     func resetFilter() {
         filteredKeywords = []
+    }
+}
+
+// MARK: - 정렬 관련 로직
+extension HomeViewModel {
+    func sortPlacesByDistance() {
+        
+        guard let currentLocation = currentLocation else { return }
+        
+        places.sort { lhs, rhs in
+            let lhsLocation = CLLocation(latitude: lhs.latitude, longitude: lhs.longitude)
+            let rhsLocation = CLLocation(latitude: rhs.latitude, longitude: rhs.longitude)
+            
+            let lhsDistance = lhsLocation.distance(from: currentLocation)
+            let rhsDistance = rhsLocation.distance(from: currentLocation)
+            
+            return lhsDistance < rhsDistance
+        }
+        print(places)
+    }
+    
+    func sortPlacesByLikes() {
+        places.sort { (lhs, rhs) in
+            (lhs.likedCount ?? 0) > (rhs.likedCount ?? 0)
+        }
+        print(places)
+    }
+    
+    // locationPublisher 구독할 때 업데이트
+    func updateLocation(_ coordinate: CLLocationCoordinate2D) {
+        currentLocation = CLLocation(latitude: coordinate.latitude,
+                                     longitude: coordinate.longitude)
     }
 }

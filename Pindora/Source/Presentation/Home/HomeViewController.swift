@@ -48,6 +48,7 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
         customView.searchBarView.textField.delegate = self
         viewModel.fetchPlaces()
         viewModel.fetchKeywords()
+        setupSortButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,6 +74,7 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] places in
                 self?.applySnapshot(places: places)
+                self?.viewModel.places = places // TODO:
             })
             .store(in: &cancellable)
         
@@ -140,6 +142,26 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
          // false → 키보드 안 올라오게
          return false
      }
+    
+    private func setupSortButton() {
+        customView.sortButton.addTarget(self, action: #selector(didTapSortButton), for: .touchUpInside)
+    }
+    
+    @objc private func didTapSortButton() {
+        customView.toggleSortType()
+        let type = customView.sortType
+        print("정렬 타입 변경됨: \(type)")
+        
+        // ✅ ViewModel 에 정렬 요청 보내기
+        switch type {
+        case .distance:
+            viewModel.sortPlacesByDistance()
+        case .likes:
+            viewModel.sortPlacesByLikes()
+        }
+        
+        applySnapshot(places: viewModel.places)
+    }
 }
 
 extension HomeViewController: UITableViewDelegate {
@@ -196,3 +218,5 @@ extension HomeViewController {
         searchTextSubject.send(keyword)
     }
 }
+
+

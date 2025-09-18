@@ -7,12 +7,16 @@
 
 import UIKit
 
+enum SortType {
+    case distance
+    case likes
+}
+
 // MARK: -(c)HomeView
 final class HomeView: UIView {
     
     let searchBarView = SearchBarView()
     let categoryListView = CategoryCellListView()
-    let sortButton = UIButton()
     let placeListView = CardCellListView()
     
     // MARK: - UI Component
@@ -34,7 +38,11 @@ final class HomeView: UIView {
         return label
     }()
     
-    private let buttonLabel: UIButton = {
+    // 정렬 상태
+    private(set) var sortType: SortType = .distance
+    
+    // 정렬버튼
+    let sortButton: UIButton = {
         let button = UIButton()
         
         var config = UIButton.Configuration.plain()
@@ -45,10 +53,7 @@ final class HomeView: UIView {
 
         // 텍스트 크기 조절
         let font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: font
-        ]
-        config.attributedTitle = AttributedString("거리순", attributes: AttributeContainer(attributes))
+        config.attributedTitle = AttributedString("거리순", attributes: AttributeContainer([.font: font]))
 
         // 구성 적용
         button.configuration = config
@@ -86,7 +91,6 @@ final class HomeView: UIView {
         blackHeaderContainerView.addSubview(categoryListView)
         
         addSubview(recommendLabel)
-        addSubview(buttonLabel)
         addSubview(sortButton)
         addSubview(placeListView)
     }
@@ -99,7 +103,7 @@ final class HomeView: UIView {
         categoryListView.translatesAutoresizingMaskIntoConstraints = false
         blackHeaderContainerView.translatesAutoresizingMaskIntoConstraints = false
         recommendLabel.translatesAutoresizingMaskIntoConstraints = false
-        buttonLabel.translatesAutoresizingMaskIntoConstraints = false
+        sortButton.translatesAutoresizingMaskIntoConstraints = false
         placeListView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -126,8 +130,8 @@ final class HomeView: UIView {
             recommendLabel.topAnchor.constraint(equalTo: blackHeaderContainerView.bottomAnchor, constant: 20),
             recommendLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
-            buttonLabel.centerYAnchor.constraint(equalTo: recommendLabel.centerYAnchor),
-            buttonLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            sortButton.centerYAnchor.constraint(equalTo: recommendLabel.centerYAnchor),
+            sortButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             // 장소 리스트 뷰
             placeListView.topAnchor.constraint(equalTo: recommendLabel.bottomAnchor, constant: 12),
@@ -135,6 +139,19 @@ final class HomeView: UIView {
             placeListView.trailingAnchor.constraint(equalTo: trailingAnchor),
             placeListView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+    
+    func toggleSortType() {
+        sortType = (sortType == .distance) ? .likes : .distance
+        updateSortButtonTitle()
+    }
+    
+    private func updateSortButtonTitle() {
+        var config = sortButton.configuration ?? UIButton.Configuration.plain()
+        let font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        let title = (sortType == .distance) ? "거리순" : "좋아요순"
+        config.attributedTitle = AttributedString(title, attributes: AttributeContainer([.font: font]))
+        sortButton.configuration = config
     }
 }
 

@@ -51,3 +51,7 @@ final class OneTimeAskViewController: UIViewController {
             .store(in: &cancellables)
     }
 }
+
+#Preview {
+    OneTimeAskViewController(viewModel: LoginViewModel(authUseCase: StubAuthUseCaseImpl(), userUseCase: StubUserUsecaseImpl()))
+}
