@@ -15,40 +15,21 @@
 import Foundation
 import Combine
 
-// MARK: - Error
-enum KakaoSearchAPIError: Error {
-    case invalidURL
-    case network(Error)
-    case decoding(Error)
-    
-    var message: String {
-        switch self {
-        case .invalidURL:
-            return "⚠️ 유효하지 않은 검색어입니다. 다시 시도해주세요."
-        case .network(let error):
-            return "⚠️ 네트워크 오류가 발생했습니다: \(error.localizedDescription)"
-        case .decoding(let error):
-            return "⚠️ 데이터 파싱에 실패했습니다: \(error.localizedDescription)"
-        }
-    }
-}
-
 struct KakaoSearchResponse: Decodable {
     let documents: [KakaoPlaceDTO]
 }
 
 final class KakaoSearchAPIManager {
     static let shared = KakaoSearchAPIManager()
-    private init() {}
     
     func searchPlaces (
         keyword: String,
         x lng: Double,
         y lat: Double,
-        radius: Int = 1500,
+        radius: Int = 3000,
         page: Int = 1,
         size: Int = 15,
-        completion: @escaping (Result<[KakaoPlaceDTO], KakaoSearchAPIError>) -> Void
+        completion: @escaping (Result<[KakaoPlaceDTO], InfraError>) -> Void
     ) {
         var comp = URLComponents(string: "https://dapi.kakao.com/v2/local/search/keyword.json")
         comp?.queryItems = [
@@ -70,7 +51,6 @@ final class KakaoSearchAPIManager {
         
         var req = URLRequest(url: url)
         req.httpMethod = "GET"
-//        req.setValue("KakaoAK d3898164064c5679ec1876f47421c32a", forHTTPHeaderField: "Authorization")
         req.setValue("KakaoAK \(Constants.KakaoAPI.restApiKey)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: req) { data, _, error in
@@ -108,8 +88,8 @@ final class KakaoSearchAPIManager {
         y lat: Double,
         radius: Int = 3000,
         page: Int = 1,
-        size: Int = 15
-    ) -> AnyPublisher<[KakaoPlaceDTO], KakaoSearchAPIError> {
+        size: Int = 10
+    ) -> AnyPublisher<[Place], InfraError> {
         
         // URL 구성
         var comp = URLComponents(string: "https://dapi.kakao.com/v2/local/search/keyword.json")
@@ -123,16 +103,16 @@ final class KakaoSearchAPIManager {
         ]
         
         guard let url = comp?.url else {
-            return Fail(error: KakaoSearchAPIError.invalidURL).eraseToAnyPublisher()
+            return Fail(error: InfraError.invalidURL).eraseToAnyPublisher()
         }
         
         var req = URLRequest(url: url)
         req.httpMethod = "GET"
         req.setValue("KakaoAK \(Constants.KakaoAPI.restApiKey)", forHTTPHeaderField: "Authorization")
-        
+
         return URLSession.shared.dataTaskPublisher(for: req)
-            // 네트워크 레벨 에러 -> KakaoSearchAPIError.network 로 변환
-            .mapError { KakaoSearchAPIError.network($0) }
+            // 네트워크 레벨 에러 -> Infra.network 로 변환
+            .mapError { InfraError.network($0) }
             // HTTP 상태코드 검사
             .tryMap { output -> Data in
                 if let http = output.response as? HTTPURLResponse,
@@ -142,16 +122,18 @@ final class KakaoSearchAPIManager {
                         code: http.statusCode,
                         userInfo: [NSLocalizedDescriptionKey: "HTTP \(http.statusCode)"]
                     )
-                    throw KakaoSearchAPIError.network(err)
+                    throw InfraError.network(err)
                 }
                 return output.data
             }
             // 디코딩
             .decode(type: KakaoSearchResponse.self, decoder: JSONDecoder())
-            .map { $0.documents }
+            .map { response in
+                response.documents.compactMap{ $0.toPlace() }
+            }
             // 에러 매핑 정리
-            .mapError { error -> KakaoSearchAPIError in
-                if let e = error as? KakaoSearchAPIError { return e }
+            .mapError { error -> InfraError in
+                if let e = error as? InfraError { return e }
                 if error is DecodingError { return .decoding(error) }
                 return .network(error)
             }

@@ -34,9 +34,6 @@ final class ProfileViewController: UIViewController {
         customView.settingsButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         customView.gptRefreshButton.addTarget(self, action: #selector(gptRefreshTapped), for: .touchUpInside)
         bindViewModel()
-        
-        print(Bundle.main.infoDictionary?["GPT_API_KEY"])
-        print(Bundle.main.infoDictionary?["NAVER_CLIENT_ID"])
     }
     
     override func viewDidAppear(_ animated: Bool) {

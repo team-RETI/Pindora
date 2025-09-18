@@ -56,6 +56,7 @@
 		A732BA2B2E27E2BB009EB6BF /* CategoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA272E27E2BB009EB6BF /* CategoryCellView.swift */; };
 		A732BA2C2E27E2BB009EB6BF /* CardCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA242E27E2BB009EB6BF /* CardCellListView.swift */; };
 		A742A98D2E5996C2003DA057 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A742A98C2E5996C2003DA057 /* IntroModel.swift */; };
+		A75841462E6D86C500D214C8 /* NaverImageAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75841452E6D86C500D214C8 /* NaverImageAPIManager.swift */; };
 		A75AB1172E339A4D006DA6EB /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75AB1162E339A4D006DA6EB /* UILabel+.swift */; };
 		A778D2E12E28F212006B3309 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E02E28F212006B3309 /* HomeView.swift */; };
 		A778D2E32E29756E006B3309 /* ProfilePlaceCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */; };
@@ -81,6 +82,11 @@
 		A7F5454E2E38816A0014EB85 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F5454D2E38816A0014EB85 /* CardDetailView.swift */; };
 		A7F545512E38A5C20014EB85 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F545502E38A5C20014EB85 /* CardDetailViewController.swift */; };
 		A7F545532E38A7600014EB85 /* CardDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F545522E38A7600014EB85 /* CardDetailViewModel.swift */; };
+		A7FEFBFE2E699F140065532C /* SearchUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEFBFD2E699F140065532C /* SearchUseCaseProtocol.swift */; };
+		A7FEFC002E69A3FD0065532C /* SearchUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEFBFF2E69A3FD0065532C /* SearchUseCaseImpl.swift */; };
+		A7FEFC022E69A59D0065532C /* SearchRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEFC012E69A59D0065532C /* SearchRepositoryProtocol.swift */; };
+		A7FEFC042E69B8980065532C /* SearchRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEFC032E69B8980065532C /* SearchRepositoryImpl.swift */; };
+		A7FEFC062E6B35D30065532C /* NaverMap+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEFC052E6B35D30065532C /* NaverMap+.swift */; };
 		DF0CA2202E376D5E007E7904 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF0CA21F2E376D5E007E7904 /* GoogleService-Info.plist */; };
 		DF0CA2212E376EC6007E7904 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */; };
 		DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E752E27859B00BE27AC /* AppDelegate.swift */; };
@@ -103,6 +109,7 @@
 		DF1F40FA2E279F9000BE27AC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F40F62E279F9000BE27AC /* ProfileViewController.swift */; };
 		DF38C6212E34E4B40011DFE7 /* ManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF38C61E2E34E4B40011DFE7 /* ManagerTest.swift */; };
 		DF38C6222E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF38C61F2E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift */; };
+		DF45C1A72E6C0FA10005550F /* KeywordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF45C1A62E6C0FA10005550F /* KeywordDTO.swift */; };
 		DF530C8B2E4C7DFA00C31301 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DF530C8A2E4C7DFA00C31301 /* CombineCocoa */; };
 		DF5A0BB12E350D9100CF61BF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A0BAF2E350D9100CF61BF /* Constants.swift */; };
 		DF5F69162E560853004E98BE /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F69102E560853004E98BE /* NextButton.swift */; };
@@ -232,6 +239,7 @@
 		A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		A732BA2F2E27E9D0009EB6BF /* Inter 24pt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter 24pt.ttf"; sourceTree = "<group>"; };
 		A742A98C2E5996C2003DA057 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
+		A75841452E6D86C500D214C8 /* NaverImageAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverImageAPIManager.swift; sourceTree = "<group>"; };
 		A75AB1162E339A4D006DA6EB /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		A778D2E02E28F212006B3309 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePlaceCellView.swift; sourceTree = "<group>"; };
@@ -258,6 +266,11 @@
 		A7F5454D2E38816A0014EB85 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
 		A7F545502E38A5C20014EB85 /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
 		A7F545522E38A7600014EB85 /* CardDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewModel.swift; sourceTree = "<group>"; };
+		A7FEFBFD2E699F140065532C /* SearchUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUseCaseProtocol.swift; sourceTree = "<group>"; };
+		A7FEFBFF2E69A3FD0065532C /* SearchUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUseCaseImpl.swift; sourceTree = "<group>"; };
+		A7FEFC012E69A59D0065532C /* SearchRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryProtocol.swift; sourceTree = "<group>"; };
+		A7FEFC032E69B8980065532C /* SearchRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryImpl.swift; sourceTree = "<group>"; };
+		A7FEFC052E6B35D30065532C /* NaverMap+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NaverMap+.swift"; sourceTree = "<group>"; };
 		DF0CA21F2E376D5E007E7904 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF18A7782E34E59900956881 /* Pindora.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Pindora.xctestplan; path = ../Pindora.xctestplan; sourceTree = "<group>"; };
 		DF1F3E752E27859B00BE27AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -280,6 +293,7 @@
 		DF1F40F72E279F9000BE27AC /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		DF38C61E2E34E4B40011DFE7 /* ManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerTest.swift; sourceTree = "<group>"; };
 		DF38C61F2E34E4B40011DFE7 /* NaverSearchAPIManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchAPIManagerTest.swift; sourceTree = "<group>"; };
+		DF45C1A62E6C0FA10005550F /* KeywordDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordDTO.swift; sourceTree = "<group>"; };
 		DF5A0BAF2E350D9100CF61BF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DF5F69102E560853004E98BE /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		DF5F69112E560853004E98BE /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
@@ -358,6 +372,11 @@
 				89A9E78E2E39ED8600BF9098 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */,
 			);
 			path = PindoraShareExtension;
+			sourceTree = "<group>";
+		};
+		DFBF267D2E6AE4CF003DAD30 /* Search */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		DFF8A66E2E50DCF900F07F72 /* Error */ = {
@@ -574,6 +593,7 @@
 				A75AB1162E339A4D006DA6EB /* UILabel+.swift */,
 				A70014722E64704200CD5572 /* String+.swift */,
 				A70014742E64709F00CD5572 /* Date+.swift */,
+				A7FEFC052E6B35D30065532C /* NaverMap+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -597,6 +617,7 @@
 				89728D9F2E33DEE8002B3ACE /* UserUseCaseProtocol.swift */,
 				A70014762E64923C00CD5572 /* LocationUseCaseProtocol.swift */,
 				89A18E1F2E6719CE0052536C /* GPTUseCaseProtocol.swift */,
+				A7FEFBFD2E699F140065532C /* SearchUseCaseProtocol.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -609,6 +630,7 @@
 				89728D972E33DE58002B3ACE /* DatabaseRepositoryProtocol.swift */,
 				A700147A2E649C3300CD5572 /* LocationRepositoryProtocol.swift */,
 				89A18E1B2E6719010052536C /* GPTRepositoryProtocol.swift */,
+				A7FEFC012E69A59D0065532C /* SearchRepositoryProtocol.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -616,6 +638,7 @@
 		A7F2E17C2E2008780045D175 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				DFBF267D2E6AE4CF003DAD30 /* Search */,
 				A778D2E02E28F212006B3309 /* HomeView.swift */,
 				DF1F3FB32E279C4100BE27AC /* HomeViewController.swift */,
 				DF1F3FB42E279C4100BE27AC /* HomeViewModel.swift */,
@@ -848,6 +871,7 @@
 				899ECE802E4056A800EE7105 /* PlaceUseCaseImpl.swift */,
 				A70014782E64928100CD5572 /* LocationUseCaseImpl.swift */,
 				89A18E212E6719F10052536C /* GPTUseCaseImpl.swift */,
+				A7FEFBFF2E69A3FD0065532C /* SearchUseCaseImpl.swift */,
 			);
 			path = UseCaseImpl;
 			sourceTree = "<group>";
@@ -875,6 +899,7 @@
 			isa = PBXGroup;
 			children = (
 				DF883ACC2E34B5CA00F67BF9 /* .gitkeep */,
+				DF45C1A62E6C0FA10005550F /* KeywordDTO.swift */,
 				DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */,
 				A7854E3D2E4B3132002A5C2A /* KakaoPlaceDTO.swift */,
 				DFE039AF2E352B7500A2060D /* PlaceDTO.swift */,
@@ -899,6 +924,7 @@
 			children = (
 				DF883AD02E34B5CC00F67BF9 /* .gitkeep */,
 				DF883AD22E34B67800F67BF9 /* NaverSearchAPIManager.swift */,
+				A75841452E6D86C500D214C8 /* NaverImageAPIManager.swift */,
 			);
 			path = Naver;
 			sourceTree = "<group>";
@@ -923,6 +949,7 @@
 				89728D992E33DE6E002B3ACE /* DatabaseRepositoryImpl.swift */,
 				A700147C2E649C5E00CD5572 /* LocationRepositoryImpl.swift */,
 				89A18E1D2E67199C0052536C /* GPTRepositoryImpl.swift */,
+				A7FEFC032E69B8980065532C /* SearchRepositoryImpl.swift */,
 			);
 			path = RepositoryImpl;
 			sourceTree = "<group>";
@@ -1002,6 +1029,9 @@
 			);
 			dependencies = (
 				DF7487B52E38A95200CF9864 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DFBF267D2E6AE4CF003DAD30 /* Search */,
 			);
 			name = Pindora;
 			packageProductDependencies = (
@@ -1197,6 +1227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF5F69162E560853004E98BE /* NextButton.swift in Sources */,
+				A7FEFC022E69A59D0065532C /* SearchRepositoryProtocol.swift in Sources */,
 				DF5F69172E560853004E98BE /* SocialLoginButton.swift in Sources */,
 				A70014792E64928100CD5572 /* LocationUseCaseImpl.swift in Sources */,
 				DF5F69182E560853004E98BE /* Preview.swift in Sources */,
@@ -1204,6 +1235,7 @@
 				89728D862E33DC71002B3ACE /* StorageRepositoryImpl.swift in Sources */,
 				A7F2E18B2E2009DB0045D175 /* MainTabViewController.swift in Sources */,
 				A7F2E19D2E200A830045D175 /* FontSystem.swift in Sources */,
+				A75841462E6D86C500D214C8 /* NaverImageAPIManager.swift in Sources */,
 				89A18E222E6719F10052536C /* GPTUseCaseImpl.swift in Sources */,
 				A70014752E64709F00CD5572 /* Date+.swift in Sources */,
 				89A18E202E6719CE0052536C /* GPTUseCaseProtocol.swift in Sources */,
@@ -1224,6 +1256,7 @@
 				DF1F40F92E279F9000BE27AC /* ProfileView.swift in Sources */,
 				A7D57E802E49C83E00598B32 /* SelectableMarkerView.swift in Sources */,
 				A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */,
+				A7FEFC002E69A3FD0065532C /* SearchUseCaseImpl.swift in Sources */,
 				A7F545532E38A7600014EB85 /* CardDetailViewModel.swift in Sources */,
 				DF1F40FA2E279F9000BE27AC /* ProfileViewController.swift in Sources */,
 				DF1F40EC2E279F5400BE27AC /* MapView.swift in Sources */,
@@ -1264,6 +1297,7 @@
 				A725E9B12E2FA53A00EEA3F5 /* ImageSelectorView.swift in Sources */,
 				DF5F691B2E56087D004E98BE /* InfraError.swift in Sources */,
 				A725E9B52E2FE60900EEA3F5 /* SettingListViewModel.swift in Sources */,
+				A7FEFC042E69B8980065532C /* SearchRepositoryImpl.swift in Sources */,
 				A742A98D2E5996C2003DA057 /* IntroModel.swift in Sources */,
 				DF1F3FB62E279C4100BE27AC /* HomeViewController.swift in Sources */,
 				A725E9AB2E2FA4E300EEA3F5 /* ProfileEditViewModel.swift in Sources */,
@@ -1274,9 +1308,12 @@
 				DFA2CB392E27C7B000C4F32B /* ModuleFactory.swift in Sources */,
 				899ECE7F2E40403800EE7105 /* PlaceUseCase.swift in Sources */,
 				DFA2CB3D2E27DC8E00C4F32B /* Documentation.docc in Sources */,
+				DF45C1A72E6C0FA10005550F /* KeywordDTO.swift in Sources */,
 				A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */,
 				A700147B2E649C3300CD5572 /* LocationRepositoryProtocol.swift in Sources */,
+				A7FEFC062E6B35D30065532C /* NaverMap+.swift in Sources */,
 				A70014732E64704200CD5572 /* String+.swift in Sources */,
+				A7FEFBFE2E699F140065532C /* SearchUseCaseProtocol.swift in Sources */,
 				DF883AC92E34B5C200F67BF9 /* AuthRepositoryImpl.swift in Sources */,
 				89A18E1E2E67199C0052536C /* GPTRepositoryImpl.swift in Sources */,
 				A732BA2A2E27E2BB009EB6BF /* CardCellView.swift in Sources */,
@@ -1353,6 +1390,7 @@
 /* Begin XCBuildConfiguration section */
 		A7C1AB6D2E20022D00B8B9E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1378,8 +1416,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				NAVER_CLIENT_ID = cvpv8j6eh4;
-				NAVER_CLIENT_SECRET = b3mPTjeCprdxWYDyCxsUBvA9PoiPHVeb96JCvhmS;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RETIA.Pindora;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1396,6 +1432,7 @@
 		};
 		A7C1AB6E2E20022D00B8B9E1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1421,8 +1458,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				NAVER_CLIENT_ID = cvpv8j6eh4;
-				NAVER_CLIENT_SECRET = b3mPTjeCprdxWYDyCxsUBvA9PoiPHVeb96JCvhmS;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RETIA.Pindora;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1439,6 +1474,7 @@
 		};
 		A7C1AB6F2E20022D00B8B9E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1493,8 +1529,6 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				NAVER_CLIENT_ID = cvpv8j6eh4;
-				NAVER_CLIENT_SECRET = "b3mPTjeCprdxWYDyCxsUBvA9PoiPHVeb96JCvhmS\n";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -1504,6 +1538,7 @@
 		};
 		A7C1AB702E20022D00B8B9E1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1552,8 +1587,6 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				NAVER_CLIENT_ID = cvpv8j6eh4;
-				NAVER_CLIENT_SECRET = "b3mPTjeCprdxWYDyCxsUBvA9PoiPHVeb96JCvhmS\n";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -1562,6 +1595,7 @@
 		};
 		DF7487B82E38A95200CF9864 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PindoraShareExtension/PindoraShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1593,6 +1627,7 @@
 		};
 		DF7487B92E38A95200CF9864 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PindoraShareExtension/PindoraShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1624,6 +1659,7 @@
 		};
 		DF8840362E34CD5200F67BF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1645,6 +1681,7 @@
 		};
 		DF8840372E34CD5200F67BF9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

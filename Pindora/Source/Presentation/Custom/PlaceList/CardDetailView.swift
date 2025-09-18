@@ -14,8 +14,11 @@ final class CardDetailView: UIView {
     private let contentView = UIView()
     private let tagLabelView = TagLabelView(title: "관광지")
     private let likeCountLabelView = LikeCountLabelView(count: 159)
+    lazy var pinButton  = UIButton.detailButtonStyle(name: "pin")
+    lazy var instaButton = UIButton.detailButtonStyle(name: "insta")
+    lazy var flagButton  = UIButton.detailButtonStyle(name: "flag")
     
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .white
@@ -23,7 +26,7 @@ final class CardDetailView: UIView {
         return label
     }()
 
-    private let addressLabel: UILabel = {
+    let addressLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
         label.textColor = .lightGray
@@ -31,7 +34,7 @@ final class CardDetailView: UIView {
         return label
     }()
 
-    private let closeButton: UIButton = {
+    let closeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "xmark"), for: .normal)
         button.tintColor = .white
@@ -47,14 +50,8 @@ final class CardDetailView: UIView {
         return label
     }()
     
-    private let buttonStack: UIStackView = {
-        let buttons = [
-            UIButton.detailButtonStyle(name: "pin"),
-            UIButton.detailButtonStyle(name: "insta"),
-            UIButton.detailButtonStyle(name: "flag"),
-        ]
-        
-        let stack = UIStackView(arrangedSubviews: buttons)
+    lazy var buttonStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [pinButton, instaButton, flagButton])
         stack.axis = .horizontal
         stack.spacing = 16
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -106,12 +103,10 @@ final class CardDetailView: UIView {
     // MARK: - (F)UI Setup
     private func setupUI() {
         backgroundColor = .black
-        addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
-        scrollView.addSubview(contentView)
+        addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        
+        contentView.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         [headerStack, addressLabel, hashtagLabel, buttonStack, mainImageView,
          locationTitleLabel, mapImageView, tagLabelView, likeCountLabelView ].forEach {
             contentView.addSubview($0)
@@ -121,17 +116,17 @@ final class CardDetailView: UIView {
     // MARK: - (F)Constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            contentView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            scrollView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             
             headerStack.topAnchor.constraint(equalTo: contentView.topAnchor),
             headerStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),

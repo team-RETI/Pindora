@@ -28,11 +28,11 @@ public protocol DatabaseRepositoryProtocol {
     /// - Returns: 디코딩된 객체를 방출하는  AnyPublisher<T, Error>입니다.
     func fetch<T: Codable>(from collection: String, id: String, as type: T.Type) -> AnyPublisher<T, Error>
     
-    /// <#Description#>
+    /// Firestore에 모든 문서를 조회하여 객체로 반환합니다
     /// - Parameters:
-    ///   - collection: <#collection description#>
-    ///   - type: <#type description#>
-    /// - Returns: <#description#>
+    ///   - collection: 조회할 컬렉션의 이름입니다
+    ///   - type: 반환받을 객체의 타입입니다
+    /// - Returns: 디코딩된 객체배열을 방출하는 AnyPublisher<[T], Error>입니다.
     func fetchAll<T:Codable>(from collection: String, as type: T.Type) -> AnyPublisher<[T], Error>
     
     /// Firestore의 특정 문서를 업데이트합니다.

@@ -24,6 +24,11 @@ enum RepositoryError: Error, NestedError, LocalizedError {
     case locationServicesDisabled(InfraError)
     case locationManagerError(InfraError)
     
+    case invalidURL(InfraError)
+    case invalidQuery(InfraError)
+    case network(InfraError)
+    case decoding(InfraError)
+    
     case unknown(InfraError)
     
     // MARK: - NestedError
@@ -39,6 +44,10 @@ enum RepositoryError: Error, NestedError, LocalizedError {
                 .locationAuthorizationRestricted(let e),
                 .locationServicesDisabled(let e),
                 .locationManagerError(let e),
+                .invalidURL(let e),
+                .network(let e),
+                .decoding(let e),
+                .invalidQuery(let e),
                 .firebaseError(let e):
             return e
             
@@ -58,6 +67,10 @@ enum RepositoryError: Error, NestedError, LocalizedError {
         case .locationAuthorizationRestricted: return "📦 [Location 권한 제한] - GPS 권한 제한되었습니다"
         case .locationServicesDisabled: return "📦 [Location OFF] - 시스템 위치 서비스가 꺼져있습니다"
         case .locationManagerError: return "📦 [Location 에러] Manager 오류"
+        case .invalidURL: return "📦 [외부 API URL 파싱 실패] - URL이 유효하지 않음"
+        case .network: return "📦 [외부 API 네트워크 에러] - 네트워크 연결이 끊겼습니다"
+        case .decoding: return "📦 [외부 API 디코딩 에러] - 데이터 디코딩에 실패했습니다"
+        case .invalidQuery: return "📦 [외부 API 디코딩 에러] - 잘못된 쿼리입니다"
         case .unknown(let e): return "📦 [알 수 없는 오류] - \(e.localizedDescription)"
         }
     }
@@ -75,6 +88,10 @@ enum RepositoryError: Error, NestedError, LocalizedError {
         case .locationAuthorizationRestricted: return .locationAuthorizationRestricted(error)
         case .locationServicesDisabled: return .locationServicesDisabled(error)
         case .locationManagerError: return .locationManagerError(error)
+        case .invalidURL: return .invalidURL(error)
+        case .network: return .network(error)
+        case .decoding: return .decoding(error)
+        case .invalidQuery: return .invalidQuery(error)
         case .unknown: return .unknown(error)
         }
     }

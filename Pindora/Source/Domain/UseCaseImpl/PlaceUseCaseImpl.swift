@@ -17,7 +17,23 @@ final class PlaceUseCaseImpl: PlaceUseCase {
     }
     
     func fetchPlaces() -> AnyPublisher<[Place], any Error> {
-        repository.fetchAll(from: collection, as: PlaceDTO.self).map {
-            $0.map { $0.toEntity() } }.eraseToAnyPublisher()
+        repository.fetchAll(from: collection, as: PlaceDTO.self)
+            .map { $0.map { $0.toEntity() } }
+            .eraseToAnyPublisher()
+    }
+    
+    func savePlace(place: Place) -> AnyPublisher<Void, UseCaseError> {
+        let dto = place.toDTO()
+
+        return repository
+            .create(dto, at: collection, id: place.placeId)
+            .mapToUseCaseError()
+            .eraseToAnyPublisher()
+    }
+    
+    func fetchKeywords() -> AnyPublisher<[String], Error> {
+        repository.fetch(from: "Keywords", id: "Recommand", as: KeywordDTO.self)
+            .map { $0.words }
+            .eraseToAnyPublisher()
     }
 }
