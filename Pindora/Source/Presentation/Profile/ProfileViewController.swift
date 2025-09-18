@@ -80,6 +80,7 @@ final class ProfileViewController: UIViewController {
     
     // 버튼 탭 처리
     @objc private func editProfileButtonTapped() {
+        guard let user = viewModel.user else { return }
         coordinator?.didTapEditProfile()
     }
     @objc private func settingsButtonTapped() {
