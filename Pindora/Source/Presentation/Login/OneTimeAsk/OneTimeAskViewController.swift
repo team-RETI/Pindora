@@ -48,7 +48,7 @@ final class OneTimeAskViewController: UIViewController {
                 }
                 print("다음 버튼")
                 print("선택된 키워드 배열", self.customView.selectedKeywords)
-                
+                viewModel.updateCategories(self.customView.selectedKeywords)
                 
             }
             .store(in: &cancellables)

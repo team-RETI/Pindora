@@ -27,8 +27,11 @@ final class LoginViewModel {
         /// 외부에서 .send() 불가능하고 구독만 허용
         /// eraseToAnyPublisher로 타입을 숨겨서 내부 구현이 바뀌어도 외부 코드는 유지 가능
         let loginResult: AnyPublisher<Result<Void, UseCaseError>, Never>
+
     }
+    
     func transform(input: Input) -> Output {
+        
         let loginResult: AnyPublisher<Result<Void, UseCaseError>, Never> = input.appleLoginTapped
             .map { [weak self] _ -> AnyPublisher<Result<Void, UseCaseError>, Never> in
                 guard let self = self else {
@@ -105,5 +108,29 @@ final class LoginViewModel {
 
         return Output(loginResult: loginResult)
     }
+}
 
+extension LoginViewModel {
+    func updateCategories(_ categories: [String]) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("❌ 현재 로그인된 사용자 없음")
+            return
+        }
+        
+        userUseCase.fetchUser(uid: uid)
+            .flatMap { user -> AnyPublisher<Void, UseCaseError> in
+                var updated = user
+                updated.selectedCategories = categories
+                return self.userUseCase.saveUser(user: updated)
+            }
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    print("❌ 카테고리 업데이트 실패:", error)
+                }
+            } receiveValue: { _ in
+                print("✅ 카테고리 업데이트 성공:", categories)
+            }
+            .store(in: &cancellables)
+
+    }
 }

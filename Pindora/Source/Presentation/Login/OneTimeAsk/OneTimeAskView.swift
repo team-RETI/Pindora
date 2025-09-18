@@ -235,7 +235,6 @@ final class OneTimeAskView: UIView {
         }
         
          let selectedTitle = cellView.titleText
-        // print("✅ 선택된 카테고리: \(selectedTitle ?? "-")")
         
         // 선택/해제 로직
         if now, let selectedTitle {
