@@ -13,6 +13,7 @@ final class OneTimeAskView: UIView {
     private var inkAnchors: [CGPoint] = []
     private var inkAnchorIndex = 0
     private var lastCardSize: CGSize = .zero
+    private(set) var selectedKeywords: [String] = []
     
     // 외부 콜백
     var onKeywordTapped: ((UIButton, Bool) -> Void)?
@@ -220,6 +221,7 @@ final class OneTimeAskView: UIView {
         
         let now = !sender.isSelected
         sender.isSelected = now
+        
         UIView.animate(withDuration: 0.15) {
             if now {
                 sender.backgroundColor = .black
@@ -232,9 +234,15 @@ final class OneTimeAskView: UIView {
             }
         }
         
-        let selectedTitle = cellView.titleText
-        print("✅ 선택된 카테고리: \(selectedTitle ?? "-")")
+         let selectedTitle = cellView.titleText
+        // print("✅ 선택된 카테고리: \(selectedTitle ?? "-")")
         
+        // 선택/해제 로직
+        if now, let selectedTitle {
+            selectedKeywords.append(selectedTitle)
+        } else {
+            selectedKeywords.removeAll { $0 == selectedTitle }
+        }
         onKeywordTapped?(sender, now)
     }
 }

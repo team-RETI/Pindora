@@ -39,14 +39,17 @@ final class OneTimeAskViewController: UIViewController {
         customView.registerButton
             .tapPublisher
             .sink { [weak self] _ in
-                
-                if let coordinator = self?.coordinator {
+                guard let self = self else { return }
+                if let coordinator = self.coordinator {
                     print("✅ coordinator 있음:", coordinator)
                     coordinator.navigateToMainTab()
                 } else {
                     print("❌ coordinator is nil")
                 }
                 print("다음 버튼")
+                print("선택된 키워드 배열", self.customView.selectedKeywords)
+                
+                
             }
             .store(in: &cancellables)
     }
