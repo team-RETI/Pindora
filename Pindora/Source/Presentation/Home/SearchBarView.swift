@@ -6,7 +6,6 @@
 //
 
 import UIKit
-//test
 import Combine
 
 final class SearchBarView: UIView {

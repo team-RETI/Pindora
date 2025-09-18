@@ -16,6 +16,7 @@ final class MyPlaceViewController: UIViewController {
     
     // MARK: - Subjects (Input 소스)
     private let addButtonSubject = PassthroughSubject<String, Never>()
+    private let reloadSubject = PassthroughSubject<Void, Never>()
     
     // MARK: - UI(테이블 뷰)
     private lazy var placeListView = customView.placeListView
@@ -41,11 +42,14 @@ final class MyPlaceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bindViewModel()
+        addButtonTarget()
+        coordinator?.onPlaceSaved = { [weak self] in
+            self?.reloadSubject.send(())
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        addButtonTarget()
         print("MyPlaceViewController")
     }
 
@@ -53,7 +57,8 @@ final class MyPlaceViewController: UIViewController {
     private func bindViewModel() {
         let input = MyPlaceViewModel.Input(
             viewDidLoad: Just(()).eraseToAnyPublisher(),
-            addPlace: addButtonSubject.eraseToAnyPublisher()
+            addPlace: addButtonSubject.eraseToAnyPublisher(),
+            reload: reloadSubject.eraseToAnyPublisher()
         )
         
         let output = viewModel.transform(input: input)
@@ -123,38 +128,6 @@ extension MyPlaceViewController: UITableViewDelegate {
             coordinator?.didTapCell(place: place)
         }
     }
-    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return dummyData.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardCellView", for: indexPath) as? CardCellView else {
-//            return UITableViewCell()
-//        }
-//      
-//        let placeTuple = dummyData[indexPath.row]
-//        let placeModel = Place(
-//            placeId: UUID().uuidString, // 임시 고유 ID
-//            placeName: placeTuple.title,
-//            placeAddress: placeTuple.address,
-//            latitude: 0.0,
-//            longitude: 0.0,
-//            category: placeTuple.category,
-//            addedDate: placeTuple.date,
-//            likedCount: placeTuple.likedCount,
-//            naviLink: nil,
-//            instaLink: nil,
-//            bookLink: nil,
-//            imageURL: placeTuple.imageURL // 또는 "https://~~" 형태로 테스트용 이미지 URL 넣어도 됨
-//        )
-//        cell.configure(with: placeModel)
-//        return cell
-//    }
-//    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("사용자가 \(dummyData[indexPath.row]) 셀을 눌렀습니다.")
-//    }
 }
 
 

@@ -287,7 +287,7 @@ extension HomeViewModel {
                 }
             } receiveValue: { [weak self] keywordList in
                 self?.keywords = keywordList
-            }.store(in: &cancellables)
+            }.store(in: &cancellable)
     }
     
     func filterKeywords(query: String) {

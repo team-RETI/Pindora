@@ -6,11 +6,22 @@
 //
 
 import UIKit
+import Combine
+import CoreLocation
 
 final class AddPlaceViewController: UIViewController {
     weak var coordinator: MyPlaceCoordinator?
     private let viewModel: AddPlaceViewModel
     private let customView = AddPlaceView()
+    private var cancellable = Set<AnyCancellable>()
+    
+    // MARK: - Subjects (Input 소스)
+    private let searchTextSubject = PassthroughSubject<String, Never>()
+    private let categorySelectedSubject = PassthroughSubject<String, Never>()
+    private let confirmButtonTappedSubject = PassthroughSubject<Void, Never>()
+    
+    // MARK: - Coordinator 콜백
+    var onSaved: (() -> Void)?
     
     // MARK: - Initializer
     init(viewModel: AddPlaceViewModel) {
@@ -36,14 +47,75 @@ final class AddPlaceViewController: UIViewController {
         super.viewDidAppear(animated)
         customView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         customView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        setupTapGesture()
         setupCategoryTargets()
-
+        setupSearchBarTarget()
         print("AddPlaceViewController")
     }
 
     // MARK: - Bindings
     private func bindViewModel() {
+        let input = AddPlaceViewModel.Input(
+            keyword: searchTextSubject.eraseToAnyPublisher(),
+            categorySelected: categorySelectedSubject.eraseToAnyPublisher(),
+            confirmButtonTapped: confirmButtonTappedSubject.eraseToAnyPublisher()
+            )
+        
+        let output = viewModel.transform(input: input)
+        
+        output.place
+            .handleEvents(receiveSubscription: { _ in print("🧲 subscribed: output.place") })
+            .sink { place in
+                print("📦 place out:", place)
+            }
+            .store(in: &cancellable)
 
+        output.selectedCategory
+            .handleEvents(receiveSubscription: { _ in print("🧲 subscribed: output.selectedCategory") })
+            .sink { cat in
+                print("🏷️ out selectedCategory:", cat)
+            }
+            .store(in: &cancellable)
+        
+        output.saveResult
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success:
+                    self.showTopToast("저장되었습니다")
+                    self.onSaved?()
+                    self.dismiss(animated: true)
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+
+                case .failure(let error):
+                    if let saveErr = error as? SaveError {
+                        switch saveErr {
+                        case .missingPlace:
+                            self.showTopToast("주소 정보가 없어요, 정확한 주소를 먼저 입력해 주세요")
+                        case .missingCategory:
+                            self.showTopToast("카테고리를 선택해 주세요")
+                        case .backend(let e):
+                            self.showTopToast("저장 실패: \(e.localizedDescription)")
+                        }
+                    } else {
+                        self.showTopToast("저장 실패: \(error.localizedDescription)")
+                    }
+                    UINotificationFeedbackGenerator().notificationOccurred(.error)
+                }
+            }
+            .store(in: &cancellable)
+    }
+    
+    private func setupSearchBarTarget() {
+        // 사용자가 타이핑할 때마다 문자열을 방출하는 퍼블리셔
+        customView.searchBarView.textField.textPublisher
+            // 0.35초 동안 입력이 멈출 때만 이벤트를 흘려보냄
+            .debounce(for: .milliseconds(350), scheduler: RunLoop.main)
+            .sink { [weak self] query in
+                self?.searchTextSubject.send(query)
+            }
+            .store(in: &cancellable)
     }
     
     private func setupCategoryTargets() {
@@ -53,18 +125,13 @@ final class AddPlaceViewController: UIViewController {
     }
 
     @objc private func categoryTapped(_ sender: UIButton) {
-        guard let cellView = sender.superview as? CategoryCellView else {
-            print("❌ CategoryCellView로 캐스팅 실패 - sender.superview: \(String(describing: sender.superview))")
-            return
-        }
-
+        guard let cellView = sender.superview as? CategoryCellView else { return }
+        guard let name = cellView.titleText else { return }
         for view in customView.categoryViews {
             view.setSelected(false)
         }
         cellView.setSelected(true)
-
-        let selectedTitle = cellView.titleText
-        print("✅ 선택된 카테고리: \(selectedTitle ?? "-")")
+        categorySelectedSubject.send(name)
     }
     
     @objc private func cancelButtonTapped() {
@@ -74,6 +141,17 @@ final class AddPlaceViewController: UIViewController {
     
     @objc private func confirmButtonTapped() {
         print("confirmButtonTapped")
-        dismiss(animated: true)
+        confirmButtonTappedSubject.send()
+    }
+    
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false // 다른 버튼 터치도 인식되도록
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true) // 현재 뷰에서 키보드 내리기
     }
 }
+

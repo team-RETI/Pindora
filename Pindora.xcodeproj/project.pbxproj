@@ -37,6 +37,7 @@
 		A700147B2E649C3300CD5572 /* LocationRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A700147A2E649C3300CD5572 /* LocationRepositoryProtocol.swift */; };
 		A700147D2E649C5E00CD5572 /* LocationRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A700147C2E649C5E00CD5572 /* LocationRepositoryImpl.swift */; };
 		A70462012E4106F1001D7542 /* MarkerIconFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70462002E4106F1001D7542 /* MarkerIconFactory.swift */; };
+		A716C8942E79CB020014481C /* KakaoGeoCodeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A716C8932E79CB020014481C /* KakaoGeoCodeDTO.swift */; };
 		A725E9A52E2FA30300EEA3F5 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */; };
 		A725E9A72E2FA32000EEA3F5 /* AccountSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A62E2FA32000EEA3F5 /* AccountSettingView.swift */; };
 		A725E9A92E2FA36300EEA3F5 /* SettingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725E9A82E2FA36300EEA3F5 /* SettingListView.swift */; };
@@ -69,6 +70,7 @@
 		A78A134D2E533DA600204D8D /* KeywordCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A134C2E533DA600204D8D /* KeywordCloudView.swift */; };
 		A78A134F2E53413600204D8D /* GradientProgressCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A134E2E53413600204D8D /* GradientProgressCardView.swift */; };
 		A78A13512E53446100204D8D /* AppleCardInkProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A13502E53446100204D8D /* AppleCardInkProgressView.swift */; };
+		A7BD88912E7B3B8A00DDBA47 /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BD88902E7B3B8A00DDBA47 /* CustomToastView.swift */; };
 		A7D418BD2E2A281200B17044 /* ProfilePlaceCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BC2E2A281200B17044 /* ProfilePlaceCellListView.swift */; };
 		A7D418BF2E2A344700B17044 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418BE2E2A344700B17044 /* UIButton+.swift */; };
 		A7D418C12E2A364D00B17044 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D418C02E2A364D00B17044 /* UIView+.swift */; };
@@ -218,6 +220,7 @@
 		A700147A2E649C3300CD5572 /* LocationRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepositoryProtocol.swift; sourceTree = "<group>"; };
 		A700147C2E649C5E00CD5572 /* LocationRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepositoryImpl.swift; sourceTree = "<group>"; };
 		A70462002E4106F1001D7542 /* MarkerIconFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerIconFactory.swift; sourceTree = "<group>"; };
+		A716C8932E79CB020014481C /* KakaoGeoCodeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoGeoCodeDTO.swift; sourceTree = "<group>"; };
 		A725E9A42E2FA30300EEA3F5 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		A725E9A62E2FA32000EEA3F5 /* AccountSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingView.swift; sourceTree = "<group>"; };
 		A725E9A82E2FA36300EEA3F5 /* SettingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListView.swift; sourceTree = "<group>"; };
@@ -251,6 +254,7 @@
 		A78A134C2E533DA600204D8D /* KeywordCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordCloudView.swift; sourceTree = "<group>"; };
 		A78A134E2E53413600204D8D /* GradientProgressCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressCardView.swift; sourceTree = "<group>"; };
 		A78A13502E53446100204D8D /* AppleCardInkProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleCardInkProgressView.swift; sourceTree = "<group>"; };
+		A7BD88902E7B3B8A00DDBA47 /* CustomToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
 		A7C1AB592E20022D00B8B9E1 /* Pindora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pindora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7D418BC2E2A281200B17044 /* ProfilePlaceCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePlaceCellListView.swift; sourceTree = "<group>"; };
 		A7D418BE2E2A344700B17044 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
@@ -470,6 +474,7 @@
 				A732BA262E27E2BB009EB6BF /* CategoryCellListView.swift */,
 				A732BA272E27E2BB009EB6BF /* CategoryCellView.swift */,
 				A725E9BC2E30A89C00EEA3F5 /* CustomNavBarView.swift */,
+				A7BD88902E7B3B8A00DDBA47 /* CustomToastView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -714,8 +719,8 @@
 			isa = PBXGroup;
 			children = (
 				A7F545472E37BDFE0014EB85 /* AddPlaceView.swift */,
-				A7F545492E37BE5E0014EB85 /* AddPlaceViewModel.swift */,
 				A7F5454B2E37BE690014EB85 /* AddPlaceViewController.swift */,
+				A7F545492E37BE5E0014EB85 /* AddPlaceViewModel.swift */,
 				A72C9A2B2E3CD9FC00F6D30E /* PreviewCardView.swift */,
 			);
 			path = AddPlace;
@@ -904,6 +909,7 @@
 				A7854E3D2E4B3132002A5C2A /* KakaoPlaceDTO.swift */,
 				DFE039AF2E352B7500A2060D /* PlaceDTO.swift */,
 				89AC93FD2E38D7B5006446CD /* UserDTO.swift */,
+				A716C8932E79CB020014481C /* KakaoGeoCodeDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -1275,6 +1281,7 @@
 				DF1F40E52E279E8200BE27AC /* LoginViewController.swift in Sources */,
 				DF883AD32E34B67800F67BF9 /* NaverSearchAPIManager.swift in Sources */,
 				A70014772E64923C00CD5572 /* LocationUseCaseProtocol.swift in Sources */,
+				A716C8942E79CB020014481C /* KakaoGeoCodeDTO.swift in Sources */,
 				A725E9AF2E2FA52900EEA3F5 /* PersonaInfoCardView.swift in Sources */,
 				A70462012E4106F1001D7542 /* MarkerIconFactory.swift in Sources */,
 				A78A13512E53446100204D8D /* AppleCardInkProgressView.swift in Sources */,
@@ -1287,6 +1294,7 @@
 				DF1F40F02E279F6600BE27AC /* MyPlaceViewModel.swift in Sources */,
 				DF0CA2212E376EC6007E7904 /* SearchBarView.swift in Sources */,
 				A78571A02E3F19AF0021F72D /* SelectableOverlayView.swift in Sources */,
+				A7BD88912E7B3B8A00DDBA47 /* CustomToastView.swift in Sources */,
 				89AC93FC2E38AA21006446CD /* FirebaseAuthManager.swift in Sources */,
 				89728D982E33DE58002B3ACE /* DatabaseRepositoryProtocol.swift in Sources */,
 				A725E9AD2E2FA4FB00EEA3F5 /* PersonaPreviewView.swift in Sources */,

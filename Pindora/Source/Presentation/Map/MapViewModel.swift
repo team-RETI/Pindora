@@ -24,8 +24,6 @@ final class MapViewModel {
     struct Input {
         /// viewDidLoad 시 한 번만 보냄
         let viewDidLoad: AnyPublisher<Void, Never>
-        /// 현재위치 버튼이 눌리면 사용자 현재 좌표 스트림
-        let mapCenter: AnyPublisher<CLLocationCoordinate2D, Never>
         /// 위치권한 요청 트리거
         let locationButtonTapped: AnyPublisher<Void, Never>
         /// 카테고리 버튼이 선택될 때 선택된 태그(이름) 스트림
@@ -60,22 +58,6 @@ final class MapViewModel {
             }
             .store(in: &cancellable)
         
-        // 최신 카테고리와 최신 지도 중심 좌표를 결합하여 검색
-        let sharedCenter = input.mapCenter
-            .removeDuplicates { lhs, rhs in
-                // 좌표 중복 판정(아주 미세한 이동은 무시)
-                abs(lhs.latitude - rhs.latitude) < 0.0001 &&
-                abs(lhs.longitude - rhs.longitude) < 0.0001
-            }
-            .share()
-            .eraseToAnyPublisher()
-        
-        /// 선택된 카테고리 이름은 UI 선택 상태 갱신에도 쓰일 수 있도록 그대로 Output
-        let selectedCategory = input.categorySelected
-            .removeDuplicates()
-            .share()
-            .eraseToAnyPublisher()
-        
         // 위치 스트림
         let location = locationUseCase.locationPublisher
             .map { $0.coordinate }
@@ -90,10 +72,16 @@ final class MapViewModel {
             .share()
             .eraseToAnyPublisher()
         
+        /// 선택된 카테고리 이름은 UI 선택 상태 갱신에도 쓰일 수 있도록 그대로 Output
+        let selectedCategory = input.categorySelected
+            .removeDuplicates()
+            .share()
+            .eraseToAnyPublisher()
+        
         // 검색 파이프라인:
         // 카테고리 선택 이벤트가 들어올 때마다 최신 좌표와 결합 → 유즈케이스 검색 → 결과 방출
         let placesRaw = selectedCategory
-            .withLatestFrom(sharedCenter) // 아래 유틸 참고
+            .withLatestFrom(location) // 아래 유틸 참고
             .flatMap { [weak self] (category, center) -> AnyPublisher<[Place], Never> in
                 guard let self else { return Just([]).eraseToAnyPublisher() }
                 return self.searchUseCase
