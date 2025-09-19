@@ -144,6 +144,23 @@ final class CardCellView: UITableViewCell {
         dateLabel.text = place.addedDate.toString()
     }
     
+    private func normalizeNaverNewsImageURL(_ urlString: String?) -> URL? {
+        guard var s = urlString, !s.isEmpty else { return nil }
+
+        // http → https
+        if s.hasPrefix("http://") {
+            s = "https://" + s.dropFirst(7)
+        }
+
+        guard var comp = URLComponents(string: s) else { return nil }
+
+        // imgnews.naver.net → imgnews.pstatic.net (호스트 불일치 해결)
+        if let host = comp.host, host == "imgnews.naver.net" {
+            comp.host = "imgnews.pstatic.net"
+        }
+
+        return comp.url
+    }
     
     /// 이미지 연결
     /// - Parameters:
@@ -152,28 +169,37 @@ final class CardCellView: UITableViewCell {
     func setImage(urlString: String?, category: String) {
         // 기본값: placeholder
         thumbnailImageView.image = UIImage(named: "placeholder")
-        // 1) 입력 정리
-        let raw = urlString?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        
-        guard raw.isEmpty == false else {
+        // 입력 정리
+        guard let url = normalizeNaverNewsImageURL(urlString) else {
             let category = KakaoCategoryGroup.from(displayName: category)?.rawValue ?? "placeholder"
             thumbnailImageView.image = UIImage(named: category)
             return
         }
         
-        let secure = raw.hasPrefix("http://") ? raw.replacingOccurrences(of: "http://", with: "https://") : raw
+        var req = URLRequest(url: url,
+                             cachePolicy: .returnCacheDataElseLoad,
+                             timeoutInterval: 15)
+        // 가끔 UA 필요할 때가 있어 기본 UA 부여
+        req.setValue("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile",
+                     forHTTPHeaderField: "User-Agent")
         
-        // 2) http/https URL이면 네트워크 로드
-        if let url = URL(string: secure),
-           let scheme = url.scheme?.lowercased(),
-           (scheme == "http" || scheme == "https") {
-
-            task = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
-                guard let self, let data, let img = UIImage(data: data) else { return }
-                DispatchQueue.main.async { self.thumbnailImageView.image = img }
+        // 이미지 요청
+        URLSession.shared.dataTask(with: req) { data, resp, err in
+            if let err = err {
+                print("❌ Image load failed:", err.localizedDescription)
+                return
             }
-            task?.resume()
-            return
-        }
+            if let http = resp as? HTTPURLResponse, !(200...299).contains(http.statusCode) {
+                print("❌ HTTP \(http.statusCode) for \(url)")
+                return
+            }
+            guard let data = data, let img = UIImage(data: data) else {
+                print("❌ Decode failed")
+                return
+            }
+            DispatchQueue.main.async {
+                self.thumbnailImageView.image = img
+            }
+        }.resume()
     }
 }

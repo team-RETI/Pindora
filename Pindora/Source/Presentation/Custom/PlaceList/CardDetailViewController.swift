@@ -17,6 +17,9 @@ final class CardDetailViewController: UIViewController {
     // MARK: - Subjects (Input 소스)
     private let addButtonSubject = PassthroughSubject<Void, Never>()
     
+    // MARK: - Coordinator 콜백
+    var onSaved: (() -> Void)?
+    
     // MARK: - Initializer
     init(viewModel: CardDetailViewModel, place: Place) {
         self.viewModel = viewModel
@@ -74,6 +77,7 @@ final class CardDetailViewController: UIViewController {
     
     @objc private func addPlaceButtonTapped() {
         print("tapped")
+        self.onSaved?()
         addButtonSubject.send()
     }
     
