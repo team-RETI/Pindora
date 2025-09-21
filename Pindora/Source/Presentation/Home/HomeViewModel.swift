@@ -21,22 +21,23 @@ final class HomeViewModel {
     
     // MARK: - 키워드 관련
     // 파이어베이스에 저장된 키웓,
-    @Published var keywords: [String] = [] {
-        didSet {
-            print("파이어베이스 키워드: \(keywords)")
-        }
-    }
-    
-    // 필터링된 결과
-    @Published var filteredKeywords: [String] = [] {
-        didSet {
-            print("필터링된 키워드: \(filteredKeywords)")
-        }
-    }
+//    @Published var keywords: [String] = [] {
+//        didSet {
+//            print("파이어베이스 키워드: \(keywords)")
+//        }
+//    }
+//    
+//    // 필터링된 결과
+//    @Published var filteredKeywords: [String] = [] {
+//        didSet {
+//            print("필터링된 키워드: \(filteredKeywords)")
+//        }
+//    }
     
     // MARK: - Place 관련
-    @Published var places: [Place] = []
-    static let clientID = Bundle.main.infoDictionary?["GPT_API_KEY"] as? String ?? ""
+//    @Published var places: [Place] = []
+
+
     
     init(
         locationUseCase: LocationUseCaseProtocol,
@@ -47,8 +48,7 @@ final class HomeViewModel {
         self.placeUseCase = placeUseCase
         self.locationUseCase = locationUseCase
         self.searchUseCase = searchUseCase
-        self.imageUseCase = imageUseCase        
-        print("테스트: \(HomeViewModel.clientID)")
+        self.imageUseCase = imageUseCase
     }
     
     struct Input {
@@ -60,6 +60,8 @@ final class HomeViewModel {
         let mapCenter: AnyPublisher<CLLocationCoordinate2D, Never>
         /// 카테고리 버튼이 선택될 때 선택된 태그(이름) 스트림
         let categorySelected: AnyPublisher<String, Never>
+        /// init시 고정 키워드 배열 한번 호출
+        /// let fetchKeywords: AnyPublisher<Void, Never>
     }
     
     struct Output {
@@ -69,6 +71,8 @@ final class HomeViewModel {
         let selectedCategory: AnyPublisher<String, Never>
         /// 검색 결과 장소리스트 (테이블 뷰 갱신)
         let places: AnyPublisher<[Place], Never>
+        /// 고정 키워드 퍼블리셔
+        let keywords: AnyPublisher<[String], Never>
     }
     
     func transform(input: Input) -> Output {
@@ -204,63 +208,21 @@ final class HomeViewModel {
             })
             .eraseToAnyPublisher()
         
-        // 저장: Place.imageURL이 있는 경우만 이미지 파일로 변환 후 업로드
-        // imageUseCase: 이미지 파일을 업로드
-        // placeUseCase: 장소에 대한 정보를 저장
-//        placeList
-//            .flatMap { [weak self] places -> AnyPublisher<[URL], Never> in
-//                guard let self else { return Just([]).eraseToAnyPublisher() }
-//
-//                // 업로드 요청을 담을 퍼블리셔 배열
-//                let uploadPublishers: [AnyPublisher<URL, Never>] = places.compactMap { place in
-//                    guard
-//                        let urlString = place.imageURL,
-//                        let url = URL(string: urlString)
-//                    else {
-//                        return nil // 이미지 URL이 없는 경우 스킵
-//                    }
-//
-//                    // 1) 네트워크에서 UIImage 다운로드
-//                    return URLSession.shared.dataTaskPublisher(for: url)
-//                        .mapError { $0 as Error }                    // URLError -> Error
-//                        .compactMap { UIImage(data: $0.data) }       // Data -> UIImage
-//                        .flatMap { image in
-//                            // 2) 변환된 UIImage를 DB 업로드
-//                            self.imageUseCase.upload(
-//                                image: image,
-//                                folder: "PlaceImage",                       // 원하는 폴더명
-//                                fileName: "\(place.placeName).jpg"        // 고유 파일명
-//                            )
-//                        }
-//                        .catch { error in
-//                            print("❌ 이미지 업로드 실패:", error.caseName)
-//                            return Empty<URL, Never>() // 실패 시 이 이미지 스킵
-//                        }
-//                        .eraseToAnyPublisher()
-//                }
-//
-//                // 여러 업로드를 병렬 실행 후, 완료된 URL들을 [URL]로 모음
-//                return Publishers.MergeMany(uploadPublishers)
-//                    .collect()
-//                    .eraseToAnyPublisher()
-//            }
-//            .sink { uploadedURLs in
-//                // ✅ 업로드 성공한 이미지 URL 배열
-////                print("📸 업로드 완료된 이미지 개수:", uploadedURLs.count)
-//                // 필요하다면 여기서 DB에 URL 참조를 저장하거나, place 객체 갱신 가능
-//            }
-//            .store(in: &cancellable)
+        // fetchKeywords는 View에서 트리거할 이벤트가 아니므로 Output에만 존재합니다.
+        let keywords = placeUseCase.fetchKeywords()
+            .catch { _ in Just([]) }
+            .share()
+            .eraseToAnyPublisher()
         
         /// 이미지 검색 후 ImageUseCase 이용하여 저장
         /// 장소 추합된 이후 PlaceUseCase 이용하여 저장
         return Output(
             location: location,
             selectedCategory: selectedCategory,
-            places: placeList
+            places: placeList,
+            keywords: keywords
         )
     }
-    
-    
     
     // 🧑‍🔧Input-Output 형식으로 바꾸겠습니다~
     //    func fetchPlaces() {
@@ -277,31 +239,31 @@ final class HomeViewModel {
 }
 
 // MARK: - 키워드 관련 로직
-extension HomeViewModel {
-    func fetchKeywords() {
-        placeUseCase.fetchKeywords()
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    print("키워드 로딩 실패: \(error.localizedDescription)")
-                }
-            } receiveValue: { [weak self] keywordList in
-                self?.keywords = keywordList
-            }.store(in: &cancellable)
-    }
-    
-    func filterKeywords(query: String) {
-        if query.isEmpty {
-            filteredKeywords = []
-        } else {
-            filteredKeywords = keywords.filter {
-                /// localizedCaseInsensitiveContains: 대소문자 무시, 로케일 고려, 부분문자열 검색 가능
-                $0.localizedStandardContains(query)
-            }
-        }
-    }
-    
-    func resetFilter() {
-        filteredKeywords = []
-    }
-}
+//extension HomeViewModel {
+//    func fetchKeywords() {
+//        placeUseCase.fetchKeywords()
+//            .receive(on: DispatchQueue.main)
+//            .sink { completion in
+//                if case let .failure(error) = completion {
+//                    print("키워드 로딩 실패: \(error.localizedDescription)")
+//                }
+//            } receiveValue: { [weak self] keywordList in
+//                self?.keywords = keywordList
+//            }.store(in: &cancellable)
+//    }
+//    
+//    func filterKeywords(query: String) {
+//        if query.isEmpty {
+//            filteredKeywords = []
+//        } else {
+//            filteredKeywords = keywords.filter {
+//                /// localizedCaseInsensitiveContains: 대소문자 무시, 로케일 고려, 부분문자열 검색 가능
+//                $0.localizedStandardContains(query)
+//            }
+//        }
+//    }
+//    
+//    func resetFilter() {
+//        filteredKeywords = []
+//    }
+//}

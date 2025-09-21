@@ -71,3 +71,10 @@ final class CategoryCellListView: UIScrollView {
         }
     }
 }
+
+//#Preview {
+//    SearchDetailViewController(viewModel: HomeViewModel(locationUseCase: LocationUseCaseImpl(),
+//                                                        searchUseCase: <#T##any SearchUseCaseProtocol#>,
+//                                                        imageUseCase: <#T##any ImageUsecaseProtocol#>,
+//                                                        placeUseCase: <#T##any PlaceUseCase#>)
+//}
