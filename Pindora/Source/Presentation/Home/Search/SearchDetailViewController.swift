@@ -14,6 +14,9 @@ final class SearchDetailViewController: UIViewController {
     private let tableView = UITableView()
     private var currentKeyWords: [String] = []
     
+    // MARK: - 외부에서 로직 처리
+    var onKeywordSelected: ((String) -> Void)?
+    
     // MARK: - Initializer
     init(viewModel: SearchDetailViewModel) {
         self.viewModel = viewModel
@@ -30,6 +33,7 @@ final class SearchDetailViewController: UIViewController {
         setupTableView()
         setupSearchController()
         bindViewModel()
+        setupUI()
     }
     
     private func setupTableView() {
@@ -55,10 +59,9 @@ final class SearchDetailViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         
     }
-
-    // MARK: - Bindings
-    private func bindViewModel() {
-        
+    
+    // MARK: - (F)UI Setup
+    private func setupUI() {
         // 뒤로가기 버튼
         let searchTextField = searchController.searchBar.searchTextField
         let backButton = UIButton(type: .system)
@@ -69,7 +72,10 @@ final class SearchDetailViewController: UIViewController {
 
         searchTextField.leftView = backButton
         searchTextField.leftViewMode = .always
+    }
 
+    // MARK: - Bindings
+    private func bindViewModel() {
         let searchQuery = searchController.searchBar.searchTextField.textPublisher
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
             .removeDuplicates()
@@ -79,6 +85,7 @@ final class SearchDetailViewController: UIViewController {
         let input = SearchDetailViewModel.Input(searchKeyword: searchQuery)
         let output = viewModel.transform(input: input)
         
+        // MARK: - 텍스트 필터링
         output.filteredKeywords
             .receive(on: RunLoop.main)
             .sink { [weak self] keywords in
@@ -126,6 +133,9 @@ extension SearchDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let text = currentKeyWords[indexPath.row]
         print("선택된 셀: \(text)")
+        
+        // MARK: - HomeVC로 선택된 셀 보내기
+        onKeywordSelected?(text)
         
         // 선택된 셀 하이라이트 제거
         tableView.deselectRow(at: indexPath, animated: true)
