@@ -55,6 +55,7 @@ final class SearchDetailViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "검색어를 입력하세요"
         searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
@@ -106,6 +107,18 @@ final class SearchDetailViewController: UIViewController {
         }
     }
 }
+
+extension SearchDetailViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let query = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        guard !query.isEmpty else { return }
+        print("검색 버튼 클릭: \(query)")
+        
+        onKeywordSelected?(query)
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+}
+
 
 // MARK: - DataSource
 extension SearchDetailViewController: UITableViewDataSource {
