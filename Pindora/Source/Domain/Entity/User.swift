@@ -68,7 +68,6 @@ extension User {
 extension User: CustomStringConvertible {
     var description: String {
         """
-        
         👤 User
         ├─ ID: \(userId)
         ├─ Name: \(personaName ?? "nil")

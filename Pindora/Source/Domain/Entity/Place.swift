@@ -56,7 +56,6 @@ extension Place {
 // MARK: - 고유 Id 생성
 extension Place {
     
-    
     /// 입력된 문자열로부터 SHA256 해시값을 생성하여 반환합니다.
     ///
     /// 원래는 `UUID().uuidString`을 사용해 고유 ID를 생성하려 했으나,
