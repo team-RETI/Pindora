@@ -28,6 +28,7 @@ final class LoginViewModel {
         /// eraseToAnyPublisher로 타입을 숨겨서 내부 구현이 바뀌어도 외부 코드는 유지 가능
         let loginResult: AnyPublisher<Result<Void, UseCaseError>, Never>
     }
+    
     func transform(input: Input) -> Output {
         let loginResult: AnyPublisher<Result<Void, UseCaseError>, Never> = input.appleLoginTapped
             .map { [weak self] _ -> AnyPublisher<Result<Void, UseCaseError>, Never> in
@@ -105,5 +106,41 @@ final class LoginViewModel {
 
         return Output(loginResult: loginResult)
     }
+}
 
+// MARK: - OTA 관련 메서드
+/*
+ Input/Output을 새로 만든 이유: OTA에서는 appleLoginTapped가 필요없지만 하나의 Input으로 관리하면 억지로 넣어줘야함
+ 해결 방법으로는 뷰마다 Input을 만들어주거나 enum으로 Input을 관리하면 되는데 기존 코드를 건들지 않기 위해 OTAInput 구현하였음
+ */
+extension LoginViewModel {
+    
+    struct OTAInput {
+        let updateCategories: AnyPublisher<[String], Never>
+    }
+    
+    struct OTAOutput {
+        let categoryUpdateResult: AnyPublisher<Result<Void, UseCaseError>, Never>
+    }
+    
+    func transform(input: OTAInput) -> OTAOutput {
+        let categoruUpdateResult = input.updateCategories
+            .flatMap { [weak self] categories -> AnyPublisher<Result<Void, UseCaseError>, Never> in
+                guard let self, let uid = Auth.auth().currentUser?.uid else {
+                    return Just(.failure(.invalidState)).eraseToAnyPublisher()
+                }
+                
+                return self.userUseCase.fetchUser(uid: uid)
+                    .flatMap { user -> AnyPublisher<Void, UseCaseError> in
+                        var updated = user
+                        updated.selectedCategories = categories
+                        return self.userUseCase.saveUser(user: updated)
+                    }
+                    .map { Result<Void, UseCaseError>.success(()) }
+                    .catch { error in Just(.failure(error)) }
+                    .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
+        return OTAOutput(categoryUpdateResult: categoruUpdateResult)
+    }
 }
