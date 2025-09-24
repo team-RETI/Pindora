@@ -18,26 +18,19 @@ final class HomeViewModel {
     private let imageUseCase: ImageUsecaseProtocol
     // Combine
     private var cancellable: Set<AnyCancellable> = []
-    
-    // MARK: - 키워드 관련
-    // 파이어베이스에 저장된 키웓,
-//    @Published var keywords: [String] = [] {
-//        didSet {
-//            print("파이어베이스 키워드: \(keywords)")
-//        }
-//    }
-//    
-//    // 필터링된 결과
-//    @Published var filteredKeywords: [String] = [] {
-//        didSet {
-//            print("필터링된 키워드: \(filteredKeywords)")
-//        }
-//    }
-    
-    // MARK: - Place 관련
-//    @Published var places: [Place] = []
 
-
+    private let regionKeywords: [String] = [
+        "서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종",
+        "경기", "경기도",
+        "강원", "강원도",
+        "충북", "충청북도",
+        "충남", "충청남도",
+        "전북", "전라북도",
+        "전남", "전라남도",
+        "경북", "경상북도",
+        "경남", "경상남도",
+        "제주", "제주도", "제주특별자치도"
+    ]
     
     init(
         locationUseCase: LocationUseCaseProtocol,
@@ -133,13 +126,23 @@ final class HomeViewModel {
             // 최신 요청만 유지
             .map { [weak self] (query, location) -> AnyPublisher<[Place], Never> in
                 guard let self = self else { return Just([]).eraseToAnyPublisher() }
-                return self.searchUseCase
-                    .search(keyword: query, center: location) // ✅ 변경 포인트
-                    .handleEvents(receiveOutput: { places in
-                        print("📥 search 결과 개수:", places.count)
-                    })
-                    .catch { _ in Just([]) }               // 실패 시 빈 배열로 대체
-                    .eraseToAnyPublisher()
+                
+                if let matchedRegion = self.regionKeywords.first(where: { query.contains($0) }) {
+                    print("지역 키워드 검색 실행: \(query) | 매칭된 지역: \(matchedRegion)")
+                    print("지역을 포함한 search 함수를 호출해주세요.")
+                    
+                    // TODO: - 여기에 .search(location: matchedRegion, keyword: query, center: location)
+                    return Just([]).eraseToAnyPublisher()
+                } else {
+                    print("일반 키워드 검색 실행: \(query)")
+                    return self.searchUseCase
+                        .search(keyword: query, center: location) // ✅ 변경 포인트
+                        .handleEvents(receiveOutput: { places in
+                            print("📥 search 결과 개수:", places.count)
+                        })
+                        .catch { _ in Just([]) }               // 실패 시 빈 배열로 대체
+                        .eraseToAnyPublisher()
+                }
             }
             .switchToLatest()                               // 최신 검색만 유지(이전 요청 자동 취소)
             .handleEvents(receiveOutput: { places in
@@ -223,47 +226,4 @@ final class HomeViewModel {
             keywords: keywords
         )
     }
-    
-    // 🧑‍🔧Input-Output 형식으로 바꾸겠습니다~
-    //    func fetchPlaces() {
-//            placeUseCase.fetchPlaces()
-//                .receive(on: DispatchQueue.main)
-//                .sink { completion in
-//                    if case let .failure(error) = completion {
-//                        print("장소 로딩 실패: \(error.localizedDescription)")
-//                    }
-//                } receiveValue: { [weak self] placeList in
-//                    self?.places = placeList
-//                }.store(in: &cancellables)
-    //    }
 }
-
-// MARK: - 키워드 관련 로직
-//extension HomeViewModel {
-//    func fetchKeywords() {
-//        placeUseCase.fetchKeywords()
-//            .receive(on: DispatchQueue.main)
-//            .sink { completion in
-//                if case let .failure(error) = completion {
-//                    print("키워드 로딩 실패: \(error.localizedDescription)")
-//                }
-//            } receiveValue: { [weak self] keywordList in
-//                self?.keywords = keywordList
-//            }.store(in: &cancellable)
-//    }
-//    
-//    func filterKeywords(query: String) {
-//        if query.isEmpty {
-//            filteredKeywords = []
-//        } else {
-//            filteredKeywords = keywords.filter {
-//                /// localizedCaseInsensitiveContains: 대소문자 무시, 로케일 고려, 부분문자열 검색 가능
-//                $0.localizedStandardContains(query)
-//            }
-//        }
-//    }
-//    
-//    func resetFilter() {
-//        filteredKeywords = []
-//    }
-//}

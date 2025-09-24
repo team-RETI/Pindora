@@ -26,7 +26,7 @@ final class SearchDetailViewModel {
     func transform(input: Input) -> Output {
         let filteredKeywords = input.searchKeyword
             .combineLatest(keywordPublisher)
-            .map { query, keywords in
+            .map { query, keywords -> [String] in
                 query.isEmpty
                 ? keywords
                 : keywords.filter { $0.localizedStandardContains(query) }
@@ -35,3 +35,4 @@ final class SearchDetailViewModel {
         return Output(filteredKeywords: filteredKeywords)
     }
 }
+
