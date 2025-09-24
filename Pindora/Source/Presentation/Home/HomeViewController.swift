@@ -23,6 +23,7 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
     // MARK: - UI(테이블 뷰)
     private lazy var placeListView: CardCellListView = customView.placeListView
     private var dataSource: UITableViewDiffableDataSource<Place.PlaceSection, Place>?
+    private var scrollToTopOnUpdate = false
     
     // MARK: - Initializer
     init(viewModel: HomeViewModel) {
@@ -108,6 +109,7 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
         guard let cellView = sender.superview as? CategoryCellView else { return }
         guard let name = cellView.titleText else { return }
         categorySelectedSubject.send(name)
+        scrollToTopOnUpdate = true
     }
     private func setupCategoryTarget() {
         for categoryView in customView.categoryListView.categoryViews {
@@ -183,9 +185,21 @@ extension HomeViewController: UITableViewDelegate {
                           animations: { [weak self] in
             // Diffable 자체 애니메이션은 끄기
             self?.dataSource?.apply(snapshot, animatingDifferences: false)
+        }, completion: { [weak self] _ in
+            guard let self = self else { return }
+            if self.scrollToTopOnUpdate {
+                self.scrollListToTop(animated: true)
+                self.scrollToTopOnUpdate = false
+            }
         })
     }
 
+    private func scrollListToTop(animated: Bool) {
+        guard dataSource?.snapshot().numberOfItems ?? 0 > 0 else { return }
+        let top = CGPoint(x: 0, y: -placeListView.adjustedContentInset.top)
+        placeListView.setContentOffset(top, animated: animated)
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let place = dataSource?.itemIdentifier(for: indexPath) {
             coordinator?.didTapCell(place: place)

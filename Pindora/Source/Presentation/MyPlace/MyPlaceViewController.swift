@@ -43,9 +43,6 @@ final class MyPlaceViewController: UIViewController {
         super.viewDidLoad()
         bindViewModel()
         addButtonTarget()
-        coordinator?.onPlaceSaved = { [weak self] in
-            self?.reloadSubject.send(())
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

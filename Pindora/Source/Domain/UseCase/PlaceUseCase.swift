@@ -9,6 +9,10 @@ import Foundation
 import Combine
 
 protocol PlaceUseCase {
+    var placesPublisher: AnyPublisher<[Place], Never> { get }
+    
+    func refreshIfNeeded(force: Bool)
+    
     func fetchPlaces() -> AnyPublisher<[Place], Error>
     
     /// 사용자 정보를 Firestore에 저장합니다.

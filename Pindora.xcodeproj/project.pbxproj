@@ -353,7 +353,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		89A9E78E2E39ED8600BF9098 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */ = {
+		A7228FB62E844CF400F351CE /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -373,7 +373,7 @@
 		DF7487AD2E38A95200CF9864 /* PindoraShareExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				89A9E78E2E39ED8600BF9098 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */,
+				A7228FB62E844CF400F351CE /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */,
 			);
 			path = PindoraShareExtension;
 			sourceTree = "<group>";

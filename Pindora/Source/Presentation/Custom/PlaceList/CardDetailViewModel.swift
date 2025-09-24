@@ -85,6 +85,9 @@ final class CardDetailViewModel {
                 guard let self else { return Just(()).eraseToAnyPublisher() }
                 return self.placeUseCase
                     .savePlace(place: place)
+                    .handleEvents(receiveOutput: { [weak self] in
+                        self?.placeUseCase.refreshIfNeeded(force: true) // 🔔 리스트 즉시 업데이트
+                    })
                     .map { _ in }
                     .replaceError(with: ())
                     .eraseToAnyPublisher()
