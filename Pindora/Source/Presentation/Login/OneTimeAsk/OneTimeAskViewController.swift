@@ -36,18 +36,30 @@ final class OneTimeAskViewController: UIViewController {
 
     // MARK: - Bindings
     private func bindViewModel() {
-        customView.registerButton
-            .tapPublisher
-            .sink { [weak self] _ in
-                
-                if let coordinator = self?.coordinator {
-                    print("✅ coordinator 있음:", coordinator)
-                    coordinator.navigateToMainTab()
-                } else {
-                    print("❌ coordinator is nil")
+        
+        // 1. Input 생성
+        let input = LoginViewModel.OTAInput(
+            updateCategories: customView.registerButton.tapPublisher
+                .map { [weak self] _ in
+                    guard let self = self else { return [] }
+                    return self.customView.selectedKeywords
                 }
-                print("다음 버튼")
-            }
-            .store(in: &cancellables)
+                .eraseToAnyPublisher()
+        )
+        
+        // 2, ViewModel transform 호출
+        let output = viewModel.transform(input: input)
+        
+        // 3. Output 구독
+        output.categoryUpdateResult
+            .sink { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success:
+                    self.coordinator?.navigateToMainTab()
+                case .failure(let error):
+                    print("❌ 카테고리 업데이트 실패: \(error)")
+                }
+            }.store(in: &cancellables)
     }
 }
