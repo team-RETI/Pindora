@@ -93,7 +93,11 @@ final class ModuleFactory {
     
     func makeAddPlaceVC() -> AddPlaceViewController {
         let viewModel: AddPlaceViewModel = getOrCreateViewModel(for: .addPlace) {
-            AddPlaceViewModel()
+            let searchUseCase = DIContainer.shared.resolve(SearchUseCaseProtocol.self)
+            let placeUseCase = DIContainer.shared.resolve(PlaceUseCase.self)
+            let imageUseCase = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
+            
+            return AddPlaceViewModel(searchUseCase: searchUseCase, placeUseCase: placeUseCase, imageUseCase: imageUseCase)
         }
         return AddPlaceViewController(viewModel: viewModel)
     }

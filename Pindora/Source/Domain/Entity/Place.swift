@@ -186,3 +186,17 @@ extension Place {
     }
 }
 
+// MARK: - 수동으로 주소 추가 시 필요
+extension Place {
+    func withCategory(_ category: String) -> Place {
+        Place(
+            placeId: placeId,
+            placeName: placeName,
+            placeAddress: placeAddress,
+            latitude: latitude,
+            longitude: longitude,
+            category: category,
+            addedDate: addedDate
+        )
+    }
+}

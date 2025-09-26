@@ -43,4 +43,16 @@ protocol SearchUseCaseProtocol {
         sort: String,
         filter: String
     ) -> AnyPublisher<[NaverImageResponse.Item], UseCaseError>
+    
+    /// 카카오 주소검색 API를 이용해 문자열 주소를 좌표로 변환
+    /// - Parameters:
+    ///   - query: 사용자가 입력한 주소 문자열 (지번/도로명 모두 OK)
+    ///   - page: 결과 페이지
+    ///   - size: 한번에 보여질 장소 갯수
+    /// - Returns: 지오코딩 장소 결과 AnyPublisher<Place, InfraError>
+    func searchGeocode(
+        query: String,
+        page: Int,
+        size: Int
+    ) -> AnyPublisher<Place, UseCaseError>
 }
