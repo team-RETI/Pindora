@@ -30,6 +30,8 @@
 		89A18E222E6719F10052536C /* GPTUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A18E212E6719F10052536C /* GPTUseCaseImpl.swift */; };
 		89AC93FC2E38AA21006446CD /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */; };
 		89AC93FE2E38D7B6006446CD /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AC93FD2E38D7B5006446CD /* UserDTO.swift */; };
+		89CCDB5A2E8A83C100B28FFD /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CCDB592E8A83C100B28FFD /* UIColor+.swift */; };
+		89CCDB5C2E8A83F400B28FFD /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CCDB5B2E8A83F400B28FFD /* UIImage+.swift */; };
 		A70014732E64704200CD5572 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70014722E64704200CD5572 /* String+.swift */; };
 		A70014752E64709F00CD5572 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70014742E64709F00CD5572 /* Date+.swift */; };
 		A70014772E64923C00CD5572 /* LocationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70014762E64923C00CD5572 /* LocationUseCaseProtocol.swift */; };
@@ -213,6 +215,8 @@
 		89A18E212E6719F10052536C /* GPTUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTUseCaseImpl.swift; sourceTree = "<group>"; };
 		89AC93FB2E38AA21006446CD /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		89AC93FD2E38D7B5006446CD /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		89CCDB592E8A83C100B28FFD /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		89CCDB5B2E8A83F400B28FFD /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		A70014722E64704200CD5572 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		A70014742E64709F00CD5572 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		A70014762E64923C00CD5572 /* LocationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUseCaseProtocol.swift; sourceTree = "<group>"; };
@@ -599,6 +603,8 @@
 				A70014722E64704200CD5572 /* String+.swift */,
 				A70014742E64709F00CD5572 /* Date+.swift */,
 				A7FEFC052E6B35D30065532C /* NaverMap+.swift */,
+				89CCDB592E8A83C100B28FFD /* UIColor+.swift */,
+				89CCDB5B2E8A83F400B28FFD /* UIImage+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1236,6 +1242,7 @@
 				A7FEFC022E69A59D0065532C /* SearchRepositoryProtocol.swift in Sources */,
 				DF5F69172E560853004E98BE /* SocialLoginButton.swift in Sources */,
 				A70014792E64928100CD5572 /* LocationUseCaseImpl.swift in Sources */,
+				89CCDB5A2E8A83C100B28FFD /* UIColor+.swift in Sources */,
 				DF5F69182E560853004E98BE /* Preview.swift in Sources */,
 				A7F5454E2E38816A0014EB85 /* CardDetailView.swift in Sources */,
 				89728D862E33DC71002B3ACE /* StorageRepositoryImpl.swift in Sources */,
@@ -1301,6 +1308,7 @@
 				DF1F40F12E279F6600BE27AC /* MyPlaceViewController.swift in Sources */,
 				A725E9B92E2FE6CF00EEA3F5 /* SettingListViewController.swift in Sources */,
 				A778D2E32E29756E006B3309 /* ProfilePlaceCellView.swift in Sources */,
+				89CCDB5C2E8A83F400B28FFD /* UIImage+.swift in Sources */,
 				DF1F40F22E279F6600BE27AC /* MyPlaceView.swift in Sources */,
 				A725E9B12E2FA53A00EEA3F5 /* ImageSelectorView.swift in Sources */,
 				DF5F691B2E56087D004E98BE /* InfraError.swift in Sources */,
@@ -1398,7 +1406,6 @@
 /* Begin XCBuildConfiguration section */
 		A7C1AB6D2E20022D00B8B9E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1440,7 +1447,6 @@
 		};
 		A7C1AB6E2E20022D00B8B9E1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1482,7 +1488,6 @@
 		};
 		A7C1AB6F2E20022D00B8B9E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1546,7 +1551,6 @@
 		};
 		A7C1AB702E20022D00B8B9E1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1603,7 +1607,6 @@
 		};
 		DF7487B82E38A95200CF9864 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PindoraShareExtension/PindoraShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1635,7 +1638,6 @@
 		};
 		DF7487B92E38A95200CF9864 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PindoraShareExtension/PindoraShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1667,7 +1669,6 @@
 		};
 		DF8840362E34CD5200F67BF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1689,7 +1690,6 @@
 		};
 		DF8840372E34CD5200F67BF9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89AD9B382E5218FB0083B2FB /* Config.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

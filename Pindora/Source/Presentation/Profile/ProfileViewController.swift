@@ -12,22 +12,22 @@ final class ProfileViewController: UIViewController {
     private let viewModel: ProfileViewModel
     private let customView = ProfileView()
     private var cancellables = Set<AnyCancellable>()
-
+    
     // MARK: - Initializer
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - LifeCycle
     override func loadView() {
         self.view = customView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         customView.editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
@@ -40,7 +40,7 @@ final class ProfileViewController: UIViewController {
         super.viewDidAppear(animated)
         print("ProfileViewController")
     }
-
+    
     // MARK: - Bindings
     private func bindViewModel() {
         viewModel.$user
@@ -77,17 +77,19 @@ final class ProfileViewController: UIViewController {
     
     // 버튼 탭 처리
     @objc private func editProfileButtonTapped() {
-        guard let user = viewModel.user else { return }
-        coordinator?.didTapEditProfile()
+        guard let user = viewModel.user else {
+            print("현재 유저 x")
+            return
+        }
+        coordinator?.didTapEditProfile(with: user)
     }
     @objc private func settingsButtonTapped() {
         coordinator?.didTapSetting()
     }
-
+    
     @objc private func gptRefreshTapped() {
         let keyword = ["청계천", "망원한강공원", "카페 어니언 안국점", "한국은행 본점", "국회의사당", "서울대학교", "롯데월드타워", "김포공항"]
         viewModel.generatePersona(for: keyword)
     }
 }
-
 

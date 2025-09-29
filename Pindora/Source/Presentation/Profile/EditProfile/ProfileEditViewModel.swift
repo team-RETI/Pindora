@@ -15,47 +15,99 @@ final class ProfileEditViewModel {
         case color = "컬러"
     }
     
-    var selectedImageType: ImageType = .memoji
+    var selectedImageType: ImageType = .custom
+    var selectedColor: UIColor?
     var personaTitle: String = "즉흥적인 도시 탐험가"
     var personaDescription: String = "조용한 카페를 선호하고 갑작스럽게 화장실을 자주가며 고즈넉한 장소를 자주 방문하여 쉬어가는 라이프 스타일을 가지고 있어요"
     
-    private let gptUseCase: GPTUseCaseProtocol
-    private let userUseCase: UserUseCaseProtocol
+    // DI
+    private let imageUseCase: ImageUsecaseProtocol   // Firebase Storage 업로드용
+    private let userUseCase: UserUseCaseProtocol     // Firestore 저장용
     private var cancellables = Set<AnyCancellable>()
     
-    init(gptUseCase: GPTUseCaseProtocol, userUseCase: UserUseCaseProtocol) {
-        self.gptUseCase = gptUseCase
+    // 저장 중 표시용 (UI 바인딩 가능)
+    @Published var isSaving = false
+    @Published var saveError: String?
+    
+    init(imageUseCase: ImageUsecaseProtocol, userUseCase: UserUseCaseProtocol) {
+        self.imageUseCase = imageUseCase
         self.userUseCase = userUseCase
     }
     
-    func checkAndGeneratePersona(visitedPlace: [String], user: User) -> AnyPublisher<Void, Never> {
-        guard visitedPlace.count > 10 else {
-            print("ply 갯수 부족")
-            return Just(()).eraseToAnyPublisher()
+    func registerProfile(user: User, customImage: UIImage?) -> AnyPublisher<Void, Never> {
+        isSaving = true
+        saveError = nil
+        
+        let uploadPublisher: AnyPublisher<String?, Never>
+        
+        switch selectedImageType {
+        case .custom:
+            if let img = customImage {
+                uploadPublisher = imageUseCase.upload(
+                    image: img,
+                    folder: "UserImage/\(user.userId)",
+                    fileName: UUID().uuidString
+                )
+                .map { $0.absoluteString }
+                .map { Optional($0) }
+                .catch { [weak self] error -> Just<String?> in
+                    self?.saveError = "이미지 업로드 실패: \(error.localizedDescription)"
+                    return Just(nil)
+                }
+                .eraseToAnyPublisher()
+            } else {
+                uploadPublisher = Just(nil).eraseToAnyPublisher()
+            }
+            
+        case .color:
+            if let color = selectedColor {
+                let img = UIImage.fromColor(color)
+                uploadPublisher = imageUseCase.upload(
+                    image: img,
+                    folder: "UserImage/\(user.userId)",
+                    fileName: UUID().uuidString
+                )
+                .map { $0.absoluteString }
+                .map { Optional($0) }
+                .catch { [weak self] error -> Just<String?> in
+                    self?.saveError = "컬러 이미지 업로드 실패: \(error.localizedDescription)"
+                    return Just(nil)
+                }
+                .eraseToAnyPublisher()
+            } else {
+                uploadPublisher = Just(nil).eraseToAnyPublisher()
+            }
+            
+        case .memoji:
+            uploadPublisher = Just(nil).eraseToAnyPublisher()
         }
         
-        return gptUseCase.createPersonaNameAndDescription(from: visitedPlace)
-            .flatMap { [weak self] result -> AnyPublisher<Void, Never> in
-                guard let self = self else { return Just(()).eraseToAnyPublisher()}
+        // 이후 Firestore 저장은 동일
+        return uploadPublisher
+            .flatMap { [weak self] imageURL -> AnyPublisher<Void, Never> in
+                guard let self = self else { return Just(()).eraseToAnyPublisher() }
                 
-                self.personaTitle = result.name
-                self.personaDescription = result.description
+                var updated = user
+                if let url = imageURL {
+                    updated.userImage = url
+                }
+                updated.personaName = self.personaTitle
+                updated.personaDescription = self.personaDescription
                 
-                var updatedUser = user
-                updatedUser.personaName = result.name
-                updatedUser.personaDescription = result.description
-                
-                return self.userUseCase.saveUser(user: updatedUser)
-                    .catch { error in
-                        print("firebase에 저장 실패: \(error.localizedDescription)")
-                        return Just(()).eraseToAnyPublisher()
+                return self.userUseCase.saveUser(user: updated)
+                    .map { }
+                    .catch { [weak self] error -> Just<Void> in
+                        self?.saveError = "프로필 저장 실패: \(error.localizedDescription)"
+                        return Just(())
                     }
                     .eraseToAnyPublisher()
             }
-            .catch { error in
-                print("GPT생성 실패: \(error.localizedDescription)")
-                return Just(()).eraseToAnyPublisher()
-            }
+            .handleEvents(receiveOutput: { [weak self] _ in
+                self?.isSaving = false
+            },
+                          receiveCompletion: { [weak self] _ in
+                self?.isSaving = false
+            })
             .eraseToAnyPublisher()
     }
 }

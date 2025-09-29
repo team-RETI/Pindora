@@ -11,8 +11,16 @@ final class PersonaPreviewView: UIView {
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "avatar2")
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 25
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: 50),  // 원하는 크기
+            imageView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
         return imageView
     }()
     
@@ -72,5 +80,9 @@ final class PersonaPreviewView: UIView {
             horizontalStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             horizontalStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+    
+    func setAvatarImage(_ image: UIImage?) {
+        avatarImageView.image = image
     }
 }
