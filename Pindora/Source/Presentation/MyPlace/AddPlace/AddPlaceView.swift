@@ -10,17 +10,6 @@ import UIKit
 final class AddPlaceView: UIView {
     private let contentView = UIView()
     let categories = ["도서관", "카페", "관광지", "식당", "숙소", "기타", "도서관", "카페"]
-    private let dummyPlace = Place(
-        placeId: UUID().uuidString,
-        placeName: "경복궁",
-        placeAddress: "서울특별시 종로구 사직로 161",
-        latitude: 0.0,
-        longitude: 0.0,
-        category: "관광지",
-        addedDate: Calendar.current.date(byAdding: .weekOfMonth, value: -2, to: Date()) ?? Date(),
-        likedCount: 159,
-        imageURL: "sample1"
-    )
     private lazy var previewCard = PreviewCardView()
     let searchBarView = SearchBarView()
     // MARK: - UI 컴포넌트
@@ -127,8 +116,6 @@ final class AddPlaceView: UIView {
         super.init(frame: frame)
         setupUI()
         setupConstraints()
-        
-        previewCard.configure(with: dummyPlace)
     }
 
     required init?(coder: NSCoder) {
@@ -197,5 +184,19 @@ final class AddPlaceView: UIView {
             confirmButton.heightAnchor.constraint(equalToConstant: 50),
             confirmButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -35)
         ])
+    }
+}
+
+extension AddPlaceView {
+    func updatePreviewImage(_ image: UIImage?) {
+        previewCard.updateImage(image)
+    }
+    
+    func setImageTapAction(_ target: Any?, action: Selector) {
+        previewCard.setImageTapAction(target, action: action)
+    }
+
+    func updatePreviewPlace(_ place: Place) {
+        previewCard.updatePlaceInfo(place)
     }
 }
