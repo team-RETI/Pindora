@@ -7,6 +7,7 @@
 import UIKit
 import Combine
 import CoreLocation
+import FirebaseAuth
 
 final class HomeViewModel {
     // MARK: - Dependancy
@@ -16,6 +17,8 @@ final class HomeViewModel {
     // DB
     private let placeUseCase: PlaceUseCase
     private let imageUseCase: ImageUsecaseProtocol
+    private let userUseCase: UserUseCaseProtocol
+    
     // Combine
     private var cancellable: Set<AnyCancellable> = []
 
@@ -37,11 +40,13 @@ final class HomeViewModel {
         searchUseCase: SearchUseCaseProtocol,
         imageUseCase: ImageUsecaseProtocol,
         placeUseCase: PlaceUseCase,
+        userUseCase: UserUseCaseProtocol
     ) {
         self.placeUseCase = placeUseCase
         self.locationUseCase = locationUseCase
         self.searchUseCase = searchUseCase
         self.imageUseCase = imageUseCase
+        self.userUseCase = userUseCase
     }
     
     struct Input {
@@ -69,11 +74,49 @@ final class HomeViewModel {
     }
     
     func transform(input: Input) -> Output {
+        let initialPlaces = PassthroughSubject<[Place], Never>()
+        
         input.viewDidLoad
             .sink { [weak self] in
                 guard let self = self else { return }
                 self.locationUseCase.requestAuthorization()
                 self.locationUseCase.startUpdatingLocation()
+                
+                // 유저 데이터 가져오기
+                guard let uid = Auth.auth().currentUser?.uid else { return }
+                
+                self.userUseCase.fetchUser(uid: uid)
+                    .catch { error -> Just<User> in
+                        print("❌ 사용자 정보 불러오기 실패:", error)
+                        return Just(User(userId: uid, likedPlaces: [], savedPlaces: [], visitedPlaces: []))
+                    }
+                    .flatMap { [weak self] user -> AnyPublisher<[Place], Never> in
+                        guard let self else { return Just([]).eraseToAnyPublisher() }
+                        
+                        if user.selectedCategories.isEmpty {
+                            print("⚠️ 유저 카테고리 없음")
+                            return Just([]).eraseToAnyPublisher()
+                        }
+                        
+                        // 카테고리별 2개 검색 → 병렬 실행
+                        let publishers = user.selectedCategories.map { category in
+                            self.searchUseCase
+                                .search(keyword: category)              // AnyPublisher<[Place], UseCaseError>
+                                .map { Array($0.prefix(2)) }
+                                .catch { _ in Just([]) }
+                                .eraseToAnyPublisher()
+                        }
+                        
+                        return Publishers.MergeMany(publishers)
+                            .collect()
+                            .map { $0.flatMap { $0 } } // [[Place]] → [Place]
+                            .eraseToAnyPublisher()
+                    }
+                    .sink { places in
+                        print("✨ 초기 places 방출: \(places.count)개")
+                        initialPlaces.send(places)
+                    }
+                    .store(in: &self.cancellable)
             }
             .store(in: &cancellable)
         
@@ -152,7 +195,7 @@ final class HomeViewModel {
         
         // placesRaw: 검색으로 얻은 [Place] 스트림 (Failure == Never)
         // 최종: 이미지 URL이 주입된 [Place] 스트림
-        let placeList: AnyPublisher<[Place], Never> = placesRaw
+        let placeList: AnyPublisher<[Place], Never> = Publishers.Merge(initialPlaces, placesRaw)
             // placesRaw에서 방출된 "장소 리스트"마다 하위 비동기 작업(여러 이미지 요청)을 붙여
             // 다시 [Place]로 만들어 방출하려고 flatMap 사용
             .flatMap { [weak self] places -> AnyPublisher<[Place], Never> in
@@ -202,6 +245,11 @@ final class HomeViewModel {
                         return result // 이미지 URL이 채워진 [Place]
                     }
                     .eraseToAnyPublisher()
+            }
+            .map { places in
+                // 중복 제거: placeId 기준
+                var seen = Set<String>()
+                return places.filter { seen.insert($0.placeId).inserted }
             }
             .receive(on: DispatchQueue.main)
             .share()
