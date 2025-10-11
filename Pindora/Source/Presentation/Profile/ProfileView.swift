@@ -23,8 +23,12 @@ final class ProfileView: UIView {
     
     private let profileImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "avatar2"))
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = UIColor.systemGray4.cgColor
         return imageView
     }()
     
@@ -108,6 +112,11 @@ final class ProfileView: UIView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(gptRefreshButton)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
     }
     
     // MARK: - (F)Constraints

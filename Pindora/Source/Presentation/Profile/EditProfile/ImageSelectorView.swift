@@ -155,11 +155,11 @@ final class ImageSelectorView: UIView {
         let customView = createOptionView(title: "커스텀", imageView: customImageView, overlay: customOverlay) // ✅ 기존 프로퍼티 사용
         let colorView = createOptionView(title: "컬러", imageView: colorImageView, overlay: colorOverlay)
         
-        let stack = UIStackView(arrangedSubviews: [memojiView, customView, colorView])
+        let stack = UIStackView(arrangedSubviews: [customView, colorView])
         stack.axis = .horizontal
         stack.alignment = .center
         stack.distribution = .equalSpacing
-        stack.spacing = 20
+        stack.spacing = 40
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -216,6 +216,11 @@ final class ImageSelectorView: UIView {
     // 커스텀 get, set
     func setCustomImage(_ image: UIImage?) {
         customImageView.image = image
+        
+        if image != nil {
+            colorImageView.image = nil
+            colorOverlay.isHidden = false
+        }
     }
     
     var selectedCustomImage: UIImage? { customImageView.image }
@@ -223,6 +228,11 @@ final class ImageSelectorView: UIView {
     // 컬러 get, set
     func setColorImage(_ image: UIImage?) {
         colorImageView.image = image
+        
+        if image != nil {
+            customImageView.image = nil
+            customOverlay.isHidden = false 
+        }
     }
     var selectedColorImage: UIImage? { colorImageView.image }
     

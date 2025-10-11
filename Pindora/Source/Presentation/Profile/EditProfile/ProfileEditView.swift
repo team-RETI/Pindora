@@ -166,7 +166,12 @@ extension ProfileEditView {
         imageSelectorView.setColorImage(image)
         personaPreviewView.setAvatarImage(image)
     }
+    
     func currentColorImage() -> UIImage? {
         imageSelectorView.selectedColorImage
+    }
+    
+    func updatePersonaPreview(with user: User) {
+        personaPreviewView.configure(with: user)
     }
 }

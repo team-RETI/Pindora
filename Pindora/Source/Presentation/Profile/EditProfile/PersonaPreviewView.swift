@@ -10,15 +10,14 @@ import UIKit
 final class PersonaPreviewView: UIView {
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "avatar2")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 25
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 50),  // 원하는 크기
-            imageView.heightAnchor.constraint(equalToConstant: 50)
+            imageView.widthAnchor.constraint(equalToConstant: 75),
+            imageView.heightAnchor.constraint(equalToConstant: 75)
         ])
         
         return imageView
@@ -84,5 +83,17 @@ final class PersonaPreviewView: UIView {
     
     func setAvatarImage(_ image: UIImage?) {
         avatarImageView.image = image
+    }
+    
+    func configure(with user: User) {
+        titleLabel.text = user.personaName ?? "라이프스타일 탐험가"
+        descriptionLabel.text = user.personaDescription
+        
+        if let urlString = user.userImage,
+           let url = URL(string: urlString) {
+            avatarImageView.setImage(from: url)
+        } else {
+            avatarImageView.image = UIImage(named: "default_memoji")
+        }
     }
 }

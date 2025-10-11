@@ -83,13 +83,13 @@ final class ProfileEditViewController: UIViewController {
             profileImage = nil
         }
         
-        viewModel.registerProfile(user: user,
-                                  customImage: profileImage)
-        .sink { [weak self] _ in
-            print("프로필 저장 완료")
-            self?.coordinator?.backButtonTapped()
-        }
-        .store(in: &cancellables)
+        viewModel.registerProfile(user: user, customImage: profileImage)
+            .sink { [weak self] _ in
+                print("프로필 저장 완료")
+                NotificationCenter.default.post(name: .profileUpdated, object: nil)
+                self?.coordinator?.backButtonTapped()
+            }
+            .store(in: &cancellables)
     }
     
     @objc private func backButtonTapped() {
@@ -121,6 +121,7 @@ final class ProfileEditViewController: UIViewController {
     
     func configure(user: User) {
         self.currentUser = user
+        customView.updatePersonaPreview(with: user)
     }
 }
 

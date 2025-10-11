@@ -34,6 +34,7 @@ final class ProfileViewController: UIViewController {
         customView.settingsButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         customView.gptRefreshButton.addTarget(self, action: #selector(gptRefreshTapped), for: .touchUpInside)
         bindViewModel()
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshProfile), name: .profileUpdated, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -90,6 +91,10 @@ final class ProfileViewController: UIViewController {
     @objc private func gptRefreshTapped() {
         let keyword = ["청계천", "망원한강공원", "카페 어니언 안국점", "한국은행 본점", "국회의사당", "서울대학교", "롯데월드타워", "김포공항"]
         viewModel.generatePersona(for: keyword)
+    }
+    
+    @objc private func refreshProfile() {
+        viewModel.loadUser()
     }
 }
 
