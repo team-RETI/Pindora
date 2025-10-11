@@ -134,7 +134,7 @@ final class AddPlaceViewModel {
                     place = place.withCategory(category)
                     print("💾 try save:", place)
                     return self.placeUseCase
-                        .savePlace(place: place)        // -> AnyPublisher<Void, Error>
+                        .savePlace(place: place)
                         .map { .success(()) }
                         .catch { Just(.failure(SaveError.backend($0))) }
                         .eraseToAnyPublisher()

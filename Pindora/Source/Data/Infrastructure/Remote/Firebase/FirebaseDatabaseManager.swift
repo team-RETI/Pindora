@@ -17,8 +17,47 @@ final class FirebaseDatabaseManager {
 
 // MARK: - 기본 CRUD (escaping)
 extension FirebaseDatabaseManager {
-    private func create(collection: String, documentID: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
-        db.collection(collection).document(documentID).setData(data) { error in
+    private func create(
+        parentCollection: String,
+        parentId: String? = nil,
+        subCollection: String? = nil,
+        documentID: String,
+        data: [String: Any],
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
+        var ref: DocumentReference
+        
+        
+        // --- 🔽 디버깅 로그 추가 🔽 ---
+        print("----------- [Firebase Create] -----------")
+        print("parentCollection: \(parentCollection)")
+        print("parentId: \(parentId ?? "nil")")
+        print("subCollection: \(subCollection ?? "nil")")
+        print("documentID: \(documentID)")
+        // --- 🔼 디버깅 로그 추가 🔼 ---
+        
+        if let parentId, let subCollection, !subCollection.isEmpty {
+            // Users/{uid}/savedPlaces/{placeId}
+            print("✅ Path selected: Sub-collection logic")
+            ref = db.collection(parentCollection)
+                .document(parentId)
+                .collection(subCollection)
+                .document(documentID)
+        } else if let parentId {
+            // Users/{uid}
+            print("⚠️ Path selected: Top-level document logic with parentId")
+            ref = db.collection(parentCollection)
+                .document(parentId)
+        } else {
+            // 그냥 상위 collection/document
+            print("ℹ️ Path selected: Top-level document logic with documentID")
+            ref = db.collection(parentCollection)
+                .document(documentID)
+        }
+        print("Final Path: \(ref.path)")
+        print("-----------------------------------------")
+        
+        ref.setData(data) { error in
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -62,11 +101,24 @@ extension FirebaseDatabaseManager {
 
 // MARK: - Combine 형태
 extension FirebaseDatabaseManager {
-    func createGenericPublisher<T: Encodable>(collection: String, documentID: String, object: T) -> AnyPublisher<Void, Error> {
+    func createGenericPublisher<T: Encodable>(
+        parentCollection: String,
+        parentId: String? = nil,
+        subCollection: String? = nil,
+        documentID: String,
+        object: T
+    ) -> AnyPublisher<Void, Error> {
         Future<Void, Error> { promise in
             do {
                 let data = try Firestore.Encoder().encode(object)
-                self.create(collection: collection, documentID: documentID, data: data, completion: promise)
+                self.create(
+                    parentCollection: parentCollection,
+                    parentId: parentId,
+                    subCollection: subCollection,
+                    documentID: documentID,
+                    data: data,
+                    completion: promise
+                )
             } catch {
                 promise(.failure(error))
             }
@@ -89,7 +141,7 @@ extension FirebaseDatabaseManager {
                 case .failure(let error):
                     let nsError = error as NSError
                     // print("🔥 readGenericPublisher error code: \(nsError.code), domain: \(nsError.domain)")
-
+                    
                     if nsError.code == FirestoreErrorCode.notFound.rawValue || nsError.code == -1 {
                         // ✅ 문서 없음 → 명시적으로 notFound 에러 던지기
                         let notFoundError = NSError(
@@ -106,7 +158,7 @@ extension FirebaseDatabaseManager {
         }
         .eraseToAnyPublisher()
     }
-
+    
     
     func readAllGenericPublisher<T: Decodable>(collection: String, as type: T.Type) -> AnyPublisher<[T], Error> {
         Future<[T], Error> { promise in

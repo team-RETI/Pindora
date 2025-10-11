@@ -245,3 +245,23 @@ extension Place {
         )
     }
 }
+
+// MARK: - Dictionary변환용 (파이어베이스 테스트)
+extension Place {
+    func toDictionary() -> [String: Any] {
+        return [
+            "placeId": placeId,
+            "placeName": placeName,
+            "placeAddress": placeAddress,
+            "latitude": latitude,
+            "longitude": longitude,
+            "category": category,
+            "addedDate": ISO8601DateFormatter().string(from: addedDate),
+            "likedCount": likedCount ?? 0,
+            "naviLink": naviLink ?? "",
+            "instaLink": instaLink ?? "",
+            "bookLink": bookLink ?? "",
+            "imageURL": imageURL ?? ""
+        ]
+    }
+}

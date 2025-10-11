@@ -7,6 +7,8 @@
 
 import Foundation
 import Combine
+import FirebaseAuth
+import FirebaseFirestore
 
 final class PlaceUseCaseImpl: PlaceUseCase {
     private let repository: DatabaseRepositoryProtocol
@@ -23,12 +25,26 @@ final class PlaceUseCaseImpl: PlaceUseCase {
     }
     
     func savePlace(place: Place) -> AnyPublisher<Void, UseCaseError> {
-        let dto = place.toDTO()
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return Fail(error: UseCaseError.userNotFound).eraseToAnyPublisher()
+        }
 
-        return repository
-            .create(dto, at: collection, id: place.placeId)
-            .mapToUseCaseError()
-            .eraseToAnyPublisher()
+        let data = place.toDictionary()
+        let userRef = Firestore.firestore().collection("Users").document(userId)
+
+        return Future<Void, Error> { promise in
+            userRef.updateData([
+                "savedPlaces": FieldValue.arrayUnion([data])
+            ]) { error in
+                if let error = error {
+                    promise(.failure(error))
+                } else {
+                    promise(.success(()))
+                }
+            }
+        }
+        .mapToUseCaseError()
+        .eraseToAnyPublisher()
     }
     
     func fetchKeywords() -> AnyPublisher<[String], Error> {
