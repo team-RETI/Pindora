@@ -66,13 +66,38 @@ final class CardDetailViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.text, on: customView.addressLabel)
             .store(in: &cancellable)
+        
+        output.category
+            .map { $0 as String? } // 
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.title, on: customView.tagLabelView)
+            .store(in: &cancellable)
+        
+        output.likeCount
+            .map { $0 as String? }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.count, on: customView.likeCountLabelView)
+            .store(in: &cancellable)
     }
     
     // MARK: - Targets
     private func buttonTargets() {
-//        customView.pinButton.addTarget(self, action: #selector(pinTapped), for: .touchUpInside)
+        customView.pinButton.addTarget(self, action: #selector(pinTapped), for: .touchUpInside)
+        customView.webButton.addTarget(self, action: #selector(webButtonTapped), for: .touchUpInside)
         customView.flagButton.addTarget(self, action: #selector(addPlaceButtonTapped), for: .touchUpInside)
         customView.closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func pinTapped() {
+        // TODO: 추후 외부 지도뷰로 연결
+        print("tapped")
+        dismiss(animated: true)
+    }
+    
+    @objc private func webButtonTapped() {
+        // TODO: 추후 웹으로 연결
+        print("tapped")
+        dismiss(animated: true)
     }
     
     @objc private func addPlaceButtonTapped() {
@@ -86,7 +111,3 @@ final class CardDetailViewController: UIViewController {
         dismiss(animated: true)
     }
 }
-
-
-
-

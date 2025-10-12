@@ -106,7 +106,6 @@ extension FirebaseDatabaseManager {
         }
         .eraseToAnyPublisher()
     }
-
     
     func readAllGenericPublisher<T: Decodable>(collection: String, as type: T.Type) -> AnyPublisher<[T], Error> {
         Future<[T], Error> { promise in

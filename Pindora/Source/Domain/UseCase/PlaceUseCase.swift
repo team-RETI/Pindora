@@ -10,7 +10,7 @@ import Combine
 
 protocol PlaceUseCase {
     var placesPublisher: AnyPublisher<[Place], Never> { get }
-    
+
     func refreshIfNeeded(force: Bool)
     
     func fetchPlaces() -> AnyPublisher<[Place], Error>

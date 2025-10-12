@@ -6,11 +6,13 @@
 
 import UIKit
 import Combine
+import FirebaseAuth
 
 final class MyPlaceViewModel {
     // MARK: - Dependancy
     private let searchUseCase: SearchUseCaseProtocol
     private let placeUseCase: PlaceUseCase
+    private let userUseCase: UserUseCaseProtocol
     private let imageUseCase: ImageUsecaseProtocol
     // Combine
     private var cancellable: Set<AnyCancellable> = []
@@ -18,10 +20,12 @@ final class MyPlaceViewModel {
     init(
         searchUseCase: SearchUseCaseProtocol,
         placeUseCase: PlaceUseCase,
+        userUseCase: UserUseCaseProtocol,
         imageUseCase: ImageUsecaseProtocol,
     ) {
         self.searchUseCase = searchUseCase
         self.placeUseCase = placeUseCase
+        self.userUseCase = userUseCase
         self.imageUseCase = imageUseCase
     }
     
@@ -52,6 +56,7 @@ final class MyPlaceViewModel {
         //            .share() // 여러 Subscriber가 있어도 1회만 수행
         //            .eraseToAnyPublisher()
         
+        /*
         // ✅ 최초 1회 + 이후 reload 트리거마다 fetch
         let reloadStream = Publishers.Merge(
             input.viewDidLoad,
@@ -68,6 +73,33 @@ final class MyPlaceViewModel {
             .store(in: &cancellable)
         
         let places = placeUseCase.placesPublisher
+            .removeDuplicates(by: { lhs, rhs in
+                guard lhs.count == rhs.count else { return false }
+                // ID 비교가 가장 안전/빠름
+                return zip(lhs, rhs).allSatisfy { $0.placeId == $1.placeId }
+            })
+            .receive(on: DispatchQueue.main)
+            .handleEvents(receiveOutput: { print("📦 places updated:", $0.count) })
+            .eraseToAnyPublisher()
+        */
+      
+        // ✅ 최초 1회 + 이후 reload 트리거마다 fetch
+        let reloadStream = Publishers.Merge(
+            input.viewDidLoad,
+            input.reload
+        )
+            .handleEvents(receiveOutput: { _ in
+                print("🔄 reload trigger")
+            })
+        
+        reloadStream
+            .sink { [weak self] _ in
+                guard let uid = Auth.auth().currentUser?.uid else { return }
+                self?.userUseCase.refreshIfNeeded(force: false, uid: uid)
+            }
+            .store(in: &cancellable)
+        
+        let places = userUseCase.savedPlacesPublisher
             .removeDuplicates(by: { lhs, rhs in
                 guard lhs.count == rhs.count else { return false }
                 // ID 비교가 가장 안전/빠름

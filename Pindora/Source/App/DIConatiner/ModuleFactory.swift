@@ -66,8 +66,9 @@ final class ModuleFactory {
     func makeCardDetailVC(place: Place) -> CardDetailViewController {
         let viewModel: CardDetailViewModel = getOrCreateViewModel(for: .cardDetail) {
             let placeUseCase = DIContainer.shared.resolve(PlaceUseCase.self)
+            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
             let imageUseCase = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
-            return CardDetailViewModel(place: place, placeUseCase: placeUseCase, imageUseCase: imageUseCase)
+            return CardDetailViewModel(place: place, placeUseCase: placeUseCase, userUsecase: userUseCase, imageUseCase: imageUseCase)
         }
         return CardDetailViewController(viewModel: viewModel, place: place)
     }
@@ -85,8 +86,9 @@ final class ModuleFactory {
         let viewModel: MyPlaceViewModel = getOrCreateViewModel(for: .myPlace) {
             let searchUseCase = DIContainer.shared.resolve(SearchUseCaseProtocol.self)
             let placeUseCase = DIContainer.shared.resolve(PlaceUseCase.self)
+            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
             let imageUseCase = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
-            return MyPlaceViewModel(searchUseCase: searchUseCase, placeUseCase: placeUseCase, imageUseCase: imageUseCase)
+            return MyPlaceViewModel(searchUseCase: searchUseCase, placeUseCase: placeUseCase, userUseCase: userUseCase, imageUseCase: imageUseCase)
         }
         return MyPlaceViewController(viewModel: viewModel)
     }

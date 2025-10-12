@@ -12,11 +12,11 @@ final class CardDetailView: UIView {
     // MARK: - UI Component
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-    private let tagLabelView = TagLabelView(title: "관광지")
-    private let likeCountLabelView = LikeCountLabelView(count: 159)
     lazy var pinButton  = UIButton.detailButtonStyle(name: "pin")
-    lazy var instaButton = UIButton.detailButtonStyle(name: "insta")
+    lazy var webButton = UIButton.detailButtonStyle(name: "internet")
     lazy var flagButton  = UIButton.detailButtonStyle(name: "flag")
+    let tagLabelView = TagLabelView(title: "관광지")
+    let likeCountLabelView = LikeCountLabelView(count: 159)
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -51,7 +51,7 @@ final class CardDetailView: UIView {
     }()
     
     lazy var buttonStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [pinButton, instaButton, flagButton])
+        let stack = UIStackView(arrangedSubviews: [pinButton, webButton, flagButton])
         stack.axis = .horizontal
         stack.spacing = 16
         stack.translatesAutoresizingMaskIntoConstraints = false

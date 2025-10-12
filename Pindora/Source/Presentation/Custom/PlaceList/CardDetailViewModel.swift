@@ -7,13 +7,16 @@
 
 import UIKit
 import Combine
+import FirebaseAuth
 
 final class CardDetailViewModel {
     // MARK: - Dependancy
+    private var user: User?
     private let place: Place
     private let imageLoader: (URL) -> AnyPublisher<UIImage?, Never>
     // private let hashtagBuilder: (Place) -> String
     private let placeUseCase: PlaceUseCase
+    private let userUsecase: UserUseCaseProtocol
     private let imageUseCase: ImageUsecaseProtocol
 
     // Combine
@@ -22,12 +25,14 @@ final class CardDetailViewModel {
     init(place: Place,
          imageLoader: @escaping (URL) -> AnyPublisher<UIImage?, Never> = CardDetailViewModel.defaultImageLoader,
          placeUseCase: PlaceUseCase,
+         userUsecase: UserUseCaseProtocol,
          imageUseCase: ImageUsecaseProtocol
     ) {
         self.place = place
         self.imageLoader = imageLoader
         //self.hashtagBuilder = hasthtagBuilder
         self.placeUseCase = placeUseCase
+        self.userUsecase = userUsecase
         self.imageUseCase = imageUseCase
     }
     
@@ -42,7 +47,7 @@ final class CardDetailViewModel {
         /// 장소에 대한 정보 출력
         let title: AnyPublisher<String, Never>
         let address: AnyPublisher<String, Never>
-        let likeCount: AnyPublisher<Int?, Never>
+        let likeCount: AnyPublisher<String?, Never>
         let mainImage: AnyPublisher<UIImage?, Never>
         let category: AnyPublisher<String, Never>
         // let hashtag: AnyPublisher<String, Never>
@@ -54,7 +59,7 @@ final class CardDetailViewModel {
         let title = Just(place.placeName).eraseToAnyPublisher()
         let address = Just(place.placeAddress).eraseToAnyPublisher()
         let category = Just(place.category).eraseToAnyPublisher()
-        let likedCount = Just(place.likedCount).eraseToAnyPublisher()
+        let likedCount = Just(place.likedCount?.description).eraseToAnyPublisher()
         //let hashtags = Just(hashtagBuilder(place)).eraseToAnyPublisher()
         
         // 이미지: viewDidAppear 트리거에 반응해 1회 로드
@@ -80,13 +85,25 @@ final class CardDetailViewModel {
             }
             .eraseToAnyPublisher()
         
+
+        
         input.addButtonTapped
             .flatMap { [weak self] _ -> AnyPublisher<Void, Never> in
-                guard let self else { return Just(()).eraseToAnyPublisher() }
-                return self.placeUseCase
-                    .savePlace(place: place)
+                guard let self, let uid = Auth.auth().currentUser?.uid else { return Just(()).eraseToAnyPublisher() }
+                self.userUsecase.fetchUser(uid: uid)
+                    .receive(on: DispatchQueue.main)
+                    .sink { _ in }
+                    receiveValue: { [weak self] user in
+                        self?.user = user
+                    }
+                    .store(in: &cancellables)
+                
+                guard let user else { return Just(()).eraseToAnyPublisher() }
+                
+                return self.userUsecase.updateUserSavedPlaces(user: user, place: place)
                     .handleEvents(receiveOutput: { [weak self] in
-                        self?.placeUseCase.refreshIfNeeded(force: true) // 🔔 리스트 즉시 업데이트
+                        self?.placeUseCase.refreshIfNeeded(force: true) // 리스트 즉시 업데이트
+                        self?.userUsecase.refreshIfNeeded(force: true, uid: user.userId)
                     })
                     .map { _ in }
                     .replaceError(with: ())
@@ -103,7 +120,6 @@ final class CardDetailViewModel {
             category: category
         )
     }
-    
 }
 
 extension CardDetailViewModel {
