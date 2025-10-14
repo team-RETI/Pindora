@@ -34,13 +34,6 @@ final class CardDetailView: UIView {
         return label
     }()
 
-    let closeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "xmark"), for: .normal)
-        button.tintColor = .white
-        return button
-    }()
-
     private let hashtagLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 12)
@@ -85,7 +78,7 @@ final class CardDetailView: UIView {
     }()
 
     private lazy var headerStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [titleLabel, UIView(), closeButton])
+        let stack = UIStackView(arrangedSubviews: [titleLabel])
         stack.axis = .horizontal
         stack.alignment = .center
         return stack

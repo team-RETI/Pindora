@@ -67,6 +67,7 @@
 		A78571942E3E54C50021F72D /* LikeCountLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78571932E3E54C50021F72D /* LikeCountLabelView.swift */; };
 		A78571A02E3F19AF0021F72D /* SelectableOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785719F2E3F19AF0021F72D /* SelectableOverlayView.swift */; };
 		A78571A32E3F94570021F72D /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = A78571A22E3F94570021F72D /* NMapsMap */; };
+		A789D03F2E9EAB6A00062CB4 /* FavoriteLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A789D03E2E9EAB6A00062CB4 /* FavoriteLabelView.swift */; };
 		A78A134D2E533DA600204D8D /* KeywordCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A134C2E533DA600204D8D /* KeywordCloudView.swift */; };
 		A78A134F2E53413600204D8D /* GradientProgressCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A134E2E53413600204D8D /* GradientProgressCardView.swift */; };
 		A78A13512E53446100204D8D /* AppleCardInkProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A13502E53446100204D8D /* AppleCardInkProgressView.swift */; };
@@ -251,6 +252,7 @@
 		A78571912E3E51040021F72D /* TagLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelView.swift; sourceTree = "<group>"; };
 		A78571932E3E54C50021F72D /* LikeCountLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCountLabelView.swift; sourceTree = "<group>"; };
 		A785719F2E3F19AF0021F72D /* SelectableOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableOverlayView.swift; sourceTree = "<group>"; };
+		A789D03E2E9EAB6A00062CB4 /* FavoriteLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLabelView.swift; sourceTree = "<group>"; };
 		A78A134C2E533DA600204D8D /* KeywordCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordCloudView.swift; sourceTree = "<group>"; };
 		A78A134E2E53413600204D8D /* GradientProgressCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressCardView.swift; sourceTree = "<group>"; };
 		A78A13502E53446100204D8D /* AppleCardInkProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleCardInkProgressView.swift; sourceTree = "<group>"; };
@@ -736,6 +738,7 @@
 				A7F545522E38A7600014EB85 /* CardDetailViewModel.swift */,
 				A78571912E3E51040021F72D /* TagLabelView.swift */,
 				A78571932E3E54C50021F72D /* LikeCountLabelView.swift */,
+				A789D03E2E9EAB6A00062CB4 /* FavoriteLabelView.swift */,
 			);
 			path = PlaceList;
 			sourceTree = "<group>";
@@ -1299,6 +1302,7 @@
 				89728D982E33DE58002B3ACE /* DatabaseRepositoryProtocol.swift in Sources */,
 				A725E9AD2E2FA4FB00EEA3F5 /* PersonaPreviewView.swift in Sources */,
 				DF1F40F12E279F6600BE27AC /* MyPlaceViewController.swift in Sources */,
+				A789D03F2E9EAB6A00062CB4 /* FavoriteLabelView.swift in Sources */,
 				A725E9B92E2FE6CF00EEA3F5 /* SettingListViewController.swift in Sources */,
 				A778D2E32E29756E006B3309 /* ProfilePlaceCellView.swift in Sources */,
 				DF1F40F22E279F6600BE27AC /* MyPlaceView.swift in Sources */,

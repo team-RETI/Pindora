@@ -15,6 +15,7 @@ final class HomeViewModel {
     private let searchUseCase: SearchUseCaseProtocol
     // DB
     private let placeUseCase: PlaceUseCase
+    private let userUseCase: UserUseCaseProtocol
     private let imageUseCase: ImageUsecaseProtocol
     // Combine
     private var cancellable: Set<AnyCancellable> = []
@@ -43,11 +44,13 @@ final class HomeViewModel {
         searchUseCase: SearchUseCaseProtocol,
         imageUseCase: ImageUsecaseProtocol,
         placeUseCase: PlaceUseCase,
+        userUseCase: UserUseCaseProtocol
     ) {
         self.placeUseCase = placeUseCase
         self.locationUseCase = locationUseCase
         self.searchUseCase = searchUseCase
-        self.imageUseCase = imageUseCase        
+        self.imageUseCase = imageUseCase
+        self.userUseCase = userUseCase
         print("테스트: \(HomeViewModel.clientID)")
     }
     
@@ -67,6 +70,8 @@ final class HomeViewModel {
         let location: AnyPublisher<CLLocationCoordinate2D, Never>
         /// 선택된 카테고리 이름(뷰에서 선택 상태 갱신)
         let selectedCategory: AnyPublisher<String, Never>
+        /// 유저가 저장한 장소인지 판단여부
+        let savedPlace: AnyPublisher<Set<String>, Never>
         /// 검색 결과 장소리스트 (테이블 뷰 갱신)
         let places: AnyPublisher<[Place], Never>
     }
@@ -79,7 +84,7 @@ final class HomeViewModel {
                 self.locationUseCase.startUpdatingLocation()
             }
             .store(in: &cancellable)
-        
+
         // 위치 스트림
         let location = locationUseCase.locationPublisher
             .map { $0.coordinate }
@@ -142,6 +147,13 @@ final class HomeViewModel {
                 print("📦 placesRaw 방출:", places.count)
             })
             .eraseToAnyPublisher()
+        
+        // 유저가 저장한 장소인지 아닌지 판단
+        let savedPlace: AnyPublisher<Set<String>, Never> =
+            userUseCase.savedPlacesPublisher
+                .map { Set($0.map { $0.placeId }) }
+                .removeDuplicates()
+                .eraseToAnyPublisher()
         
         // placesRaw: 검색으로 얻은 [Place] 스트림 (Failure == Never)
         // 최종: 이미지 URL이 주입된 [Place] 스트림
@@ -256,6 +268,7 @@ final class HomeViewModel {
         return Output(
             location: location,
             selectedCategory: selectedCategory,
+            savedPlace: savedPlace,
             places: placeList
         )
     }

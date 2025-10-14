@@ -57,8 +57,9 @@ final class ModuleFactory {
             let locationUseCase = DIContainer.shared.resolve(LocationUseCaseProtocol.self)
             let searchUseCase = DIContainer.shared.resolve(SearchUseCaseProtocol.self)
             let placeUseCase = DIContainer.shared.resolve(PlaceUseCase.self)
+            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
             let imageUseCase = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
-            return HomeViewModel(locationUseCase: locationUseCase, searchUseCase: searchUseCase, imageUseCase: imageUseCase, placeUseCase: placeUseCase)
+            return HomeViewModel(locationUseCase: locationUseCase, searchUseCase: searchUseCase, imageUseCase: imageUseCase, placeUseCase: placeUseCase, userUseCase: userUseCase)
         }
         return HomeViewController(viewModel: viewModel)
     }

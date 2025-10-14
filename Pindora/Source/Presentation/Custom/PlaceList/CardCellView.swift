@@ -12,7 +12,9 @@ final class CardCellView: UITableViewCell {
     
     // MARK: - UI Component
     private let tagLabelView = TagLabelView()
+    private let favoritelabelView = FavoriteLabelView()
     private let likeCountLabelView = LikeCountLabelView()
+    
     private let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -79,6 +81,7 @@ final class CardCellView: UITableViewCell {
         thumbnailImageView.addSubview(descriptionLabel)
         thumbnailImageView.addSubview(dateLabel)
         thumbnailImageView.addSubview(tagLabelView)
+        thumbnailImageView.addSubview(favoritelabelView)
         thumbnailImageView.addSubview(likeCountLabelView)
     }
     
@@ -86,6 +89,7 @@ final class CardCellView: UITableViewCell {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0))
         tagLabelView.layer.cornerRadius = tagLabelView.frame.height / 2
+        favoritelabelView.layer.cornerRadius = favoritelabelView.frame.height / 2
         likeCountLabelView.layer.cornerRadius = likeCountLabelView.frame.height / 2
     }
     
@@ -99,6 +103,7 @@ final class CardCellView: UITableViewCell {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         tagLabelView.translatesAutoresizingMaskIntoConstraints = false
+        favoritelabelView.translatesAutoresizingMaskIntoConstraints = false
         likeCountLabelView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -119,9 +124,11 @@ final class CardCellView: UITableViewCell {
             overlayView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor),
             overlayView.bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor),
             
-            // 카테고리, 좋아요
+            // 카테고리, 즐겨찾기, 좋아요
             tagLabelView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 12),
             tagLabelView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 12),
+            favoritelabelView.trailingAnchor.constraint(equalTo: likeCountLabelView.leadingAnchor, constant: -8),
+            favoritelabelView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 12),
             likeCountLabelView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: -12),
             likeCountLabelView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 12),
             
@@ -136,9 +143,19 @@ final class CardCellView: UITableViewCell {
     }
     
     // 데이터 연결 (viewModel 구현 후 지울예정)
+    func configure(with place: Place, isSaved: Bool) {
+        tagLabelView.title = place.category
+        likeCountLabelView.count = place.likedCount?.description
+        favoritelabelView.isHidden = !isSaved
+        titleLabel.text = place.placeName
+        descriptionLabel.text = place.placeAddress
+        dateLabel.text = place.addedDate.toString()
+    }
+    
     func configure(with place: Place) {
         tagLabelView.title = place.category
         likeCountLabelView.count = place.likedCount?.description
+        favoritelabelView.isHidden = true
         titleLabel.text = place.placeName
         descriptionLabel.text = place.placeAddress
         dateLabel.text = place.addedDate.toString()

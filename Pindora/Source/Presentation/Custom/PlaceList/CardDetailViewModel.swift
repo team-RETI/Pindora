@@ -85,25 +85,25 @@ final class CardDetailViewModel {
             }
             .eraseToAnyPublisher()
         
-
-        
         input.addButtonTapped
             .flatMap { [weak self] _ -> AnyPublisher<Void, Never> in
-                guard let self, let uid = Auth.auth().currentUser?.uid else { return Just(()).eraseToAnyPublisher() }
-                self.userUsecase.fetchUser(uid: uid)
-                    .receive(on: DispatchQueue.main)
-                    .sink { _ in }
-                    receiveValue: { [weak self] user in
-                        self?.user = user
+                guard let self, let uid = Auth.auth().currentUser?.uid else {
+                    return Just(()).eraseToAnyPublisher()
+                }
+                
+                return self.userUsecase.fetchUser(uid: uid)
+                    .flatMap { [weak self] user -> AnyPublisher<Void, UseCaseError> in
+                        guard let self else {
+                            return  Just(())
+                                .setFailureType(to: UseCaseError.self)
+                                .eraseToAnyPublisher()
+                        }
+                        return self.userUsecase.updateUserSavedPlaces(user: user, place: place)
                     }
-                    .store(in: &cancellables)
-                
-                guard let user else { return Just(()).eraseToAnyPublisher() }
-                
-                return self.userUsecase.updateUserSavedPlaces(user: user, place: place)
                     .handleEvents(receiveOutput: { [weak self] in
-                        self?.placeUseCase.refreshIfNeeded(force: true) // 리스트 즉시 업데이트
-                        self?.userUsecase.refreshIfNeeded(force: true, uid: user.userId)
+                        guard let self else { return }
+                        self.placeUseCase.refreshIfNeeded(force: true)
+                        self.userUsecase.refreshIfNeeded(force: true, uid: uid)
                     })
                     .map { _ in }
                     .replaceError(with: ())
@@ -117,7 +117,7 @@ final class CardDetailViewModel {
             address: address,
             likeCount: likedCount,
             mainImage: mainImage,
-            category: category
+            category: category,
         )
     }
 }

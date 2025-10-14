@@ -68,7 +68,7 @@ final class CardDetailViewController: UIViewController {
             .store(in: &cancellable)
         
         output.category
-            .map { $0 as String? } // 
+            .map { $0 as String? }
             .receive(on: DispatchQueue.main)
             .assign(to: \.title, on: customView.tagLabelView)
             .store(in: &cancellable)
@@ -85,7 +85,6 @@ final class CardDetailViewController: UIViewController {
         customView.pinButton.addTarget(self, action: #selector(pinTapped), for: .touchUpInside)
         customView.webButton.addTarget(self, action: #selector(webButtonTapped), for: .touchUpInside)
         customView.flagButton.addTarget(self, action: #selector(addPlaceButtonTapped), for: .touchUpInside)
-        customView.closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
     }
     
     @objc private func pinTapped() {
@@ -102,12 +101,7 @@ final class CardDetailViewController: UIViewController {
     
     @objc private func addPlaceButtonTapped() {
         print("tapped")
-        self.onSaved?()
         addButtonSubject.send()
-    }
-    
-    @objc private func closeButtonTapped() {
-        print("tapped")
-        dismiss(animated: true)
+        self.onSaved?()
     }
 }

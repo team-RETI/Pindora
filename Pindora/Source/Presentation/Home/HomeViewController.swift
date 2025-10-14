@@ -23,6 +23,7 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
     // MARK: - UI(테이블 뷰)
     private lazy var placeListView: CardCellListView = customView.placeListView
     private var dataSource: UITableViewDiffableDataSource<Place.PlaceSection, Place>?
+    private var savedPlaceIDs = Set<String>()
     private var scrollToTopOnUpdate = false
     
     // MARK: - Initializer
@@ -83,6 +84,14 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] coordinate in
                 self?.updateMyLocation(location: coordinate)
+            }
+            .store(in: &cancellable)
+        
+        output.savedPlace
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] ids in
+                self?.savedPlaceIDs = ids
+                self?.reconfigureAllCells()
             }
             .store(in: &cancellable)
         
@@ -160,7 +169,8 @@ extension HomeViewController: UITableViewDelegate {
             }
 
             // 셀 구성
-            cell.configure(with: place)
+            let isSaved = self.savedPlaceIDs.contains(place.placeId)
+            cell.configure(with: place, isSaved: isSaved)
             cell.setImage(
                 urlString: place.imageURL,
                 category: place.category
@@ -193,7 +203,36 @@ extension HomeViewController: UITableViewDelegate {
             }
         })
     }
+    
+    private func reconfigureAllCells() {
+        // 항상 메인스레드에서
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
 
+            if #available(iOS 15.0, *) {
+                guard let dataSource = self.dataSource else { return }
+
+                // 전체 아이템 reconfigure (cellForRow 재호출 없이 셀만 다시 그림)
+                var snapshot = dataSource.snapshot()
+                let items = snapshot.itemIdentifiers
+                snapshot.reconfigureItems(items)
+                dataSource.apply(snapshot, animatingDifferences: false)
+            } else {
+                // iOS 14 이하: 보이는 셀만 수동 갱신
+                for cell in self.placeListView.visibleCells {
+                    guard
+                        let dataSource = self.dataSource,
+                        let indexPath = self.placeListView.indexPath(for: cell),
+                        let place = dataSource.itemIdentifier(for: indexPath),
+                        let card = cell as? CardCellView
+                    else { continue }
+
+                    let isSaved = self.savedPlaceIDs.contains(place.placeId)  
+                    card.configure(with: place, isSaved: isSaved)
+                }
+            }
+        }
+    }
     private func scrollListToTop(animated: Bool) {
         guard dataSource?.snapshot().numberOfItems ?? 0 > 0 else { return }
         let top = CGPoint(x: 0, y: -placeListView.adjustedContentInset.top)
