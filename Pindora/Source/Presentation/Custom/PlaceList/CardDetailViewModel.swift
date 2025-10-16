@@ -85,6 +85,33 @@ final class CardDetailViewModel {
             }
             .eraseToAnyPublisher()
         
+        input.viewDidLoad
+            .flatMap { [weak self] _ -> AnyPublisher<Void, Never> in
+                guard let self, let uid = Auth.auth().currentUser?.uid else {
+                    return Just(()).eraseToAnyPublisher()
+                }
+                
+                return self.userUsecase.fetchUser(uid: uid)
+                    .flatMap { [weak self] user -> AnyPublisher<Void, UseCaseError> in
+                        guard let self else {
+                            return  Just(())
+                                .setFailureType(to: UseCaseError.self)
+                                .eraseToAnyPublisher()
+                        }
+                        return self.userUsecase.updateUserPlaceLog(user: user, place: place)
+                    }
+                    .handleEvents(receiveOutput: { [weak self] in
+                        guard let self else { return }
+                        self.placeUseCase.refreshIfNeeded(force: true)
+                        self.userUsecase.refreshIfNeeded(force: true, uid: uid)
+                    })
+                    .map { _ in }
+                    .replaceError(with: ())
+                    .eraseToAnyPublisher()
+            }
+            .sink { _ in }
+            .store(in: &cancellables)
+        
         input.addButtonTapped
             .flatMap { [weak self] _ -> AnyPublisher<Void, Never> in
                 guard let self, let uid = Auth.auth().currentUser?.uid else {

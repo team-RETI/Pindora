@@ -32,6 +32,11 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
             .removeDuplicates(by: isSamePlaces)
             .eraseToAnyPublisher()
     }
+    var placeLogPublisher: AnyPublisher<[Place], Never> {
+        subject
+            .compactMap { $0?.visitedPlaces }
+            .eraseToAnyPublisher()
+    }
     
     func saveUser(user: User) -> AnyPublisher<Void, UseCaseError> {
         let dto = user.toDTO()
@@ -66,6 +71,15 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
             updatedUser.savedPlaces.append(place)
         }
         
+        return updateUser(user: updatedUser)
+    }
+    
+    func updateUserPlaceLog(user: User, place: Place) -> AnyPublisher<Void, UseCaseError> {
+        var updatedUser = user
+        if let index = user.visitedPlaces.firstIndex(where: { $0.placeId == place.placeId }) {
+            updatedUser.visitedPlaces.remove(at: index)
+        }
+        updatedUser.visitedPlaces.insert(place, at: 0)
         return updateUser(user: updatedUser)
     }
     
@@ -112,27 +126,29 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
                         // 현재 캐시가 없으면 바로 갱신
                         guard let current = self.subject.value else {
                             self.subject.send(fetchedUser)
+                            print("here 1 ??")
                             return
                         }
                         // 캐시가 있으면 동일성 비교 후 변경 시에만 방출
-                        if self.isSameUser(current, fetchedUser) {
-                            // 동일 → skip
-                        } else {
+//                        if self.isSameUser(current, fetchedUser) {
+//                            // 동일 → skip
+//                        } else {
                             self.subject.send(fetchedUser)
-                        }
+//                        }
                     }
                 }
         }
     }
     
     private func isSameUser(_ a: User, _ b: User) -> Bool {
-        a.userId == b.userId && isSamePlaces(a.savedPlaces, b.savedPlaces)
+        a.userId == b.userId && isSamePlaces(a.visitedPlaces, b.visitedPlaces)
     }
 
     private func isSamePlaces(_ lhs: [Place], _ rhs: [Place]) -> Bool {
         guard lhs.count == rhs.count else { return false }
         let la = Set(lhs.map { $0.placeId })
         let rb = Set(rhs.map { $0.placeId })
+
         return la == rb
     }
 }
@@ -168,6 +184,10 @@ final class StubUserUsecaseImpl: UserUseCaseProtocol {
         return updateUser(user: user)
     }
     
+    func updateUserPlaceLog(user: User, place: Place) -> AnyPublisher<Void, UseCaseError> {
+        return updateUser(user: user)
+    }
+    
     func deleteUser(uid: String) -> AnyPublisher<Void, UseCaseError> {
         // 더미 성공 반환
         return Just(())
@@ -176,6 +196,12 @@ final class StubUserUsecaseImpl: UserUseCaseProtocol {
     }
     
     var savedPlacesPublisher: AnyPublisher<[Place], Never> {
+        testSubject
+            .compactMap { $0?.savedPlaces }
+            .eraseToAnyPublisher()
+    }
+    
+    var placeLogPublisher: AnyPublisher<[Place], Never> {
         testSubject
             .compactMap { $0?.savedPlaces }
             .eraseToAnyPublisher()

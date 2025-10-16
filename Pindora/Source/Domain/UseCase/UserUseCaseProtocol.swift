@@ -11,7 +11,8 @@ import Combine
 /// 사용자 정보를 저장, 조회, 삭제하는 유스케이스를 정의하는 프로토콜입니다.
 protocol UserUseCaseProtocol {
     var savedPlacesPublisher: AnyPublisher<[Place], Never> { get }
-
+    var placeLogPublisher: AnyPublisher<[Place], Never> { get }
+    
     func refreshIfNeeded(force: Bool, uid: String)
     
     
@@ -29,7 +30,10 @@ protocol UserUseCaseProtocol {
     /// - Parameter user: 저장할 사용자 정보 (UserModel).
     /// - Returns: 작업 완료 여부를 방출하는 AnyPublisher<Void, Error>
     func updateUser(user: User) -> AnyPublisher<Void, UseCaseError>
+    
     func updateUserSavedPlaces(user: User, place: Place) -> AnyPublisher<Void, UseCaseError>
+    func updateUserPlaceLog(user: User, place: Place) -> AnyPublisher<Void, UseCaseError>
+    
     /// 주어진 UID를 기준으로 사용자 정보를 삭제합니다.
     /// - Parameter uid: 삭제할 사용자의 고유 식별자.
     /// - Returns: 작업 완료 여부를 방출하는 AnyPublisher<Void, Error>
