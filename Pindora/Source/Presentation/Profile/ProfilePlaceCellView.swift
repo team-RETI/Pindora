@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfilePlaceCellView: UICollectionViewCell {
     
@@ -82,59 +83,105 @@ final class ProfilePlaceCellView: UICollectionViewCell {
     
     private func normalizeNaverNewsImageURL(_ urlString: String?) -> URL? {
         guard var s = urlString, !s.isEmpty else { return nil }
-
-        // http → https
-        if s.hasPrefix("http://") {
-            s = "https://" + s.dropFirst(7)
-        }
-
+        if s.hasPrefix("http://") { s = "https://" + s.dropFirst(7) }
         guard var comp = URLComponents(string: s) else { return nil }
-
-        // imgnews.naver.net → imgnews.pstatic.net (호스트 불일치 해결)
-        if let host = comp.host, host == "imgnews.naver.net" {
-            comp.host = "imgnews.pstatic.net"
-        }
-
+        if comp.host == "imgnews.naver.net" { comp.host = "imgnews.pstatic.net" }
         return comp.url
     }
-    
-    func setImage(urlString: String?) {
-        // 기본값: placeholder
-        imageView.image = UIImage(named: "placeholder")
-        // 입력 정리
+        
+    /// 이미지 연결
+    /// - Parameters:
+    ///   - urlString: 이미지 URL 혹은 nil
+    ///   - category: 이미지 실패 시 카테코리를 이용한 이미지 매칭
+    func setImage(urlString: String?, category: String) {
+        // 카테고리 기반 플레이스홀더
+        let fallbackName = KakaoCategoryGroup.from(displayName: category)?.rawValue ?? "placeholder"
+        let placeholder = UIImage(named: fallbackName) ?? UIImage(named: "placeholder")
+        
+        // URL 정리
         guard let url = normalizeNaverNewsImageURL(urlString) else {
-            imageView.image =  UIImage(named: "placeholder")
+            imageView.image = placeholder
             return
         }
         
-        var req = URLRequest(url: url,
-                             cachePolicy: .returnCacheDataElseLoad,
-                             timeoutInterval: 15)
-        // 가끔 UA 필요할 때가 있어 기본 UA 부여
-        req.setValue("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile",
-                     forHTTPHeaderField: "User-Agent")
+        // 다운샘플링 + 둥근 모서리 등 필요한 프로세서 구성 (둥근 모서리 필요 없으면 제거)
+        let processor = DownsamplingImageProcessor(size: imageView.bounds.size)
         
-        // 이미지 요청
-        URLSession.shared.dataTask(with: req) { data, resp, err in
-            if let err = err {
-                print("❌ Image load failed:", err.localizedDescription)
-                return
+        // UA 헤더가 필요한 경우에만 붙일 수 있도록 AnyModifier 사용
+        let uaModifier = AnyModifier { request in
+            var r = request
+            r.setValue(
+                "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile",
+                forHTTPHeaderField: "User-Agent"
+            )
+            return r
+        }
+        
+        var options: KingfisherOptionsInfo = [
+            .processor(processor),
+            .scaleFactor(UIScreen.main.scale),
+            .transition(.fade(0.15)),
+            .backgroundDecode,
+            .keepCurrentImageWhileLoading,
+            .cacheOriginalImage,
+            .onFailureImage(placeholder),      // 실패 시 카테고리 이미지로
+            .requestModifier(uaModifier)       // UA 필요 시
+        ]
+        
+        // 필요 시: 디스크/메모리 캐시 전략 조정도 가능
+        // options.append(.memoryCacheExpiration(.days(1)))
+        // options.append(.diskCacheExpiration(.days(7)))
+        
+        imageView.kf.setImage(
+            with: url,
+            placeholder: placeholder,
+            options: options
+        ) { result in
+            if case let .failure(error) = result {
+                print("❌ Kingfisher load failed:", error)
             }
-            if let http = resp as? HTTPURLResponse, !(200...299).contains(http.statusCode) {
-                print("❌ HTTP \(http.statusCode) for \(url)")
-                return
-            }
-            guard let data = data, let img = UIImage(data: data) else {
-                print("❌ Decode failed")
-                return
-            }
-            DispatchQueue.main.async {
-                self.imageView.image = img
-            }
-        }.resume()
+        }
     }
-    // 목업 테스트용
-//    func configure(with image: UIImage?) {
-//        imageView.image = image
+    
+//    func setImage(urlString: String?) {
+//        // placeholder 먼저
+//        let placeholder = UIImage(named: "placeholder")
+//        imageView.image = placeholder
+//
+//        guard let url = normalizeNaverNewsImageURL(urlString) else {
+//            imageView.image = placeholder
+//            return
+//        }
+//
+//        // 고성능 옵션
+//        let scale = UIScreen.main.scale
+//        let processor = DownsamplingImageProcessor(size: imageView.bounds.size)
+//                        |> RoundCornerImageProcessor(cornerRadius: 8) // 필요 시
+//
+//        var options: KingfisherOptionsInfo = [
+//            .processor(processor),
+//            .scaleFactor(scale),
+//            .transition(.fade(0.15)),
+//            .cacheOriginalImage,          // 원본도 캐시 (다른 크기 요청 시 유리)
+//            .backgroundDecode,            // 백그라운드 디코딩
+//            .keepCurrentImageWhileLoading // 스크롤 중 깜빡임 방지
+//        ]
+//
+//        // UA가 필요한 경우만 헤더 추가
+//        options.append(.requestModifier(UARequestModifier()))
+//
+//        // 캐시 우선 전략 (메모리/디스크에 있으면 즉시, 없으면 네트워크)
+//        // 기본이 .fromMemoryCacheOrRefresh라 옵션 추가 불필요
+//
+//        imageView.kf.setImage(
+//            with: url,
+//            placeholder: placeholder,
+//            options: options,
+//            completionHandler: { result in
+//                if case let .failure(error) = result {
+//                    print("❌ Kingfisher load failed:", error)
+//                }
+//            }
+//        )
 //    }
 }

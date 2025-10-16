@@ -6,9 +6,9 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class CardCellView: UITableViewCell {
-    private var task: URLSessionDataTask?
     
     // MARK: - UI Component
     private let tagLabelView = TagLabelView()
@@ -163,60 +163,64 @@ final class CardCellView: UITableViewCell {
     
     private func normalizeNaverNewsImageURL(_ urlString: String?) -> URL? {
         guard var s = urlString, !s.isEmpty else { return nil }
-
-        // http → https
-        if s.hasPrefix("http://") {
-            s = "https://" + s.dropFirst(7)
-        }
-
+        if s.hasPrefix("http://") { s = "https://" + s.dropFirst(7) }
         guard var comp = URLComponents(string: s) else { return nil }
-
-        // imgnews.naver.net → imgnews.pstatic.net (호스트 불일치 해결)
-        if let host = comp.host, host == "imgnews.naver.net" {
-            comp.host = "imgnews.pstatic.net"
-        }
-
+        if comp.host == "imgnews.naver.net" { comp.host = "imgnews.pstatic.net" }
         return comp.url
     }
+    
     
     /// 이미지 연결
     /// - Parameters:
     ///   - urlString: 이미지 URL 혹은 nil
     ///   - category: 이미지 실패 시 카테코리를 이용한 이미지 매칭
     func setImage(urlString: String?, category: String) {
-        // 기본값: placeholder
-        thumbnailImageView.image = UIImage(named: "placeholder")
-        // 입력 정리
+        // 카테고리 기반 플레이스홀더
+        let fallbackName = KakaoCategoryGroup.from(displayName: category)?.rawValue ?? "placeholder"
+        let placeholder = UIImage(named: fallbackName) ?? UIImage(named: "placeholder")
+        
+        // URL 정리
         guard let url = normalizeNaverNewsImageURL(urlString) else {
-            let category = KakaoCategoryGroup.from(displayName: category)?.rawValue ?? "placeholder"
-            thumbnailImageView.image = UIImage(named: category)
+            thumbnailImageView.image = placeholder
             return
         }
         
-        var req = URLRequest(url: url,
-                             cachePolicy: .returnCacheDataElseLoad,
-                             timeoutInterval: 15)
-        // 가끔 UA 필요할 때가 있어 기본 UA 부여
-        req.setValue("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile",
-                     forHTTPHeaderField: "User-Agent")
+        // 다운샘플링 + 둥근 모서리 등 필요한 프로세서 구성 (둥근 모서리 필요 없으면 제거)
+        let processor = DownsamplingImageProcessor(size: thumbnailImageView.bounds.size)
         
-        // 이미지 요청
-        URLSession.shared.dataTask(with: req) { data, resp, err in
-            if let err = err {
-                print("❌ Image load failed:", err.localizedDescription)
-                return
+        // UA 헤더가 필요한 경우에만 붙일 수 있도록 AnyModifier 사용
+        let uaModifier = AnyModifier { request in
+            var r = request
+            r.setValue(
+                "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile",
+                forHTTPHeaderField: "User-Agent"
+            )
+            return r
+        }
+        
+        var options: KingfisherOptionsInfo = [
+            .processor(processor),
+            .scaleFactor(UIScreen.main.scale),
+            .transition(.fade(0.15)),
+            .backgroundDecode,
+            .keepCurrentImageWhileLoading,
+            .cacheOriginalImage,
+            .onFailureImage(placeholder),      // 실패 시 카테고리 이미지로
+            .requestModifier(uaModifier)       // UA 필요 시
+        ]
+        
+        // 필요 시: 디스크/메모리 캐시 전략 조정도 가능
+        // options.append(.memoryCacheExpiration(.days(1)))
+        // options.append(.diskCacheExpiration(.days(7)))
+        
+        thumbnailImageView.kf.setImage(
+            with: url,
+            placeholder: placeholder,
+            options: options
+        ) { result in
+            if case let .failure(error) = result {
+                print("❌ Kingfisher load failed:", error)
             }
-            if let http = resp as? HTTPURLResponse, !(200...299).contains(http.statusCode) {
-                print("❌ HTTP \(http.statusCode) for \(url)")
-                return
-            }
-            guard let data = data, let img = UIImage(data: data) else {
-                print("❌ Decode failed")
-                return
-            }
-            DispatchQueue.main.async {
-                self.thumbnailImageView.image = img
-            }
-        }.resume()
+        }
     }
 }

@@ -68,6 +68,7 @@
 		A78571A02E3F19AF0021F72D /* SelectableOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785719F2E3F19AF0021F72D /* SelectableOverlayView.swift */; };
 		A78571A32E3F94570021F72D /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = A78571A22E3F94570021F72D /* NMapsMap */; };
 		A789D03F2E9EAB6A00062CB4 /* FavoriteLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A789D03E2E9EAB6A00062CB4 /* FavoriteLabelView.swift */; };
+		A789D0422EA0BDBD00062CB4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A789D0412EA0BDBD00062CB4 /* Kingfisher */; };
 		A78A134D2E533DA600204D8D /* KeywordCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A134C2E533DA600204D8D /* KeywordCloudView.swift */; };
 		A78A134F2E53413600204D8D /* GradientProgressCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A134E2E53413600204D8D /* GradientProgressCardView.swift */; };
 		A78A13512E53446100204D8D /* AppleCardInkProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A13502E53446100204D8D /* AppleCardInkProgressView.swift */; };
@@ -400,6 +401,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A789D0422EA0BDBD00062CB4 /* Kingfisher in Frameworks */,
 				89728D892E33DD2F002B3ACE /* FirebaseAuth in Frameworks */,
 				A78571A32E3F94570021F72D /* NMapsMap in Frameworks */,
 				89728D8B2E33DD2F002B3ACE /* FirebaseFirestore in Frameworks */,
@@ -1049,6 +1051,7 @@
 				89728D8C2E33DD2F002B3ACE /* FirebaseStorage */,
 				A78571A22E3F94570021F72D /* NMapsMap */,
 				DF530C8A2E4C7DFA00C31301 /* CombineCocoa */,
+				A789D0412EA0BDBD00062CB4 /* Kingfisher */,
 			);
 			productName = Pindora;
 			productReference = A7C1AB592E20022D00B8B9E1 /* Pindora.app */;
@@ -1131,6 +1134,7 @@
 				89728D872E33DD2F002B3ACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				A78571A12E3F94570021F72D /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */,
 				DF530C892E4C7DFA00C31301 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				A789D0402EA0BDBD00062CB4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A7C1AB5A2E20022D00B8B9E1 /* Products */;
@@ -1771,6 +1775,14 @@
 				minimumVersion = 3.22.1;
 			};
 		};
+		A789D0402EA0BDBD00062CB4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.6.0;
+			};
+		};
 		DF530C892E4C7DFA00C31301 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
@@ -1801,6 +1813,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A78571A12E3F94570021F72D /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
 			productName = NMapsMap;
+		};
+		A789D0412EA0BDBD00062CB4 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A789D0402EA0BDBD00062CB4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		DF530C8A2E4C7DFA00C31301 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -45,7 +45,6 @@ final class ProfilePlaceCellListView: UICollectionView, UICollectionViewDelegate
 extension ProfilePlaceCellListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return placesLog.count
-//        return savedPlaceImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -54,9 +53,7 @@ extension ProfilePlaceCellListView: UICollectionViewDataSource {
         }
         
         let place = placesLog[indexPath.item]
-//        cell.configure(with: place.imageURL)
-        cell.setImage(urlString: place.imageURL)
-//        cell.configure(with: savedPlaceImages[indexPath.item])
+        cell.setImage(urlString: place.imageURL, category: place.category)
         return cell
     }
 }
