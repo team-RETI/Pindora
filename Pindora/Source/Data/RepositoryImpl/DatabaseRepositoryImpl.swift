@@ -9,8 +9,11 @@ import Foundation
 import Combine
 
 final class DatabaseRepositoryImpl: DatabaseRepositoryProtocol {
-    func create<T>(_ object: T, at collection: String, id: String) -> AnyPublisher<Void, any Error> where T : Decodable, T : Encodable {
-        FirebaseDatabaseManager.shared.createGenericPublisher(collection: collection, documentID: id, object: object)
+//    func create<T>(_ object: T, at collection: String, id: String) -> AnyPublisher<Void, any Error> where T : Decodable, T : Encodable {
+//        FirebaseDatabaseManager.shared.createGenericPublisher(collection: collection, documentID: id, object: object)
+//    }
+    func create<T: Codable>(_ object: T, at parentCollection: String, parentId: String, subCollection: String?, id: String) -> AnyPublisher<Void, Error> {
+        FirebaseDatabaseManager.shared.createGenericPublisher(parentCollection: parentCollection, parentId: parentId, subCollection: subCollection, documentID: id, object: object )
     }
     
     func fetch<T>(from collection: String, id: String, as type: T.Type) -> AnyPublisher<T, any Error> where T : Decodable, T : Encodable {

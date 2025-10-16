@@ -19,6 +19,9 @@ final class AddPlaceViewModel {
     // Combine
     private var cancellable: Set<AnyCancellable> = []
     
+    private let latestPlace = CurrentValueSubject<Place?, Never>(nil)
+    let latestCategory = CurrentValueSubject<String?, Never>(nil)
+    
     init(
         searchUseCase: SearchUseCaseProtocol,
         placeUseCase: PlaceUseCase,
@@ -39,6 +42,11 @@ final class AddPlaceViewModel {
         let selectedCategory: AnyPublisher<String, Never>
         let place: AnyPublisher<Place, Never>
         let saveResult: AnyPublisher<Result<Void, Error>, Never>
+    }
+    
+    func injectPlace(_ place: Place) {
+        latestPlace.send(place)
+        print("✅ injectPlace 실행됨. latestPlace 업데이트:\n\(place.description)")
     }
     
     func transform(input: Input) -> Output {
@@ -80,15 +88,13 @@ final class AddPlaceViewModel {
             .eraseToAnyPublisher()
         
         // 4) 최신 Place를 저장해 두기 (withLatestFrom 대용)
-        let latestPlace = CurrentValueSubject<Place?, Never>(nil)
-            place
-            .sink { latestPlace.send($0) }
+        place
+            .sink { [weak self] in self?.latestPlace.send($0) }
             .store(in: &cancellable)
-        
+
         // 4-1) 최신 Category도 저장해 두기
-        let latestCategory = CurrentValueSubject<String?, Never>(nil)
         selectedCategory
-            .sink { latestCategory.send($0) }
+            .sink { [weak self] in self?.latestCategory.send($0) }
             .store(in: &cancellable)
         
         // 4-2) 저장을 할 수 있는 상황인지 알림
@@ -101,9 +107,10 @@ final class AddPlaceViewModel {
         
         // 5) 확인 버튼 탭 → 최신 Place 저장
         let trigger = input.confirmButtonTapped
-            .map { _ -> SaveTrigger in
-                let p = latestPlace.value
-                let c = latestCategory.value?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            .map { [weak self] _ -> SaveTrigger in
+                guard let self else { return .missingPlace }
+                let p = self.latestPlace.value
+                let c = self.latestCategory.value?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
                 if p == nil { return .missingPlace }
                 if c.isEmpty { return .missingCategory }
                 return .ready(p!, c)
@@ -127,7 +134,7 @@ final class AddPlaceViewModel {
                     place = place.withCategory(category)
                     print("💾 try save:", place)
                     return self.placeUseCase
-                        .savePlace(place: place)        // -> AnyPublisher<Void, Error>
+                        .savePlace(place: place)
                         .map { .success(()) }
                         .catch { Just(.failure(SaveError.backend($0))) }
                         .eraseToAnyPublisher()

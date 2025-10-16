@@ -114,7 +114,9 @@ final class ModuleFactory {
     
     func makeProfileEditVC() -> ProfileEditViewController {
         let viewModel: ProfileEditViewModel = getOrCreateViewModel(for: .editProfile) {
-            ProfileEditViewModel()
+            let imageUC = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
+            let userUC = DIContainer.shared.resolve(UserUseCaseProtocol.self)
+            return ProfileEditViewModel(imageUseCase: imageUC, userUseCase: userUC)
         }
         return ProfileEditViewController(viewModel: viewModel)
     }

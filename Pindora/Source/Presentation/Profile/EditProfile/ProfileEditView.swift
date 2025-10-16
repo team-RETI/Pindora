@@ -151,3 +151,27 @@ final class ProfileEditView: UIView {
         ])
     }
 }
+
+extension ProfileEditView {
+    func updateCustomImage(_ image: UIImage?) {
+        imageSelectorView.setCustomImage(image)
+        personaPreviewView.setAvatarImage(image)
+    }
+    
+    func currentCustomImage() -> UIImage? {
+        imageSelectorView.selectedCustomImage
+    }
+    
+    func updateColorImage(_ image: UIImage?) {
+        imageSelectorView.setColorImage(image)
+        personaPreviewView.setAvatarImage(image)
+    }
+    
+    func currentColorImage() -> UIImage? {
+        imageSelectorView.selectedColorImage
+    }
+    
+    func updatePersonaPreview(with user: User) {
+        personaPreviewView.configure(with: user)
+    }
+}

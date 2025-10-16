@@ -93,6 +93,7 @@ final class PreviewCardView: UIView {
         thumbnailImageView.addSubview(dateLabel)
         thumbnailImageView.addSubview(tagLabelView)
         thumbnailImageView.addSubview(likeCountLabelView)
+        overlayView.isUserInteractionEnabled = false
     }
     
     // MARK: - (F)Constraints
@@ -163,5 +164,27 @@ final class PreviewCardView: UIView {
 //            thumbnailImageView.image = UIImage(named: "placeholder")
 //        }
         thumbnailImageView.image = UIImage(named: place.imageURL ?? "placeholder")
+    }
+}
+
+extension PreviewCardView {
+    func updateImage(_ image: UIImage?) {
+        thumbnailImageView.image = image
+        imageInfoLabel.isHidden = image != nil
+        imageSelectButton.isHidden = image != nil
+    }
+
+    func updatePlaceInfo(_ place: Place) {
+        tagLabelView.title = place.category
+        likeCountLabelView.count = place.likedCount?.description
+        titleLabel.text = place.placeName
+        descriptionLabel.text = place.placeAddress
+        dateLabel.text = place.addedDate.toString()
+    }
+    
+    func setImageTapAction(_ target: Any?, action: Selector) {
+        thumbnailImageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: target, action: action)
+        thumbnailImageView.addGestureRecognizer(tapGesture)
     }
 }
