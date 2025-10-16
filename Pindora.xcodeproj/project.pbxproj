@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		890F08BB2E9A959B00B47FCE /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890F08BA2E9A959B00B47FCE /* UIImageView+.swift */; };
 		890F08BD2E9AC05D00B47FCE /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890F08BC2E9AC05D00B47FCE /* Notification+.swift */; };
+		891CB8142EA0D14800FCD69E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 891CB8132EA0D14800FCD69E /* GoogleService-Info.plist */; };
 		8938CBAF2E367D2D00369EE3 /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8938CBAE2E367D2D00369EE3 /* FirebaseStorageManager.swift */; };
 		8938CBB12E367D3E00369EE3 /* FirebaseDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8938CBB02E367D3E00369EE3 /* FirebaseDatabaseManager.swift */; };
 		89728D822E33DC38002B3ACE /* StorageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D812E33DC38002B3ACE /* StorageRepositoryProtocol.swift */; };
@@ -93,7 +94,6 @@
 		A7FEFC022E69A59D0065532C /* SearchRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEFC012E69A59D0065532C /* SearchRepositoryProtocol.swift */; };
 		A7FEFC042E69B8980065532C /* SearchRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEFC032E69B8980065532C /* SearchRepositoryImpl.swift */; };
 		A7FEFC062E6B35D30065532C /* NaverMap+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FEFC052E6B35D30065532C /* NaverMap+.swift */; };
-		DF0CA2202E376D5E007E7904 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF0CA21F2E376D5E007E7904 /* GoogleService-Info.plist */; };
 		DF0CA2212E376EC6007E7904 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A732BA2D2E27E2D4009EB6BF /* SearchBarView.swift */; };
 		DF1F3E782E27859B00BE27AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E752E27859B00BE27AC /* AppDelegate.swift */; };
 		DF1F3E792E27859B00BE27AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */; };
@@ -195,6 +195,7 @@
 /* Begin PBXFileReference section */
 		890F08BA2E9A959B00B47FCE /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		890F08BC2E9AC05D00B47FCE /* Notification+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+.swift"; sourceTree = "<group>"; };
+		891CB8132EA0D14800FCD69E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		892F670E2E702278008E647D /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		892F670F2E702278008E647D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8938CBAE2E367D2D00369EE3 /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
@@ -283,7 +284,6 @@
 		A7FEFC012E69A59D0065532C /* SearchRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryProtocol.swift; sourceTree = "<group>"; };
 		A7FEFC032E69B8980065532C /* SearchRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryImpl.swift; sourceTree = "<group>"; };
 		A7FEFC052E6B35D30065532C /* NaverMap+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NaverMap+.swift"; sourceTree = "<group>"; };
-		DF0CA21F2E376D5E007E7904 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF18A7782E34E59900956881 /* Pindora.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Pindora.xctestplan; path = ../Pindora.xctestplan; sourceTree = "<group>"; };
 		DF1F3E752E27859B00BE27AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF1F3E762E27859B00BE27AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -553,7 +553,7 @@
 		A7F2E1712E2007840045D175 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				DF0CA21F2E376D5E007E7904 /* GoogleService-Info.plist */,
+				891CB8132EA0D14800FCD69E /* GoogleService-Info.plist */,
 				DFA689192E2109C6000EC0BA /* Fonts */,
 				A7F2E1992E200A640045D175 /* DesignSystem */,
 				A7F2E1662E2007630045D175 /* Assets.xcassets */,
@@ -1171,6 +1171,7 @@
 				DFF67EAA2E219AE800676213 /* Pretendard-Thin.otf in Resources */,
 				DFB9A41B2E22BB9500BD0E51 /* email-notify.yml in Resources */,
 				DFF67EAB2E219AE800676213 /* Pretendard-Regular.otf in Resources */,
+				891CB8142EA0D14800FCD69E /* GoogleService-Info.plist in Resources */,
 				DFF67EAC2E219AE800676213 /* Pretendard-ExtraBold.otf in Resources */,
 				DFF67EAD2E219AE800676213 /* Pretendard-Medium.otf in Resources */,
 				DFF67EAE2E219AE800676213 /* Pretendard-Bold.otf in Resources */,
@@ -1178,7 +1179,6 @@
 				DFF67EB02E219AE800676213 /* Pretendard-SemiBold.otf in Resources */,
 				DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */,
 				DF5FFE442E20BBB300C07AD3 /* README.md in Resources */,
-				DF0CA2202E376D5E007E7904 /* GoogleService-Info.plist in Resources */,
 				DF899B462E24DD9C006BE87D /* CodeConvention.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

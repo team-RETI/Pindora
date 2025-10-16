@@ -73,6 +73,9 @@ final class ProfileEditViewController: UIViewController {
     @objc private func didTapRegisterButton() {
         guard let user = currentUser else { return }
         
+        customView.registerButton.isEnabled = false
+        customView.registerButton.alpha = 0.5
+        
         let profileImage: UIImage?
         switch viewModel.selectedImageType {
         case .custom:
@@ -84,10 +87,14 @@ final class ProfileEditViewController: UIViewController {
         }
         
         viewModel.registerProfile(user: user, customImage: profileImage)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                print("프로필 저장 완료")
+                guard let self else { return }
+                
+                self.customView.registerButton.isEnabled = true
+                self.customView.registerButton.alpha = 1.0
                 NotificationCenter.default.post(name: .profileUpdated, object: nil)
-                self?.coordinator?.backButtonTapped()
+                self.coordinator?.backButtonTapped()
             }
             .store(in: &cancellables)
     }
