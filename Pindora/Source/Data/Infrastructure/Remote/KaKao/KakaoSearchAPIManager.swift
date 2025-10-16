@@ -36,8 +36,8 @@ final class KakaoSearchAPIManager {
     /// - Returns: 장소 리스트
     func searchPlaces(
         keyword: String,
-        x lng: Double,
-        y lat: Double,
+        x lng: Double? = nil,
+        y lat: Double? = nil,
         radius: Int = 3000,
         page: Int = 1,
         size: Int = 10
@@ -45,14 +45,21 @@ final class KakaoSearchAPIManager {
         
         // URL 구성
         var comp = URLComponents(string: "https://dapi.kakao.com/v2/local/search/keyword.json")
-        comp?.queryItems = [
+        
+        var queryItems: [URLQueryItem] = [
             .init(name: "query", value: keyword),
-            .init(name: "x", value: String(lng)),
-            .init(name: "y", value: String(lat)),
             .init(name: "radius", value: String(radius)),
             .init(name: "page", value: String(page)),
             .init(name: "size", value: String(size))
         ]
+        
+        // 위경도가 있을 때만 추가
+        if let lng = lng, let lat = lat {
+            queryItems.append(.init(name: "x", value: String(lng)))
+            queryItems.append(.init(name: "y", value: String(lat)))
+        }
+        
+        comp?.queryItems = queryItems
         
         guard let url = comp?.url else {
             return Fail(error: InfraError.invalidURL).eraseToAnyPublisher()

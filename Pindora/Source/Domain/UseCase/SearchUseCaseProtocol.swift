@@ -27,7 +27,7 @@ protocol SearchUseCaseProtocol {
         keyword: String,
         center: CLLocationCoordinate2D
     ) -> AnyPublisher<[Place], UseCaseError>
-    
+ 
     /// 이미지 검색
     /// - Parameters:
     ///   - query: 사용자 입력 + 카테고리 키워드

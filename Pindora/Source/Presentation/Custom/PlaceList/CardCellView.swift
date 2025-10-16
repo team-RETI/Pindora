@@ -198,7 +198,7 @@ final class CardCellView: UITableViewCell {
             return r
         }
         
-        var options: KingfisherOptionsInfo = [
+        let options: KingfisherOptionsInfo = [
             .processor(processor),
             .scaleFactor(UIScreen.main.scale),
             .transition(.fade(0.15)),
