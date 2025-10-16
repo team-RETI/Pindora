@@ -25,17 +25,21 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
         self.repository = repository
     }
     
-    /// savedPlaces만 구독하고 싶을 때
-    var savedPlacesPublisher: AnyPublisher<[Place], Never> {
-        subject
-            .compactMap { $0?.savedPlaces }
-            .removeDuplicates(by: isSamePlaces)
-            .eraseToAnyPublisher()
-    }
-    var placeLogPublisher: AnyPublisher<[Place], Never> {
-        subject
-            .compactMap { $0?.visitedPlaces }
-            .eraseToAnyPublisher()
+//    var savedPlacesPublisher: AnyPublisher<[Place], Never> {
+//        subject
+//            .compactMap { $0?.savedPlaces }
+//            .removeDuplicates(by: isSamePlaces)
+//            .eraseToAnyPublisher()
+//    }
+//    
+//    var placeLogPublisher: AnyPublisher<[Place], Never> {
+//        subject
+//            .compactMap { $0?.visitedPlaces }
+//            .eraseToAnyPublisher()
+//    }
+    
+    var userPublisher: AnyPublisher<User?, Never> {
+        subject.eraseToAnyPublisher()
     }
     
     func saveUser(user: User) -> AnyPublisher<Void, UseCaseError> {
@@ -124,12 +128,12 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
                     guard let self else { return }
                     self.syncQ.async {
                         // 현재 캐시가 없으면 바로 갱신
-                        guard let current = self.subject.value else {
-                            self.subject.send(fetchedUser)
-                            print("here 1 ??")
-                            return
-                        }
-                        // 캐시가 있으면 동일성 비교 후 변경 시에만 방출
+//                        guard let current = self.subject.value else {
+//                            self.subject.send(fetchedUser)
+//                            print("here 1 ??")
+//                            return
+//                        }
+//                        // 캐시가 있으면 동일성 비교 후 변경 시에만 방출
 //                        if self.isSameUser(current, fetchedUser) {
 //                            // 동일 → skip
 //                        } else {
@@ -195,16 +199,20 @@ final class StubUserUsecaseImpl: UserUseCaseProtocol {
             .eraseToAnyPublisher()
     }
     
-    var savedPlacesPublisher: AnyPublisher<[Place], Never> {
-        testSubject
-            .compactMap { $0?.savedPlaces }
-            .eraseToAnyPublisher()
-    }
+//    var savedPlacesPublisher: AnyPublisher<[Place], Never> {
+//        testSubject
+//            .compactMap { $0?.savedPlaces }
+//            .eraseToAnyPublisher()
+//    }
+//    
+//    var placeLogPublisher: AnyPublisher<[Place], Never> {
+//        testSubject
+//            .compactMap { $0?.savedPlaces }
+//            .eraseToAnyPublisher()
+//    }
     
-    var placeLogPublisher: AnyPublisher<[Place], Never> {
-        testSubject
-            .compactMap { $0?.savedPlaces }
-            .eraseToAnyPublisher()
+    var userPublisher: AnyPublisher<User?, Never> {
+        testSubject.eraseToAnyPublisher()
     }
     
     func refreshIfNeeded(force: Bool, uid: String) {

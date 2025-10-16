@@ -8,12 +8,6 @@
 import UIKit
 
 final class LikeCountLabelView: UIView {
-    
-    var count: String? {
-        get { countLabel.text }
-        set { countLabel.text = newValue }
-    }
-    
     // MARK: - UI Component
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
@@ -21,14 +15,6 @@ final class LikeCountLabelView: UIView {
         imageView.tintColor = .black
         imageView.contentMode = .scaleAspectFit
         return imageView
-    }()
-    
-    private let countLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 10)
-        label.textColor = .black
-        label.backgroundColor = .white
-        return label
     }()
     
     // MARK: - Init
@@ -41,11 +27,6 @@ final class LikeCountLabelView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    convenience init(count: Int) {
-        self.init(frame: .zero)
-        self.count = count.description
-    }
 
     // MARK: - (F)UI Setup
     private func setupUI() {
@@ -53,7 +34,6 @@ final class LikeCountLabelView: UIView {
         clipsToBounds = true
         
         addSubview(iconImageView)
-        addSubview(countLabel)
     }
     
     override func layoutSubviews() {
@@ -64,17 +44,14 @@ final class LikeCountLabelView: UIView {
     // MARK: - (F)Constraints
     private func setupConstraints() {
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
-        countLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            iconImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             iconImageView.widthAnchor.constraint(equalToConstant: 12),
             iconImageView.heightAnchor.constraint(equalToConstant: 12),
             
-            countLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 2),
-            countLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            countLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            widthAnchor.constraint(equalToConstant: 21),
             heightAnchor.constraint(equalToConstant: 21)
         ])
     }

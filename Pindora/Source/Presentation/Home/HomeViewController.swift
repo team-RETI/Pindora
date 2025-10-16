@@ -9,7 +9,7 @@ import NMapsMap
 import Combine
 import CoreLocation
 
-final class HomeViewController: UIViewController, UITextFieldDelegate {
+final class HomeViewController: UIViewController {
     weak var coordinator: HomeCoordinator?
     private let viewModel: HomeViewModel
     private let customView = HomeView()
@@ -47,7 +47,7 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         bindViewModel()
-//        customView.searchBarView.textField.delegate = self
+        customView.searchBarView.textField.delegate = self
 //        viewModel.fetchPlaces()
 //        viewModel.fetchKeywords()
         
@@ -105,13 +105,6 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
                 }
             }
             .store(in: &cancellable)
-        
-        //viewModel.$places
-        //            .receive(on: DispatchQueue.main)
-        //            .sink { [weak self] places in
-        //                self?.placeList = places
-        //                self?.placeListView.reloadData()
-        //            }.store(in: &cancellables)
     }
     
     @objc private func categoryTapped(_ sender: UIButton) {
@@ -139,20 +132,28 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
         mapCenterSubject.send(location)
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
-        // 키보드 자동 올라오기 방지
+//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//        
+//        // 키보드 자동 올라오기 방지
+//        textField.resignFirstResponder()
+//        
+//        // 시트로 화면 올라오기
+//        let searchDetailVC = SearchDetailViewController(viewModel: viewModel)
+//        let nav = UINavigationController(rootViewController: searchDetailVC)
+//        nav.modalPresentationStyle = .fullScreen
+//        present(nav, animated: false, completion: nil)
+//    
+//         // false → 키보드 안 올라오게
+//         return false
+//     }
+}
+
+extension HomeViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // ✅ 엔터 눌렀을 때 키보드 닫기
         textField.resignFirstResponder()
-        
-        // 시트로 화면 올라오기
-        let searchDetailVC = SearchDetailViewController(viewModel: viewModel)
-        let nav = UINavigationController(rootViewController: searchDetailVC)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: false, completion: nil)
-    
-         // false → 키보드 안 올라오게
-         return false
-     }
+        return true
+    }
 }
 
 extension HomeViewController: UITableViewDelegate {

@@ -53,6 +53,23 @@ final class ProfileViewController: UIViewController {
         
         let output = viewModel.transform(input: input)
         
+        output.user
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                if let user = user {
+                    self?.customView.setProfileTitleLabel(user.personaName)
+                    self?.customView.setProfileDescriptionLabel(user.personaDescription)
+                    if let urlString = user.userImage, let url = URL(string: urlString) {
+                        self?.loadImage(from: url)
+                    }
+                    let saved = user.savedPlaces.count
+                    let visited = user.visitedPlaces.count
+                    let liked = user.likedPlaces.count
+                    self?.customView.updatePlaceCount(saved: saved, visited: visited, liked: liked)
+                }
+            }
+            .store(in: &cancellables)
+        
         // 장소 렌더링
         output.places
             .receive(on: DispatchQueue.main)

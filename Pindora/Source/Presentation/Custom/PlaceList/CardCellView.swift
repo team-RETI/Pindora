@@ -142,10 +142,9 @@ final class CardCellView: UITableViewCell {
         ])
     }
     
-    // 데이터 연결 (viewModel 구현 후 지울예정)
+    // 데이터 연결
     func configure(with place: Place, isSaved: Bool) {
         tagLabelView.title = place.category
-        likeCountLabelView.count = place.likedCount?.description
         favoritelabelView.isHidden = !isSaved
         titleLabel.text = place.placeName
         descriptionLabel.text = place.placeAddress
@@ -154,7 +153,6 @@ final class CardCellView: UITableViewCell {
     
     func configure(with place: Place) {
         tagLabelView.title = place.category
-        likeCountLabelView.count = place.likedCount?.description
         favoritelabelView.isHidden = true
         titleLabel.text = place.placeName
         descriptionLabel.text = place.placeAddress

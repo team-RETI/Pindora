@@ -43,7 +43,8 @@ final class ProfileView: UIView {
         label.font = .systemFont(ofSize: 12)
         label.textAlignment = .left
         label.textColor = .black
-        label.numberOfLines = 0
+        label.numberOfLines = 4
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     

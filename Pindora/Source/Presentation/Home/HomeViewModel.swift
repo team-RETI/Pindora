@@ -158,7 +158,8 @@ final class HomeViewModel {
         
         // 유저가 저장한 장소인지 아닌지 판단
         let savedPlace: AnyPublisher<Set<String>, Never> =
-        userUseCase.savedPlacesPublisher
+        userUseCase.userPublisher
+            .compactMap { $0?.savedPlaces }
             .map { Set($0.map { $0.placeId }) }
             .removeDuplicates()
             .eraseToAnyPublisher()

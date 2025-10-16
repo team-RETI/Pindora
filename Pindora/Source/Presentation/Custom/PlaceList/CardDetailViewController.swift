@@ -17,9 +17,6 @@ final class CardDetailViewController: UIViewController {
     // MARK: - Subjects (Input 소스)
     private let addButtonSubject = PassthroughSubject<Void, Never>()
     
-    // MARK: - Coordinator 콜백
-    var onSaved: (() -> Void)?
-    
     // MARK: - Initializer
     init(viewModel: CardDetailViewModel, place: Place) {
         self.viewModel = viewModel
@@ -73,10 +70,20 @@ final class CardDetailViewController: UIViewController {
             .assign(to: \.title, on: customView.tagLabelView)
             .store(in: &cancellable)
         
-        output.likeCount
-            .map { $0 as String? }
+        output.isSavedPlace
             .receive(on: DispatchQueue.main)
-            .assign(to: \.count, on: customView.likeCountLabelView)
+            .sink { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case true:
+                    self.showTopToast("제거 되었습니다")
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+
+                case false:
+                    self.showTopToast("저장 되었습니다")
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+                }
+            }
             .store(in: &cancellable)
     }
     
@@ -102,6 +109,5 @@ final class CardDetailViewController: UIViewController {
     @objc private func addPlaceButtonTapped() {
         print("tapped")
         addButtonSubject.send()
-        self.onSaved?()
     }
 }

@@ -231,7 +231,6 @@ protocol CardDetailCoordinating: AnyObject {
 
 final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationControllerDelegate, CardDetailCoordinating {
     var onPlaceSheetDismiss: (() -> Void)?
-    var onPlaceSaved: (() -> Void)?
     private var place: Place?
     
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) {  }
@@ -356,10 +355,6 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
                 sheet.prefersGrabberVisible = false
             }
             
-            vc.onSaved = { [weak self] in
-                self?.onPlaceSaved?()
-            }
-            
             // 블러
             let blur = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
             blur.frame = nav.view.bounds
@@ -476,7 +471,6 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
 
 final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAdaptivePresentationControllerDelegate {
     var onPlaceSheetDismiss: (() -> Void)?
-    var onPlaceSaved: (() -> Void)?
     private var place: Place?
     
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) { }
@@ -618,10 +612,6 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
                     })
                 ]
                 sheet.prefersGrabberVisible = false
-            }
-            
-            vc.onSaved = { [weak self] in
-                self?.onPlaceSaved?()
             }
             
             // 블러

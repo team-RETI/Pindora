@@ -16,7 +16,7 @@ final class CardDetailView: UIView {
     lazy var webButton = UIButton.detailButtonStyle(name: "internet")
     lazy var flagButton  = UIButton.detailButtonStyle(name: "flag")
     let tagLabelView = TagLabelView(title: "관광지")
-    let likeCountLabelView = LikeCountLabelView(count: 159)
+    let likeCountLabelView = LikeCountLabelView()
     
     let titleLabel: UILabel = {
         let label = UILabel()

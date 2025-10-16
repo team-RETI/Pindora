@@ -8,7 +8,6 @@
 import UIKit
 
 final class FavoriteLabelView: UIView {
-    
     // MARK: - UI Component
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
@@ -47,7 +46,7 @@ final class FavoriteLabelView: UIView {
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            iconImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             iconImageView.widthAnchor.constraint(equalToConstant: 12),
             iconImageView.heightAnchor.constraint(equalToConstant: 12),

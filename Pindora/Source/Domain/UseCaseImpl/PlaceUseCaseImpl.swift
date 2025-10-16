@@ -26,8 +26,6 @@ final class PlaceUseCaseImpl: PlaceUseCase {
     }
     
     // MARK: - Output
-    var placesPublisher: AnyPublisher<[Place], Never> { subject.eraseToAnyPublisher() }
-    
     func fetchPlaces() -> AnyPublisher<[Place], any Error> {
         repository.fetchAll(from: collection, as: PlaceDTO.self)
             .map { $0.map { $0.toEntity() } }

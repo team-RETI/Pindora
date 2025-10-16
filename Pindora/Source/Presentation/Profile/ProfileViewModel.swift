@@ -35,7 +35,7 @@ final class ProfileViewModel {
         /// DB에 저장된 장소 리스트
         let places: AnyPublisher<[Place], Never>
         /// DB에 저장된 유저 정보
-//        let user: AnyPublisher<User, Never>
+        let user: AnyPublisher<User?, Never>
     }
     
     func transform(input: Input) -> Output {
@@ -55,7 +55,11 @@ final class ProfileViewModel {
             }
             .store(in: &cancellables)
         
-        let places = userUseCase.placeLogPublisher
+        let user = userUseCase.userPublisher
+            .eraseToAnyPublisher()
+        
+        let places = userUseCase.userPublisher
+            .compactMap { $0?.visitedPlaces }
             .removeDuplicates(by: { lhs, rhs in
                 guard lhs.count == rhs.count else { return false }
                 // ID 비교가 가장 안전/빠름
@@ -66,7 +70,8 @@ final class ProfileViewModel {
             .eraseToAnyPublisher()
         
         return Output(
-            places: places
+            places: places,
+            user: user
         )
     }
     

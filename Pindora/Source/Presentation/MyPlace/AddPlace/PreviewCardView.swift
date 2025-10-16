@@ -147,7 +147,6 @@ final class PreviewCardView: UIView {
     // 데이터 연결 (viewModel 구현 후 지울예정)
     func configure(with place: Place) {
         tagLabelView.title = place.category
-        likeCountLabelView.count = place.likedCount?.description
         titleLabel.text = place.placeName
         descriptionLabel.text = place.placeAddress
         dateLabel.text = place.addedDate.toString()

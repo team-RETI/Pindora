@@ -60,7 +60,8 @@ final class MyPlaceViewModel {
             }
             .store(in: &cancellable)
         
-        let places = userUseCase.savedPlacesPublisher
+        let places = userUseCase.userPublisher
+            .compactMap { $0?.savedPlaces }
             .removeDuplicates(by: { lhs, rhs in
                 guard lhs.count == rhs.count else { return false }
                 // ID 비교가 가장 안전/빠름

@@ -10,10 +10,12 @@ import Combine
 
 /// 사용자 정보를 저장, 조회, 삭제하는 유스케이스를 정의하는 프로토콜입니다.
 protocol UserUseCaseProtocol {
-    /// 사용자가 저장한 장소 (홈,마이플레이스)
-    var savedPlacesPublisher: AnyPublisher<[Place], Never> { get }
-    /// 사용자의 장소로그 (프로필)
-    var placeLogPublisher: AnyPublisher<[Place], Never> { get }
+//    /// 사용자가 저장한 장소 (홈,마이플레이스)
+//    var savedPlacesPublisher: AnyPublisher<[Place], Never> { get }
+//    /// 사용자의 장소로그 (프로필)
+//    var placeLogPublisher: AnyPublisher<[Place], Never> { get }
+    /// 사용자의 정보가 변경될때 호출되는 퍼블리셔
+    var userPublisher: AnyPublisher<User?, Never> { get }
     
     /// 사용자의 장소 정보가 변경될 때 호출
     /// - Parameters:

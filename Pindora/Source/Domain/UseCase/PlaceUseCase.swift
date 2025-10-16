@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 protocol PlaceUseCase {
-    var placesPublisher: AnyPublisher<[Place], Never> { get }
-
+    /// 과호출 방지용 함수
+    /// - Parameter force: 강제 호출 여부
     func refreshIfNeeded(force: Bool)
     
     /// 장소 정보를 DB에서 가져옵니다.

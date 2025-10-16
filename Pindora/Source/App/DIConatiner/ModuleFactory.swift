@@ -69,7 +69,7 @@ final class ModuleFactory {
             let placeUseCase = DIContainer.shared.resolve(PlaceUseCase.self)
             let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
             let imageUseCase = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
-            return CardDetailViewModel(place: place, placeUseCase: placeUseCase, userUsecase: userUseCase, imageUseCase: imageUseCase)
+            return CardDetailViewModel(place: place, placeUseCase: placeUseCase, userUseCase: userUseCase, imageUseCase: imageUseCase)
         }
         return CardDetailViewController(viewModel: viewModel, place: place)
     }
