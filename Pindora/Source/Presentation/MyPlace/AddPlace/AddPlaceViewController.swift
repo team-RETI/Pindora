@@ -8,12 +8,25 @@
 import UIKit
 import Combine
 import CoreLocation
+import PhotosUI
 
 final class AddPlaceViewController: UIViewController {
     weak var coordinator: MyPlaceCoordinator?
     private let viewModel: AddPlaceViewModel
     private let customView = AddPlaceView()
     private var cancellable = Set<AnyCancellable>()
+    
+    private var currentPlace = Place(
+        placeId: UUID().uuidString,
+        placeName: "경복궁",
+        placeAddress: "서울특별시 종로구 사직로 161",
+        latitude: 0.0,
+        longitude: 0.0,
+        category: "관광지",
+        addedDate: Date(),
+        likedCount: 0,
+        imageURL: nil
+    )
     
     // MARK: - Subjects (Input 소스)
     private let searchTextSubject = PassthroughSubject<String, Never>()
@@ -25,7 +38,7 @@ final class AddPlaceViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -34,46 +47,66 @@ final class AddPlaceViewController: UIViewController {
     override func loadView() {
         self.view = customView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bindViewModel()
+        
+        let initialPlace = Place(
+            placeId: UUID().uuidString,
+            placeName: "초기 장소",
+            placeAddress: "주소 없음",
+            latitude: 0.0,
+            longitude: 0.0,
+            category: "기타",
+            addedDate: Date(),
+            likedCount: 0,
+            imageURL: nil
+        )
+        customView.updatePreviewPlace(initialPlace)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         customView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         customView.confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        customView.setImageTapAction(self, action: #selector(selectImageTapped))
+        
         setupTapGesture()
         setupCategoryTargets()
         setupSearchBarTarget()
         print("AddPlaceViewController")
     }
-
+    
     // MARK: - Bindings
     private func bindViewModel() {
         let input = AddPlaceViewModel.Input(
             keyword: searchTextSubject.eraseToAnyPublisher(),
             categorySelected: categorySelectedSubject.eraseToAnyPublisher(),
             confirmButtonTapped: confirmButtonTappedSubject.eraseToAnyPublisher()
-            )
+        )
         
         let output = viewModel.transform(input: input)
         
+        // 주소 검색 → 미리보기 갱신
         output.place
-            .handleEvents(receiveSubscription: { _ in print("🧲 subscribed: output.place") })
-            .sink { place in
-                print("📦 place out:", place)
-            }
-            .store(in: &cancellable)
-
-        output.selectedCategory
-            .handleEvents(receiveSubscription: { _ in print("🧲 subscribed: output.selectedCategory") })
-            .sink { cat in
-                print("🏷️ out selectedCategory:", cat)
+            .sink { [weak self] place in
+                guard let self = self else { return }
+                self.currentPlace = place
+                self.customView.updatePreviewPlace(place)
             }
             .store(in: &cancellable)
         
+        // 카테고리 선택 → currentPlace에 반영 + 미리보기 갱신
+        output.selectedCategory
+            .sink { [weak self] category in
+                guard let self = self else { return }
+                self.currentPlace = self.currentPlace.withCategory(category)
+                self.customView.updatePreviewPlace(self.currentPlace)
+            }
+            .store(in: &cancellable)
+        
+        // 저장 결과 처리 (토스트 + dismiss)
         output.saveResult
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
@@ -83,7 +116,7 @@ final class AddPlaceViewController: UIViewController {
                     self.showTopToast("저장되었습니다")
                     self.dismiss(animated: true)
                     UINotificationFeedbackGenerator().notificationOccurred(.success)
-
+                    
                 case .failure(let error):
                     if let saveErr = error as? SaveError {
                         switch saveErr {
@@ -104,12 +137,21 @@ final class AddPlaceViewController: UIViewController {
     }
     
     private func setupSearchBarTarget() {
-        // 사용자가 타이핑할 때마다 문자열을 방출하는 퍼블리셔
         customView.searchBarView.textField.textPublisher
-            // 0.35초 동안 입력이 멈출 때만 이벤트를 흘려보냄
             .debounce(for: .milliseconds(350), scheduler: RunLoop.main)
             .sink { [weak self] query in
-                self?.searchTextSubject.send(query)
+                guard let self else { return }
+
+                // 1. ViewModel에도 흘려보내고 (지금처럼)
+                self.searchTextSubject.send(query)
+
+                // 2. currentPlace에도 바로 반영
+                self.currentPlace = self.currentPlace.withAddress(query)
+
+                // 3. 미리보기 카드 갱신
+                self.customView.updatePreviewPlace(self.currentPlace)
+
+                print("주소 업데이트됨: \(self.currentPlace.placeAddress)")
             }
             .store(in: &cancellable)
     }
@@ -119,14 +161,17 @@ final class AddPlaceViewController: UIViewController {
             categoryView.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
         }
     }
-
+    
     @objc private func categoryTapped(_ sender: UIButton) {
-        guard let cellView = sender.superview as? CategoryCellView else { return }
-        guard let name = cellView.titleText else { return }
-        for view in customView.categoryViews {
-            view.setSelected(false)
-        }
+        guard let cellView = sender.superview as? CategoryCellView,
+              let name = cellView.titleText else { return }
+
+        for view in customView.categoryViews { view.setSelected(false) }
         cellView.setSelected(true)
+
+        currentPlace = currentPlace.withCategory(name)
+        customView.updatePreviewPlace(currentPlace)
+
         categorySelectedSubject.send(name)
     }
     
@@ -137,6 +182,8 @@ final class AddPlaceViewController: UIViewController {
     
     @objc private func confirmButtonTapped() {
         print("confirmButtonTapped")
+        print("🟢 현재 Place 상태:\n\(currentPlace.description)")
+        viewModel.injectPlace(currentPlace)
         confirmButtonTappedSubject.send()
     }
     
@@ -149,5 +196,35 @@ final class AddPlaceViewController: UIViewController {
     @objc private func dismissKeyboard() {
         view.endEditing(true) // 현재 뷰에서 키보드 내리기
     }
+    
+    @objc private func selectImageTapped() {
+        print("✅ selectImageTapped called")
+        var config = PHPickerConfiguration(photoLibrary: .shared())
+        config.selectionLimit = 1
+        config.filter = .images
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
 }
 
+extension AddPlaceViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true)
+        
+        guard let provider = results.first?.itemProvider else { return }
+        
+        if provider.canLoadObject(ofClass: UIImage.self) {
+            provider.loadObject(ofClass: UIImage.self) { [weak self] object, error in
+                guard let self, let image = object as? UIImage, error == nil else { return }
+                DispatchQueue.main.async {
+                    // ✅ 미리보기 이미지 업데이트
+                    self.customView.updatePreviewImage(image)
+                    
+                    // ✅ 저장용 Place에도 반영
+                    self.currentPlace = self.currentPlace.withImage("local-selected")
+                }
+            }
+        }
+    }
+}

@@ -186,17 +186,82 @@ extension Place {
     }
 }
 
-// MARK: - 수동으로 주소 추가 시 필요
+//// MARK: - 수동으로 주소 추가 시 필요
+//extension Place {
+//    func withCategory(_ category: String) -> Place {
+//        Place(
+//            placeId: placeId,
+//            placeName: placeName,
+//            placeAddress: placeAddress,
+//            latitude: latitude,
+//            longitude: longitude,
+//            category: category,
+//            addedDate: addedDate
+//        )
+//    }
+//}
+
+// MARK: - MyPlace 헬퍼 메서드
 extension Place {
-    func withCategory(_ category: String) -> Place {
-        Place(
-            placeId: placeId,
-            placeName: placeName,
-            placeAddress: placeAddress,
-            latitude: latitude,
-            longitude: longitude,
-            category: category,
-            addedDate: addedDate
+    func withAddress(_ newAddress: String) -> Place {
+        return Place(
+            placeId: self.placeId,
+            placeName: self.placeName,
+            placeAddress: newAddress,
+            latitude: self.latitude,
+            longitude: self.longitude,
+            category: self.category,
+            addedDate: self.addedDate,
+            likedCount: self.likedCount,
+            imageURL: self.imageURL
         )
+    }
+    
+    func withCategory(_ newCategory: String) -> Place {
+        return Place(
+            placeId: self.placeId,
+            placeName: self.placeName,
+            placeAddress: self.placeAddress,
+            latitude: self.latitude,
+            longitude: self.longitude,
+            category: newCategory,
+            addedDate: self.addedDate,
+            likedCount: self.likedCount,
+            imageURL: self.imageURL
+        )
+    }
+    
+    func withImage(_ newImageURL: String?) -> Place {
+        return Place(
+            placeId: self.placeId,
+            placeName: self.placeName,
+            placeAddress: self.placeAddress,
+            latitude: self.latitude,
+            longitude: self.longitude,
+            category: self.category,
+            addedDate: self.addedDate,
+            likedCount: self.likedCount,
+            imageURL: newImageURL
+        )
+    }
+}
+
+// MARK: - Dictionary변환용 (파이어베이스 테스트)
+extension Place {
+    func toDictionary() -> [String: Any] {
+        return [
+            "placeId": placeId,
+            "placeName": placeName,
+            "placeAddress": placeAddress,
+            "latitude": latitude,
+            "longitude": longitude,
+            "category": category,
+            "addedDate": ISO8601DateFormatter().string(from: addedDate),
+            "likedCount": likedCount ?? 0,
+            "naviLink": naviLink ?? "",
+            "instaLink": instaLink ?? "",
+            "bookLink": bookLink ?? "",
+            "imageURL": imageURL ?? ""
+        ]
     }
 }

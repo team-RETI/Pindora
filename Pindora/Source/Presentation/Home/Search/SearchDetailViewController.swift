@@ -8,13 +8,17 @@ import UIKit
 import Combine
 
 final class SearchDetailViewController: UIViewController {
-    private let viewModel: HomeViewModel
+    private let viewModel: SearchDetailViewModel
     private var cancellables = Set<AnyCancellable>()
     private var searchController = UISearchController(searchResultsController: nil)
     private let tableView = UITableView()
+    private var currentKeyWords: [String] = []
+    
+    // MARK: - 외부에서 로직 처리
+    var onKeywordSelected: ((String) -> Void)?
     
     // MARK: - Initializer
-    init(viewModel: HomeViewModel) {
+    init(viewModel: SearchDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -29,6 +33,7 @@ final class SearchDetailViewController: UIViewController {
         setupTableView()
         setupSearchController()
         bindViewModel()
+        setupUI()
     }
     
     private func setupTableView() {
@@ -50,14 +55,14 @@ final class SearchDetailViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "검색어를 입력하세요"
         searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
     }
-
-    // MARK: - Bindings
-    private func bindViewModel() {
-        
+    
+    // MARK: - (F)UI Setup
+    private func setupUI() {
         // 뒤로가기 버튼
         let searchTextField = searchController.searchBar.searchTextField
         let backButton = UIButton(type: .system)
@@ -68,24 +73,28 @@ final class SearchDetailViewController: UIViewController {
 
         searchTextField.leftView = backButton
         searchTextField.leftViewMode = .always
+    }
 
-
-         // Combine으로 검색 텍스트 감시
-         searchController.searchBar.searchTextField
-             .textPublisher
-             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
-             .removeDuplicates()
-             .sink { [weak self] query in
-                 guard let self = self else { return }
-                 let text = query ?? ""
-                 
-                 if text.isEmpty {
-                     self.viewModel.resetFilter()
-                 } else {
-                     self.viewModel.filterKeywords(query: text)
-                 }
-             }
-             .store(in: &cancellables)
+    // MARK: - Bindings
+    private func bindViewModel() {
+        let searchQuery = searchController.searchBar.searchTextField.textPublisher
+            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .prepend("")   // 처음에 빈 문자열 방출
+            .eraseToAnyPublisher()
+        
+        let input = SearchDetailViewModel.Input(searchKeyword: searchQuery)
+        let output = viewModel.transform(input: input)
+        
+        // MARK: - 텍스트 필터링
+        output.filteredKeywords
+            .receive(on: RunLoop.main)
+            .sink { [weak self] keywords in
+                guard let self = self else { return }
+                self.currentKeyWords = keywords
+                self.tableView.reloadData()
+            }
+            .store(in: &cancellables)
     }
     
     @objc private func didTapBack() {
@@ -99,21 +108,28 @@ final class SearchDetailViewController: UIViewController {
     }
 }
 
+extension SearchDetailViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let query = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        guard !query.isEmpty else { return }
+        print("검색 버튼 클릭: \(query)")
+        
+        onKeywordSelected?(query)
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+}
+
+
 // MARK: - DataSource
 extension SearchDetailViewController: UITableViewDataSource {
     
-    // 필터링 여부
-    var isFiltering: Bool {
-        return !(searchController.searchBar.text?.isEmpty ?? true)
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isFiltering ? viewModel.filteredKeywords.count : viewModel.keywords.count
+        return currentKeyWords.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let text = isFiltering ? viewModel.filteredKeywords[indexPath.row] : viewModel.keywords[indexPath.row]
+        let text = currentKeyWords[indexPath.row]
         cell.textLabel?.text = text
         return cell
     }
@@ -121,8 +137,6 @@ extension SearchDetailViewController: UITableViewDataSource {
 
 extension SearchDetailViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        let query = searchController.searchBar.text ?? ""
-        viewModel.filteredKeywords = viewModel.keywords.filter { $0.lowercased().contains(query.lowercased()) }
         tableView.reloadData()
     }
 }
@@ -130,8 +144,11 @@ extension SearchDetailViewController: UISearchResultsUpdating {
 // MARK: - Delegate
 extension SearchDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let text = isFiltering ? viewModel.filteredKeywords[indexPath.row] : viewModel.keywords[indexPath.row]
+        let text = currentKeyWords[indexPath.row]
         print("선택된 셀: \(text)")
+        
+        // MARK: - HomeVC로 선택된 셀 보내기
+        onKeywordSelected?(text)
         
         // 선택된 셀 하이라이트 제거
         tableView.deselectRow(at: indexPath, animated: true)
@@ -141,5 +158,8 @@ extension SearchDetailViewController: UITableViewDelegate {
 
 
 //#Preview {
-//    SearchDetailViewController(viewModel: HomeViewModel(placeUseCase: PlaceUseCaseImpl(repository: DatabaseRepositoryImpl())))
+//    SearchDetailViewController(viewModel: HomeViewModel(locationUseCase: <#T##any LocationUseCaseProtocol#>,
+//                                                        searchUseCase: <#T##any SearchUseCaseProtocol#>,
+//                                                        imageUseCase: <#T##any ImageUsecaseProtocol#>,
+//                                                        placeUseCase: <#T##any PlaceUseCase#>))
 //}

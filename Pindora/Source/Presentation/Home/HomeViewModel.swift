@@ -7,6 +7,7 @@
 import UIKit
 import Combine
 import CoreLocation
+import FirebaseAuth
 
 final class HomeViewModel {
     // MARK: - Dependancy
@@ -17,27 +18,23 @@ final class HomeViewModel {
     private let placeUseCase: PlaceUseCase
     private let userUseCase: UserUseCaseProtocol
     private let imageUseCase: ImageUsecaseProtocol
+    private let userUseCase: UserUseCaseProtocol
+    
     // Combine
     private var cancellable: Set<AnyCancellable> = []
-    
-    // MARK: - 키워드 관련
-    // 파이어베이스에 저장된 키웓,
-    @Published var keywords: [String] = [] {
-        didSet {
-            print("파이어베이스 키워드: \(keywords)")
-        }
-    }
-    
-    // 필터링된 결과
-    @Published var filteredKeywords: [String] = [] {
-        didSet {
-            print("필터링된 키워드: \(filteredKeywords)")
-        }
-    }
-    
-    // MARK: - Place 관련
-    @Published var places: [Place] = []
-    static let clientID = Bundle.main.infoDictionary?["GPT_API_KEY"] as? String ?? ""
+
+    private let regionKeywords: [String] = [
+        "서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종",
+        "경기", "경기도",
+        "강원", "강원도",
+        "충북", "충청북도",
+        "충남", "충청남도",
+        "전북", "전라북도",
+        "전남", "전라남도",
+        "경북", "경상북도",
+        "경남", "경상남도",
+        "제주", "제주도", "제주특별자치도"
+    ]
     
     init(
         locationUseCase: LocationUseCaseProtocol,
@@ -51,7 +48,6 @@ final class HomeViewModel {
         self.searchUseCase = searchUseCase
         self.imageUseCase = imageUseCase
         self.userUseCase = userUseCase
-        print("테스트: \(HomeViewModel.clientID)")
     }
     
     enum SearchTrigger {
@@ -68,6 +64,8 @@ final class HomeViewModel {
         let mapCenter: AnyPublisher<CLLocationCoordinate2D, Never>
         /// 카테고리 버튼이 선택될 때 선택된 태그(이름) 스트림
         let categorySelected: AnyPublisher<String, Never>
+        /// init시 고정 키워드 배열 한번 호출
+        /// let fetchKeywords: AnyPublisher<Void, Never>
     }
     
     struct Output {
@@ -79,14 +77,54 @@ final class HomeViewModel {
         let savedPlace: AnyPublisher<Set<String>, Never>
         /// 검색 결과 장소리스트 (테이블 뷰 갱신)
         let places: AnyPublisher<[Place], Never>
+        /// 고정 키워드 퍼블리셔
+        let keywords: AnyPublisher<[String], Never>
     }
     
     func transform(input: Input) -> Output {
+        let initialPlaces = PassthroughSubject<[Place], Never>()
+        
         input.viewDidLoad
             .sink { [weak self] in
                 guard let self = self else { return }
                 self.locationUseCase.requestAuthorization()
                 self.locationUseCase.startUpdatingLocation()
+                
+                // 유저 데이터 가져오기
+                guard let uid = Auth.auth().currentUser?.uid else { return }
+                
+                self.userUseCase.fetchUser(uid: uid)
+                    .catch { error -> Just<User> in
+                        print("❌ 사용자 정보 불러오기 실패:", error)
+                        return Just(User(userId: uid, likedPlaces: [], savedPlaces: [], visitedPlaces: []))
+                    }
+                    .flatMap { [weak self] user -> AnyPublisher<[Place], Never> in
+                        guard let self else { return Just([]).eraseToAnyPublisher() }
+                        
+                        if user.selectedCategories.isEmpty {
+                            print("⚠️ 유저 카테고리 없음")
+                            return Just([]).eraseToAnyPublisher()
+                        }
+                        
+                        // 카테고리별 2개 검색 → 병렬 실행
+                        let publishers = user.selectedCategories.map { category in
+                            self.searchUseCase
+                                .search(keyword: category)              // AnyPublisher<[Place], UseCaseError>
+                                .map { Array($0.prefix(2)) }
+                                .catch { _ in Just([]) }
+                                .eraseToAnyPublisher()
+                        }
+                        
+                        return Publishers.MergeMany(publishers)
+                            .collect()
+                            .map { $0.flatMap { $0 } } // [[Place]] → [Place]
+                            .eraseToAnyPublisher()
+                    }
+                    .sink { places in
+                        print("✨ 초기 places 방출: \(places.count)개")
+                        initialPlaces.send(places)
+                    }
+                    .store(in: &self.cancellable)
             }
             .store(in: &cancellable)
         
@@ -217,6 +255,11 @@ final class HomeViewModel {
                     }
                     .eraseToAnyPublisher()
             }
+            .map { places in
+                // 중복 제거: placeId 기준
+                var seen = Set<String>()
+                return places.filter { seen.insert($0.placeId).inserted }
+            }
             .receive(on: DispatchQueue.main)
             .share()
             .handleEvents(receiveOutput: { places in
@@ -224,7 +267,13 @@ final class HomeViewModel {
                 print("📤 placeList 방출: 총 \(places.count), imageURL 있음 \(filled)")
             })
             .eraseToAnyPublisher()
-    
+        
+        // fetchKeywords는 View에서 트리거할 이벤트가 아니므로 Output에만 존재합니다.
+        let keywords = placeUseCase.fetchKeywords()
+            .catch { _ in Just([]) }
+            .share()
+            .eraseToAnyPublisher()
+        
         /// 이미지 검색 후 ImageUseCase 이용하여 저장
         /// 장소 추합된 이후 PlaceUseCase 이용하여 저장
         return Output(

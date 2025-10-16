@@ -15,6 +15,17 @@ final class HomeViewController: UIViewController {
     private let customView = HomeView()
     private var cancellable = Set<AnyCancellable>()
     
+    // MARK: - 하위 VM에 주입하기 위함
+    /// SearchDetailViewModel에서 키워드 검색 로직을 담당하도록 분리.
+    /// 다만 Search 화면 진입 시 네트워크 지연 없이 바로 추천 키워드를 보여주기 위해
+    /// HomeViewController에서 먼저 키워드를 받아 `CurrentValueSubject`에 한번 받아두고 재사용.
+    /// 이후 `keywordsPublisher`를 통해 SearchDetailViewModel에 의존성 주입하여
+    /// 화면 전환 시 대기 시간 없이 즉시 데이터 표시가 가능하도록 구성.
+    private let keywordSubject = CurrentValueSubject<[String], Never>([])
+    var keywordsPublisher: AnyPublisher<[String], Never> {
+        keywordSubject.eraseToAnyPublisher()
+    }
+    
     // MARK: - Subjects (Input 소스)
     private let searchTextSubject = PassthroughSubject<String, Never>()
     private let categorySelectedSubject = PassthroughSubject<String, Never>()
@@ -50,7 +61,6 @@ final class HomeViewController: UIViewController {
         customView.searchBarView.textField.delegate = self
 //        viewModel.fetchPlaces()
 //        viewModel.fetchKeywords()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -105,6 +115,15 @@ final class HomeViewController: UIViewController {
                 }
             }
             .store(in: &cancellable)
+
+        output.keywords
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] keywords in
+                guard let self = self else { return }
+                self.keywordSubject.send(keywords)
+                print("키워드: \(keywords)")
+            }
+            .store(in: &cancellable)
     }
     
     @objc private func categoryTapped(_ sender: UIButton) {
@@ -152,8 +171,29 @@ extension HomeViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // ✅ 엔터 눌렀을 때 키보드 닫기
         textField.resignFirstResponder()
-        return true
-    }
+        
+        // 시트로 화면 올라오기
+        let searchDetailVM = SearchDetailViewModel(keywordPublisher: keywordsPublisher)
+        let searchDetailVC = SearchDetailViewController(viewModel: searchDetailVM)
+        let nav = UINavigationController(rootViewController: searchDetailVC)
+        nav.modalPresentationStyle = .fullScreen
+        
+        // 리스트 업데이트
+        searchDetailVC.onKeywordSelected = { [weak self] keyword in
+            guard let self = self else { return }
+            
+            // 1. 선택된 키워드 검색창에 표시
+            self.customView.searchBarView.textField.text = keyword
+            
+            // 2. 뷰모델에 이벤트 전달(검색 실행)
+            self.searchTextSubject.send(keyword)
+        }
+        
+        present(nav, animated: false, completion: nil)
+
+         // false → 키보드 안 올라오게
+         return false
+     }
 }
 
 extension HomeViewController: UITableViewDelegate {

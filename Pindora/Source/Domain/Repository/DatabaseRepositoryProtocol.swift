@@ -18,7 +18,8 @@ public protocol DatabaseRepositoryProtocol {
     ///   - collection: 저장할 컬렉션의 이름입니다.
     ///   - id: 생성할 문서의 고유 ID입니다.
     /// - Returns: 작업의 성공 여부를 방출하는 AnyPublisher<Void, Error>입니다.
-    func create<T: Codable>(_ object: T, at collection: String, id: String) -> AnyPublisher<Void, Error>
+    //func create<T: Codable>(_ object: T, at collection: String, id: String) -> AnyPublisher<Void, Error>
+    func create<T: Codable>(_ object: T, at parentCollection: String, parentId: String, subCollection: String?, id: String) -> AnyPublisher<Void, Error>
     
     /// Firestore에서 특정 문서를 조회하여 객체로 반환합니다.
     /// - Parameters:

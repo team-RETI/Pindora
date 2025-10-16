@@ -679,9 +679,15 @@ final class ProfileCoordinator: Coordinator {
         navigationController.popViewController(animated: true)
     }
     
-    func didTapEditProfile() {
-        navigate(to: .editProfile)
+    func didTapEditProfile(with user: User) {
+        let vc = ModuleFactory.shared.makeProfileEditVC()
+        vc.coordinator = self
+        vc.configure(user: user)
+        vc.hidesBottomBarWhenPushed = true
+        navigationController.pushViewController(vc, animated: true)
+        navigationController.isNavigationBarHidden = true
     }
+    
     func didTapSetting() {
         navigate(to: .setting)
     }

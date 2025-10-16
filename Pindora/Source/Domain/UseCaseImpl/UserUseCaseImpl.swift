@@ -44,7 +44,13 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
     
     func saveUser(user: User) -> AnyPublisher<Void, UseCaseError> {
         let dto = user.toDTO()
-        return repository.create(dto, at: collection, id: user.userId)
+        return repository.create(
+            dto,
+            at: "Users",
+            parentId: user.userId,
+            subCollection: nil,
+            id: user.userId
+        )
             .mapToUseCaseError()
             .eraseToAnyPublisher()
     }
