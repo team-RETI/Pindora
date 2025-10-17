@@ -9,6 +9,11 @@ import Foundation
 import Combine
 
 protocol PlaceUseCase {
+    /// 과호출 방지용 함수
+    /// - Parameter force: 강제 호출 여부
+    func refreshIfNeeded(force: Bool)
+    
+    /// 장소 정보를 DB에서 가져옵니다.
     func fetchPlaces() -> AnyPublisher<[Place], Error>
     
     /// 사용자 정보를 Firestore에 저장합니다.

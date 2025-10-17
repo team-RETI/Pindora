@@ -22,7 +22,7 @@ final class SearchRepositoryImpl: SearchRepositoryProtocol {
     }
     
     func search(keyword: String) -> AnyPublisher<[Place], InfraError> {
-        searchManager.searchPlaces(keyword: keyword, x: 0.0, y: 0.0)
+        searchManager.searchPlaces(keyword: keyword)
             .eraseToAnyPublisher()
     }
     

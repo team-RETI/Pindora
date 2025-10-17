@@ -72,6 +72,8 @@
 		A78571942E3E54C50021F72D /* LikeCountLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78571932E3E54C50021F72D /* LikeCountLabelView.swift */; };
 		A78571A02E3F19AF0021F72D /* SelectableOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785719F2E3F19AF0021F72D /* SelectableOverlayView.swift */; };
 		A78571A32E3F94570021F72D /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = A78571A22E3F94570021F72D /* NMapsMap */; };
+		A789D03F2E9EAB6A00062CB4 /* FavoriteLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A789D03E2E9EAB6A00062CB4 /* FavoriteLabelView.swift */; };
+		A789D0422EA0BDBD00062CB4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A789D0412EA0BDBD00062CB4 /* Kingfisher */; };
 		A78A134D2E533DA600204D8D /* KeywordCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A134C2E533DA600204D8D /* KeywordCloudView.swift */; };
 		A78A134F2E53413600204D8D /* GradientProgressCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A134E2E53413600204D8D /* GradientProgressCardView.swift */; };
 		A78A13512E53446100204D8D /* AppleCardInkProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A13502E53446100204D8D /* AppleCardInkProgressView.swift */; };
@@ -260,6 +262,7 @@
 		A78571912E3E51040021F72D /* TagLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabelView.swift; sourceTree = "<group>"; };
 		A78571932E3E54C50021F72D /* LikeCountLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCountLabelView.swift; sourceTree = "<group>"; };
 		A785719F2E3F19AF0021F72D /* SelectableOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableOverlayView.swift; sourceTree = "<group>"; };
+		A789D03E2E9EAB6A00062CB4 /* FavoriteLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLabelView.swift; sourceTree = "<group>"; };
 		A78A134C2E533DA600204D8D /* KeywordCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordCloudView.swift; sourceTree = "<group>"; };
 		A78A134E2E53413600204D8D /* GradientProgressCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressCardView.swift; sourceTree = "<group>"; };
 		A78A13502E53446100204D8D /* AppleCardInkProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleCardInkProgressView.swift; sourceTree = "<group>"; };
@@ -361,7 +364,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		89A9E78E2E39ED8600BF9098 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */ = {
+		A7228FB62E844CF400F351CE /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -381,7 +384,7 @@
 		DF7487AD2E38A95200CF9864 /* PindoraShareExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				89A9E78E2E39ED8600BF9098 /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */,
+				A7228FB62E844CF400F351CE /* Exceptions for "PindoraShareExtension" folder in "PindoraShareExtension" target */,
 			);
 			path = PindoraShareExtension;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A789D0422EA0BDBD00062CB4 /* Kingfisher in Frameworks */,
 				89728D892E33DD2F002B3ACE /* FirebaseAuth in Frameworks */,
 				A78571A32E3F94570021F72D /* NMapsMap in Frameworks */,
 				89728D8B2E33DD2F002B3ACE /* FirebaseFirestore in Frameworks */,
@@ -748,6 +752,7 @@
 				A7F545522E38A7600014EB85 /* CardDetailViewModel.swift */,
 				A78571912E3E51040021F72D /* TagLabelView.swift */,
 				A78571932E3E54C50021F72D /* LikeCountLabelView.swift */,
+				A789D03E2E9EAB6A00062CB4 /* FavoriteLabelView.swift */,
 			);
 			path = PlaceList;
 			sourceTree = "<group>";
@@ -1058,6 +1063,7 @@
 				89728D8C2E33DD2F002B3ACE /* FirebaseStorage */,
 				A78571A22E3F94570021F72D /* NMapsMap */,
 				DF530C8A2E4C7DFA00C31301 /* CombineCocoa */,
+				A789D0412EA0BDBD00062CB4 /* Kingfisher */,
 			);
 			productName = Pindora;
 			productReference = A7C1AB592E20022D00B8B9E1 /* Pindora.app */;
@@ -1140,6 +1146,7 @@
 				89728D872E33DD2F002B3ACE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				A78571A12E3F94570021F72D /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */,
 				DF530C892E4C7DFA00C31301 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				A789D0402EA0BDBD00062CB4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A7C1AB5A2E20022D00B8B9E1 /* Products */;
@@ -1313,6 +1320,7 @@
 				89728D982E33DE58002B3ACE /* DatabaseRepositoryProtocol.swift in Sources */,
 				A725E9AD2E2FA4FB00EEA3F5 /* PersonaPreviewView.swift in Sources */,
 				DF1F40F12E279F6600BE27AC /* MyPlaceViewController.swift in Sources */,
+				A789D03F2E9EAB6A00062CB4 /* FavoriteLabelView.swift in Sources */,
 				A725E9B92E2FE6CF00EEA3F5 /* SettingListViewController.swift in Sources */,
 				A778D2E32E29756E006B3309 /* ProfilePlaceCellView.swift in Sources */,
 				89CCDB5C2E8A83F400B28FFD /* UIImage+.swift in Sources */,
@@ -1775,6 +1783,14 @@
 				minimumVersion = 3.22.1;
 			};
 		};
+		A789D0402EA0BDBD00062CB4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.6.0;
+			};
+		};
 		DF530C892E4C7DFA00C31301 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
@@ -1805,6 +1821,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A78571A12E3F94570021F72D /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
 			productName = NMapsMap;
+		};
+		A789D0412EA0BDBD00062CB4 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A789D0402EA0BDBD00062CB4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		DF530C8A2E4C7DFA00C31301 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -63,26 +63,51 @@ final class CardDetailViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.text, on: customView.addressLabel)
             .store(in: &cancellable)
+        
+        output.category
+            .map { $0 as String? }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.title, on: customView.tagLabelView)
+            .store(in: &cancellable)
+        
+        output.isSavedPlace
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case true:
+                    self.showTopToast("제거 되었습니다")
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+
+                case false:
+                    self.showTopToast("저장 되었습니다")
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+                }
+            }
+            .store(in: &cancellable)
     }
     
     // MARK: - Targets
     private func buttonTargets() {
-//        customView.pinButton.addTarget(self, action: #selector(pinTapped), for: .touchUpInside)
+        customView.pinButton.addTarget(self, action: #selector(pinTapped), for: .touchUpInside)
+        customView.webButton.addTarget(self, action: #selector(webButtonTapped), for: .touchUpInside)
         customView.flagButton.addTarget(self, action: #selector(addPlaceButtonTapped), for: .touchUpInside)
-        customView.closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func pinTapped() {
+        // TODO: 추후 외부 지도뷰로 연결
+        print("tapped")
+        dismiss(animated: true)
+    }
+    
+    @objc private func webButtonTapped() {
+        // TODO: 추후 웹으로 연결
+        print("tapped")
+        dismiss(animated: true)
     }
     
     @objc private func addPlaceButtonTapped() {
         print("tapped")
         addButtonSubject.send()
     }
-    
-    @objc private func closeButtonTapped() {
-        print("tapped")
-        dismiss(animated: true)
-    }
 }
-
-
-
-

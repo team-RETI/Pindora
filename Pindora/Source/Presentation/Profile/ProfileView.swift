@@ -47,7 +47,8 @@ final class ProfileView: UIView {
         label.font = .systemFont(ofSize: 12)
         label.textAlignment = .left
         label.textColor = .black
-        label.numberOfLines = 0
+        label.numberOfLines = 4
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
@@ -78,7 +79,7 @@ final class ProfileView: UIView {
     
     private let sectionTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "내가 저장한 장소"
+        label.text = "나의 관심 장소"
         label.font = .boldSystemFont(ofSize: 17)
         label.backgroundColor = .black
         label.textColor = .white
@@ -210,7 +211,7 @@ extension ProfileView {
         }
     }
     
-    func updateSavedPlaces(_ places: [Place]) {
-        collectionView.updateSavedPlaces(places)
+    func updatePlaceLog(_ places: [Place]) {
+        collectionView.updatePlaceLog(places)
     }
 }

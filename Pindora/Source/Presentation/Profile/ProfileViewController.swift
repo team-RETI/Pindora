@@ -13,6 +13,9 @@ final class ProfileViewController: UIViewController {
     private let customView = ProfileView()
     private var cancellables = Set<AnyCancellable>()
     
+    // MARK: - Subjects (Input source)
+    private let reloadSubject = PassthroughSubject<Void, Never>()
+    
     // MARK: - Initializer
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
@@ -44,24 +47,56 @@ final class ProfileViewController: UIViewController {
     
     // MARK: - Bindings
     private func bindViewModel() {
-        viewModel.$user
-            .compactMap { $0 }
-            .receive(on: RunLoop.main)
-            .sink { [weak self] (user: User) in
-                self?.customView.setProfileTitleLabel(user.personaName)
-                self?.customView.setProfileDescriptionLabel(user.personaDescription)
-                if let urlString = user.userImage, let url = URL(string: urlString) {
-                    self?.loadImage(from: url)
+        let input = ProfileViewModel.Input(
+            viewDidLoad: Just(()).eraseToAnyPublisher(),
+            reload: reloadSubject.eraseToAnyPublisher()
+        )
+        
+        let output = viewModel.transform(input: input)
+        
+        output.user
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                if let user = user {
+                    self?.customView.setProfileTitleLabel(user.personaName)
+                    self?.customView.setProfileDescriptionLabel(user.personaDescription)
+                    if let urlString = user.userImage, let url = URL(string: urlString) {
+                        self?.loadImage(from: url)
+                    }
+                    let saved = user.savedPlaces.count
+                    let visited = user.visitedPlaces.count
+                    let liked = user.likedPlaces.count
+                    self?.customView.updatePlaceCount(saved: saved, visited: visited, liked: liked)
                 }
-                
-                let saved = user.savedPlaces.count
-                let visited = user.visitedPlaces.count
-                let liked = user.likedPlaces.count
-                
-                self?.customView.updatePlaceCount(saved: saved, visited: visited, liked: liked)
-                self?.customView.updateSavedPlaces(user.savedPlaces)
             }
             .store(in: &cancellables)
+        
+        // 장소 렌더링
+        output.places
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] places in
+                self?.customView.updatePlaceLog(places)
+            }
+            .store(in: &cancellables)
+        
+//        viewModel.$user
+//            .compactMap { $0 }
+//            .receive(on: RunLoop.main)
+//            .sink { [weak self] (user: User) in
+//                self?.customView.setProfileTitleLabel(user.personaName)
+//                self?.customView.setProfileDescriptionLabel(user.personaDescription)
+//                if let urlString = user.userImage, let url = URL(string: urlString) {
+//                    self?.loadImage(from: url)
+//                }
+//                
+//                let saved = user.savedPlaces.count
+//                let visited = user.visitedPlaces.count
+//                let liked = user.likedPlaces.count
+//                
+//                self?.customView.updatePlaceCount(saved: saved, visited: visited, liked: liked)
+//                self?.customView.updatePlaceLog(user.visitedPlaces)
+//            }
+//            .store(in: &cancellables)
     }
     
     private func loadImage(from url: URL) {

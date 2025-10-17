@@ -16,6 +16,7 @@ final class HomeViewModel {
     private let searchUseCase: SearchUseCaseProtocol
     // DB
     private let placeUseCase: PlaceUseCase
+    private let userUseCase: UserUseCaseProtocol
     private let imageUseCase: ImageUsecaseProtocol
     private let userUseCase: UserUseCaseProtocol
     
@@ -49,6 +50,11 @@ final class HomeViewModel {
         self.userUseCase = userUseCase
     }
     
+    enum SearchTrigger {
+        case category(String)
+        case keyword(String)
+    }
+    
     struct Input {
         /// viewDidLoad 시 한 번 호출
         let viewDidLoad: AnyPublisher<Void, Never>
@@ -67,6 +73,8 @@ final class HomeViewModel {
         let location: AnyPublisher<CLLocationCoordinate2D, Never>
         /// 선택된 카테고리 이름(뷰에서 선택 상태 갱신)
         let selectedCategory: AnyPublisher<String, Never>
+        /// 유저가 저장한 장소인지 판단여부
+        let savedPlace: AnyPublisher<Set<String>, Never>
         /// 검색 결과 장소리스트 (테이블 뷰 갱신)
         let places: AnyPublisher<[Place], Never>
         /// 고정 키워드 퍼블리셔
@@ -151,77 +159,78 @@ final class HomeViewModel {
             .handleEvents(receiveOutput: { kw in
                 print("⌨️ keywordNormalized:", kw)
             })
-        
-        // Publishers.Merge(A, B): 두 퍼블리셔의 이벤트를 시간순으로 그대로 섞어 하나의 퍼블리셔로 합침
-        // removeDuplicates(): 연속된 동일 값은 한번만 통과시킴
-        let searchQuery = Publishers.Merge(keywordNormalized, selectedCategory)
-            .removeDuplicates()
-            .handleEvents(receiveOutput: { q in
-                print("🔎 searchQuery:", q)
-            })
             .eraseToAnyPublisher()
         
-        // 검색 스트림
-        // 검색 실패 시 UI 안정성을 위해 빈 배열로 대체
-        let placesRaw: AnyPublisher<[Place], Never> = searchQuery
-            // 검색어가 나올 때의 최신 center를 묶어서 사용
-            .combineLatest(location)                         // -> (query: String, center: CLLocationCoordinate2D)
-            // 최신 요청만 유지
-            .map { [weak self] (query, location) -> AnyPublisher<[Place], Never> in
-                guard let self = self else { return Just([]).eraseToAnyPublisher() }
-                
-                if let matchedRegion = self.regionKeywords.first(where: { query.contains($0) }) {
-                    print("지역 키워드 검색 실행: \(query) | 매칭된 지역: \(matchedRegion)")
-                    print("지역을 포함한 search 함수를 호출해주세요.")
-                    
-                    // TODO: - 여기에 .search(location: matchedRegion, keyword: query, center: location)
-                    return Just([]).eraseToAnyPublisher()
-                } else {
-                    print("일반 키워드 검색 실행: \(query)")
-                    return self.searchUseCase
-                        .search(keyword: query, center: location) // ✅ 변경 포인트
-                        .handleEvents(receiveOutput: { places in
-                            print("📥 search 결과 개수:", places.count)
-                        })
-                        .catch { _ in Just([]) }               // 실패 시 빈 배열로 대체
-                        .eraseToAnyPublisher()
+        let trigger: AnyPublisher<SearchTrigger, Never> =
+        Publishers.Merge(
+            selectedCategory.map(SearchTrigger.category),
+            keywordNormalized.map(SearchTrigger.keyword)
+        )
+        .eraseToAnyPublisher()
+        
+        let placesRaw: AnyPublisher<[Place], Never> =
+            trigger
+                .combineLatest(location)
+                .map { [weak self] (trig, center) -> AnyPublisher<[Place], Never> in
+                    guard let self else { return Just([]).eraseToAnyPublisher() }
+                    switch trig {
+                    case .category(let cat):
+                        // 내 주변 검색 (center 사용)
+                        return self.searchUseCase
+                            .search(keyword: cat, center: center)
+                            .catch { _ in Just([]) }
+                            .eraseToAnyPublisher()
+
+                    case .keyword(let kw):
+                        // 전역 검색
+                        return self.searchUseCase
+                            .search(keyword: kw)
+                            .catch { _ in Just([]) }
+                            .eraseToAnyPublisher()
+                    }
                 }
-            }
-            .switchToLatest()                               // 최신 검색만 유지(이전 요청 자동 취소)
-            .handleEvents(receiveOutput: { places in
-                print("📦 placesRaw 방출:", places.count)
-            })
+                .switchToLatest()
+                .receive(on: DispatchQueue.main)
+                .handleEvents(receiveOutput: { print("📦 placesRaw:", $0.count) })
+                .eraseToAnyPublisher()
+        
+        // 유저가 저장한 장소인지 아닌지 판단
+        let savedPlace: AnyPublisher<Set<String>, Never> =
+        userUseCase.userPublisher
+            .compactMap { $0?.savedPlaces }
+            .map { Set($0.map { $0.placeId }) }
+            .removeDuplicates()
             .eraseToAnyPublisher()
         
         // placesRaw: 검색으로 얻은 [Place] 스트림 (Failure == Never)
         // 최종: 이미지 URL이 주입된 [Place] 스트림
-        let placeList: AnyPublisher<[Place], Never> = Publishers.Merge(initialPlaces, placesRaw)
-            // placesRaw에서 방출된 "장소 리스트"마다 하위 비동기 작업(여러 이미지 요청)을 붙여
-            // 다시 [Place]로 만들어 방출하려고 flatMap 사용
+        let placeList: AnyPublisher<[Place], Never> = placesRaw
+        // placesRaw에서 방출된 "장소 리스트"마다 하위 비동기 작업(여러 이미지 요청)을 붙여
+        // 다시 [Place]로 만들어 방출하려고 flatMap 사용
             .flatMap { [weak self] places -> AnyPublisher<[Place], Never> in
                 guard let self, !places.isEmpty else {
                     return Just([]).eraseToAnyPublisher()
                 }
-
+                
                 // 과도한 API 호출 방지: 상위 10개만 이미지 검색
                 // (필요에 따라 제한 제거/수정 가능)
                 // indexed: [(index: Int, place: Place)]
                 // 원래 순서를 복원하기 위해 인덱스를 함께 가지고있음
                 let indexed = Array(places.prefix(10).enumerated())
-
-
+                
+                
                 // 각 장소마다 "이미지 URL 1건 가져오기" 퍼블리셔를 만들고
                 // (인덱스, 업데이트된 Place)를 방출하도록 맵핑
                 let perPlacePublishers: [AnyPublisher<(Int, Place), Never>] = indexed.map { (idx, place) in
                     self.searchUseCase
                         .searchImage(query: place.placeName, display: 1, start: 1, sort: "sim", filter: "large")
-                        // 성공 시 imageURL 주입
+                    // 성공 시 imageURL 주입
                         .map { url -> (Int, Place) in
                             var p = place
                             p.imageURL = url.first?.link ?? url.first?.thumbnail
                             return (idx, p) // 원래 순서 복원을 위해 idx 포함
                         }
-                        // 실패해도 전체 스트림이 끊기지 않도록 실패한 항목만 nil
+                    // 실패해도 전체 스트림이 끊기지 않도록 실패한 항목만 nil
                         .catch { _ in
                             var p = place
                             p.imageURL = nil
@@ -229,7 +238,7 @@ final class HomeViewModel {
                         }
                         .eraseToAnyPublisher()
                 }
-
+                
                 // 여러 퍼블리셔를 병렬로 실행하고, 모든 결과가 모이면 한 번에 배열로 방출
                 // Publishers.MergeMany():  병렬 실행
                 return Publishers.MergeMany(perPlacePublishers)
@@ -270,8 +279,38 @@ final class HomeViewModel {
         return Output(
             location: location,
             selectedCategory: selectedCategory,
-            places: placeList,
-            keywords: keywords
+            savedPlace: savedPlace,
+            places: placeList
         )
+    }
+}
+
+// MARK: - 키워드 관련 로직
+extension HomeViewModel {
+    func fetchKeywords() {
+        placeUseCase.fetchKeywords()
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    print("키워드 로딩 실패: \(error.localizedDescription)")
+                }
+            } receiveValue: { [weak self] keywordList in
+                self?.keywords = keywordList
+            }.store(in: &cancellable)
+    }
+    
+    func filterKeywords(query: String) {
+        if query.isEmpty {
+            filteredKeywords = []
+        } else {
+            filteredKeywords = keywords.filter {
+                /// localizedCaseInsensitiveContains: 대소문자 무시, 로케일 고려, 부분문자열 검색 가능
+                $0.localizedStandardContains(query)
+            }
+        }
+    }
+    
+    func resetFilter() {
+        filteredKeywords = []
     }
 }

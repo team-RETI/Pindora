@@ -10,7 +10,6 @@ import FirebaseAuth
 
 final class ProfileViewModel {
     @Published var user: User?
-    
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
@@ -25,10 +24,56 @@ final class ProfileViewModel {
         loadUser()
     }
     
-//    init(userUseCase: UserUseCaseProtocol) {
-//        self.userUseCase = userUseCase
-//        loadUser()
-//    }
+    struct Input {
+        /// viewDidLoad 시 한 번 호출
+        let viewDidLoad: AnyPublisher<Void, Never>
+        /// 화면 복귀/강제 새로고침 트리거 (VC의 reloadSubject 연결)
+        let reload: AnyPublisher<Void, Never>
+    }
+    
+    struct Output {
+        /// DB에 저장된 장소 리스트
+        let places: AnyPublisher<[Place], Never>
+        /// DB에 저장된 유저 정보
+        let user: AnyPublisher<User?, Never>
+    }
+    
+    func transform(input: Input) -> Output {
+        // 최초 1회 + 이후 reload 트리거마다 fetch
+        let reloadStream = Publishers.Merge(
+            input.viewDidLoad,
+            input.reload
+        )
+            .handleEvents(receiveOutput: { _ in
+                print("🔄 reload trigger")
+            })
+        
+        reloadStream
+            .sink { [weak self] user in
+                guard let uid = Auth.auth().currentUser?.uid else { return }
+                self?.userUseCase.refreshIfNeeded(force: true, uid: uid)
+            }
+            .store(in: &cancellables)
+        
+        let user = userUseCase.userPublisher
+            .eraseToAnyPublisher()
+        
+        let places = userUseCase.userPublisher
+            .compactMap { $0?.visitedPlaces }
+            .removeDuplicates(by: { lhs, rhs in
+                guard lhs.count == rhs.count else { return false }
+                // ID 비교가 가장 안전/빠름
+                return zip(lhs, rhs).allSatisfy { $0.placeId == $1.placeId }
+            })
+            .receive(on: DispatchQueue.main)
+            .handleEvents(receiveOutput: { print("✅ updated:", $0.count) })
+            .eraseToAnyPublisher()
+        
+        return Output(
+            places: places,
+            user: user
+        )
+    }
     
     func generatePersona(for location: [String]) {
         gptUseCase.createPersonaNameAndDescription(from: location)

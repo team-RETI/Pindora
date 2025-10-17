@@ -66,6 +66,7 @@ extension UIButton {
         button.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return button
     }
+    
 }
 
 extension UIButton.Configuration {

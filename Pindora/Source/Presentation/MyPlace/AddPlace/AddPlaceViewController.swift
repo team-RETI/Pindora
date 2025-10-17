@@ -33,9 +33,6 @@ final class AddPlaceViewController: UIViewController {
     private let categorySelectedSubject = PassthroughSubject<String, Never>()
     private let confirmButtonTappedSubject = PassthroughSubject<Void, Never>()
     
-    // MARK: - Coordinator 콜백
-    var onSaved: (() -> Void)?
-    
     // MARK: - Initializer
     init(viewModel: AddPlaceViewModel) {
         self.viewModel = viewModel
@@ -117,7 +114,6 @@ final class AddPlaceViewController: UIViewController {
                 switch result {
                 case .success:
                     self.showTopToast("저장되었습니다")
-                    self.onSaved?()
                     self.dismiss(animated: true)
                     UINotificationFeedbackGenerator().notificationOccurred(.success)
                     

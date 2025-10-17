@@ -128,7 +128,7 @@ final class LoginCoordinator: Coordinator {
             mainTab.parentCoordinator = self
             mainTab.start()
             childCoordinators.append(mainTab)
-
+            
         }
     }
 }
@@ -227,12 +227,10 @@ protocol CardDetailCoordinating: AnyObject {
     func didTapCell(place: Place)
     /// 이동
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void)
-    //    func navigateToPlaceDetail()
-    // 여기에 필요한 이동 메서드 추가
 }
 
 final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationControllerDelegate, CardDetailCoordinating {
-    private var onPlaceSheetDismiss: (() -> Void)?
+    var onPlaceSheetDismiss: (() -> Void)?
     private var place: Place?
     
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) {  }
@@ -248,7 +246,7 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             self?.place = nil
             ModuleFactory.shared.removeViewModel(for: .cardDetail)
         }
-
+        
         if let bgView = navigationController.view.viewWithTag(999) {
             UIView.animate(withDuration: 0.25, animations: {
                 bgView.alpha = 0
@@ -259,6 +257,56 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
         } else {
             fireDismiss()     // ✅ 배경 없으면 바로 콜백
         }
+    }
+    
+    private func normalizeNaverNewsImageURL(_ urlString: String?) -> URL? {
+        guard var s = urlString, !s.isEmpty else { return nil }
+        
+        // http → https
+        if s.hasPrefix("http://") {
+            s = "https://" + s.dropFirst(7)
+        }
+        
+        guard var comp = URLComponents(string: s) else { return nil }
+        
+        // imgnews.naver.net → imgnews.pstatic.net (호스트 불일치 해결)
+        if let host = comp.host, host == "imgnews.naver.net" {
+            comp.host = "imgnews.pstatic.net"
+        }
+        
+        return comp.url
+    }
+    
+    func loadImage(into imageView: UIImageView, urlString: String?) {
+        imageView.image = UIImage(named: "placeholder")
+        
+        guard let url = normalizeNaverNewsImageURL(urlString) else { return }
+        
+        var req = URLRequest(url: url,
+                             cachePolicy: .returnCacheDataElseLoad,
+                             timeoutInterval: 15)
+        
+        // 가끔 UA 필요할 때가 있어 기본 UA 부여
+        req.setValue("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile",
+                     forHTTPHeaderField: "User-Agent")
+        
+        URLSession.shared.dataTask(with: req) { data, resp, err in
+            if let err = err {
+                print("❌ Image load failed:", err.localizedDescription)
+                return
+            }
+            if let http = resp as? HTTPURLResponse, !(200...299).contains(http.statusCode) {
+                print("❌ HTTP \(http.statusCode) for \(url)")
+                return
+            }
+            guard let data = data, let img = UIImage(data: data) else {
+                print("❌ Decode failed")
+                return
+            }
+            DispatchQueue.main.async {
+                imageView.image = img
+            }
+        }.resume()
     }
     
     private enum Route {
@@ -286,16 +334,18 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             navigationController.pushViewController(vc, animated: false)
             navigationController.isNavigationBarHidden = true // ✅ 요거 추가
             
-            
         case .cardDetail:
             guard let place else { return }
+            
             let vc = ModuleFactory.shared.makeCardDetailVC(place: place)
             vc.coordinator = self as CardDetailCoordinating
+            vc.view.backgroundColor = .clear
+            vc.presentationController?.delegate = self
+            
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .pageSheet
             nav.view.backgroundColor = .clear
-            vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-            vc.presentationController?.delegate = self
+            
             if let sheet = nav.sheetPresentationController {
                 sheet.detents = [
                     .custom(resolver: { context in
@@ -305,24 +355,35 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
                 sheet.prefersGrabberVisible = false
             }
             
-            // ✅ 배경 뷰 추가
+            // 블러
+            let blur = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+            blur.frame = nav.view.bounds
+            blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            nav.view.insertSubview(blur, at: 0)
+            
+            // 배경 뷰 추가
             let bgView = UIView(frame: navigationController.view.bounds)
             bgView.backgroundColor = .black
             bgView.alpha = 0
             bgView.tag = 999  // 나중에 제거용
-
-//            let backgroundImageView = UIImageView(frame: bgView.bounds)
-//            backgroundImageView.image = UIImage(named: "sample_main")
-//            backgroundImageView.contentMode = .scaleAspectFill
-//            backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//            bgView.addSubview(backgroundImageView)
+            
+            let backgroundImageView = UIImageView(frame: bgView.bounds)
+            backgroundImageView.contentMode = .scaleAspectFill
+            backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            bgView.addSubview(backgroundImageView)
+            
+            loadImage(
+                into: backgroundImageView,
+                urlString: place.imageURL,
+            )
+            
             navigationController.view.addSubview(bgView)
             
             UIView.animate(withDuration: 0.5) {
                 bgView.alpha = 1
             }
             
-            // ✅ delegate 설정
+            // delegate 설정
             nav.presentationController?.delegate = self
             nav.isNavigationBarHidden = true
             navigationController.present(nav, animated: true)
@@ -331,13 +392,9 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
 }
 
 final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAdaptivePresentationControllerDelegate {
-    private var onPlaceSheetDismiss: (() -> Void)?
+    var onPlaceSheetDismiss: (() -> Void)?
     private var place: Place?
-    func didTapCell(place: Place) {
-        self.place = place
-        navigate(to: .home)
-    }
-    
+    func didTapCell(place: Place) {   }
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) {
         self.onPlaceSheetDismiss = onDismiss
         self.place = place
@@ -351,7 +408,7 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
             self?.place = nil
             ModuleFactory.shared.removeViewModel(for: .cardDetail)
         }
-
+        
         if let bgView = navigationController.view.viewWithTag(999) {
             UIView.animate(withDuration: 0.25, animations: {
                 bgView.alpha = 0
@@ -413,8 +470,7 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
 }
 
 final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAdaptivePresentationControllerDelegate {
-    private var onPlaceSheetDismiss: (() -> Void)?
-    var onPlaceSaved: (() -> Void)?
+    var onPlaceSheetDismiss: (() -> Void)?
     private var place: Place?
     
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) { }
@@ -432,7 +488,7 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
             self?.place = nil
             ModuleFactory.shared.removeViewModel(for: .cardDetail)
         }
-
+        
         if let bgView = navigationController.view.viewWithTag(999) {
             UIView.animate(withDuration: 0.25, animations: {
                 bgView.alpha = 0
@@ -443,6 +499,56 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
         } else {
             fireDismiss()     // ✅ 배경 없으면 바로 콜백
         }
+    }
+    
+    private func normalizeNaverNewsImageURL(_ urlString: String?) -> URL? {
+        guard var s = urlString, !s.isEmpty else { return nil }
+        
+        // http → https
+        if s.hasPrefix("http://") {
+            s = "https://" + s.dropFirst(7)
+        }
+        
+        guard var comp = URLComponents(string: s) else { return nil }
+        
+        // imgnews.naver.net → imgnews.pstatic.net (호스트 불일치 해결)
+        if let host = comp.host, host == "imgnews.naver.net" {
+            comp.host = "imgnews.pstatic.net"
+        }
+        
+        return comp.url
+    }
+    
+    func loadImage(into imageView: UIImageView, urlString: String?) {
+        imageView.image = UIImage(named: "placeholder")
+        
+        guard let url = normalizeNaverNewsImageURL(urlString) else { return }
+        
+        var req = URLRequest(url: url,
+                             cachePolicy: .returnCacheDataElseLoad,
+                             timeoutInterval: 15)
+        
+        // 가끔 UA 필요할 때가 있어 기본 UA 부여
+        req.setValue("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile",
+                     forHTTPHeaderField: "User-Agent")
+        
+        URLSession.shared.dataTask(with: req) { data, resp, err in
+            if let err = err {
+                print("❌ Image load failed:", err.localizedDescription)
+                return
+            }
+            if let http = resp as? HTTPURLResponse, !(200...299).contains(http.statusCode) {
+                print("❌ HTTP \(http.statusCode) for \(url)")
+                return
+            }
+            guard let data = data, let img = UIImage(data: data) else {
+                print("❌ Decode failed")
+                return
+            }
+            DispatchQueue.main.async {
+                imageView.image = img
+            }
+        }.resume()
     }
     
     private enum Route {
@@ -471,15 +577,10 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
             
         case .addPlace:
             let vc = ModuleFactory.shared.makeAddPlaceVC()
-            
-            vc.onSaved = { [weak self] in
-                 self?.onPlaceSaved?() 
-             }
-            
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .popover//.pageSheet
             
-            // ✅ iOS 15+ sheet 스타일 적용 (크기 조절 가능하도록)
+            // iOS 15+ sheet 스타일 적용 (크기 조절 가능하도록)
             if let sheet = nav.sheetPresentationController {
                 sheet.detents = [
                     .custom(resolver: { context in
@@ -494,13 +595,16 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
             
         case .cardDetail:
             guard let place else { return }
+            
             let vc = ModuleFactory.shared.makeCardDetailVC(place: place)
             vc.coordinator = self as CardDetailCoordinating
+            vc.view.backgroundColor = .clear
+            vc.presentationController?.delegate = self
+            
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .pageSheet
             nav.view.backgroundColor = .clear
-            vc.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-            vc.presentationController?.delegate = self
+            
             if let sheet = nav.sheetPresentationController {
                 sheet.detents = [
                     .custom(resolver: { context in
@@ -510,25 +614,35 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
                 sheet.prefersGrabberVisible = false
             }
             
-            // ✅ 배경 뷰 추가
+            // 블러
+            let blur = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+            blur.frame = nav.view.bounds
+            blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            nav.view.insertSubview(blur, at: 0)
+            
+            // 배경 뷰 추가
             let bgView = UIView(frame: navigationController.view.bounds)
             bgView.backgroundColor = .black
             bgView.alpha = 0
             bgView.tag = 999  // 나중에 제거용
             
-//            let backgroundImageView = UIImageView(frame: bgView.bounds)
-//            backgroundImageView.image = UIImage(named: "sample_main")
-//            backgroundImageView.contentMode = .scaleAspectFill
-//            backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//
-//            bgView.addSubview(backgroundImageView)
+            let backgroundImageView = UIImageView(frame: bgView.bounds)
+            backgroundImageView.contentMode = .scaleAspectFill
+            backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            bgView.addSubview(backgroundImageView)
+            
+            loadImage(
+                into: backgroundImageView,
+                urlString: place.imageURL,
+            )
+            
             navigationController.view.addSubview(bgView)
             
             UIView.animate(withDuration: 0.5) {
                 bgView.alpha = 1
             }
             
-            // ✅ delegate 설정
+            // delegate 설정
             nav.presentationController?.delegate = self
             nav.isNavigationBarHidden = true
             navigationController.present(nav, animated: true)
@@ -637,7 +751,7 @@ final class ProfileCoordinator: Coordinator {
             vc.hidesBottomBarWhenPushed = true
             navigationController.pushViewController(vc, animated: true)
             navigationController.isNavigationBarHidden = true
-        
+            
         }
     }
 }

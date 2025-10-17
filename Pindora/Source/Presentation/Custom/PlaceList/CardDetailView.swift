@@ -12,11 +12,11 @@ final class CardDetailView: UIView {
     // MARK: - UI Component
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-    private let tagLabelView = TagLabelView(title: "관광지")
-    private let likeCountLabelView = LikeCountLabelView(count: 159)
     lazy var pinButton  = UIButton.detailButtonStyle(name: "pin")
-    lazy var instaButton = UIButton.detailButtonStyle(name: "insta")
+    lazy var webButton = UIButton.detailButtonStyle(name: "internet")
     lazy var flagButton  = UIButton.detailButtonStyle(name: "flag")
+    let tagLabelView = TagLabelView(title: "관광지")
+    let likeCountLabelView = LikeCountLabelView()
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -34,13 +34,6 @@ final class CardDetailView: UIView {
         return label
     }()
 
-    let closeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "xmark"), for: .normal)
-        button.tintColor = .white
-        return button
-    }()
-
     private let hashtagLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 12)
@@ -51,7 +44,7 @@ final class CardDetailView: UIView {
     }()
     
     lazy var buttonStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [pinButton, instaButton, flagButton])
+        let stack = UIStackView(arrangedSubviews: [pinButton, webButton, flagButton])
         stack.axis = .horizontal
         stack.spacing = 16
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +78,7 @@ final class CardDetailView: UIView {
     }()
 
     private lazy var headerStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [titleLabel, UIView(), closeButton])
+        let stack = UIStackView(arrangedSubviews: [titleLabel])
         stack.axis = .horizontal
         stack.alignment = .center
         return stack

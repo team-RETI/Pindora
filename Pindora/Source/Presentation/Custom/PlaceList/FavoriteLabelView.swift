@@ -1,17 +1,17 @@
 //
-//  LikeCountLabelView.swift
+//  FavoriteLabelView.swift
 //  Pindora
 //
-//  Created by eunchanKim on 8/2/25.
+//  Created by eunchanKim on 10/15/25.
 //
 
 import UIKit
 
-final class LikeCountLabelView: UIView {
+final class FavoriteLabelView: UIView {
     // MARK: - UI Component
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "like")
+        imageView.image = UIImage(named: "flag")
         imageView.tintColor = .black
         imageView.contentMode = .scaleAspectFit
         return imageView

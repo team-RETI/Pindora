@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class CardCellView: UITableViewCell {
-    private var task: URLSessionDataTask?
     
     // MARK: - UI Component
     private let tagLabelView = TagLabelView()
+    private let favoritelabelView = FavoriteLabelView()
     private let likeCountLabelView = LikeCountLabelView()
+    
     private let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -79,6 +81,7 @@ final class CardCellView: UITableViewCell {
         thumbnailImageView.addSubview(descriptionLabel)
         thumbnailImageView.addSubview(dateLabel)
         thumbnailImageView.addSubview(tagLabelView)
+        thumbnailImageView.addSubview(favoritelabelView)
         thumbnailImageView.addSubview(likeCountLabelView)
     }
     
@@ -86,6 +89,7 @@ final class CardCellView: UITableViewCell {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0))
         tagLabelView.layer.cornerRadius = tagLabelView.frame.height / 2
+        favoritelabelView.layer.cornerRadius = favoritelabelView.frame.height / 2
         likeCountLabelView.layer.cornerRadius = likeCountLabelView.frame.height / 2
     }
     
@@ -99,6 +103,7 @@ final class CardCellView: UITableViewCell {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         tagLabelView.translatesAutoresizingMaskIntoConstraints = false
+        favoritelabelView.translatesAutoresizingMaskIntoConstraints = false
         likeCountLabelView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -119,9 +124,11 @@ final class CardCellView: UITableViewCell {
             overlayView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor),
             overlayView.bottomAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor),
             
-            // 카테고리, 좋아요
+            // 카테고리, 즐겨찾기, 좋아요
             tagLabelView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: 12),
             tagLabelView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 12),
+            favoritelabelView.trailingAnchor.constraint(equalTo: likeCountLabelView.leadingAnchor, constant: -8),
+            favoritelabelView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 12),
             likeCountLabelView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: -12),
             likeCountLabelView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 12),
             
@@ -135,13 +142,29 @@ final class CardCellView: UITableViewCell {
         ])
     }
     
-    // 데이터 연결 (viewModel 구현 후 지울예정)
-    func configure(with place: Place) {
+    // 데이터 연결
+    func configure(with place: Place, isSaved: Bool) {
         tagLabelView.title = place.category
-        likeCountLabelView.count = place.likedCount?.description
+        favoritelabelView.isHidden = !isSaved
         titleLabel.text = place.placeName
         descriptionLabel.text = place.placeAddress
         dateLabel.text = place.addedDate.toString()
+    }
+    
+    func configure(with place: Place) {
+        tagLabelView.title = place.category
+        favoritelabelView.isHidden = true
+        titleLabel.text = place.placeName
+        descriptionLabel.text = place.placeAddress
+        dateLabel.text = place.addedDate.toString()
+    }
+    
+    private func normalizeNaverNewsImageURL(_ urlString: String?) -> URL? {
+        guard var s = urlString, !s.isEmpty else { return nil }
+        if s.hasPrefix("http://") { s = "https://" + s.dropFirst(7) }
+        guard var comp = URLComponents(string: s) else { return nil }
+        if comp.host == "imgnews.naver.net" { comp.host = "imgnews.pstatic.net" }
+        return comp.url
     }
     
     
@@ -150,30 +173,52 @@ final class CardCellView: UITableViewCell {
     ///   - urlString: 이미지 URL 혹은 nil
     ///   - category: 이미지 실패 시 카테코리를 이용한 이미지 매칭
     func setImage(urlString: String?, category: String) {
-        // 기본값: placeholder
-        thumbnailImageView.image = UIImage(named: "placeholder")
-        // 1) 입력 정리
-        let raw = urlString?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        // 카테고리 기반 플레이스홀더
+        let fallbackName = KakaoCategoryGroup.from(displayName: category)?.rawValue ?? "placeholder"
+        let placeholder = UIImage(named: fallbackName) ?? UIImage(named: "placeholder")
         
-        guard raw.isEmpty == false else {
-            let category = KakaoCategoryGroup.from(displayName: category)?.rawValue ?? "placeholder"
-            thumbnailImageView.image = UIImage(named: category)
+        // URL 정리
+        guard let url = normalizeNaverNewsImageURL(urlString) else {
+            thumbnailImageView.image = placeholder
             return
         }
         
-        let secure = raw.hasPrefix("http://") ? raw.replacingOccurrences(of: "http://", with: "https://") : raw
+        // 다운샘플링 + 둥근 모서리 등 필요한 프로세서 구성 (둥근 모서리 필요 없으면 제거)
+        let processor = DownsamplingImageProcessor(size: thumbnailImageView.bounds.size)
         
-        // 2) http/https URL이면 네트워크 로드
-        if let url = URL(string: secure),
-           let scheme = url.scheme?.lowercased(),
-           (scheme == "http" || scheme == "https") {
-
-            task = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
-                guard let self, let data, let img = UIImage(data: data) else { return }
-                DispatchQueue.main.async { self.thumbnailImageView.image = img }
+        // UA 헤더가 필요한 경우에만 붙일 수 있도록 AnyModifier 사용
+        let uaModifier = AnyModifier { request in
+            var r = request
+            r.setValue(
+                "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile",
+                forHTTPHeaderField: "User-Agent"
+            )
+            return r
+        }
+        
+        let options: KingfisherOptionsInfo = [
+            .processor(processor),
+            .scaleFactor(UIScreen.main.scale),
+            .transition(.fade(0.15)),
+            .backgroundDecode,
+            .keepCurrentImageWhileLoading,
+            .cacheOriginalImage,
+            .onFailureImage(placeholder),      // 실패 시 카테고리 이미지로
+            .requestModifier(uaModifier)       // UA 필요 시
+        ]
+        
+        // 필요 시: 디스크/메모리 캐시 전략 조정도 가능
+        // options.append(.memoryCacheExpiration(.days(1)))
+        // options.append(.diskCacheExpiration(.days(7)))
+        
+        thumbnailImageView.kf.setImage(
+            with: url,
+            placeholder: placeholder,
+            options: options
+        ) { result in
+            if case let .failure(error) = result {
+                print("❌ Kingfisher load failed:", error)
             }
-            task?.resume()
-            return
         }
     }
 }

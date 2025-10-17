@@ -9,7 +9,7 @@ import NMapsMap
 import Combine
 import CoreLocation
 
-final class HomeViewController: UIViewController, UITextFieldDelegate {
+final class HomeViewController: UIViewController {
     weak var coordinator: HomeCoordinator?
     private let viewModel: HomeViewModel
     private let customView = HomeView()
@@ -34,6 +34,8 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
     // MARK: - UI(테이블 뷰)
     private lazy var placeListView: CardCellListView = customView.placeListView
     private var dataSource: UITableViewDiffableDataSource<Place.PlaceSection, Place>?
+    private var savedPlaceIDs = Set<String>()
+    private var scrollToTopOnUpdate = false
     
     // MARK: - Initializer
     init(viewModel: HomeViewModel) {
@@ -57,7 +59,6 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         bindViewModel()
         customView.searchBarView.textField.delegate = self
-        
 //        viewModel.fetchPlaces()
 //        viewModel.fetchKeywords()
     }
@@ -96,6 +97,14 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
             }
             .store(in: &cancellable)
         
+        output.savedPlace
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] ids in
+                self?.savedPlaceIDs = ids
+                self?.reconfigureAllCells()
+            }
+            .store(in: &cancellable)
+        
         // 카테고리 선택 상태변경
         output.selectedCategory
             .sink { [weak self] selected in
@@ -106,7 +115,7 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
                 }
             }
             .store(in: &cancellable)
-        
+
         output.keywords
             .receive(on: DispatchQueue.main)
             .sink { [weak self] keywords in
@@ -121,6 +130,7 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
         guard let cellView = sender.superview as? CategoryCellView else { return }
         guard let name = cellView.titleText else { return }
         categorySelectedSubject.send(name)
+        scrollToTopOnUpdate = true
     }
     private func setupCategoryTarget() {
         for categoryView in customView.categoryListView.categoryViews {
@@ -141,9 +151,25 @@ final class HomeViewController: UIViewController, UITextFieldDelegate {
         mapCenterSubject.send(location)
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
-        // 키보드 자동 올라오기 방지
+//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//        
+//        // 키보드 자동 올라오기 방지
+//        textField.resignFirstResponder()
+//        
+//        // 시트로 화면 올라오기
+//        let searchDetailVC = SearchDetailViewController(viewModel: viewModel)
+//        let nav = UINavigationController(rootViewController: searchDetailVC)
+//        nav.modalPresentationStyle = .fullScreen
+//        present(nav, animated: false, completion: nil)
+//    
+//         // false → 키보드 안 올라오게
+//         return false
+//     }
+}
+
+extension HomeViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // ✅ 엔터 눌렀을 때 키보드 닫기
         textField.resignFirstResponder()
         
         // 시트로 화면 올라오기
@@ -184,7 +210,8 @@ extension HomeViewController: UITableViewDelegate {
             }
 
             // 셀 구성
-            cell.configure(with: place)
+            let isSaved = self.savedPlaceIDs.contains(place.placeId)
+            cell.configure(with: place, isSaved: isSaved)
             cell.setImage(
                 urlString: place.imageURL,
                 category: place.category
@@ -209,9 +236,50 @@ extension HomeViewController: UITableViewDelegate {
                           animations: { [weak self] in
             // Diffable 자체 애니메이션은 끄기
             self?.dataSource?.apply(snapshot, animatingDifferences: false)
+        }, completion: { [weak self] _ in
+            guard let self = self else { return }
+            if self.scrollToTopOnUpdate {
+                self.scrollListToTop(animated: true)
+                self.scrollToTopOnUpdate = false
+            }
         })
     }
+    
+    private func reconfigureAllCells() {
+        // 항상 메인스레드에서
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
 
+            if #available(iOS 15.0, *) {
+                guard let dataSource = self.dataSource else { return }
+
+                // 전체 아이템 reconfigure (cellForRow 재호출 없이 셀만 다시 그림)
+                var snapshot = dataSource.snapshot()
+                let items = snapshot.itemIdentifiers
+                snapshot.reconfigureItems(items)
+                dataSource.apply(snapshot, animatingDifferences: false)
+            } else {
+                // iOS 14 이하: 보이는 셀만 수동 갱신
+                for cell in self.placeListView.visibleCells {
+                    guard
+                        let dataSource = self.dataSource,
+                        let indexPath = self.placeListView.indexPath(for: cell),
+                        let place = dataSource.itemIdentifier(for: indexPath),
+                        let card = cell as? CardCellView
+                    else { continue }
+
+                    let isSaved = self.savedPlaceIDs.contains(place.placeId)  
+                    card.configure(with: place, isSaved: isSaved)
+                }
+            }
+        }
+    }
+    private func scrollListToTop(animated: Bool) {
+        guard dataSource?.snapshot().numberOfItems ?? 0 > 0 else { return }
+        let top = CGPoint(x: 0, y: -placeListView.adjustedContentInset.top)
+        placeListView.setContentOffset(top, animated: animated)
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let place = dataSource?.itemIdentifier(for: indexPath) {
             coordinator?.didTapCell(place: place)
