@@ -18,11 +18,12 @@ final class HomeViewModel {
     private let placeUseCase: PlaceUseCase
     private let userUseCase: UserUseCaseProtocol
     private let imageUseCase: ImageUsecaseProtocol
-    private let userUseCase: UserUseCaseProtocol
     
     // Combine
     private var cancellable: Set<AnyCancellable> = []
 
+    @Published var keywords: [String] = []
+    @Published var filteredKeywords: [String] = []
     private let regionKeywords: [String] = [
         "서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종",
         "경기", "경기도",
@@ -280,7 +281,8 @@ final class HomeViewModel {
             location: location,
             selectedCategory: selectedCategory,
             savedPlace: savedPlace,
-            places: placeList
+            places: placeList,
+            keywords: keywords
         )
     }
 }
