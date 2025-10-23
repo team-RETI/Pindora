@@ -128,13 +128,11 @@ _download-privates-real:
 # -----------------------------
 fetch-certificates:
 	@echo "🔐 Fetching signing certificates using fastlane match..."
-	@set -a && . .env && set +a && \
-	export MATCH_PASSWORD=$$MATCH_PASSWORD && \
-	export MATCH_GIT_BASIC_AUTHORIZATION=$$(printf '%s:%s' 'evanKim1999' "$$GITHUB_ACCESS_TOKEN" | base64) && \
+	@export MATCH_PASSWORD=$$(grep MATCH_PASSWORD .env | cut -d '=' -f2) && \
 	bundle exec fastlane match development --readonly --app_identifier com.RETIA.Pindora,com.RETIA.Pindora.ShareExtension && \
 	bundle exec fastlane match appstore --readonly --app_identifier com.RETIA.Pindora,com.RETIA.Pindora.ShareExtension
 	@echo ""
-	#	@export MATCH_PASSWORD=$$(grep MATCH_PASSWORD .env | cut -d '=' -f2) && \
+
 # -----------------------------
 # 🧩 Xcode 커스텀 템플릿 설치
 # -----------------------------
