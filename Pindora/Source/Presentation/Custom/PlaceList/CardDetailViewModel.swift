@@ -41,6 +41,8 @@ final class CardDetailViewModel {
         let viewDidLoad: AnyPublisher<Void, Never>
         /// 즐겨찾기 버튼 탭 시 호출
         let addButtonTapped: AnyPublisher<Void, Never>
+        /// 맵뷰 버튼 탭 시 호출
+        let toMapButtonTapped: AnyPublisher<Void, Never>
     }
     
     struct Output {
@@ -50,8 +52,6 @@ final class CardDetailViewModel {
         let mainImage: AnyPublisher<UIImage?, Never>
         let category: AnyPublisher<String, Never>
         let isSavedPlace: AnyPublisher<Bool, Never>
-        // let hashtag: AnyPublisher<String, Never>
-        // let tagName: AnyPublisher<String, Never>
     }
     
     func transform(input: Input) -> Output {
@@ -59,7 +59,6 @@ final class CardDetailViewModel {
         let title = Just(place.placeName).eraseToAnyPublisher()
         let address = Just(place.placeAddress).eraseToAnyPublisher()
         let category = Just(place.category).eraseToAnyPublisher()
-        //let hashtags = Just(hashtagBuilder(place)).eraseToAnyPublisher()
         
         // 이미지: viewDidAppear 트리거에 반응해 1회 로드
         let mainImage: AnyPublisher<UIImage?, Never> = input.viewDidLoad
@@ -136,6 +135,11 @@ final class CardDetailViewModel {
             .sink { _ in }
             .store(in: &cancellables)
         
+        // 장소 위치를 보기위한 맵뷰 호출
+//        input.toMapButtonTapped
+//        place.
+        print(place)
+        
         // 유저가 저장한 장소인지 아닌지 판단
         let isSavedPlaceStream =
         userUseCase.userPublisher
@@ -169,10 +173,5 @@ extension CardDetailViewModel {
             .map { UIImage(data: $0.data) }
             .replaceError(with: nil)
             .eraseToAnyPublisher()
-    }
-
-    static func defaultHashtagBuilder(_ place: Place) -> String {
-        let keywords: [String] = [place.placeName, place.category ?? ""].filter { !$0.isEmpty }
-        return keywords.map { "#\($0)" }.joined(separator: " ")
     }
 }

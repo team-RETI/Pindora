@@ -16,10 +16,13 @@ final class CardDetailViewController: UIViewController {
     
     // MARK: - Subjects (Input 소스)
     private let addButtonSubject = PassthroughSubject<Void, Never>()
+    private let toMapViewButtonSubject = PassthroughSubject<Void, Never>()
+    private var place: Place
     
     // MARK: - Initializer
     init(viewModel: CardDetailViewModel, place: Place) {
         self.viewModel = viewModel
+        self.place = place
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,7 +50,8 @@ final class CardDetailViewController: UIViewController {
     private func bindViewModel() {
         let input = CardDetailViewModel.Input(
             viewDidLoad: Just(()).eraseToAnyPublisher(),
-            addButtonTapped: addButtonSubject.eraseToAnyPublisher()
+            addButtonTapped: addButtonSubject.eraseToAnyPublisher(),
+            toMapButtonTapped: toMapViewButtonSubject.eraseToAnyPublisher()
         )
         
         let output = viewModel.transform(input: input)
@@ -92,22 +96,28 @@ final class CardDetailViewController: UIViewController {
         customView.pinButton.addTarget(self, action: #selector(pinTapped), for: .touchUpInside)
         customView.webButton.addTarget(self, action: #selector(webButtonTapped), for: .touchUpInside)
         customView.flagButton.addTarget(self, action: #selector(addPlaceButtonTapped), for: .touchUpInside)
+        customView.toMapViewButton.addTarget(self, action: #selector(toMapViewButtonTapped), for: .touchUpInside)
     }
     
     @objc private func pinTapped() {
         // TODO: 추후 외부 지도뷰로 연결
         print("tapped")
-        dismiss(animated: true)
     }
     
     @objc private func webButtonTapped() {
         // TODO: 추후 웹으로 연결
         print("tapped")
-        dismiss(animated: true)
     }
     
     @objc private func addPlaceButtonTapped() {
         print("tapped")
         addButtonSubject.send()
+    }
+    
+    @objc private func toMapViewButtonTapped() {
+        print("tapped")
+//        toMapViewButtonSubject.send()
+        dismiss(animated: true)
+        coordinator?.didTapMapViewButton(place: place)
     }
 }
