@@ -12,6 +12,8 @@ final class AddPlaceView: UIView {
     let categories = ["도서관", "카페", "관광지", "식당", "숙소", "기타", "도서관", "카페"]
     private lazy var previewCard = PreviewCardView()
     let searchBarView = SearchBarView()
+    let nameSearchBarView = SearchBarView()
+    
     // MARK: - UI 컴포넌트
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -40,6 +42,14 @@ final class AddPlaceView: UIView {
         return label
     }()
     
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이름"
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = .white
+        return label
+    }()
+    
     private let addressLabel: UILabel = {
         let label = UILabel()
         label.text = "주소"
@@ -58,7 +68,8 @@ final class AddPlaceView: UIView {
     
     private lazy var previewStackView: UIStackView = {
         let image = UIImageView(image: UIImage(named: "white_preview"))
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             image.widthAnchor.constraint(equalToConstant: 30),
@@ -66,10 +77,10 @@ final class AddPlaceView: UIView {
         ])
         let previewLabel = UILabel.makeTitleLabel(text: "미리보기")
         previewLabel.textColor = .white
-        let stackView = UIStackView(arrangedSubviews: [image, previewLabel])
+        let stackView = UIStackView(arrangedSubviews: [previewLabel, image])
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = 14
+        stackView.spacing = 1
         return stackView
     }()
     
@@ -128,7 +139,7 @@ final class AddPlaceView: UIView {
         contentView.clipsToBounds = false
         addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        [cancelButton, titleLabel, subtitleLabel, addressLabel, searchBarView, categoryLabel, categoryStack, previewStackView, previewCard]
+        [cancelButton, titleLabel, subtitleLabel, nameLabel, nameSearchBarView, addressLabel, searchBarView, categoryLabel, categoryStack, previewStackView, previewCard]
             .forEach { contentView.addSubview($0); $0.translatesAutoresizingMaskIntoConstraints = false }
         
         addSubview(confirmButton)
@@ -154,9 +165,17 @@ final class AddPlaceView: UIView {
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 14),
             subtitleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             
-            addressLabel.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 25),
+            nameLabel.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 25),
+            nameLabel.leadingAnchor.constraint(equalTo: subtitleLabel.leadingAnchor),
+
+            nameSearchBarView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+            nameSearchBarView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
+            nameSearchBarView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            nameSearchBarView.heightAnchor.constraint(equalToConstant: 31),
+
+            addressLabel.topAnchor.constraint(equalTo: nameSearchBarView.bottomAnchor, constant: 20),
             addressLabel.leadingAnchor.constraint(equalTo: subtitleLabel.leadingAnchor),
-            
+
             searchBarView.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 10),
             searchBarView.heightAnchor.constraint(equalToConstant: 31),
             searchBarView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
@@ -172,7 +191,7 @@ final class AddPlaceView: UIView {
             
             previewStackView.topAnchor.constraint(equalTo: categoryStack.bottomAnchor, constant: 16),
             previewStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            previewStackView.heightAnchor.constraint(equalToConstant: 75),
+            previewStackView.heightAnchor.constraint(equalToConstant: 50),
             
             previewCard.topAnchor.constraint(equalTo: previewStackView.bottomAnchor, constant: 16),
             previewCard.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),

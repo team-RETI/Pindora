@@ -203,6 +203,29 @@ extension Place {
 
 // MARK: - MyPlace 헬퍼 메서드
 extension Place {
+    
+    // 기능적으로 완벽하게 동일함 구조체의 프로퍼티가 많다면 이 방법으로 해보는 것도 좋을 것 같음
+//    func withName(_ name: String) -> Place {
+//        var copy = self
+//        copy.placeName = name
+//        return copy
+//    }
+    
+    // 현재는 통일성을 위해 비슷하게 만들어 두기
+    func withName(_ newName: String) -> Place {
+        return Place(
+            placeId: self.placeId,
+            placeName: newName,
+            placeAddress: self.placeAddress,
+            latitude: self.latitude,
+            longitude: self.longitude,
+            category: self.category,
+            addedDate: self.addedDate,
+            likedCount: self.likedCount,
+            imageURL: self.imageURL
+        )
+    }
+    
     func withAddress(_ newAddress: String) -> Place {
         return Place(
             placeId: self.placeId,
