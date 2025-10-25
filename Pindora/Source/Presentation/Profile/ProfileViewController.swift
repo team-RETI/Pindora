@@ -6,6 +6,7 @@
 
 import UIKit
 import Combine
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     weak var coordinator: ProfileCoordinator?
@@ -100,15 +101,7 @@ final class ProfileViewController: UIViewController {
     }
     
     private func loadImage(from url: URL) {
-        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            guard let data, let image = UIImage(data: data), error == nil else {
-                print("이미지 로딩 실패: \(error?.localizedDescription ?? "이미지 오류 발생")")
-                return
-            }
-            DispatchQueue.main.async {
-                self?.customView.setProfileImageView(image)
-            }
-        }.resume()
+        customView.setProfileImage(from: url)
     }
     
     // 버튼 탭 처리
