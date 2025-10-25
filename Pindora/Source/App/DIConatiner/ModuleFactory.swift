@@ -118,7 +118,8 @@ final class ModuleFactory {
         let viewModel: ProfileEditViewModel = getOrCreateViewModel(for: .editProfile) {
             let imageUC = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
             let userUC = DIContainer.shared.resolve(UserUseCaseProtocol.self)
-            return ProfileEditViewModel(imageUseCase: imageUC, userUseCase: userUC)
+            let gptUC = DIContainer.shared.resolve(GPTUseCaseProtocol.self)
+            return ProfileEditViewModel(imageUseCase: imageUC, userUseCase: userUC, gptUseCase: gptUC)
         }
         return ProfileEditViewController(viewModel: viewModel)
     }

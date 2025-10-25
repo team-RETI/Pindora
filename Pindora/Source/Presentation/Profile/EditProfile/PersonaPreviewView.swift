@@ -97,4 +97,9 @@ final class PersonaPreviewView: UIView {
             avatarImageView.image = UIImage(named: "default_memoji")
         }
     }
+    
+    func updatePersona(name: String, description: String) {
+        titleLabel.text = name
+        descriptionLabel.text = description
+    }
 }

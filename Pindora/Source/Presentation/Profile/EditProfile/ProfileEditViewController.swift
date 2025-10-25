@@ -129,6 +129,31 @@ final class ProfileEditViewController: UIViewController {
     func configure(user: User) {
         self.currentUser = user
         customView.updatePersonaPreview(with: user)
+        
+        let keywords = user.savedPlaces.map { $0.placeName }
+        
+        viewModel.generatePersona(for: keywords)
+        
+        viewModel.$generatedPersona
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] persona in
+                guard let self else { return }
+                self.customView.updatePersonaCard(name: persona.name, description: persona.description)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$generatedPersona
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] persona in
+                guard let self else { return }
+                self.customView.updatePersonaPreview(
+                    name: persona.name,
+                    description: persona.description
+                )
+            }
+            .store(in: &cancellables)
     }
 }
 
