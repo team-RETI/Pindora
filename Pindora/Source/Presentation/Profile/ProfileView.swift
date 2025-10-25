@@ -219,7 +219,7 @@ extension ProfileView {
     func setProfileImage(from url: URL) {
         profileImageView.kf.setImage(
             with: url,
-            placeholder: UIImage(named: "avatar2"),
+            placeholder: UIImage(named: "person"),
             options: [.transition(.fade(0.3)), .cacheOriginalImage]
         )
     }
