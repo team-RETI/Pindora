@@ -203,69 +203,136 @@ final class HomeViewModel {
             .removeDuplicates()
             .eraseToAnyPublisher()
         
-        // placesRaw: 검색으로 얻은 [Place] 스트림 (Failure == Never)
-        // 최종: 이미지 URL이 주입된 [Place] 스트림
+//        // placesRaw: 검색으로 얻은 [Place] 스트림 (Failure == Never)
+//        // 최종: 이미지 URL이 주입된 [Place] 스트림
+//        let placeList: AnyPublisher<[Place], Never> = placesRaw
+//        // placesRaw에서 방출된 "장소 리스트"마다 하위 비동기 작업(여러 이미지 요청)을 붙여
+//        // 다시 [Place]로 만들어 방출하려고 flatMap 사용
+//            .flatMap { [weak self] places -> AnyPublisher<[Place], Never> in
+//                guard let self, !places.isEmpty else {
+//                    return Just([]).eraseToAnyPublisher()
+//                }
+//                
+//                // 과도한 API 호출 방지: 상위 10개만 이미지 검색
+//                // (필요에 따라 제한 제거/수정 가능)
+//                // indexed: [(index: Int, place: Place)]
+//                // 원래 순서를 복원하기 위해 인덱스를 함께 가지고있음
+//                let indexed = Array(places.prefix(10).enumerated())
+//                
+//                
+//                // 각 장소마다 "이미지 URL 1건 가져오기" 퍼블리셔를 만들고
+//                // (인덱스, 업데이트된 Place)를 방출하도록 맵핑
+//                let perPlacePublishers: [AnyPublisher<(Int, Place), Never>] = indexed.map { (idx, place) in
+//                    self.searchUseCase
+//                        .searchImage(query: place.placeName, display: 1, start: 1, sort: "sim", filter: "large")
+//                    // 성공 시 imageURL 주입
+//                        .map { url -> (Int, Place) in
+//                            var p = place
+//                            p.imageURL = url.first?.link ?? url.first?.thumbnail
+//                            return (idx, p) // 원래 순서 복원을 위해 idx 포함
+//                        }
+//                    // 실패해도 전체 스트림이 끊기지 않도록 실패한 항목만 nil
+//                        .catch { _ in
+//                            var p = place
+//                            p.imageURL = nil
+//                            return Just((idx, p))
+//                        }
+//                        .eraseToAnyPublisher()
+//                }
+//                
+//                // 여러 퍼블리셔를 병렬로 실행하고, 모든 결과가 모이면 한 번에 배열로 방출
+//                // Publishers.MergeMany():  병렬 실행
+//                return Publishers.MergeMany(perPlacePublishers)
+//                    .collect()
+//                    .map { pairs in
+//                        // pairs: [(index, Place)] — 응답 도착 순서는 뒤죽박죽일 수 있음
+//                        var result = places // 원본 리스트 복사(이미지 미조회 항목 포함)
+//                        // 인덱스 기준으로 정렬해 원래 순서에 맞는 위치에 덮어쓰기
+//                        for (idx, p) in pairs.sorted(by: { $0.0 < $1.0 }) {
+//                            result[idx] = p
+//                        }
+//                        print("✅ 최종 이미지 주입 완료:", result.count)
+//                        return result // 이미지 URL이 채워진 [Place]
+//                    }
+//                    .eraseToAnyPublisher()
+//            }
+//            .map { places in
+//                // 중복 제거: placeId 기준
+//                var seen = Set<String>()
+//                return places.filter { seen.insert($0.placeId).inserted }
+//            }
+//            .receive(on: DispatchQueue.main)
+//            .share()
+//            .handleEvents(receiveOutput: { places in
+//                let filled = places.filter { $0.imageURL != nil }.count
+//                print("📤 placeList 방출: 총 \(places.count), imageURL 있음 \(filled)")
+//            })
+//            .eraseToAnyPublisher()
+        let maxImages = 5
         let placeList: AnyPublisher<[Place], Never> = placesRaw
-        // placesRaw에서 방출된 "장소 리스트"마다 하위 비동기 작업(여러 이미지 요청)을 붙여
-        // 다시 [Place]로 만들어 방출하려고 flatMap 사용
             .flatMap { [weak self] places -> AnyPublisher<[Place], Never> in
                 guard let self, !places.isEmpty else {
                     return Just([]).eraseToAnyPublisher()
                 }
-                
-                // 과도한 API 호출 방지: 상위 10개만 이미지 검색
-                // (필요에 따라 제한 제거/수정 가능)
-                // indexed: [(index: Int, place: Place)]
-                // 원래 순서를 복원하기 위해 인덱스를 함께 가지고있음
+
+                // 과도 호출 방지: 상위 10개만 이미지 조회 (필요시 조정)
                 let indexed = Array(places.prefix(10).enumerated())
-                
-                
-                // 각 장소마다 "이미지 URL 1건 가져오기" 퍼블리셔를 만들고
-                // (인덱스, 업데이트된 Place)를 방출하도록 맵핑
+
                 let perPlacePublishers: [AnyPublisher<(Int, Place), Never>] = indexed.map { (idx, place) in
                     self.searchUseCase
-                        .searchImage(query: place.placeName, display: 1, start: 1, sort: "sim", filter: "large")
-                    // 성공 시 imageURL 주입
-                        .map { url -> (Int, Place) in
+                        .searchImage(
+                            query: place.placeName,
+                            display: maxImages,       // ✅ N장 요청
+                            start: 1,
+                            sort: "sim",
+                            filter: "large"
+                        )
+                        .map { results -> (Int, Place) in
                             var p = place
-                            p.imageURL = url.first?.link ?? url.first?.thumbnail
-                            return (idx, p) // 원래 순서 복원을 위해 idx 포함
+                            // 결과에서 URL 추출(link 우선, 없으면 thumbnail)
+                            let urls = results
+                                .compactMap { $0.link }
+                                .filter { !$0.isEmpty }
+                                .prefix(maxImages)
+
+                            p.imageURLs = Array(urls)          // ✅ 여러 장 주입
+                            if p.imageURL == nil {             // ✅ 호환성: 첫 장을 단일 필드에도
+                                p.imageURL = p.imageURLs?.first
+                            }
+                            return (idx, p)
                         }
-                    // 실패해도 전체 스트림이 끊기지 않도록 실패한 항목만 nil
                         .catch { _ in
                             var p = place
-                            p.imageURL = nil
+                            p.imageURLs = []                   // 실패해도 스트림 유지
+                            // p.imageURL는 기존 값 유지 (없으면 nil)
                             return Just((idx, p))
                         }
                         .eraseToAnyPublisher()
                 }
-                
-                // 여러 퍼블리셔를 병렬로 실행하고, 모든 결과가 모이면 한 번에 배열로 방출
-                // Publishers.MergeMany():  병렬 실행
+
                 return Publishers.MergeMany(perPlacePublishers)
                     .collect()
                     .map { pairs in
-                        // pairs: [(index, Place)] — 응답 도착 순서는 뒤죽박죽일 수 있음
-                        var result = places // 원본 리스트 복사(이미지 미조회 항목 포함)
-                        // 인덱스 기준으로 정렬해 원래 순서에 맞는 위치에 덮어쓰기
+                        var result = places
                         for (idx, p) in pairs.sorted(by: { $0.0 < $1.0 }) {
                             result[idx] = p
                         }
-                        print("✅ 최종 이미지 주입 완료:", result.count)
-                        return result // 이미지 URL이 채워진 [Place]
+                        print("✅ 이미지 주입 완료 (max \(maxImages)장):", result.count)
+                        return result
                     }
                     .eraseToAnyPublisher()
             }
             .map { places in
-                // 중복 제거: placeId 기준
+                // ✅ placeId 기준 중복 제거
                 var seen = Set<String>()
                 return places.filter { seen.insert($0.placeId).inserted }
             }
             .receive(on: DispatchQueue.main)
             .share()
             .handleEvents(receiveOutput: { places in
-                let filled = places.filter { $0.imageURL != nil }.count
-                print("📤 placeList 방출: 총 \(places.count), imageURL 있음 \(filled)")
+                // ✅ nil-safe count
+                let withImagesCount = places.filter { ($0.imageURLs?.isEmpty == false) }.count
+                print("📤 placeList 방출: 총 \(places.count), imageURLs 채워진 항목 \(withImagesCount)")
             })
             .eraseToAnyPublisher()
         

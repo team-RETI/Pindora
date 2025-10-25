@@ -14,7 +14,6 @@ final class CardDetailViewModel {
     private var user: User?
     private let place: Place
     private let imageLoader: (URL) -> AnyPublisher<UIImage?, Never>
-    // private let hashtagBuilder: (Place) -> String
     private let placeUseCase: PlaceUseCase
     private let userUseCase: UserUseCaseProtocol
     private let imageUseCase: ImageUsecaseProtocol
@@ -30,7 +29,6 @@ final class CardDetailViewModel {
     ) {
         self.place = place
         self.imageLoader = imageLoader
-        //self.hashtagBuilder = hasthtagBuilder
         self.placeUseCase = placeUseCase
         self.userUseCase = userUseCase
         self.imageUseCase = imageUseCase
@@ -49,9 +47,9 @@ final class CardDetailViewModel {
         /// 장소에 대한 정보 출력
         let title: AnyPublisher<String, Never>
         let address: AnyPublisher<String, Never>
-        let mainImage: AnyPublisher<UIImage?, Never>
         let category: AnyPublisher<String, Never>
         let isSavedPlace: AnyPublisher<Bool, Never>
+        let gallery: AnyPublisher<[UIImage?], Never>
     }
     
     func transform(input: Input) -> Output {
@@ -59,27 +57,28 @@ final class CardDetailViewModel {
         let title = Just(place.placeName).eraseToAnyPublisher()
         let address = Just(place.placeAddress).eraseToAnyPublisher()
         let category = Just(place.category).eraseToAnyPublisher()
-        
-        // 이미지: viewDidAppear 트리거에 반응해 1회 로드
-        let mainImage: AnyPublisher<UIImage?, Never> = input.viewDidLoad
-            .map { [weak self] _ -> URL? in
-                guard
-                    let self,
-                    let raw = self.place.imageURL?.trimmingCharacters(in: .whitespacesAndNewlines),
-                    raw.isEmpty == false
-                else { return nil }
+        let gallery: AnyPublisher<[UIImage?], Never> = input.viewDidLoad
+            .compactMap { [weak self] _ in self?.place.imageURLs } // [String]
+            .flatMap { [weak self] urls -> AnyPublisher<[UIImage?], Never> in
+                guard let self else { return Just([]).eraseToAnyPublisher() }
 
-                // ATS 대비 http -> https 치환
-                let secure = raw.hasPrefix("http://")
-                ? raw.replacingOccurrences(of: "http://", with: "https://")
-                : raw
-                return URL(string: secure)
-            }
-            .flatMap { [weak self] url -> AnyPublisher<UIImage?, Never> in
-                guard let self, let url else {
-                    return Just<UIImage?>(nil).eraseToAnyPublisher()
-                }
-                return self.imageLoader(url)
+                // http → https 교정 후 URL 배열로 변환
+                let urlObjects = urls
+                    .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                    .compactMap { str -> URL? in
+                        let secure = str.hasPrefix("http://")
+                        ? str.replacingOccurrences(of: "http://", with: "https://")
+                        : str
+                        return URL(string: secure)
+                    }
+
+                // URL별 다운로드 퍼블리셔 생성
+                let loaders = urlObjects.map { self.imageLoader($0) } // [AnyPublisher<UIImage?, Never>]
+
+                // ✅ 병렬 다운로드 후 결과 합치기
+                return Publishers.MergeMany(loaders)
+                    .collect()
+                    .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
         
@@ -135,11 +134,6 @@ final class CardDetailViewModel {
             .sink { _ in }
             .store(in: &cancellables)
         
-        // 장소 위치를 보기위한 맵뷰 호출
-//        input.toMapButtonTapped
-//        place.
-        print(place)
-        
         // 유저가 저장한 장소인지 아닌지 판단
         let isSavedPlaceStream =
         userUseCase.userPublisher
@@ -160,9 +154,9 @@ final class CardDetailViewModel {
         return Output(
             title: title,
             address: address,
-            mainImage: mainImage,
             category: category,
-            isSavedPlace: isSavedPlace
+            isSavedPlace: isSavedPlace,
+            gallery: gallery
         )
     }
 }

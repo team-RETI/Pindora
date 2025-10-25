@@ -74,6 +74,14 @@ final class CardDetailViewController: UIViewController {
             .assign(to: \.title, on: customView.tagLabelView)
             .store(in: &cancellable)
         
+        output.gallery
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] images in
+                guard let self else { return }
+                customView.galleryView.bind(to: Just(images).eraseToAnyPublisher())
+            }
+            .store(in: &cancellable)
+        
         output.isSavedPlace
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in

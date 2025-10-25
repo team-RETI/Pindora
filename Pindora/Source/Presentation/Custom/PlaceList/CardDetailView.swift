@@ -16,6 +16,8 @@ final class CardDetailView: UIView {
     lazy var webButton = UIButton.detailButtonStyle(name: "internet")
     lazy var flagButton  = UIButton.detailButtonStyle(name: "flag")
     let tagLabelView = TagLabelView(title: "관광지")
+    let galleryView = GalleryCollectionView()
+
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -41,14 +43,14 @@ final class CardDetailView: UIView {
         return stack
     }()
 
-    private let mainImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "sample1")
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 18
-        imageView.clipsToBounds = true
-        return imageView
-    }()
+//    let mainImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "sample1")
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.layer.cornerRadius = 18
+//        imageView.clipsToBounds = true
+//        return imageView
+//    }()
 
     private let reviewTitleLabel: UILabel = {
         let label = UILabel()
@@ -91,7 +93,7 @@ final class CardDetailView: UIView {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        [headerStack, addressLabel, buttonStack, mainImageView,
+        [headerStack, addressLabel, buttonStack, galleryView,
          reviewTitleLabel, toMapViewButton, tagLabelView ].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -126,12 +128,12 @@ final class CardDetailView: UIView {
             tagLabelView.centerYAnchor.constraint(equalTo: buttonStack.centerYAnchor),
             tagLabelView.trailingAnchor.constraint(equalTo: headerStack.trailingAnchor),
             
-            mainImageView.topAnchor.constraint(equalTo: buttonStack.bottomAnchor, constant: 25),
-            mainImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 76),
-            mainImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -76),
-            mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor),
+            galleryView.topAnchor.constraint(equalTo: buttonStack.bottomAnchor, constant: 25),
+            galleryView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            galleryView.widthAnchor.constraint(equalToConstant: 330),
+            galleryView.heightAnchor.constraint(equalToConstant: 300),
             
-            reviewTitleLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 40),
+            reviewTitleLabel.topAnchor.constraint(equalTo: galleryView.bottomAnchor, constant: 40),
             reviewTitleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             
             toMapViewButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
