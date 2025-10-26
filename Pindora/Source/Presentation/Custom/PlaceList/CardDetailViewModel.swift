@@ -58,7 +58,7 @@ final class CardDetailViewModel {
         let address = Just(place.placeAddress).eraseToAnyPublisher()
         let category = Just(place.category).eraseToAnyPublisher()
         let gallery: AnyPublisher<[UIImage?], Never> = input.viewDidLoad
-            .compactMap { [weak self] _ in self?.place.imageURLs } // [String]
+            .compactMap { [weak self] _ in self?.place.imageURLs }
             .flatMap { [weak self] urls -> AnyPublisher<[UIImage?], Never> in
                 guard let self else { return Just([]).eraseToAnyPublisher() }
 
@@ -69,13 +69,12 @@ final class CardDetailViewModel {
                         let secure = str.hasPrefix("http://")
                         ? str.replacingOccurrences(of: "http://", with: "https://")
                         : str
+                        print("test")
                         return URL(string: secure)
                     }
 
                 // URL별 다운로드 퍼블리셔 생성
-                let loaders = urlObjects.map { self.imageLoader($0) } // [AnyPublisher<UIImage?, Never>]
-
-                // ✅ 병렬 다운로드 후 결과 합치기
+                let loaders = urlObjects.map { self.imageLoader($0) }
                 return Publishers.MergeMany(loaders)
                     .collect()
                     .eraseToAnyPublisher()
@@ -95,7 +94,14 @@ final class CardDetailViewModel {
                                 .setFailureType(to: UseCaseError.self)
                                 .eraseToAnyPublisher()
                         }
-                        return self.userUseCase.updateUserPlaceLog(user: user, place: place)
+                        // ✅ 저장 직전 최신 imageURLs를 주입해 전달
+                               var updatedPlace = place
+                               updatedPlace.imageURLs = self.place.imageURLs
+                               if updatedPlace.imageURL == nil {
+                                   updatedPlace.imageURL = self.place.imageURLs?.first
+                               }
+                               
+                               return self.userUseCase.updateUserPlaceLog(user: user, place: updatedPlace)
                     }
                     .handleEvents(receiveOutput: { [weak self] in
                         guard let self else { return }
@@ -121,7 +127,13 @@ final class CardDetailViewModel {
                                 .setFailureType(to: UseCaseError.self)
                                 .eraseToAnyPublisher()
                         }
-                        return self.userUseCase.updateUserSavedPlaces(user: user, place: place)
+                        var updatedPlace = place
+                                  updatedPlace.imageURLs = self.place.imageURLs
+                                  if updatedPlace.imageURL == nil {
+                                      updatedPlace.imageURL = self.place.imageURLs?.first
+                                  }
+                                  
+                                  return self.userUseCase.updateUserSavedPlaces(user: user, place: updatedPlace)
                     }
                     .handleEvents(receiveOutput: { [weak self] in
                         guard let self else { return }

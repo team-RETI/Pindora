@@ -124,7 +124,6 @@ final class CardDetailViewController: UIViewController {
     
     @objc private func toMapViewButtonTapped() {
         print("tapped")
-//        toMapViewButtonSubject.send()
         dismiss(animated: true)
         coordinator?.didTapMapViewButton(place: place)
     }

@@ -272,7 +272,7 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
     func dissmissPlaceSheet() {
         let fireDismiss: () -> Void = { [weak self] in
             self?.onPlaceSheetDismiss?()
-            self?.onPlaceSheetDismiss = nil
+            self?.onPlaceSheetDismiss = nil 
             self?.place = nil
             ModuleFactory.shared.removeViewModel(for: .cardDetail)
         }
@@ -288,8 +288,6 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
             fireDismiss()     // ✅ 배경 없으면 바로 콜백
         }
     }
-    
-
     
     private func normalizeNaverNewsImageURL(_ urlString: String?) -> URL? {
         guard var s = urlString, !s.isEmpty else { return nil }
@@ -519,8 +517,13 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
     var onPlaceSheetDismiss: (() -> Void)?
     private var place: Place?
     
-    func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) { }
-    func didTapMapViewButton(place: Place) { }
+    func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) { }    
+    func didTapMapViewButton(place: Place) {
+        // 여기에 맵뷰로 이동하는 로직 짜고싶어
+        dissmissPlaceSheet()
+        (parentCoordinator as? MainTabCoordinator)?.openMap(place: place)
+    }
+    
     func didTapAddPlace() {
         navigate(to: .addPlace)
     }
@@ -529,6 +532,10 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
         navigate(to: .cardDetail)
     }
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        dissmissPlaceSheet()
+    }
+    
+    func dissmissPlaceSheet() {
         let fireDismiss: () -> Void = { [weak self] in
             self?.onPlaceSheetDismiss?()
             self?.onPlaceSheetDismiss = nil
