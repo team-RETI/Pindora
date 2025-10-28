@@ -69,7 +69,6 @@ final class CardDetailViewModel {
                         let secure = str.hasPrefix("http://")
                         ? str.replacingOccurrences(of: "http://", with: "https://")
                         : str
-                        print("test")
                         return URL(string: secure)
                     }
 

@@ -15,9 +15,9 @@ final class CardDetailView: UIView {
     lazy var pinButton  = UIButton.detailButtonStyle(name: "pin")
     lazy var webButton = UIButton.detailButtonStyle(name: "internet")
     lazy var flagButton  = UIButton.detailButtonStyle(name: "flag")
+    lazy var reviewLabelButton = UIButton.reviewButtonStyle()
     let tagLabelView = TagLabelView(title: "관광지")
     let galleryView = GalleryCollectionView()
-
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -42,15 +42,14 @@ final class CardDetailView: UIView {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-
-//    let mainImageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.image = UIImage(named: "sample1")
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.layer.cornerRadius = 18
-//        imageView.clipsToBounds = true
-//        return imageView
-//    }()
+    
+    lazy var reviewStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [reviewLabelButton, addButton])
+        stack.axis = .horizontal
+        stack.spacing = 10
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
 
     private let reviewTitleLabel: UILabel = {
         let label = UILabel()
@@ -58,6 +57,16 @@ final class CardDetailView: UIView {
         label.textColor = .white
         label.text = "나의 장소 리뷰"
         return label
+    }()
+    
+    let addButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+        button.tintColor = .white
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
     }()
 
     let toMapViewButton: UIButton = {
@@ -93,7 +102,7 @@ final class CardDetailView: UIView {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        [headerStack, addressLabel, buttonStack, galleryView,
+        [headerStack, addressLabel, buttonStack, reviewStack, galleryView,
          reviewTitleLabel, toMapViewButton, tagLabelView ].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -135,6 +144,12 @@ final class CardDetailView: UIView {
             
             reviewTitleLabel.topAnchor.constraint(equalTo: galleryView.bottomAnchor, constant: 40),
             reviewTitleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            
+            reviewStack.topAnchor.constraint(equalTo: reviewTitleLabel.bottomAnchor, constant: 14),
+            reviewStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            
+            addButton.widthAnchor.constraint(equalToConstant: 30),
+            addButton.heightAnchor.constraint(equalToConstant: 30),
             
             toMapViewButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             toMapViewButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),

@@ -246,16 +246,19 @@ protocol CardDetailCoordinating: AnyObject {
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void)
     /// 이동
     func didTapMapViewButton(place: Place)
+    /// 이동
+    func didTapReviewButton()
 }
 
 final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationControllerDelegate, CardDetailCoordinating {
     var onPlaceSheetDismiss: (() -> Void)?
     private var place: Place?
-    
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) {  }
-    
+    func didTapReviewButton() {
+        
+    }
+
     func didTapMapViewButton(place: Place) {
-        // 여기에 맵뷰로 이동하는 로직 짜고싶어
         dissmissPlaceSheet()
         (parentCoordinator as? MainTabCoordinator)?.openMap(place: place)
     }
@@ -426,6 +429,7 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
     private var place: Place?
     func didTapCell(place: Place) {  }
     func didTapMapViewButton(place: Place) {   }
+    func didTapReviewButton() {   }
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) {
         self.onPlaceSheetDismiss = onDismiss
         self.place = place
@@ -516,10 +520,9 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
 final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAdaptivePresentationControllerDelegate {
     var onPlaceSheetDismiss: (() -> Void)?
     private var place: Place?
-    
+    func didTapReviewButton() {   }
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) { }    
     func didTapMapViewButton(place: Place) {
-        // 여기에 맵뷰로 이동하는 로직 짜고싶어
         dissmissPlaceSheet()
         (parentCoordinator as? MainTabCoordinator)?.openMap(place: place)
     }
