@@ -147,24 +147,38 @@ final class HomeViewController: UIViewController {
             }
             .store(in: &cancellable)
     }
+    
     private func updateMyLocation(location: CLLocationCoordinate2D) {
         mapCenterSubject.send(location)
     }
     
-//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//        
-//        // 키보드 자동 올라오기 방지
-//        textField.resignFirstResponder()
-//        
-//        // 시트로 화면 올라오기
-//        let searchDetailVC = SearchDetailViewController(viewModel: viewModel)
-//        let nav = UINavigationController(rootViewController: searchDetailVC)
-//        nav.modalPresentationStyle = .fullScreen
-//        present(nav, animated: false, completion: nil)
-//    
-//         // false → 키보드 안 올라오게
-//         return false
-//     }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        // 키보드 자동 올라오기 방지
+        textField.resignFirstResponder()
+        
+        // 시트로 화면 올라오기
+        let searchDetailVM = SearchDetailViewModel(keywordPublisher: keywordsPublisher)
+        let searchDetailVC = SearchDetailViewController(viewModel: searchDetailVM)
+        let nav = UINavigationController(rootViewController: searchDetailVC)
+        nav.modalPresentationStyle = .fullScreen
+        
+        // 리스트 업데이트
+        searchDetailVC.onKeywordSelected = { [weak self] keyword in
+            guard let self = self else { return }
+            
+            // 1. 선택된 키워드 검색창에 표시
+            self.customView.searchBarView.textField.text = keyword
+            
+            // 2. 뷰모델에 이벤트 전달(검색 실행)
+            self.searchTextSubject.send(keyword)
+        }
+        
+        present(nav, animated: false, completion: nil)
+
+         // false → 키보드 안 올라오게
+         return false
+     }
 }
 
 extension HomeViewController: UITextFieldDelegate {
