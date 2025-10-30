@@ -30,6 +30,7 @@ final class HomeViewController: UIViewController {
     private let searchTextSubject = PassthroughSubject<String, Never>()
     private let categorySelectedSubject = PassthroughSubject<String, Never>()
     private let mapCenterSubject = PassthroughSubject<CLLocationCoordinate2D, Never>()
+    private let sortButtonTapped = PassthroughSubject<Void, Never>()
     
     // MARK: - UI(테이블 뷰)
     private lazy var placeListView: CardCellListView = customView.placeListView
@@ -59,8 +60,37 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         bindViewModel()
         customView.searchBarView.textField.delegate = self
-//        viewModel.fetchPlaces()
-//        viewModel.fetchKeywords()
+
+        // 정렬 버튼 탭 이벤트
+        customView.buttonLabel
+            .publisher(for: .touchUpInside)
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.sortButtonTapped.send(())
+            }
+            .store(in: &cancellable)
+        
+        // 정렬 버튼 분기
+        sortButtonTapped
+            .scan(SortOption.distance) { state, _ in
+                state == .distance ? .like : .distance
+            }
+            .sink { [weak self] option in
+                guard let self = self else { return }
+                var config = UIButton.Configuration.plain()
+                config.image = UIImage(named: "sort")
+                config.imagePlacement = .trailing
+                config.imagePadding = 4
+                config.baseForegroundColor = .black
+                
+                let font = UIFont.systemFont(ofSize: 12, weight: .regular)
+                let attributes: [NSAttributedString.Key: Any] = [.font: font]
+                let title = (option == .distance) ? "거리순" : "찜순"
+                config.attributedTitle = AttributedString(title, attributes: AttributeContainer(attributes))
+                
+                self.customView.buttonLabel.configuration = config
+            }
+            .store(in: &cancellable)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -76,7 +106,8 @@ final class HomeViewController: UIViewController {
             viewDidLoad: Just(()).eraseToAnyPublisher(),
             keyword: searchTextSubject.eraseToAnyPublisher(),
             mapCenter: mapCenterSubject.eraseToAnyPublisher(),
-            categorySelected: categorySelectedSubject.eraseToAnyPublisher()
+            categorySelected: categorySelectedSubject.eraseToAnyPublisher(),
+            sortButtonTapped: sortButtonTapped.eraseToAnyPublisher()
         )
         
         let output = viewModel.transform(input: input)

@@ -9,6 +9,12 @@ import Combine
 import CoreLocation
 import FirebaseAuth
 
+
+enum SortOption {
+    case distance
+    case like
+}
+
 final class HomeViewModel {
     // MARK: - Dependancy
     // API/Framework
@@ -36,6 +42,9 @@ final class HomeViewModel {
         "경남", "경상남도",
         "제주", "제주도", "제주특별자치도"
     ]
+    
+    // 정렬 상태를 저장 및 방출하는 퍼블리셔
+    let sortOptionSubject = CurrentValueSubject<SortOption, Never>(.distance)
     
     init(
         locationUseCase: LocationUseCaseProtocol,
@@ -65,8 +74,8 @@ final class HomeViewModel {
         let mapCenter: AnyPublisher<CLLocationCoordinate2D, Never>
         /// 카테고리 버튼이 선택될 때 선택된 태그(이름) 스트림
         let categorySelected: AnyPublisher<String, Never>
-        /// init시 고정 키워드 배열 한번 호출
-        /// let fetchKeywords: AnyPublisher<Void, Never>
+        /// 정렬 버튼 탭 이벤트
+        let sortButtonTapped: AnyPublisher<Void, Never>
     }
     
     struct Output {
@@ -204,7 +213,7 @@ final class HomeViewModel {
             .eraseToAnyPublisher()
         
         let maxImages = 5
-        let placeList: AnyPublisher<[Place], Never> = placesRaw
+        let placeList: AnyPublisher<[Place], Never> = Publishers.Merge(initialPlaces, placesRaw)
             .flatMap { [weak self] places -> AnyPublisher<[Place], Never> in
                 guard let self, !places.isEmpty else {
                     return Just([]).eraseToAnyPublisher()
@@ -271,6 +280,31 @@ final class HomeViewModel {
             })
             .eraseToAnyPublisher()
         
+        // 정렬 옵션 토글
+        input.sortButtonTapped
+            .sink { [weak self] in
+                guard let self = self else { return }
+                let newOption: SortOption = (self.sortOptionSubject.value == .distance) ? .like : .distance
+                self.sortOptionSubject.send(newOption)
+            }
+            .store(in: &cancellable)
+        
+        // 정렬 적용
+        let sortedPlaces = placeList
+            .combineLatest(location, sortOptionSubject)
+            .map { places, currentLocation, SortOption -> [Place] in
+                switch SortOption {
+                case .distance:
+                    return places.sorted {
+                        $0.distance(from: currentLocation) < $1.distance(from: currentLocation)
+                    }
+                case .like:
+                    return places.sorted {
+                        ($0.likedCount ?? 0) > ($1.likedCount ?? 0)
+                    }
+                }
+            }.eraseToAnyPublisher()
+        
         // fetchKeywords는 View에서 트리거할 이벤트가 아니므로 Output에만 존재합니다.
         let keywords = placeUseCase.fetchKeywords()
             .catch { _ in Just([]) }
@@ -283,7 +317,7 @@ final class HomeViewModel {
             location: location,
             selectedCategory: selectedCategory,
             savedPlace: savedPlace,
-            places: placeList,
+            places: sortedPlaces,
             keywords: keywords
         )
     }
