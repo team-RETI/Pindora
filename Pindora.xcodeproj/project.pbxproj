@@ -64,6 +64,8 @@
 		A742A98D2E5996C2003DA057 /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A742A98C2E5996C2003DA057 /* IntroModel.swift */; };
 		A75841462E6D86C500D214C8 /* NaverImageAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75841452E6D86C500D214C8 /* NaverImageAPIManager.swift */; };
 		A75AB1172E339A4D006DA6EB /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75AB1162E339A4D006DA6EB /* UILabel+.swift */; };
+		A76D5A632EAC6027004151DF /* GalleryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76D5A622EAC6027004151DF /* GalleryCollectionView.swift */; };
+		A76D5A652EAF9413004151DF /* ReviewContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76D5A642EAF9413004151DF /* ReviewContentView.swift */; };
 		A778D2E12E28F212006B3309 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E02E28F212006B3309 /* HomeView.swift */; };
 		A778D2E32E29756E006B3309 /* ProfilePlaceCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */; };
 		A7854E3C2E4B30E5002A5C2A /* KakaoSearchAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7854E3B2E4B30E5002A5C2A /* KakaoSearchAPIManager.swift */; };
@@ -255,6 +257,8 @@
 		A742A98C2E5996C2003DA057 /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
 		A75841452E6D86C500D214C8 /* NaverImageAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverImageAPIManager.swift; sourceTree = "<group>"; };
 		A75AB1162E339A4D006DA6EB /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		A76D5A622EAC6027004151DF /* GalleryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionView.swift; sourceTree = "<group>"; };
+		A76D5A642EAF9413004151DF /* ReviewContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewContentView.swift; sourceTree = "<group>"; };
 		A778D2E02E28F212006B3309 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A778D2E22E29756E006B3309 /* ProfilePlaceCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePlaceCellView.swift; sourceTree = "<group>"; };
 		A7854E3B2E4B30E5002A5C2A /* KakaoSearchAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSearchAPIManager.swift; sourceTree = "<group>"; };
@@ -753,6 +757,8 @@
 				A78571912E3E51040021F72D /* TagLabelView.swift */,
 				A78571932E3E54C50021F72D /* LikeCountLabelView.swift */,
 				A789D03E2E9EAB6A00062CB4 /* FavoriteLabelView.swift */,
+				A76D5A622EAC6027004151DF /* GalleryCollectionView.swift */,
+				A76D5A642EAF9413004151DF /* ReviewContentView.swift */,
 			);
 			path = PlaceList;
 			sourceTree = "<group>";
@@ -1271,7 +1277,9 @@
 				DF1F40EA2E279F5400BE27AC /* MapViewModel.swift in Sources */,
 				A7D418C12E2A364D00B17044 /* UIView+.swift in Sources */,
 				DF1F40EB2E279F5400BE27AC /* MapViewController.swift in Sources */,
+				A76D5A652EAF9413004151DF /* ReviewContentView.swift in Sources */,
 				A7F545482E37BDFE0014EB85 /* AddPlaceView.swift in Sources */,
+				A76D5A632EAC6027004151DF /* GalleryCollectionView.swift in Sources */,
 				DF1F40F82E279F9000BE27AC /* ProfileViewModel.swift in Sources */,
 				89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */,
 				A72C9A2C2E3CD9FC00F6D30E /* PreviewCardView.swift in Sources */,
@@ -1422,6 +1430,7 @@
 /* Begin XCBuildConfiguration section */
 		A7C1AB6D2E20022D00B8B9E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 892F670E2E702278008E647D /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1463,6 +1472,7 @@
 		};
 		A7C1AB6E2E20022D00B8B9E1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 892F670E2E702278008E647D /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1504,6 +1514,7 @@
 		};
 		A7C1AB6F2E20022D00B8B9E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 892F670E2E702278008E647D /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1567,6 +1578,7 @@
 		};
 		A7C1AB702E20022D00B8B9E1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 892F670E2E702278008E647D /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1623,6 +1635,7 @@
 		};
 		DF7487B82E38A95200CF9864 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 892F670E2E702278008E647D /* Config.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PindoraShareExtension/PindoraShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1654,6 +1667,7 @@
 		};
 		DF7487B92E38A95200CF9864 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 892F670E2E702278008E647D /* Config.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = PindoraShareExtension/PindoraShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1685,6 +1699,7 @@
 		};
 		DF8840362E34CD5200F67BF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 892F670E2E702278008E647D /* Config.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1706,6 +1721,7 @@
 		};
 		DF8840372E34CD5200F67BF9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 892F670E2E702278008E647D /* Config.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

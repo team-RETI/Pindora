@@ -28,6 +28,8 @@ struct Place: Hashable {
     var instaLink: String?      // 인스타링크
     var bookLink: String?       // 예약링크
     var imageURL: String?       // 대표이미지(Storage주소)
+    // 갤러리 옵션
+    var imageURLs: [String]?    // 다중이미지
 }
 
 // MARK: - DTO로 변환
@@ -48,7 +50,8 @@ extension Place {
             naviLink: naviLink,
             instaLink: instaLink,
             bookLink: bookLink,
-            imageURL: imageURL
+            imageURL: imageURL,
+            imageURLs: imageURLs
         )
     }
 }

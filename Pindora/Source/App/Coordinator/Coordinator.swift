@@ -176,8 +176,20 @@ final class MainTabCoordinator: Coordinator {
     let navigationController: UINavigationController
     private let tabbarController = UITabBarController()
     
+    // 자식 보관
+    private(set) var homeCoordinator: HomeCoordinator?
+    private(set) var mapCoordinator: MapCoordinator?
+    private(set) var myPlaceCoordinator: MyPlaceCoordinator?
+    private(set) var profileCoordinator: ProfileCoordinator?
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+    }
+    
+    func openMap(place: Place) {
+        // 맵뷰로 전환
+        tabbarController.selectedIndex = 1
+        mapCoordinator?.focusOnPlace(place)
     }
     
     func navigateToLogin() {
@@ -208,6 +220,11 @@ final class MainTabCoordinator: Coordinator {
         let myPlace = MyPlaceCoordinator(navigationController: myPlaceNav)
         let profile = ProfileCoordinator(navigationController: profileNav)
         
+        self.homeCoordinator = home
+        self.mapCoordinator = map
+        self.myPlaceCoordinator = myPlace
+        self.profileCoordinator = profile
+        
         let coordinators: [Coordinator] = [home, map, myPlace, profile]
         coordinators.forEach {
             $0.parentCoordinator = self
@@ -227,22 +244,38 @@ protocol CardDetailCoordinating: AnyObject {
     func didTapCell(place: Place)
     /// 이동
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void)
+    /// 이동
+    func didTapMapViewButton(place: Place)
+    /// 이동
+    func didTapReviewButton()
 }
 
 final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationControllerDelegate, CardDetailCoordinating {
     var onPlaceSheetDismiss: (() -> Void)?
     private var place: Place?
-    
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) {  }
+    func didTapReviewButton() {
+        
+    }
+
+    func didTapMapViewButton(place: Place) {
+        dissmissPlaceSheet()
+        (parentCoordinator as? MainTabCoordinator)?.openMap(place: place)
+    }
+    
     func didTapCell(place: Place) {
         self.place = place
         navigate(to: .cardDetail)
     }
     
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        dissmissPlaceSheet()
+    }
+    
+    func dissmissPlaceSheet() {
         let fireDismiss: () -> Void = { [weak self] in
             self?.onPlaceSheetDismiss?()
-            self?.onPlaceSheetDismiss = nil
+            self?.onPlaceSheetDismiss = nil 
             self?.place = nil
             ModuleFactory.shared.removeViewModel(for: .cardDetail)
         }
@@ -394,7 +427,9 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
 final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAdaptivePresentationControllerDelegate {
     var onPlaceSheetDismiss: (() -> Void)?
     private var place: Place?
-    func didTapCell(place: Place) {   }
+    func didTapCell(place: Place) {  }
+    func didTapMapViewButton(place: Place) {   }
+    func didTapReviewButton() {   }
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) {
         self.onPlaceSheetDismiss = onDismiss
         self.place = place
@@ -438,6 +473,19 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
         navigate(to: .home)
     }
     
+    func focusOnPlace(_ place: Place) {
+        // 루트 MapVC를 찾아서 지시
+        if let mapVC = navigationController.viewControllers.first(where: { $0 is MapViewController }) as? MapViewController {
+            mapVC.renderPlaceOnMap(place)
+        } else {
+            // 혹시 루트가 없으면 홈부터 세팅
+            let vc = ModuleFactory.shared.makeMapVC()
+            vc.coordinator = self
+            navigationController.setViewControllers([vc], animated: false)
+            vc.renderPlaceOnMap(place)
+        }
+    }
+    
     private func navigate(to route: Route) {
         switch route {
         case .home:
@@ -472,8 +520,13 @@ final class MapCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAda
 final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAdaptivePresentationControllerDelegate {
     var onPlaceSheetDismiss: (() -> Void)?
     private var place: Place?
+    func didTapReviewButton() {   }
+    func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) { }    
+    func didTapMapViewButton(place: Place) {
+        dissmissPlaceSheet()
+        (parentCoordinator as? MainTabCoordinator)?.openMap(place: place)
+    }
     
-    func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) { }
     func didTapAddPlace() {
         navigate(to: .addPlace)
     }
@@ -482,6 +535,10 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
         navigate(to: .cardDetail)
     }
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        dissmissPlaceSheet()
+    }
+    
+    func dissmissPlaceSheet() {
         let fireDismiss: () -> Void = { [weak self] in
             self?.onPlaceSheetDismiss?()
             self?.onPlaceSheetDismiss = nil

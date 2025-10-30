@@ -175,7 +175,7 @@ extension PreviewCardView {
 
     func updatePlaceInfo(_ place: Place) {
         tagLabelView.title = place.category
-        likeCountLabelView.count = place.likedCount?.description
+//        likeCountLabelView.count = place.likedCount?.description
         titleLabel.text = place.placeName
         descriptionLabel.text = place.placeAddress
         dateLabel.text = place.addedDate.toString()

@@ -165,6 +165,60 @@ final class MapViewController: UIViewController {
         }
     }
     
+    func renderPlaceOnMap(_ place: Place) {
+        // 혹시 모를 중복 방지
+        clearPlaceMarkers()
+        
+        let lat = place.latitude
+        let lng = place.longitude
+        let position = NMGLatLng(lat: lat, lng: lng)
+        
+        let update = NMFCameraUpdate(scrollTo: position, zoomTo: 15)
+        update.animation = .easeIn
+        customView.mapView.moveCamera(update)
+        
+        // 마커 썸네일 이미지 준비 (URL or 카테고리 에셋)
+        loadMarkerImage(for: place) { [weak self] image in
+            guard let self else { return }
+            let photo = image ?? self.defaultMarkerImage
+            
+            let marker = SelectableMarker(position: position, image: photo)
+            marker.marker.captionRequestedWidth = 50
+            marker.marker.captionText = place.placeName
+            marker.marker.isHideCollidedCaptions = true
+            
+            marker.attach(to: self.customView.mapView)
+            self.placeMarkers.append(marker)
+            
+            // 터치 핸들러는 "방금 만든 marker"를 대상으로 동작해야 함
+            marker.marker.touchHandler = { [weak self, weak marker] _ in
+                guard let self, let marker else { return false }
+                
+                // UI는 메인에서
+                DispatchQueue.main.async {
+                    // 같은 마커 재탭: 해제
+                    if self.currentSelectedMarker === marker {
+                        marker.setSelected(false)
+                        self.currentSelectedMarker = nil
+                    } else {
+                        // 이전 선택 해제 후 새 선택
+                        self.currentSelectedMarker?.setSelected(false)
+                        marker.setSelected(true)
+                        self.currentSelectedMarker = marker
+                    }
+                    
+                    // 시트 띄우고, dismiss 시 현재 선택 해제
+                    self.coordinator?.didTapPlaceMarker(place: place) { [weak self] in
+                        guard let self else { return }
+                        self.currentSelectedMarker?.setSelected(false)
+                        self.currentSelectedMarker = nil
+                    }
+                }
+                return true
+            }
+        }
+    }
+    
     private func clearPlaceMarkers() {
         placeMarkers.forEach { $0.marker.mapView = nil }  // 지도에서 제거
         placeMarkers.removeAll()

@@ -55,6 +55,16 @@ extension UIButton {
         return button
     }
     
+    static func reviewButtonStyle() -> UIButton {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 15
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 85).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        return button
+    }
+    
     static func detailButtonStyle(name: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: name), for: .normal)

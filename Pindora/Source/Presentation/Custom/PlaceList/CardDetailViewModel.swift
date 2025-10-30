@@ -14,7 +14,6 @@ final class CardDetailViewModel {
     private var user: User?
     private let place: Place
     private let imageLoader: (URL) -> AnyPublisher<UIImage?, Never>
-    // private let hashtagBuilder: (Place) -> String
     private let placeUseCase: PlaceUseCase
     private let userUseCase: UserUseCaseProtocol
     private let imageUseCase: ImageUsecaseProtocol
@@ -30,7 +29,6 @@ final class CardDetailViewModel {
     ) {
         self.place = place
         self.imageLoader = imageLoader
-        //self.hashtagBuilder = hasthtagBuilder
         self.placeUseCase = placeUseCase
         self.userUseCase = userUseCase
         self.imageUseCase = imageUseCase
@@ -41,17 +39,17 @@ final class CardDetailViewModel {
         let viewDidLoad: AnyPublisher<Void, Never>
         /// 즐겨찾기 버튼 탭 시 호출
         let addButtonTapped: AnyPublisher<Void, Never>
+        /// 맵뷰 버튼 탭 시 호출
+        let toMapButtonTapped: AnyPublisher<Void, Never>
     }
     
     struct Output {
         /// 장소에 대한 정보 출력
         let title: AnyPublisher<String, Never>
         let address: AnyPublisher<String, Never>
-        let mainImage: AnyPublisher<UIImage?, Never>
         let category: AnyPublisher<String, Never>
         let isSavedPlace: AnyPublisher<Bool, Never>
-        // let hashtag: AnyPublisher<String, Never>
-        // let tagName: AnyPublisher<String, Never>
+        let gallery: AnyPublisher<[UIImage?], Never>
     }
     
     func transform(input: Input) -> Output {
@@ -59,28 +57,26 @@ final class CardDetailViewModel {
         let title = Just(place.placeName).eraseToAnyPublisher()
         let address = Just(place.placeAddress).eraseToAnyPublisher()
         let category = Just(place.category).eraseToAnyPublisher()
-        //let hashtags = Just(hashtagBuilder(place)).eraseToAnyPublisher()
-        
-        // 이미지: viewDidAppear 트리거에 반응해 1회 로드
-        let mainImage: AnyPublisher<UIImage?, Never> = input.viewDidLoad
-            .map { [weak self] _ -> URL? in
-                guard
-                    let self,
-                    let raw = self.place.imageURL?.trimmingCharacters(in: .whitespacesAndNewlines),
-                    raw.isEmpty == false
-                else { return nil }
+        let gallery: AnyPublisher<[UIImage?], Never> = input.viewDidLoad
+            .compactMap { [weak self] _ in self?.place.imageURLs }
+            .flatMap { [weak self] urls -> AnyPublisher<[UIImage?], Never> in
+                guard let self else { return Just([]).eraseToAnyPublisher() }
 
-                // ATS 대비 http -> https 치환
-                let secure = raw.hasPrefix("http://")
-                ? raw.replacingOccurrences(of: "http://", with: "https://")
-                : raw
-                return URL(string: secure)
-            }
-            .flatMap { [weak self] url -> AnyPublisher<UIImage?, Never> in
-                guard let self, let url else {
-                    return Just<UIImage?>(nil).eraseToAnyPublisher()
-                }
-                return self.imageLoader(url)
+                // http → https 교정 후 URL 배열로 변환
+                let urlObjects = urls
+                    .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                    .compactMap { str -> URL? in
+                        let secure = str.hasPrefix("http://")
+                        ? str.replacingOccurrences(of: "http://", with: "https://")
+                        : str
+                        return URL(string: secure)
+                    }
+
+                // URL별 다운로드 퍼블리셔 생성
+                let loaders = urlObjects.map { self.imageLoader($0) }
+                return Publishers.MergeMany(loaders)
+                    .collect()
+                    .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
         
@@ -97,7 +93,14 @@ final class CardDetailViewModel {
                                 .setFailureType(to: UseCaseError.self)
                                 .eraseToAnyPublisher()
                         }
-                        return self.userUseCase.updateUserPlaceLog(user: user, place: place)
+                        // ✅ 저장 직전 최신 imageURLs를 주입해 전달
+                               var updatedPlace = place
+                               updatedPlace.imageURLs = self.place.imageURLs
+                               if updatedPlace.imageURL == nil {
+                                   updatedPlace.imageURL = self.place.imageURLs?.first
+                               }
+                               
+                               return self.userUseCase.updateUserPlaceLog(user: user, place: updatedPlace)
                     }
                     .handleEvents(receiveOutput: { [weak self] in
                         guard let self else { return }
@@ -123,7 +126,13 @@ final class CardDetailViewModel {
                                 .setFailureType(to: UseCaseError.self)
                                 .eraseToAnyPublisher()
                         }
-                        return self.userUseCase.updateUserSavedPlaces(user: user, place: place)
+                        var updatedPlace = place
+                                  updatedPlace.imageURLs = self.place.imageURLs
+                                  if updatedPlace.imageURL == nil {
+                                      updatedPlace.imageURL = self.place.imageURLs?.first
+                                  }
+                                  
+                                  return self.userUseCase.updateUserSavedPlaces(user: user, place: updatedPlace)
                     }
                     .handleEvents(receiveOutput: { [weak self] in
                         guard let self else { return }
@@ -156,9 +165,9 @@ final class CardDetailViewModel {
         return Output(
             title: title,
             address: address,
-            mainImage: mainImage,
             category: category,
-            isSavedPlace: isSavedPlace
+            isSavedPlace: isSavedPlace,
+            gallery: gallery
         )
     }
 }
@@ -169,10 +178,5 @@ extension CardDetailViewModel {
             .map { UIImage(data: $0.data) }
             .replaceError(with: nil)
             .eraseToAnyPublisher()
-    }
-
-    static func defaultHashtagBuilder(_ place: Place) -> String {
-        let keywords: [String] = [place.placeName, place.category ?? ""].filter { !$0.isEmpty }
-        return keywords.map { "#\($0)" }.joined(separator: " ")
     }
 }
