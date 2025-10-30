@@ -124,7 +124,7 @@ _download-privates-real:
 	
 
 # -----------------------------
-# 🔐 인증서 불러오기 
+# 🔐 인증서 불러오기
 # -----------------------------
 fetch-certificates:
 	@echo "🔐 Fetching signing certificates using fastlane match..."
@@ -132,7 +132,7 @@ fetch-certificates:
 	bundle exec fastlane match development --readonly --app_identifier com.RETIA.Pindora,com.RETIA.Pindora.ShareExtension && \
 	bundle exec fastlane match appstore --readonly --app_identifier com.RETIA.Pindora,com.RETIA.Pindora.ShareExtension
 	@echo ""
-
+	
 # -----------------------------
 # 🧩 Xcode 커스텀 템플릿 설치
 # -----------------------------
@@ -142,6 +142,55 @@ install-templates:
 	mkdir -p "$$TEMPLATE_DIR"; \
 	cp -R ./FileTemplates/* "$$TEMPLATE_DIR"; \
 	echo "✅ 템플릿이 성공적으로 설치되었습니다."
+
+
+# x
+# bundle exec fastlane match development \
+#   --app_identifier "com.RETIA.Pindora" \
+#   --force_for_new_certificates \
+#   --include_all_certificates
+
+# x
+# bundle exec fastlane match appstore \
+#   --app_identifier "com.RETIA.Pindora" \
+#   --force_for_new_certificates \
+#   --include_all_certificates
+
+# x
+# 최초 한번은 직접 실행
+# fastlane match appstore --app_identifier "com.RETIA.Pindora"
+# fastlane match development --app_identifier "com.RETIA.Pindora"
+
+
+# [기존 인증서 재사용 방법]
+# 1. cer파일을 개발자 홈페이지에서 다운
+# 2. p12파일을 키체인에서 내보내기
+# 3. 아래 코드 작성
+# bundle exec fastlane match import \
+#   --username indextrown@gmail.com \
+#   --git_url https://github.com/team-RETI/Pindora-Private.git \
+#   --app_identifier com.RETIA.Pindora \
+#   --team_id LGX4B4WC66 \
+#   --type development
+
+
+# /Users/kimdonghyeon/fastlane/Pindora/development.cer
+# /Users/kimdonghyeon/fastlane/Pindora/development.p12
+# /Users/kimdonghyeon/fastlane/Pindora/match_Development_comRETIAPindora.mobileprovision
+
+
+
+# bundle exec fastlane match import \
+#   --username indextrown@gmail.com \
+#   --git_url https://github.com/team-RETI/Pindora-Private.git \
+#   --app_identifier com.RETIA.Pindora \
+#   --team_id LGX4B4WC66 \
+#   --type appstore
+
+# /Users/kimdonghyeon/fastlane/Pindora/distribution.cer
+# /Users/kimdonghyeon/fastlane/Pindora/distribution.p12
+# /Users/kimdonghyeon/fastlane/Pindora/match_AppStore_comRETIAPindora.mobileprovision
+
 
 
 # x
