@@ -132,7 +132,7 @@ fetch-certificates:
 	bundle exec fastlane match development --readonly --app_identifier com.RETIA.Pindora,com.RETIA.Pindora.ShareExtension && \
 	bundle exec fastlane match appstore --readonly --app_identifier com.RETIA.Pindora,com.RETIA.Pindora.ShareExtension
 	@echo ""
-	
+
 # -----------------------------
 # 🧩 Xcode 커스텀 템플릿 설치
 # -----------------------------

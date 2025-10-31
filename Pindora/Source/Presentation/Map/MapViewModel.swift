@@ -48,27 +48,34 @@ final class MapViewModel {
                 self?.locationUseCase.stopUpdatingLocation()
             }
             .store(in: &cancellable)
-        
-        // input을 받았을 때: 권한 요청 + 위치 업데이트 시작
-        input.locationButtonTapped
-            .sink { [weak self] in
-                self?.locationUseCase.requestAuthorization()
-                self?.locationUseCase.startUpdatingLocation()
-                self?.locationUseCase.stopUpdatingLocation()
+  
+        let location = input.locationButtonTapped
+            .map { [weak self] _ -> AnyPublisher<CLLocationCoordinate2D, Never> in
+                guard let self = self else { return Empty().eraseToAnyPublisher() }
+                self.locationUseCase.requestAuthorization()
+                self.locationUseCase.startUpdatingLocation()
+
+                return self.locationUseCase.locationPublisher
+                    .map { $0.coordinate }
+                    .removeDuplicates { lhs, rhs in
+                        abs(lhs.latitude - rhs.latitude) < 0.0001 &&
+                        abs(lhs.longitude - rhs.longitude) < 0.0001
+                    }
+                    .handleEvents(
+                        receiveOutput: { loc in
+                            print("📌 location:", loc.latitude, loc.longitude)
+                        },
+                        receiveCompletion: { [weak self] _ in
+                            self?.locationUseCase.stopUpdatingLocation()
+                        },
+                        receiveCancel: { [weak self] in
+                            self?.locationUseCase.stopUpdatingLocation()
+                        }
+                    )
+                    .prefix(1) // 첫 좌표만 받기
+                    .eraseToAnyPublisher()
             }
-            .store(in: &cancellable)
-        
-        // 위치 스트림
-        let location = locationUseCase.locationPublisher
-            .map { $0.coordinate }
-            .removeDuplicates { lhs, rhs in
-                // 좌표 중복 판정(아주 미세한 이동은 무시)
-                abs(lhs.latitude - rhs.latitude) < 0.0001 &&
-                abs(lhs.longitude - rhs.longitude) < 0.0001
-            }
-            .handleEvents(receiveOutput: { loc in
-                print("📌 location:", loc.latitude, loc.longitude)
-            })
+            .switchToLatest()   // 버튼을 여러 번 눌러도 최신 흐름만 유지
             .share()
             .eraseToAnyPublisher()
         
