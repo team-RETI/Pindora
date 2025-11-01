@@ -36,6 +36,7 @@ final class ProfileViewController: UIViewController {
         customView.editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
         customView.settingsButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         customView.gptRefreshButton.addTarget(self, action: #selector(gptRefreshTapped), for: .touchUpInside)
+        bindCellListView()
         bindViewModel()
         NotificationCenter.default.addObserver(self, selector: #selector(refreshProfile), name: .profileUpdated, object: nil)
     }
@@ -110,7 +111,7 @@ final class ProfileViewController: UIViewController {
             }
         }.resume()
     }
-    
+
     // 버튼 탭 처리
     @objc private func editProfileButtonTapped() {
         guard let user = viewModel.user else {
@@ -133,3 +134,11 @@ final class ProfileViewController: UIViewController {
     }
 }
 
+extension ProfileViewController {
+    private func bindCellListView() {
+        customView.collectionView.onPlaceSelected = { [weak self] place in
+            print("선택된 장소:", place.placeName)
+            self?.coordinator?.didTapCell(place: place)
+        }
+    }
+}

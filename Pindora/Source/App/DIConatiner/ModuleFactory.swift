@@ -99,8 +99,9 @@ final class ModuleFactory {
             let searchUseCase = DIContainer.shared.resolve(SearchUseCaseProtocol.self)
             let placeUseCase = DIContainer.shared.resolve(PlaceUseCase.self)
             let imageUseCase = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
+            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
             
-            return AddPlaceViewModel(searchUseCase: searchUseCase, placeUseCase: placeUseCase, imageUseCase: imageUseCase)
+            return AddPlaceViewModel(searchUseCase: searchUseCase, placeUseCase: placeUseCase, userUseCase: userUseCase, imageUseCase: imageUseCase)
         }
         return AddPlaceViewController(viewModel: viewModel)
     }

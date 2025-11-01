@@ -24,20 +24,7 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
     init(repository: DatabaseRepositoryProtocol) {
         self.repository = repository
     }
-    
-//    var savedPlacesPublisher: AnyPublisher<[Place], Never> {
-//        subject
-//            .compactMap { $0?.savedPlaces }
-//            .removeDuplicates(by: isSamePlaces)
-//            .eraseToAnyPublisher()
-//    }
-//    
-//    var placeLogPublisher: AnyPublisher<[Place], Never> {
-//        subject
-//            .compactMap { $0?.visitedPlaces }
-//            .eraseToAnyPublisher()
-//    }
-    
+        
     var userPublisher: AnyPublisher<User?, Never> {
         subject.eraseToAnyPublisher()
     }
@@ -90,6 +77,7 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
             updatedUser.visitedPlaces.remove(at: index)
         }
         updatedUser.visitedPlaces.insert(place, at: 0)
+        
         return updateUser(user: updatedUser)
     }
     
