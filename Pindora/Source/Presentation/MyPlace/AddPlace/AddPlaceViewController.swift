@@ -75,6 +75,7 @@ final class AddPlaceViewController: UIViewController {
         setupTapGesture()
         setupCategoryTargets()
         setupSearchBarTarget()
+        setupNameBarTarget()
         print("AddPlaceViewController")
     }
     
@@ -132,6 +133,27 @@ final class AddPlaceViewController: UIViewController {
                     }
                     UINotificationFeedbackGenerator().notificationOccurred(.error)
                 }
+            }
+            .store(in: &cancellable)
+    }
+    
+    private func setupNameBarTarget() {
+        customView.nameSearchBarView.textField.textPublisher
+            .debounce(for: .milliseconds(350), scheduler: RunLoop.main)
+            .sink { [weak self] name in
+                guard let self = self else { return }
+
+                // 1️⃣ ViewModel에도 흘려보내야 한다면 (선택)
+                // 만약 ViewModel에 이름 관련 Publisher가 있다면 이렇게:
+                // self.nameTextSubject.send(name)
+
+                // 2️⃣ currentPlace 업데이트
+                self.currentPlace = self.currentPlace.withName(name)
+
+                // 3️⃣ 미리보기 카드 갱신
+                self.customView.updatePreviewPlace(self.currentPlace)
+
+                print("📝 장소 이름 업데이트됨: \(self.currentPlace.placeName)")
             }
             .store(in: &cancellable)
     }

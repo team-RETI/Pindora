@@ -174,4 +174,12 @@ extension ProfileEditView {
     func updatePersonaPreview(with user: User) {
         personaPreviewView.configure(with: user)
     }
+    
+    func updatePersonaCard(name: String, description: String) {
+        personaInfoCardView.setPersona(name: name, description: description)
+    }
+    
+    func updatePersonaPreview(name: String, description: String) {
+        personaPreviewView.updatePersona(name: name, description: description)
+    }
 }

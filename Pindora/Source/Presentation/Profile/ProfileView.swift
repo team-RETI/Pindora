@@ -5,6 +5,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 // MARK: - (C)ProfileView
 final class ProfileView: UIView {
@@ -173,10 +174,10 @@ final class ProfileView: UIView {
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            gptRefreshButton.topAnchor.constraint(equalTo: profileStackView.bottomAnchor, constant: 50),
+            gptRefreshButton.topAnchor.constraint(equalTo: profileDescriptionLabel.bottomAnchor, constant: 8),
             gptRefreshButton.leadingAnchor.constraint(equalTo: profileStackView.leadingAnchor),
             gptRefreshButton.widthAnchor.constraint(equalToConstant: 24),
-            gptRefreshButton.heightAnchor.constraint(equalToConstant: 24)
+            gptRefreshButton.heightAnchor.constraint(equalToConstant: 24),
         ])
     }
 }
@@ -213,5 +214,13 @@ extension ProfileView {
     
     func updatePlaceLog(_ places: [Place]) {
         collectionView.updatePlaceLog(places)
+    }
+    
+    func setProfileImage(from url: URL) {
+        profileImageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "person"),
+            options: [.transition(.fade(0.3)), .cacheOriginalImage]
+        )
     }
 }
