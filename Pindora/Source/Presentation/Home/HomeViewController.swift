@@ -152,16 +152,16 @@ final class HomeViewController: UIViewController {
     }
     
 //    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//        
+//
 //        // 키보드 자동 올라오기 방지
 //        textField.resignFirstResponder()
-//        
+//
 //        // 시트로 화면 올라오기
 //        let searchDetailVC = SearchDetailViewController(viewModel: viewModel)
 //        let nav = UINavigationController(rootViewController: searchDetailVC)
 //        nav.modalPresentationStyle = .fullScreen
 //        present(nav, animated: false, completion: nil)
-//    
+//
 //         // false → 키보드 안 올라오게
 //         return false
 //     }
@@ -268,7 +268,7 @@ extension HomeViewController: UITableViewDelegate {
                         let card = cell as? CardCellView
                     else { continue }
 
-                    let isSaved = self.savedPlaceIDs.contains(place.placeId)  
+                    let isSaved = self.savedPlaceIDs.contains(place.placeId)
                     card.configure(with: place, isSaved: isSaved)
                 }
             }
@@ -286,4 +286,3 @@ extension HomeViewController: UITableViewDelegate {
         }
     }
 }
-
