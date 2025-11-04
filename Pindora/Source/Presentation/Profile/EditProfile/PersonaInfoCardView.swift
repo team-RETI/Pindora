@@ -132,3 +132,10 @@ final class PersonaInfoCardView: UIView {
         ])
     }
 }
+
+extension PersonaInfoCardView {
+    func setPersona(name: String, description: String) {
+        titleLabel.text = name
+        descriptionLabel.text = description
+    }
+}

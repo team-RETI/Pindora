@@ -185,5 +185,7 @@ extension PreviewCardView {
         thumbnailImageView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: target, action: action)
         thumbnailImageView.addGestureRecognizer(tapGesture)
+        
+        imageSelectButton.addTarget(target, action: action, for: .touchUpInside)
     }
 }

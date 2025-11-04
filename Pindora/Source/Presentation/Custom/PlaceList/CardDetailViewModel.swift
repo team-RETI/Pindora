@@ -41,6 +41,8 @@ final class CardDetailViewModel {
         let addButtonTapped: AnyPublisher<Void, Never>
         /// 맵뷰 버튼 탭 시 호출
         let toMapButtonTapped: AnyPublisher<Void, Never>
+        /// 리뷰 저장 버튼 시 호출
+        let confirmReviewButtonTapped: AnyPublisher<ReviewPayload, Never>
     }
     
     struct Output {
@@ -50,6 +52,8 @@ final class CardDetailViewModel {
         let category: AnyPublisher<String, Never>
         let isSavedPlace: AnyPublisher<Bool, Never>
         let gallery: AnyPublisher<[UIImage?], Never>
+        let reviewRating: AnyPublisher<Int?, Never>
+        let addedDate: AnyPublisher<Date, Never>
     }
     
     func transform(input: Input) -> Output {
@@ -57,6 +61,25 @@ final class CardDetailViewModel {
         let title = Just(place.placeName).eraseToAnyPublisher()
         let address = Just(place.placeAddress).eraseToAnyPublisher()
         let category = Just(place.category).eraseToAnyPublisher()
+        let reviewRating =
+            userUseCase.userPublisher
+                .map { $0?.savedPlaces }
+                .map { places -> Int? in
+                    places?.first(where: { $0.placeId == self.place.placeId })?.reviewRating
+                }
+                .removeDuplicates(by: { $0 == $1 }) // 옵셔널 비교 안전
+                .eraseToAnyPublisher()
+        
+        let addedDate =
+            userUseCase.userPublisher
+                .map { $0?.savedPlaces }
+                .map { places -> Date in
+                    return places?.first(where: { $0.placeId == self.place.placeId })?.addedDate
+                        ?? Date.distantPast
+                }
+                .removeDuplicates(by: { $0 == $1 })
+                .eraseToAnyPublisher()
+        
         let gallery: AnyPublisher<[UIImage?], Never> = input.viewDidLoad
             .compactMap { [weak self] _ in self?.place.imageURLs }
             .flatMap { [weak self] urls -> AnyPublisher<[UIImage?], Never> in
@@ -161,13 +184,45 @@ final class CardDetailViewModel {
                 .map { _ in isSavedPlaceStream.prefix(1) } 
                 .switchToLatest()
                 .eraseToAnyPublisher()
+
+        input.confirmReviewButtonTapped
+            .flatMap { [weak self] payload -> AnyPublisher<Void, Never> in
+                guard let self, let uid = Auth.auth().currentUser?.uid else {
+                    return Just(()).eraseToAnyPublisher()
+                }
+  
+                return self.userUseCase.fetchUser(uid: uid)
+                    .flatMap { [weak self] user -> AnyPublisher<Void, UseCaseError> in
+                        guard let self else {
+                            return  Just(())
+                                .setFailureType(to: UseCaseError.self)
+                                .eraseToAnyPublisher()
+                        }
+                        var updatedPlace = place
+                        updatedPlace.reviewTitle = payload.title
+                        updatedPlace.reviewRating = payload.rating
+                        updatedPlace.reviewContent = payload.context
+                        return self.userUseCase.updateUserSavedPlaceReview(user: user, place: updatedPlace)
+                    }
+                    .handleEvents(receiveOutput: { [weak self] in
+                        guard let self else { return }
+                        self.userUseCase.refreshIfNeeded(force: true, uid: uid)
+                    })
+                    .map { _ in }
+                    .replaceError(with: ())
+                    .eraseToAnyPublisher()
+            }
+            .sink { _ in }
+            .store(in: &cancellables)
         
         return Output(
             title: title,
             address: address,
             category: category,
             isSavedPlace: isSavedPlace,
-            gallery: gallery
+            gallery: gallery,
+            reviewRating: reviewRating,
+            addedDate: addedDate
         )
     }
 }
@@ -179,4 +234,11 @@ extension CardDetailViewModel {
             .replaceError(with: nil)
             .eraseToAnyPublisher()
     }
+}
+
+// 리뷰 내용 전달
+struct ReviewPayload {
+    let rating: Int
+    let title: String
+    let context: String
 }

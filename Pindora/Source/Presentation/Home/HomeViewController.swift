@@ -313,7 +313,7 @@ extension HomeViewController: UITableViewDelegate {
                         let card = cell as? CardCellView
                     else { continue }
 
-                    let isSaved = self.savedPlaceIDs.contains(place.placeId)  
+                    let isSaved = self.savedPlaceIDs.contains(place.placeId)
                     card.configure(with: place, isSaved: isSaved)
                 }
             }
@@ -331,4 +331,3 @@ extension HomeViewController: UITableViewDelegate {
         }
     }
 }
-

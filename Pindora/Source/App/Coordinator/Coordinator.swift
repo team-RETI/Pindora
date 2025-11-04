@@ -254,9 +254,7 @@ final class HomeCoordinator: NSObject, Coordinator, UIAdaptivePresentationContro
     var onPlaceSheetDismiss: (() -> Void)?
     private var place: Place?
     func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) {  }
-    func didTapReviewButton() {
-        
-    }
+    func didTapReviewButton() {  }
 
     func didTapMapViewButton(place: Place) {
         dissmissPlaceSheet()
@@ -707,7 +705,21 @@ final class MyPlaceCoordinator: NSObject, Coordinator, CardDetailCoordinating, U
     }
 }
 
-final class ProfileCoordinator: Coordinator {
+final class ProfileCoordinator: NSObject, Coordinator, CardDetailCoordinating, UIAdaptivePresentationControllerDelegate {
+    private weak var sheetNav: UINavigationController?
+    private weak var backdropView: UIView?
+    private var place: Place?
+    var onPlaceSheetDismiss: (() -> Void)?
+    
+    func didTapCell(place: Place) {
+        self.place = place
+        navigate(to: .cardDetail)
+    }
+    
+    func didTapPlaceMarker(place: Place, onDismiss: @escaping () -> Void) {  }
+    
+    func didTapReviewButton() {  }
+    
     func didTapLogout() {
         navigateToLogin()
     }
@@ -749,11 +761,102 @@ final class ProfileCoordinator: Coordinator {
         navigate(to: .setting)
     }
     
+    func didTapMapViewButton(place: Place) {
+        dissmissPlaceSheet()
+        (parentCoordinator as? MainTabCoordinator)?.openMap(place: place)
+    }
+    
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        cleanupSheetBackdrop()     // 애니메이션 포함()
+    }
+    
+    func dissmissPlaceSheet() {
+        // 시트가 떠 있으면 닫고 completion에서 클린업
+        if let presented = navigationController.presentedViewController {
+            presented.dismiss(animated: true) { [weak self] in
+                self?.cleanupSheetBackdrop()
+            }
+        } else {
+            cleanupSheetBackdrop()
+        }
+    }
+    
+    private func normalizeNaverNewsImageURL(_ urlString: String?) -> URL? {
+        guard var s = urlString, !s.isEmpty else { return nil }
+        
+        // http → https
+        if s.hasPrefix("http://") {
+            s = "https://" + s.dropFirst(7)
+        }
+        
+        guard var comp = URLComponents(string: s) else { return nil }
+        
+        // imgnews.naver.net → imgnews.pstatic.net (호스트 불일치 해결)
+        if let host = comp.host, host == "imgnews.naver.net" {
+            comp.host = "imgnews.pstatic.net"
+        }
+        
+        return comp.url
+    }
+    
+    func loadImage(into imageView: UIImageView, urlString: String?) {
+        imageView.image = UIImage(named: "placeholder")
+        
+        guard let url = normalizeNaverNewsImageURL(urlString) else { return }
+        
+        var req = URLRequest(url: url,
+                             cachePolicy: .returnCacheDataElseLoad,
+                             timeoutInterval: 15)
+        
+        // 가끔 UA 필요할 때가 있어 기본 UA 부여
+        req.setValue("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile",
+                     forHTTPHeaderField: "User-Agent")
+        
+        URLSession.shared.dataTask(with: req) { data, resp, err in
+            if let err = err {
+                print("❌ Image load failed:", err.localizedDescription)
+                return
+            }
+            if let http = resp as? HTTPURLResponse, !(200...299).contains(http.statusCode) {
+                print("❌ HTTP \(http.statusCode) for \(url)")
+                return
+            }
+            guard let data = data, let img = UIImage(data: data) else {
+                print("❌ Decode failed")
+                return
+            }
+            DispatchQueue.main.async {
+                imageView.image = img
+            }
+        }.resume()
+    }
+    
+    private func cleanupSheetBackdrop(animated: Bool = true) {
+        // 백드롭 제거
+        if let bg = backdropView {
+            let remove: () -> Void = { [weak self] in
+                bg.removeFromSuperview()
+                self?.backdropView = nil
+            }
+            if animated {
+                UIView.animate(withDuration: 0.25, animations: { bg.alpha = 0 }) { _ in remove() }
+            } else {
+                remove()
+            }
+        }
+
+        // 상태 정리
+        onPlaceSheetDismiss?()
+        onPlaceSheetDismiss = nil
+        place = nil
+        ModuleFactory.shared.removeViewModel(for: .cardDetail)
+    }
     private enum Route {
         case home
         case editProfile
         case setting
         case accountSetting
+        case cardDetail
     }
     
     var parentCoordinator: Coordinator?
@@ -809,6 +912,57 @@ final class ProfileCoordinator: Coordinator {
             navigationController.pushViewController(vc, animated: true)
             navigationController.isNavigationBarHidden = true
             
+        case .cardDetail:
+            guard let place else { return }
+            
+            let vc = ModuleFactory.shared.makeCardDetailVC(place: place)
+            vc.coordinator = self as CardDetailCoordinating
+            vc.view.backgroundColor = .clear
+            
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .pageSheet
+            nav.view.backgroundColor = .clear
+            
+            if let sheet = nav.sheetPresentationController {
+                sheet.detents = [.custom { $0.maximumDetentValue * 0.98 }]
+                sheet.prefersGrabberVisible = false
+            }
+            
+            // 블러
+            let blur = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+            blur.frame = nav.view.bounds
+            blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            nav.view.insertSubview(blur, at: 0)
+            
+            // ✅ 델리게이트는 'present' 전에 걸어도 OK, 혹시 몰라 두 군데 모두
+            vc.presentationController?.delegate = self
+            nav.presentationController?.delegate = self
+            
+            // ✅ (중복 생성 방지) 기존 백드롭이 있다면 먼저 제거
+            cleanupSheetBackdrop(animated: false)
+            
+            // ✅ 백드롭 생성 & 참조 저장
+            let bgView = UIView(frame: navigationController.view.bounds)
+            bgView.backgroundColor = .black
+            bgView.alpha = 0
+            bgView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            let backgroundImageView = UIImageView(frame: bgView.bounds)
+            backgroundImageView.contentMode = .scaleAspectFill
+            backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            bgView.addSubview(backgroundImageView)
+            
+            navigationController.view.addSubview(bgView)
+            self.backdropView = bgView
+            self.sheetNav = nav
+            
+            // 이미지 로드 (비동기 완료 전에 dismiss될 수도 있으니 weak 처리)
+            loadImage(into: backgroundImageView, urlString: place.imageURL)
+            
+            UIView.animate(withDuration: 0.5) { bgView.alpha = 1 }
+            
+            nav.isNavigationBarHidden = true
+            navigationController.present(nav, animated: true)
         }
     }
 }

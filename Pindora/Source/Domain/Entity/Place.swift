@@ -20,7 +20,7 @@ struct Place: Hashable {
     let latitude: Double        // 위도
     let longitude: Double       // 경도
     let category: String        // 카테고리(음식점, 카페)
-    let addedDate: Date         // 추가된 날짜
+    var addedDate: Date         // 추가된 날짜
     
     // 옵셔널 속성들
     var likedCount: Int?        // 좋아요
@@ -28,8 +28,10 @@ struct Place: Hashable {
     var instaLink: String?      // 인스타링크
     var bookLink: String?       // 예약링크
     var imageURL: String?       // 대표이미지(Storage주소)
-    // 갤러리 옵션
     var imageURLs: [String]?    // 다중이미지
+    var reviewTitle: String?    // 리뷰 제목
+    var reviewContent: String?  // 리뷰 내용
+    var reviewRating: Int?      // 장소 점수
 }
 
 extension Place {
@@ -60,7 +62,10 @@ extension Place {
             instaLink: instaLink,
             bookLink: bookLink,
             imageURL: imageURL,
-            imageURLs: imageURLs
+            imageURLs: imageURLs,
+            reviewTitle: reviewTitle,
+            reviewContent: reviewContent,
+            reviewRating: reviewRating
         )
     }
 }
@@ -215,6 +220,29 @@ extension Place {
 
 // MARK: - MyPlace 헬퍼 메서드
 extension Place {
+    
+    // 기능적으로 완벽하게 동일함 구조체의 프로퍼티가 많다면 이 방법으로 해보는 것도 좋을 것 같음
+//    func withName(_ name: String) -> Place {
+//        var copy = self
+//        copy.placeName = name
+//        return copy
+//    }
+    
+    // 현재는 통일성을 위해 비슷하게 만들어 두기
+    func withName(_ newName: String) -> Place {
+        return Place(
+            placeId: self.placeId,
+            placeName: newName,
+            placeAddress: self.placeAddress,
+            latitude: self.latitude,
+            longitude: self.longitude,
+            category: self.category,
+            addedDate: self.addedDate,
+            likedCount: self.likedCount,
+            imageURL: self.imageURL
+        )
+    }
+    
     func withAddress(_ newAddress: String) -> Place {
         return Place(
             placeId: self.placeId,

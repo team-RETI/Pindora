@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class PersonaPreviewView: UIView {
     private lazy var avatarImageView: UIImageView = {
@@ -91,9 +92,14 @@ final class PersonaPreviewView: UIView {
         
         if let urlString = user.userImage,
            let url = URL(string: urlString) {
-            avatarImageView.setImage(from: url)
+            avatarImageView.kf.setImage(with: url, placeholder: UIImage(named: "person"), options: [.transition(.fade(0.3)), .cacheOriginalImage])
         } else {
             avatarImageView.image = UIImage(named: "default_memoji")
         }
+    }
+    
+    func updatePersona(name: String, description: String) {
+        titleLabel.text = name
+        descriptionLabel.text = description
     }
 }

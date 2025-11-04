@@ -23,15 +23,18 @@ final class ProfileEditViewModel {
     // DI
     private let imageUseCase: ImageUsecaseProtocol   // Firebase Storage 업로드용
     private let userUseCase: UserUseCaseProtocol     // Firestore 저장용
+    private let gptUseCase: GPTUseCaseProtocol      // 페르소나 변경용
     private var cancellables = Set<AnyCancellable>()
     
     // 저장 중 표시용 (UI 바인딩 가능)
     @Published var isSaving = false
     @Published var saveError: String?
+    @Published var generatedPersona: (name: String, description: String)?
     
-    init(imageUseCase: ImageUsecaseProtocol, userUseCase: UserUseCaseProtocol) {
+    init(imageUseCase: ImageUsecaseProtocol, userUseCase: UserUseCaseProtocol, gptUseCase: GPTUseCaseProtocol) {
         self.imageUseCase = imageUseCase
         self.userUseCase = userUseCase
+        self.gptUseCase = gptUseCase
     }
     
     func registerProfile(user: User, customImage: UIImage?) -> AnyPublisher<Void, Never> {
@@ -82,7 +85,7 @@ final class ProfileEditViewModel {
             uploadPublisher = Just(nil).eraseToAnyPublisher()
         }
         
-        // 이후 Firestore 저장은 동일
+        // 이후 Firestore 저장
         return uploadPublisher
             .flatMap { [weak self] imageURL -> AnyPublisher<Void, Never> in
                 guard let self = self else { return Just(()).eraseToAnyPublisher() }
@@ -91,8 +94,14 @@ final class ProfileEditViewModel {
                 if let url = imageURL {
                     updated.userImage = url
                 }
-                updated.personaName = self.personaTitle
-                updated.personaDescription = self.personaDescription
+                
+                if let generated = self.generatedPersona {
+                    updated.personaName = generated.name
+                    updated.personaDescription = generated.description
+                } else {
+                    updated.personaName = self.personaTitle
+                    updated.personaDescription = self.personaDescription
+                }
                 
                 return self.userUseCase.saveUser(user: updated)
                     .map { }
@@ -104,10 +113,28 @@ final class ProfileEditViewModel {
             }
             .handleEvents(receiveOutput: { [weak self] _ in
                 self?.isSaving = false
-            },
-                          receiveCompletion: { [weak self] _ in
+            }, receiveCompletion: { [weak self] _ in
                 self?.isSaving = false
             })
             .eraseToAnyPublisher()
+    }
+    
+    func generatePersona(for locations: [String]) {
+        guard locations.count >= 3 else { return } // 10개 이상일 때 -> 테스트 필요시 숫자 조정하면 됨
+        
+        gptUseCase.createPersonaNameAndDescription(from: locations)
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    print("GPT 실패: \(error.localizedDescription)")
+                }
+            }, receiveValue: { [weak self] result in
+                guard let self else { return }
+                
+                print("GPT 결과 → 이름: \(result.name), 설명: \(result.description)")
+                
+                self.generatedPersona = (name: result.name, description: result.description)
+            })
+            .store(in: &cancellables)
     }
 }

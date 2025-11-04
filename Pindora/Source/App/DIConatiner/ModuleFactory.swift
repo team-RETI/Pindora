@@ -99,8 +99,9 @@ final class ModuleFactory {
             let searchUseCase = DIContainer.shared.resolve(SearchUseCaseProtocol.self)
             let placeUseCase = DIContainer.shared.resolve(PlaceUseCase.self)
             let imageUseCase = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
+            let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
             
-            return AddPlaceViewModel(searchUseCase: searchUseCase, placeUseCase: placeUseCase, imageUseCase: imageUseCase)
+            return AddPlaceViewModel(searchUseCase: searchUseCase, placeUseCase: placeUseCase, userUseCase: userUseCase, imageUseCase: imageUseCase)
         }
         return AddPlaceViewController(viewModel: viewModel)
     }
@@ -118,7 +119,8 @@ final class ModuleFactory {
         let viewModel: ProfileEditViewModel = getOrCreateViewModel(for: .editProfile) {
             let imageUC = DIContainer.shared.resolve(ImageUsecaseProtocol.self)
             let userUC = DIContainer.shared.resolve(UserUseCaseProtocol.self)
-            return ProfileEditViewModel(imageUseCase: imageUC, userUseCase: userUC)
+            let gptUC = DIContainer.shared.resolve(GPTUseCaseProtocol.self)
+            return ProfileEditViewModel(imageUseCase: imageUC, userUseCase: userUC, gptUseCase: gptUC)
         }
         return ProfileEditViewController(viewModel: viewModel)
     }

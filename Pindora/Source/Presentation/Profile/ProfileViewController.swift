@@ -6,6 +6,7 @@
 
 import UIKit
 import Combine
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     weak var coordinator: ProfileCoordinator?
@@ -36,6 +37,7 @@ final class ProfileViewController: UIViewController {
         customView.editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
         customView.settingsButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         customView.gptRefreshButton.addTarget(self, action: #selector(gptRefreshTapped), for: .touchUpInside)
+        bindCellListView()
         bindViewModel()
         NotificationCenter.default.addObserver(self, selector: #selector(refreshProfile), name: .profileUpdated, object: nil)
     }
@@ -100,17 +102,9 @@ final class ProfileViewController: UIViewController {
     }
     
     private func loadImage(from url: URL) {
-        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            guard let data, let image = UIImage(data: data), error == nil else {
-                print("이미지 로딩 실패: \(error?.localizedDescription ?? "이미지 오류 발생")")
-                return
-            }
-            DispatchQueue.main.async {
-                self?.customView.setProfileImageView(image)
-            }
-        }.resume()
+        customView.setProfileImage(from: url)
     }
-    
+
     // 버튼 탭 처리
     @objc private func editProfileButtonTapped() {
         guard let user = viewModel.user else {
@@ -133,3 +127,11 @@ final class ProfileViewController: UIViewController {
     }
 }
 
+extension ProfileViewController {
+    private func bindCellListView() {
+        customView.collectionView.onPlaceSelected = { [weak self] place in
+            print("선택된 장소:", place.placeName)
+            self?.coordinator?.didTapCell(place: place)
+        }
+    }
+}

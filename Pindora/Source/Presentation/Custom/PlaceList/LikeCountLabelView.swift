@@ -55,4 +55,11 @@ final class LikeCountLabelView: UIView {
             heightAnchor.constraint(equalToConstant: 21)
         ])
     }
+    private let countLabel = UILabel()
+    
+    var count: String? {
+        didSet {
+            countLabel.text = count
+        }
+    }
 }
