@@ -136,30 +136,6 @@ final class CardDetailViewController: UIViewController {
             }
             .store(in: &cancellable)
         
-//        output.reviewRating
-//            .map { rating -> UIImage? in
-//                guard let rating = rating else {
-//                    return nil
-//                }
-//                switch rating {
-//                case 0...2: return UIImage(named: "face_happy")
-//                case 3...4: return UIImage(named: "face_smile")
-//                case 5...6: return UIImage(named: "face_soso")
-//                case 7...8: return UIImage(named: "face_sad")
-//                default:    return UIImage(named: "face_angry")
-//                }
-//            }
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] image in
-//                self?.customView.reviewLabelButton.setImage(image, for: .normal)
-//                self?.customView.reviewLabelButton.tintColor = .black
-//                self?.customView.reviewLabelButton.imageView?.contentMode = .scaleAspectFit
-//
-//            }
-//            .store(in: &cancellable)
-//        
-//        output.addedDate
-        
         // 1) rating -> UIImage?
         let faceImageStream = output.reviewRating
             .map { rating -> UIImage? in
