@@ -11,7 +11,7 @@ import Kingfisher
 final class ProfileView: UIView {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-    private let collectionView = ProfilePlaceCellListView()
+    let collectionView = ProfilePlaceCellListView()
     
     // MARK: - UI Component
     let gptRefreshButton: UIButton = {

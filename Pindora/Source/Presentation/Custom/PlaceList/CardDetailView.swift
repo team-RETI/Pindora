@@ -51,7 +51,7 @@ final class CardDetailView: UIView {
         return stack
     }()
 
-    private let reviewTitleLabel: UILabel = {
+    let reviewTitleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 18)
         label.textColor = .white

@@ -24,20 +24,7 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
     init(repository: DatabaseRepositoryProtocol) {
         self.repository = repository
     }
-    
-//    var savedPlacesPublisher: AnyPublisher<[Place], Never> {
-//        subject
-//            .compactMap { $0?.savedPlaces }
-//            .removeDuplicates(by: isSamePlaces)
-//            .eraseToAnyPublisher()
-//    }
-//    
-//    var placeLogPublisher: AnyPublisher<[Place], Never> {
-//        subject
-//            .compactMap { $0?.visitedPlaces }
-//            .eraseToAnyPublisher()
-//    }
-    
+        
     var userPublisher: AnyPublisher<User?, Never> {
         subject.eraseToAnyPublisher()
     }
@@ -84,12 +71,34 @@ final class UserUseCaseImpl: UserUseCaseProtocol {
         return updateUser(user: updatedUser)
     }
     
+    func updateUserSavedPlaceReview(user: User, place: Place) -> AnyPublisher<Void, UseCaseError> {
+        var updatedUser = user
+        if let index = updatedUser.savedPlaces.firstIndex(where: { $0.placeId == place.placeId }) {
+            // ✅ 기존 장소 찾음 → 해당 인덱스만 업데이트
+            var target = updatedUser.savedPlaces[index]
+
+            // 필요한 정보만 변경
+            target.reviewTitle   = place.reviewTitle
+            target.reviewContent = place.reviewContent
+            target.reviewRating  = place.reviewRating
+            target.addedDate    = Date()
+            // ✅ 업데이트된 장소로 교체
+            updatedUser.savedPlaces[index] = target
+        } else {
+            // ✅ 존재하지 않으면 새로 추가 (옵션)
+            let newPlace = place
+            updatedUser.savedPlaces.append(newPlace)
+        }
+        return updateUser(user: updatedUser)
+    }
+    
     func updateUserPlaceLog(user: User, place: Place) -> AnyPublisher<Void, UseCaseError> {
         var updatedUser = user
         if let index = user.visitedPlaces.firstIndex(where: { $0.placeId == place.placeId }) {
             updatedUser.visitedPlaces.remove(at: index)
         }
         updatedUser.visitedPlaces.insert(place, at: 0)
+        
         return updateUser(user: updatedUser)
     }
     
@@ -198,24 +207,16 @@ final class StubUserUsecaseImpl: UserUseCaseProtocol {
         return updateUser(user: user)
     }
     
+    func updateUserSavedPlaceReview(user: User, place: Place) -> AnyPublisher<Void, UseCaseError> {
+        return updateUser(user: user)
+    }
+    
     func deleteUser(uid: String) -> AnyPublisher<Void, UseCaseError> {
         // 더미 성공 반환
         return Just(())
             .setFailureType(to: UseCaseError.self)
             .eraseToAnyPublisher()
     }
-    
-//    var savedPlacesPublisher: AnyPublisher<[Place], Never> {
-//        testSubject
-//            .compactMap { $0?.savedPlaces }
-//            .eraseToAnyPublisher()
-//    }
-//    
-//    var placeLogPublisher: AnyPublisher<[Place], Never> {
-//        testSubject
-//            .compactMap { $0?.savedPlaces }
-//            .eraseToAnyPublisher()
-//    }
     
     var userPublisher: AnyPublisher<User?, Never> {
         testSubject.eraseToAnyPublisher()

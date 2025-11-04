@@ -216,8 +216,8 @@ final class HomeViewModel {
                 let perPlacePublishers: [AnyPublisher<(Int, Place), Never>] = indexed.map { (idx, place) in
                     self.searchUseCase
                         .searchImage(
-                            query: place.placeName,
-                            display: maxImages,       // ✅ N장 요청
+                            query: place.placeName + place.category,
+                            display: maxImages,       // N장 요청
                             start: 1,
                             sort: "sim",
                             filter: "large"

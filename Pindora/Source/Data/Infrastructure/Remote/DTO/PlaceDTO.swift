@@ -22,6 +22,9 @@ struct PlaceDTO: Codable {
     let bookLink: String?
     let imageURL: String?
     let imageURLs: [String]?
+    var reviewTitle: String?
+    var reviewContent: String?
+    var reviewRating: Int?      
 }
 
 // MARK: - Entity로 변환
@@ -44,7 +47,10 @@ extension PlaceDTO {
             instaLink: instaLink,
             bookLink: bookLink,
             imageURL: imageURL,
-            imageURLs: imageURLs
+            imageURLs: imageURLs,
+            reviewTitle: reviewTitle,
+            reviewContent: reviewContent,
+            reviewRating: reviewRating
         )
     }
 }

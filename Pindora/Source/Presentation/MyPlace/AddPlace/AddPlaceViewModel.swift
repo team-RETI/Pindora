@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import CoreLocation
+import FirebaseAuth
 
 final class AddPlaceViewModel {
     // MARK: - Dependancy
@@ -15,21 +16,28 @@ final class AddPlaceViewModel {
     private let searchUseCase: SearchUseCaseProtocol
     // DB
     private let placeUseCase: PlaceUseCase
+    private let userUseCase: UserUseCaseProtocol
     private let imageUseCase: ImageUsecaseProtocol
     // Combine
     private var cancellable: Set<AnyCancellable> = []
     
+    var user: User?
+    var errorMessage: String?
     private let latestPlace = CurrentValueSubject<Place?, Never>(nil)
     let latestCategory = CurrentValueSubject<String?, Never>(nil)
     
     init(
         searchUseCase: SearchUseCaseProtocol,
         placeUseCase: PlaceUseCase,
+        userUseCase: UserUseCaseProtocol,
         imageUseCase: ImageUsecaseProtocol
     ) {
         self.searchUseCase = searchUseCase
         self.placeUseCase = placeUseCase
+        self.userUseCase = userUseCase
         self.imageUseCase = imageUseCase
+        
+        loadUser()
     }
     
     struct Input {
@@ -91,7 +99,7 @@ final class AddPlaceViewModel {
         place
             .sink { [weak self] in self?.latestPlace.send($0) }
             .store(in: &cancellable)
-
+        
         // 4-1) 최신 Category도 저장해 두기
         selectedCategory
             .sink { [weak self] in self?.latestCategory.send($0) }
@@ -116,31 +124,33 @@ final class AddPlaceViewModel {
                 return .ready(p!, c)
             }
             .eraseToAnyPublisher()
-
+        
         let saveResultSubject = PassthroughSubject<Result<Void, Error>, Never>()
-
+        
         trigger
             .flatMap { [weak self] t -> AnyPublisher<Result<Void, Error>, Never> in
                 guard let self = self else { return Just(.failure(SaveError.backend(NSError(domain: "deinit", code: -1)))).eraseToAnyPublisher() }
-
+                guard let user = self.user else { return Just(.failure(SaveError.backend(NSError(domain: "deinit", code: -1)))).eraseToAnyPublisher()}
+                
                 switch t {
                 case .missingPlace:
                     return Just(.failure(SaveError.missingPlace)).eraseToAnyPublisher()
-
+                    
                 case .missingCategory:
                     return Just(.failure(SaveError.missingCategory)).eraseToAnyPublisher()
-
+                    
                 case .ready(var place, let category):
                     place = place.withCategory(category)
                     print("💾 try save:", place)
-                    return self.placeUseCase
-                          .savePlace(place: place)          // -> AnyPublisher<Void, Error>
-                          .handleEvents(receiveOutput: { [weak self] in
-                              self?.placeUseCase.refreshIfNeeded(force: true) // 🔔 리스트 즉시 업데이트
-                          })
-                          .map { .success(()) }
-                          .catch { Just(.failure(SaveError.backend($0))) }
-                          .eraseToAnyPublisher()
+                    
+                    return self.userUseCase
+                        .updateUserSavedPlaces(user: user, place: place)
+                        .handleEvents(receiveOutput: { [weak self] in
+                            self?.userUseCase.refreshIfNeeded(force: true, uid: user.userId) // 🔔 리스트 즉시 업데이트
+                        })
+                        .map { .success(()) }
+                        .catch { Just(.failure(SaveError.backend($0))) }
+                        .eraseToAnyPublisher()
                 }
             }
             .subscribe(saveResultSubject)
@@ -152,13 +162,32 @@ final class AddPlaceViewModel {
             saveResult: saveResultSubject.eraseToAnyPublisher()
         )
     }
+    
+    func loadUser() {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            self.errorMessage = "로그인된 사용자가 없습니다."
+            return
+        }
+        
+        userUseCase.fetchUser(uid: uid)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] completion in
+                if case let .failure(error) = completion {
+                    self?.errorMessage = "사용자 정보를 불러오지 못함: \(error.localizedDescription)"
+                }
+            } receiveValue: { [weak self] user in
+                print("유저 데이터: \(user)") //가져오는 데이터 확인용 나중에 삭제할 예정
+                self?.user = user
+            }
+            .store(in: &cancellable)
+    }
 }
 
 enum SaveError: LocalizedError {
     case missingPlace
     case missingCategory
     case backend(Error)
-
+    
     var errorDescription: String? {
         switch self {
         case .missingPlace:    return "주소(장소) 정보가 없어요. 주소를 먼저 입력해 주세요."

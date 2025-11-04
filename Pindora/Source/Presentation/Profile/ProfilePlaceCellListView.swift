@@ -11,7 +11,8 @@ final class ProfilePlaceCellListView: UICollectionView, UICollectionViewDelegate
     
     // MARK: - UI Component
     private var placesLog: [Place] = []
-    
+    var onPlaceSelected: ((Place) -> Void)?
+
     // MARK: - Initializer
     override init(frame: CGRect, collectionViewLayout layout : UICollectionViewLayout) {
         let layout = UICollectionViewFlowLayout()
@@ -44,7 +45,7 @@ final class ProfilePlaceCellListView: UICollectionView, UICollectionViewDelegate
 
 extension ProfilePlaceCellListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return placesLog.count
+        return min(placesLog.count, 30)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -63,5 +64,11 @@ extension ProfilePlaceCellListView {
     func updatePlaceLog(_ places: [Place]) {
         self.placesLog = places
         self.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let selectedPlace = placesLog[indexPath.item]
+        onPlaceSelected?(selectedPlace)
     }
 }

@@ -20,7 +20,7 @@ struct Place: Hashable {
     let latitude: Double        // 위도
     let longitude: Double       // 경도
     let category: String        // 카테고리(음식점, 카페)
-    let addedDate: Date         // 추가된 날짜
+    var addedDate: Date         // 추가된 날짜
     
     // 옵셔널 속성들
     var likedCount: Int?        // 좋아요
@@ -28,8 +28,10 @@ struct Place: Hashable {
     var instaLink: String?      // 인스타링크
     var bookLink: String?       // 예약링크
     var imageURL: String?       // 대표이미지(Storage주소)
-    // 갤러리 옵션
     var imageURLs: [String]?    // 다중이미지
+    var reviewTitle: String?    // 리뷰 제목
+    var reviewContent: String?  // 리뷰 내용
+    var reviewRating: Int?      // 장소 점수
 }
 
 // MARK: - DTO로 변환
@@ -51,7 +53,10 @@ extension Place {
             instaLink: instaLink,
             bookLink: bookLink,
             imageURL: imageURL,
-            imageURLs: imageURLs
+            imageURLs: imageURLs,
+            reviewTitle: reviewTitle,
+            reviewContent: reviewContent,
+            reviewRating: reviewRating
         )
     }
 }
