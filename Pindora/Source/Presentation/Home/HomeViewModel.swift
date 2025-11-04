@@ -9,17 +9,17 @@ import Combine
 import CoreLocation
 import FirebaseAuth
 
-
 enum SortOption {
     case distance
     case like
 }
 
 final class HomeViewModel {
-    // MARK: - Dependancy
+
     // API/Framework
     private let locationUseCase: LocationUseCaseProtocol
     private let searchUseCase: SearchUseCaseProtocol
+    
     // DB
     private let placeUseCase: PlaceUseCase
     private let userUseCase: UserUseCaseProtocol
@@ -27,21 +27,6 @@ final class HomeViewModel {
     
     // Combine
     private var cancellable: Set<AnyCancellable> = []
-
-    @Published var keywords: [String] = []
-    @Published var filteredKeywords: [String] = []
-    private let regionKeywords: [String] = [
-        "서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종",
-        "경기", "경기도",
-        "강원", "강원도",
-        "충북", "충청북도",
-        "충남", "충청남도",
-        "전북", "전라북도",
-        "전남", "전라남도",
-        "경북", "경상북도",
-        "경남", "경상남도",
-        "제주", "제주도", "제주특별자치도"
-    ]
     
     // 정렬 상태를 저장 및 방출하는 퍼블리셔
     let sortOptionSubject = CurrentValueSubject<SortOption, Never>(.distance)
@@ -225,8 +210,8 @@ final class HomeViewModel {
                 let perPlacePublishers: [AnyPublisher<(Int, Place), Never>] = indexed.map { (idx, place) in
                     self.searchUseCase
                         .searchImage(
-                            query: place.placeName,
-                            display: maxImages,       // ✅ N장 요청
+                            query: place.placeName + place.category,
+                            display: maxImages,       // N장 요청
                             start: 1,
                             sort: "sim",
                             filter: "large"
@@ -238,7 +223,7 @@ final class HomeViewModel {
                                 .compactMap { $0.link }
                                 .filter { !$0.isEmpty }
                                 .prefix(maxImages)
-
+                            
                             p.imageURLs = Array(urls)          // ✅ 여러 장 주입
                             if p.imageURL == nil {             // ✅ 호환성: 첫 장을 단일 필드에도
                                 p.imageURL = p.imageURLs?.first
@@ -320,35 +305,5 @@ final class HomeViewModel {
             places: sortedPlaces,
             keywords: keywords
         )
-    }
-}
-
-// MARK: - 키워드 관련 로직
-extension HomeViewModel {
-    func fetchKeywords() {
-        placeUseCase.fetchKeywords()
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    print("키워드 로딩 실패: \(error.localizedDescription)")
-                }
-            } receiveValue: { [weak self] keywordList in
-                self?.keywords = keywordList
-            }.store(in: &cancellable)
-    }
-    
-    func filterKeywords(query: String) {
-        if query.isEmpty {
-            filteredKeywords = []
-        } else {
-            filteredKeywords = keywords.filter {
-                /// localizedCaseInsensitiveContains: 대소문자 무시, 로케일 고려, 부분문자열 검색 가능
-                $0.localizedStandardContains(query)
-            }
-        }
-    }
-    
-    func resetFilter() {
-        filteredKeywords = []
     }
 }
