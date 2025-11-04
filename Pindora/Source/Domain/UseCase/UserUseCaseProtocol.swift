@@ -52,6 +52,13 @@ protocol UserUseCaseProtocol {
     /// - Returns: 작업 완료 여부 방출  AnyPublisher<Void, Error>
     func updateUserPlaceLog(user: User, place: Place) -> AnyPublisher<Void, UseCaseError>
     
+    /// 사용자가 장소리뷰 등록 시 업데이트 합니다
+    /// - Parameters:
+    ///   - user: 사용자 정보
+    ///   - place: 장소정보
+    /// - Returns: 작업 완료 여부 방출  AnyPublisher<Void, Error>
+    func updateUserSavedPlaceReview(user: User, place: Place) -> AnyPublisher<Void, UseCaseError>
+    
     /// 주어진 UID를 기준으로 사용자 정보를 삭제합니다.
     /// - Parameter uid: 삭제할 사용자의 고유 식별자.
     /// - Returns: 작업 완료 여부를 방출하는 AnyPublisher<Void, Error>

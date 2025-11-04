@@ -19,7 +19,7 @@ final class CardDetailViewController: UIViewController {
     // MARK: - Subjects (Input 소스)
     private let addButtonSubject = PassthroughSubject<Void, Never>()
     private let toMapViewButtonSubject = PassthroughSubject<Void, Never>()
-    private let confirmButtonSubject = PassthroughSubject<Void, Never>()
+    private let confirmButtonSubject = PassthroughSubject<ReviewPayload, Never>()
     private var place: Place
     
     // MARK: - Initializer
@@ -53,14 +53,15 @@ final class CardDetailViewController: UIViewController {
     
     private func bindSwiftUIView() {
         // 1) SwiftUI 뷰 생성 + 콜백 주입
-        let swiftUIView = ReviewContentView(
-            onContinue: { [weak self] in
-                self?.confirmButtonSubject.send()
-            },
-            onClose: { [weak self] in
-                self?.hideReview()
-            }
-        )
+        let swiftUIView = ReviewContentView
+        { payload in
+            print("사용자가 준 점수:", payload.rating)
+            self.confirmButtonSubject.send(payload)
+            self.hideReview()
+        } onClose: { [weak self] in
+            self?.hideReview()
+        }
+        
         
         // 2) HostingController로 감싸기
         let hosting = UIHostingController(rootView: swiftUIView)
@@ -103,7 +104,8 @@ final class CardDetailViewController: UIViewController {
         let input = CardDetailViewModel.Input(
             viewDidLoad: Just(()).eraseToAnyPublisher(),
             addButtonTapped: addButtonSubject.eraseToAnyPublisher(),
-            toMapButtonTapped: toMapViewButtonSubject.eraseToAnyPublisher()
+            toMapButtonTapped: toMapViewButtonSubject.eraseToAnyPublisher(),
+            confirmReviewButtonTapped: confirmButtonSubject.eraseToAnyPublisher()
         )
         
         let output = viewModel.transform(input: input)
@@ -134,6 +136,95 @@ final class CardDetailViewController: UIViewController {
             }
             .store(in: &cancellable)
         
+//        output.reviewRating
+//            .map { rating -> UIImage? in
+//                guard let rating = rating else {
+//                    return nil
+//                }
+//                switch rating {
+//                case 0...2: return UIImage(named: "face_happy")
+//                case 3...4: return UIImage(named: "face_smile")
+//                case 5...6: return UIImage(named: "face_soso")
+//                case 7...8: return UIImage(named: "face_sad")
+//                default:    return UIImage(named: "face_angry")
+//                }
+//            }
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] image in
+//                self?.customView.reviewLabelButton.setImage(image, for: .normal)
+//                self?.customView.reviewLabelButton.tintColor = .black
+//                self?.customView.reviewLabelButton.imageView?.contentMode = .scaleAspectFit
+//
+//            }
+//            .store(in: &cancellable)
+//        
+//        output.addedDate
+        
+        // 1) rating -> UIImage?
+        let faceImageStream = output.reviewRating
+            .map { rating -> UIImage? in
+                guard let rating = rating else { return nil }
+                switch rating {
+                case 0...2: return UIImage(named: "face_happy")
+                case 3...4: return UIImage(named: "face_smile")
+                case 5...6: return UIImage(named: "face_soso")
+                case 7...8: return UIImage(named: "face_sad")
+                default:    return UIImage(named: "face_angry")
+                }
+            }
+            .eraseToAnyPublisher()
+        
+        // 2) addedDate -> "yy.MM.dd" 문자열 (nil이면 표시 안 함)
+        let dateTextStream = output.addedDate
+            .map { date -> String in
+                let formatter = DateFormatter()
+                formatter.locale = Locale(identifier: "ko_KR")
+                formatter.dateFormat = "yy.MM.dd"
+                return formatter.string(from: date)
+            }
+            .eraseToAnyPublisher()
+        
+        // 3) 둘을 합쳐 버튼 구성
+        Publishers.CombineLatest(faceImageStream, dateTextStream)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] image, dateText in
+                guard let self = self else { return }
+                let btn = self.customView.reviewLabelButton
+                var config = UIButton.Configuration.filled()
+                config.baseBackgroundColor = .white
+                config.baseForegroundColor = .black
+                config.cornerStyle = .capsule
+                
+                config.image = image
+                config.imagePlacement = .leading
+                config.imagePadding = 5
+                
+                var attr = AttributedString(dateText) // ← 비옵셔널 String 그대로 사용
+                attr.font = .systemFont(ofSize: 10, weight: .light)
+                config.attributedTitle = attr
+                
+                config.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 3, bottom: 6, trailing: 3)
+                
+                if let image = image {
+                    // 리뷰가 있는 경우 흰색 버튼
+                    config.baseBackgroundColor = .white
+                    config.baseForegroundColor = .black
+                    config.image = image
+                    btn.alpha = 1.0
+                    
+                } else {
+                    // 없는 경우 : 투명색
+                    config.baseBackgroundColor = UIColor.white.withAlphaComponent(0.15)
+                    config.baseForegroundColor = UIColor.black.withAlphaComponent(0.4)
+                    config.attributedTitle = ""
+                    btn.alpha = 0.6
+                }
+
+                btn.configuration = config
+                
+            }
+            .store(in: &cancellable)
+        
         output.isSavedPlace
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
@@ -149,6 +240,7 @@ final class CardDetailViewController: UIViewController {
                 }
             }
             .store(in: &cancellable)
+    
     }
     
     // MARK: - Targets

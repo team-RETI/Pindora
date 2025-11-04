@@ -9,7 +9,10 @@ import SwiftUI
 
 struct ReviewContentView: View {
     @State private var value: Double = 0.0
-    var onContinue: (() -> Void)?
+    @State private var rating: Int?
+    @State private var title: String = ""
+    @State private var context: String = ""
+    var onContinue: ((ReviewPayload) -> Void)?
     var onClose: (() -> Void)?
     
     private var mood: Mood { Mood(progress: value)}
@@ -20,8 +23,8 @@ struct ReviewContentView: View {
                     .ignoresSafeArea()
                 
                 VStack(spacing: 32) {
-                    Text("How was your day?")
-                        .font(.title)
+                    Text("이장소를 다녀온 소감은 어떠신가요?")
+                        .font(.title2)
                         .bold()
                         .foregroundStyle(.black)
                     
@@ -39,6 +42,30 @@ struct ReviewContentView: View {
                     Slider(value: $value, in: 0...1, step: 0.25)
                         .tint(mood.accent)
                         .padding(.horizontal, 32)
+                    
+                    Spacer()
+                    
+                    Button {
+                        let newRating = Int(value * 10)
+                        let payload = ReviewPayload(
+                            rating: newRating,
+                            title: title,
+                            context: context
+                        )
+                        onContinue?(payload)
+                    } label: {
+                        Text("확인 및 등록")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color.white)
+                            )
+                    }
+                    .padding(.horizontal, 24)
+
                 }
                 .padding(.top, 40)
             }
@@ -55,12 +82,12 @@ struct ReviewContentView: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    Text("Track Mood").font(.title).bold()
+                    Text("나의 장소 리뷰").font(.title2).bold()
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        onContinue?()
+
                     } label: {
                         Image(systemName: "plus.circle.fill")
                             .imageScale(.large)
@@ -196,10 +223,10 @@ struct Mood {
     
     var subtitle: String {
         switch progress {
-        case 0..<0.25: return "Awesome"
-        case 0.25..<0.5: return "Great"
-        case 0.5..<0.75: return "Okay"
-        default: return "Not so good"
+        case 0..<0.25: return "최고예요"
+        case 0.25..<0.5: return "좋아요"
+        case 0.5..<0.75: return "별로예요"
+        default: return "최악"
         }
     }
     
