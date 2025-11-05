@@ -80,28 +80,5 @@ extension User: CustomStringConvertible {
         └─ 🏷️ Categories \(selectedCategories.count)개
 
         """
-        
-//        ├─ ❤️ Liked (\(likedPlaces.count)개)\(likedPlaces.isEmpty ? "" : "\n" + likedPlaces.map { "   • \($0)" }.joined(separator: "\n"))
-//        ├─ 💾 Saved (\(savedPlaces.count)개)\(savedPlaces.isEmpty ? "" : "\n" + savedPlaces.map { "   • \($0)" }.joined(separator: "\n"))
-//        ├─ ✅ Visited (\(visitedPlaces.count)개)\(visitedPlaces.isEmpty ? "" : "\n" + visitedPlaces.map { "   • \($0)" }.joined(separator: "\n"))
-//        └─ 🏷️ Categories (\(selectedCategories.count)개)\(selectedCategories.isEmpty ? "" : "\n" + selectedCategories.map { "   • \($0)" }.joined(separator: "\n"))
     }
 }
-
-
-//extension User: CustomStringConvertible {
-//    var description: String {
-//        """
-//        
-//        👤 User
-//        ├─ ID: \(userId)
-//        ├─ Name: \(personaName ?? "nil")
-//        ├─ Image: \(userImage ?? "nil")
-//        ├─ Description: \(personaDescription)
-//        ├─ ❤️ Liked: \(likedPlaces.count)개
-//        ├─ 💾 Saved: \(savedPlaces.count)개
-//        ├─ ✅ Visited: \(visitedPlaces.count)개
-//        └─ 🏷️ Categories: \(selectedCategories.count)개
-//        """
-//    }
-//}

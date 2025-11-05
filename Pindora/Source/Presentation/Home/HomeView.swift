@@ -34,7 +34,7 @@ final class HomeView: UIView {
         return label
     }()
     
-    private let buttonLabel: UIButton = {
+    let buttonLabel: UIButton = {
         let button = UIButton()
         
         var config = UIButton.Configuration.plain()

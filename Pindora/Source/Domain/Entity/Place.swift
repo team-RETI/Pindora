@@ -34,6 +34,15 @@ struct Place: Hashable {
     var reviewRating: Int?      // 장소 점수
 }
 
+extension Place {
+    /// 현재 위치와의 거리를 계산 (미터 단위)
+    func distance(from location: CLLocationCoordinate2D) -> Double {
+        let myLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
+        let placeLocation = CLLocation(latitude: latitude, longitude: longitude)
+        return myLocation.distance(from: placeLocation)
+    }
+}
+
 // MARK: - DTO로 변환
 extension Place {
     func toDTO() -> PlaceDTO {
