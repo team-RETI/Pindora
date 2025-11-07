@@ -20,7 +20,9 @@ final class CardDetailViewController: UIViewController {
     private let addButtonSubject = PassthroughSubject<Void, Never>()
     private let toMapViewButtonSubject = PassthroughSubject<Void, Never>()
     private let confirmButtonSubject = PassthroughSubject<ReviewPayload, Never>()
+    private let deleteButtonSubject = PassthroughSubject<ReviewPayload, Never>()
     private var place: Place
+    private var reviewData: ReviewPayload?
     
     // MARK: - Initializer
     init(viewModel: CardDetailViewModel, place: Place) {
@@ -50,37 +52,102 @@ final class CardDetailViewController: UIViewController {
     }
     
     // MARK: - Bindings
+//    private func createView() {
+//        // 1) SwiftUI 뷰 생성 + 콜백 주입
+//        let swiftUIView = ReviewContentView
+//        { payload in
+//            print("사용자가 준 점수:", payload.rating)
+//            self.confirmButtonSubject.send(payload)
+//            print("사용자가 쓴 리뷰:", payload.context)
+//            self.hideReview()
+//        } onClose: { [weak self] in
+//            self?.hideReview()
+//        }
+//        
+//        // 2) HostingController로 감싸기
+//        let hosting = UIHostingController(rootView: swiftUIView)
+//        self.hostingController = hosting
+//        
+//        // 3) 자식으로 추가
+//        addChild(hosting)
+//        view.addSubview(hosting.view)
+//        hosting.view.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            hosting.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            hosting.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            hosting.view.topAnchor.constraint(equalTo: view.topAnchor),
+//            hosting.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+//        ])
+//        hosting.didMove(toParent: self)
+//        
+//        hosting.view.alpha = 0
+//        UIView.animate(withDuration: 0.2) {
+//            hosting.view.alpha = 1
+//        }
+//    }
     
-    private func bindSwiftUIView() {
-        // 1) SwiftUI 뷰 생성 + 콜백 주입
-        let swiftUIView = ReviewContentView
-        { payload in
-            print("사용자가 준 점수:", payload.rating)
-            self.confirmButtonSubject.send(payload)
-            self.hideReview()
-        } onClose: { [weak self] in
-            self?.hideReview()
+    private func bindSwiftUIView(existingReview: ReviewPayload? = nil) {
+        // 1) SwiftUI View 생성
+        let swiftUIView: ReviewContentView
+
+        if let existing = existingReview {
+            // ✅ 기존 리뷰 보기 모드
+            swiftUIView = ReviewContentView(
+                mode: .view(existing: existing),
+                onSave: { [weak self] updated in
+                    print("수정된 점수:", updated.rating)
+                    print("수정된 리뷰:", updated.context)
+                    self?.confirmButtonSubject.send(updated)
+                    self?.hideReview()
+                },
+                onDelete: { [weak self] deleted in
+                    print("삭제 요청된 리뷰:", deleted)
+                    // 필요 시 삭제 이벤트 전달
+                    self?.deleteButtonSubject.send(deleted)
+                    self?.hideReview()
+                },
+                onClose: { [weak self] in
+                    self?.hideReview()
+                }
+            )
+        } else {
+            // ✅ 새 리뷰 생성 모드
+            swiftUIView = ReviewContentView(
+                mode: .create,
+                onSave: { [weak self] payload in
+                    print("새 리뷰 점수:", payload.rating)
+                    print("새 리뷰 내용:", payload.context)
+                    self?.confirmButtonSubject.send(payload)
+                    self?.hideReview()
+                },
+                onDelete: nil,
+                onClose: { [weak self] in
+                    self?.hideReview()
+                }
+            )
         }
-        
-        
+
         // 2) HostingController로 감싸기
         let hosting = UIHostingController(rootView: swiftUIView)
         self.hostingController = hosting
-        
-        // 3) 자식으로 추가
+
+        // 3) 자식 뷰로 추가
         addChild(hosting)
         view.addSubview(hosting.view)
         hosting.view.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             hosting.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             hosting.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             hosting.view.topAnchor.constraint(equalTo: view.topAnchor),
             hosting.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+
         hosting.didMove(toParent: self)
-        
+
+        // 4) 부드러운 등장 애니메이션
         hosting.view.alpha = 0
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseInOut]) {
             hosting.view.alpha = 1
         }
     }
@@ -133,6 +200,14 @@ final class CardDetailViewController: UIViewController {
             .sink { [weak self] images in
                 guard let self else { return }
                 customView.galleryView.bind(to: Just(images).eraseToAnyPublisher())
+            }
+            .store(in: &cancellable)
+        
+        output.reviewData
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] reviewData in
+                guard let self else { return }
+                self.reviewData = reviewData
             }
             .store(in: &cancellable)
         
@@ -189,7 +264,7 @@ final class CardDetailViewController: UIViewController {
                     btn.alpha = 1.0
                     
                 } else {
-                    // 없는 경우 : 투명색
+                    // 없는 경우 투명색
                     config.baseBackgroundColor = UIColor.white.withAlphaComponent(0.15)
                     config.baseForegroundColor = UIColor.black.withAlphaComponent(0.4)
                     config.attributedTitle = ""
@@ -226,10 +301,11 @@ final class CardDetailViewController: UIViewController {
         customView.flagButton.addTarget(self, action: #selector(addPlaceButtonTapped), for: .touchUpInside)
         customView.toMapViewButton.addTarget(self, action: #selector(toMapViewButtonTapped), for: .touchUpInside)
         customView.addButton.addTarget(self, action: #selector(addReviewButtonTapped), for: .touchUpInside)
+        customView.reviewLabelButton.addTarget(self, action: #selector(reviewButtonTapped), for: .touchUpInside)
     }
     
     @objc private func pinTapped() {
-        // TODO: 추후 외부 지도뷰로 연결
+        // TODO: 추후 외부 네비게이션 앱으로 연결
         print("tapped")
     }
     
@@ -251,6 +327,13 @@ final class CardDetailViewController: UIViewController {
     
     @objc private func addReviewButtonTapped() {
         print("tapped")
-        bindSwiftUIView()
+        bindSwiftUIView(existingReview: nil)
+    }
+    
+    @objc private func reviewButtonTapped() {
+        print("tapped")
+        if reviewData != nil {
+            bindSwiftUIView(existingReview: reviewData)
+        }
     }
 }

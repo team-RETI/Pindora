@@ -53,6 +53,7 @@ final class CardDetailViewModel {
         let isSavedPlace: AnyPublisher<Bool, Never>
         let gallery: AnyPublisher<[UIImage?], Never>
         let reviewRating: AnyPublisher<Int?, Never>
+        let reviewData: AnyPublisher<ReviewPayload, Never>
         let addedDate: AnyPublisher<Date, Never>
     }
     
@@ -61,6 +62,27 @@ final class CardDetailViewModel {
         let title = Just(place.placeName).eraseToAnyPublisher()
         let address = Just(place.placeAddress).eraseToAnyPublisher()
         let category = Just(place.category).eraseToAnyPublisher()
+        let reviewData =
+            userUseCase.userPublisher
+            .compactMap { $0?.savedPlaces } // nil 제거
+            .compactMap { places -> ReviewPayload? in
+                guard let place = places.first(where: { $0.placeId == self.place.placeId }) else {
+                    return nil
+                }
+
+                // 저장된 장소에 리뷰 관련 정보가 있는 경우 ReviewPayload 생성
+                // 예시: savedPlace에 reviewRating, reviewTitle, reviewContent 필드가 있다고 가정
+                guard let rating = place.reviewRating,
+                      let title = place.reviewTitle,
+                      let context = place.reviewContent else {
+                    return nil
+                }
+
+                return ReviewPayload(rating: rating, title: title, context: context)
+            }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+        
         let reviewRating =
             userUseCase.userPublisher
                 .map { $0?.savedPlaces }
@@ -222,6 +244,7 @@ final class CardDetailViewModel {
             isSavedPlace: isSavedPlace,
             gallery: gallery,
             reviewRating: reviewRating,
+            reviewData: reviewData,
             addedDate: addedDate
         )
     }
@@ -237,7 +260,7 @@ extension CardDetailViewModel {
 }
 
 // 리뷰 내용 전달
-struct ReviewPayload {
+struct ReviewPayload: Equatable {
     let rating: Int
     let title: String
     let context: String
