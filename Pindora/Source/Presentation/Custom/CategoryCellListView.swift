@@ -11,7 +11,7 @@ final class CategoryCellListView: UIScrollView {
     
     // MARK: - UI Component
     // 더미 데이터 (ViewModel 구현후 없앨예정)
-    let categoriesDummy = ["편의점", "카페", "은행", "음식점", "약국", "주차장", "숙박", "학원", "학교", "주유소"]
+    var categoriesDummy = ["편의점", "카페", "은행", "음식점", "약국", "주차장", "숙박", "학원", "학교", "주유소"]
     
     lazy var categories: [KakaoCategoryGroup] = {
         categoriesDummy.compactMap { KakaoCategoryGroup.from(displayName: $0) }
@@ -42,12 +42,15 @@ final class CategoryCellListView: UIScrollView {
         setupUI()
     }
     
-    init(frame: CGRect, color: UIColor) {
-        super.init(frame: frame)
-        showsHorizontalScrollIndicator = false
-        self.color = color
-        setupUI()
-    }
+    init(frame: CGRect, color: UIColor, keywords: [String] = []) {
+            super.init(frame: frame)
+            self.color = color
+            self.categoriesDummy = keywords
+            showsHorizontalScrollIndicator = false
+            setupUI()
+            configure(with: keywords)
+        }
+
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -68,6 +71,22 @@ final class CategoryCellListView: UIScrollView {
 
         categoryViews.forEach { category in
             stackView.addArrangedSubview(category)
+        }
+    }
+    
+    func configure(with keywords: [String]) {
+        // 기존 뷰들 제거
+        categoryViews.forEach { $0.removeFromSuperview() }
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        categoryViews.removeAll()
+
+        // 새로운 키워드로 구성
+        let displayKeywords = keywords.isEmpty ? ["편의점", "카페", "은행", "음식점", "약국", "주차장", "숙박", "학원", "학교", "주유소"] : keywords
+
+        displayKeywords.forEach { keyword in
+            let view = CategoryCellView(title: keyword, color: color)
+            stackView.addArrangedSubview(view)
+            categoryViews.append(view)
         }
     }
 }

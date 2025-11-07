@@ -38,7 +38,8 @@ final class ModuleFactory {
         let viewModel: LoginViewModel = getOrCreateViewModel(for: .login) {
             let authUseCase = DIContainer.shared.resolve(AuthUseCaseProtocol.self)
             let userUsecase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
-            return LoginViewModel(authUseCase: authUseCase, userUseCase: userUsecase)
+            let placeUsecase = DIContainer.shared.resolve(PlaceUseCase.self)
+            return LoginViewModel(authUseCase: authUseCase, userUseCase: userUsecase, placeUsecase: placeUsecase)
         }
         return LoginViewController(viewModel: viewModel)
     }
@@ -47,7 +48,8 @@ final class ModuleFactory {
         let viewModel: LoginViewModel = getOrCreateViewModel(for: .oneTimeAsk) {
             let authUseCase = DIContainer.shared.resolve(AuthUseCaseProtocol.self)
             let userUsecase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
-            return LoginViewModel(authUseCase: authUseCase, userUseCase: userUsecase)
+            let placeUsecase = DIContainer.shared.resolve(PlaceUseCase.self)
+            return LoginViewModel(authUseCase: authUseCase, userUseCase: userUsecase, placeUsecase: placeUsecase)
         }
         return OneTimeAskViewController(viewModel: viewModel)
     }
@@ -143,7 +145,8 @@ final class ModuleFactory {
         getOrCreateViewModel(for: .login) {
             let authUseCase = DIContainer.shared.resolve(AuthUseCaseProtocol.self)
             let userUseCase = DIContainer.shared.resolve(UserUseCaseProtocol.self)
-            return LoginViewModel(authUseCase: authUseCase, userUseCase: userUseCase)
+            let placeUsecase = DIContainer.shared.resolve(PlaceUseCase.self)
+            return LoginViewModel(authUseCase: authUseCase, userUseCase: userUseCase, placeUsecase: placeUsecase)
         }
     }
 

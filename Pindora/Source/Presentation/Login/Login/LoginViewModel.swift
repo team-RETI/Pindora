@@ -11,11 +11,13 @@ import FirebaseAuth
 final class LoginViewModel {
     private let authUseCase: AuthUseCaseProtocol
     private let userUseCase: UserUseCaseProtocol
+    private let placeUsease: PlaceUseCase
     private var cancellables: Set<AnyCancellable> = []
     
-    init(authUseCase: AuthUseCaseProtocol, userUseCase: UserUseCaseProtocol) {
+    init(authUseCase: AuthUseCaseProtocol, userUseCase: UserUseCaseProtocol, placeUsecase: PlaceUseCase) {
         self.authUseCase = authUseCase
         self.userUseCase = userUseCase
+        self.placeUsease = placeUsecase
     }
     
     struct Input {
@@ -117,10 +119,12 @@ extension LoginViewModel {
     
     struct OTAInput {
         let updateCategories: AnyPublisher<[String], Never>
+        let fetchRecommendKeyword: AnyPublisher<Void, Never>
     }
     
     struct OTAOutput {
         let categoryUpdateResult: AnyPublisher<Result<Void, UseCaseError>, Never>
+        let recommendKeywords: AnyPublisher<Result<[String], UseCaseError>, Never>
     }
     
     func transform(input: OTAInput) -> OTAOutput {
@@ -141,6 +145,28 @@ extension LoginViewModel {
                     .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
-        return OTAOutput(categoryUpdateResult: categoruUpdateResult)
+        
+        let recommendKeywords = input.fetchRecommendKeyword
+            .flatMap { [weak self] _ -> AnyPublisher<Result<[String], UseCaseError>, Never> in
+                guard let self else {
+                    return Just(.failure(.invalidState)).eraseToAnyPublisher()
+                }
+
+                return self.placeUsease.fetchRecommendKeyword()
+                    .map { Result.success($0) }
+                    .catch { error in Just(.failure(.unknown(.unknown(error as! InfraError)))) }
+                    .handleEvents(receiveOutput: { result in
+                        switch result {
+                        case .success(let keywords):
+                            print("📦 추천 키워드:", keywords)
+                        case .failure(let error):
+                            print("❌ 추천 키워드 로드 실패:", error)
+                        }
+                    })
+                    .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
+        
+        return OTAOutput(categoryUpdateResult: categoruUpdateResult, recommendKeywords: recommendKeywords)
     }
 }

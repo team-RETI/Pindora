@@ -39,11 +39,13 @@ final class OneTimeAskView: UIView {
     }()
     
     // test
-    let cloud = KeywordCloudView(
-        keywords: ["도서관","카페","관광지","식당","숙소","영화관","전시","공원","바다","산책","야시장","시장","미술관","한옥","온천","서점","드라이브","캠핑"]
+    var cloud = KeywordCloudView(
+        keywords: []
     )
     // test
     let card = AppleCardInkProgressView()
+    
+    
     private var progress: CGFloat = 0
     
     private lazy var previewStackView: UIStackView = {
@@ -244,3 +246,4 @@ final class OneTimeAskView: UIView {
         onKeywordTapped?(sender, now)
     }
 }
+
