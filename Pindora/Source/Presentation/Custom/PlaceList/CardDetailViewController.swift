@@ -52,40 +52,6 @@ final class CardDetailViewController: UIViewController {
     }
     
     // MARK: - Bindings
-//    private func createView() {
-//        // 1) SwiftUI 뷰 생성 + 콜백 주입
-//        let swiftUIView = ReviewContentView
-//        { payload in
-//            print("사용자가 준 점수:", payload.rating)
-//            self.confirmButtonSubject.send(payload)
-//            print("사용자가 쓴 리뷰:", payload.context)
-//            self.hideReview()
-//        } onClose: { [weak self] in
-//            self?.hideReview()
-//        }
-//        
-//        // 2) HostingController로 감싸기
-//        let hosting = UIHostingController(rootView: swiftUIView)
-//        self.hostingController = hosting
-//        
-//        // 3) 자식으로 추가
-//        addChild(hosting)
-//        view.addSubview(hosting.view)
-//        hosting.view.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            hosting.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            hosting.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            hosting.view.topAnchor.constraint(equalTo: view.topAnchor),
-//            hosting.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//        ])
-//        hosting.didMove(toParent: self)
-//        
-//        hosting.view.alpha = 0
-//        UIView.animate(withDuration: 0.2) {
-//            hosting.view.alpha = 1
-//        }
-//    }
-    
     private func bindSwiftUIView(existingReview: ReviewPayload? = nil) {
         // 1) SwiftUI View 생성
         let swiftUIView: ReviewContentView
@@ -105,6 +71,7 @@ final class CardDetailViewController: UIViewController {
                     // 필요 시 삭제 이벤트 전달
                     self?.deleteButtonSubject.send(deleted)
                     self?.hideReview()
+                    self?.reviewData = nil
                 },
                 onClose: { [weak self] in
                     self?.hideReview()
@@ -172,7 +139,8 @@ final class CardDetailViewController: UIViewController {
             viewDidLoad: Just(()).eraseToAnyPublisher(),
             addButtonTapped: addButtonSubject.eraseToAnyPublisher(),
             toMapButtonTapped: toMapViewButtonSubject.eraseToAnyPublisher(),
-            confirmReviewButtonTapped: confirmButtonSubject.eraseToAnyPublisher()
+            confirmReviewButtonTapped: confirmButtonSubject.eraseToAnyPublisher(),
+            deleteReviewButtonTapped: deleteButtonSubject.eraseToAnyPublisher()
         )
         
         let output = viewModel.transform(input: input)

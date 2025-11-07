@@ -43,6 +43,8 @@ final class CardDetailViewModel {
         let toMapButtonTapped: AnyPublisher<Void, Never>
         /// 리뷰 저장 버튼 시 호출
         let confirmReviewButtonTapped: AnyPublisher<ReviewPayload, Never>
+        /// 리뷰 삭제 버튼 시 호출
+        let deleteReviewButtonTapped: AnyPublisher<ReviewPayload, Never>
     }
     
     struct Output {
@@ -224,6 +226,36 @@ final class CardDetailViewModel {
                         updatedPlace.reviewTitle = payload.title
                         updatedPlace.reviewRating = payload.rating
                         updatedPlace.reviewContent = payload.context
+                        return self.userUseCase.updateUserSavedPlaceReview(user: user, place: updatedPlace)
+                    }
+                    .handleEvents(receiveOutput: { [weak self] in
+                        guard let self else { return }
+                        self.userUseCase.refreshIfNeeded(force: true, uid: uid)
+                    })
+                    .map { _ in }
+                    .replaceError(with: ())
+                    .eraseToAnyPublisher()
+            }
+            .sink { _ in }
+            .store(in: &cancellables)
+        
+        input.deleteReviewButtonTapped
+            .flatMap { [weak self] payload -> AnyPublisher<Void, Never> in
+                guard let self, let uid = Auth.auth().currentUser?.uid else {
+                    return Just(()).eraseToAnyPublisher()
+                }
+  
+                return self.userUseCase.fetchUser(uid: uid)
+                    .flatMap { [weak self] user -> AnyPublisher<Void, UseCaseError> in
+                        guard let self else {
+                            return  Just(())
+                                .setFailureType(to: UseCaseError.self)
+                                .eraseToAnyPublisher()
+                        }
+                        var updatedPlace = place
+                        updatedPlace.reviewTitle = nil
+                        updatedPlace.reviewRating = nil
+                        updatedPlace.reviewContent = nil
                         return self.userUseCase.updateUserSavedPlaceReview(user: user, place: updatedPlace)
                     }
                     .handleEvents(receiveOutput: { [weak self] in
