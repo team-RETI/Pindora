@@ -36,7 +36,6 @@ final class OneTimeAskViewController: UIViewController {
 
     // MARK: - Bindings
     private func bindViewModel() {
-        
         // 1. Input 생성
         let input = LoginViewModel.OTAInput(
             updateCategories: customView.registerButton.tapPublisher
@@ -44,7 +43,11 @@ final class OneTimeAskViewController: UIViewController {
                     guard let self = self else { return [] }
                     return self.customView.selectedKeywords
                 }
-                .eraseToAnyPublisher()
+                .eraseToAnyPublisher(),
+            
+            fetchRecommendKeyword: Just(())
+                            .delay(for: .milliseconds(300), scheduler: RunLoop.main)
+                            .eraseToAnyPublisher()
         )
         
         // 2, ViewModel transform 호출
@@ -61,5 +64,18 @@ final class OneTimeAskViewController: UIViewController {
                     print("❌ 카테고리 업데이트 실패: \(error)")
                 }
             }.store(in: &cancellables)
+        
+        output.recommendKeywords
+            .sink { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let keywords):
+                    print("📦 불러온 추천 키워드:", keywords)
+                    
+                case .failure(let error):
+                    print("❌ 추천 키워드 로드 실패:", error)
+                }
+            }
+            .store(in: &cancellables)
     }
 }

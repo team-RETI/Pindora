@@ -63,6 +63,12 @@ final class PlaceUseCaseImpl: PlaceUseCase {
             .eraseToAnyPublisher()
     }
     
+    func fetchRecommendKeyword() -> AnyPublisher<[String], Error> {
+        repository.fetch(from: "Keywords", id: "Register", as: RecommendKeywordDTO.self)
+            .map { $0.keywords }
+            .eraseToAnyPublisher()
+    }
+    
     // MARK: - Smart Refresh (과호출/중복요청 방지)
     func refreshIfNeeded(force: Bool = false) {
         syncQ.async { [weak self] in

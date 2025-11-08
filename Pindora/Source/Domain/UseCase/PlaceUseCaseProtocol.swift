@@ -24,4 +24,8 @@ protocol PlaceUseCase {
     /// 파이어베이스에서 고정 키워드들을 가져오는 함수
     /// - Returns: AnyPublisher<[String], Error>
     func fetchKeywords() -> AnyPublisher<[String], Error>
+    
+    /// 파이어베이스에서 추천 키워드를 가져오는 함수
+    /// - Returns: [String]]
+    func fetchRecommendKeyword() -> AnyPublisher<[String], Error>
 }

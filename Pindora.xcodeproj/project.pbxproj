@@ -24,7 +24,7 @@
 		89728D9E2E33DEBC002B3ACE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9D2E33DEBC002B3ACE /* User.swift */; };
 		89728DA02E33DEE8002B3ACE /* UserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728D9F2E33DEE8002B3ACE /* UserUseCaseProtocol.swift */; };
 		89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */; };
-		899ECE7F2E40403800EE7105 /* PlaceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899ECE7E2E40403800EE7105 /* PlaceUseCase.swift */; };
+		899ECE7F2E40403800EE7105 /* PlaceUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899ECE7E2E40403800EE7105 /* PlaceUseCaseProtocol.swift */; };
 		899ECE812E4056A800EE7105 /* PlaceUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899ECE802E4056A800EE7105 /* PlaceUseCaseImpl.swift */; };
 		89A18E1A2E6718340052536C /* GPTAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A18E192E6718340052536C /* GPTAPIManager.swift */; };
 		89A18E1C2E6719010052536C /* GPTRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A18E1B2E6719010052536C /* GPTRepositoryProtocol.swift */; };
@@ -150,6 +150,7 @@
 		DFA6892F2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md in Resources */ = {isa = PBXBuildFile; fileRef = DFA6892B2E2110F7000EC0BA /* PULL_REQUEST_TEMPLATE.md */; };
 		DFA689342E211752000EC0BA /* issue-branch.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFA689332E211752000EC0BA /* issue-branch.yml */; };
 		DFB9A41B2E22BB9500BD0E51 /* email-notify.yml in Resources */ = {isa = PBXBuildFile; fileRef = DFB9A41A2E22BB9500BD0E51 /* email-notify.yml */; };
+		DFDB00D12EBE2E2E00F6D81D /* RecommendKeywordDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDB00D02EBE2E2E00F6D81D /* RecommendKeywordDto.swift */; };
 		DFE0388B2E351A4300A2060D /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE0388A2E351A4300A2060D /* Place.swift */; };
 		DFE039B02E352B7500A2060D /* PlaceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE039AF2E352B7500A2060D /* PlaceDTO.swift */; };
 		DFE039B42E3532CB00A2060D /* NaverPlaceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */; };
@@ -215,7 +216,7 @@
 		89728D9D2E33DEBC002B3ACE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		89728D9F2E33DEE8002B3ACE /* UserUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseProtocol.swift; sourceTree = "<group>"; };
 		89728DA12E33DEFA002B3ACE /* UserUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImpl.swift; sourceTree = "<group>"; };
-		899ECE7E2E40403800EE7105 /* PlaceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceUseCase.swift; sourceTree = "<group>"; };
+		899ECE7E2E40403800EE7105 /* PlaceUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceUseCaseProtocol.swift; sourceTree = "<group>"; };
 		899ECE802E4056A800EE7105 /* PlaceUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceUseCaseImpl.swift; sourceTree = "<group>"; };
 		89A18E192E6718340052536C /* GPTAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTAPIManager.swift; sourceTree = "<group>"; };
 		89A18E1B2E6719010052536C /* GPTRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -352,6 +353,7 @@
 		DFA689322E21163A000EC0BA /* labels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = labels.json; sourceTree = "<group>"; };
 		DFA689332E211752000EC0BA /* issue-branch.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "issue-branch.yml"; sourceTree = "<group>"; };
 		DFB9A41A2E22BB9500BD0E51 /* email-notify.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "email-notify.yml"; sourceTree = "<group>"; };
+		DFDB00D02EBE2E2E00F6D81D /* RecommendKeywordDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendKeywordDto.swift; sourceTree = "<group>"; };
 		DFE0388A2E351A4300A2060D /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		DFE039AF2E352B7500A2060D /* PlaceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDTO.swift; sourceTree = "<group>"; };
 		DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverPlaceDTO.swift; sourceTree = "<group>"; };
@@ -637,7 +639,7 @@
 			isa = PBXGroup;
 			children = (
 				DF7A8B992E277CCB00378AC3 /* AuthUseCaseProtocol.swift */,
-				899ECE7E2E40403800EE7105 /* PlaceUseCase.swift */,
+				899ECE7E2E40403800EE7105 /* PlaceUseCaseProtocol.swift */,
 				89728D912E33DDEF002B3ACE /* ImageUseCaseProtocol.swift */,
 				89728D9F2E33DEE8002B3ACE /* UserUseCaseProtocol.swift */,
 				A70014762E64923C00CD5572 /* LocationUseCaseProtocol.swift */,
@@ -929,6 +931,7 @@
 				DF883ACC2E34B5CA00F67BF9 /* .gitkeep */,
 				DF45C1A62E6C0FA10005550F /* KeywordDTO.swift */,
 				DFE039B32E3532CB00A2060D /* NaverPlaceDTO.swift */,
+				DFDB00D02EBE2E2E00F6D81D /* RecommendKeywordDto.swift */,
 				A7854E3D2E4B3132002A5C2A /* KakaoPlaceDTO.swift */,
 				DFE039AF2E352B7500A2060D /* PlaceDTO.swift */,
 				89AC93FD2E38D7B5006446CD /* UserDTO.swift */,
@@ -1283,6 +1286,7 @@
 				DF1F40F82E279F9000BE27AC /* ProfileViewModel.swift in Sources */,
 				89728DA22E33DEFA002B3ACE /* UserUseCaseImpl.swift in Sources */,
 				A72C9A2C2E3CD9FC00F6D30E /* PreviewCardView.swift in Sources */,
+				DFDB00D12EBE2E2E00F6D81D /* RecommendKeywordDto.swift in Sources */,
 				A78A134F2E53413600204D8D /* GradientProgressCardView.swift in Sources */,
 				DFE0388B2E351A4300A2060D /* Place.swift in Sources */,
 				8938CBAF2E367D2D00369EE3 /* FirebaseStorageManager.swift in Sources */,
@@ -1345,7 +1349,7 @@
 				DF7A8B9C2E277D0000378AC3 /* AuthUseCaseImpl.swift in Sources */,
 				A725E9BB2E2FE6E100EEA3F5 /* AccountSettingViewController.swift in Sources */,
 				DFA2CB392E27C7B000C4F32B /* ModuleFactory.swift in Sources */,
-				899ECE7F2E40403800EE7105 /* PlaceUseCase.swift in Sources */,
+				899ECE7F2E40403800EE7105 /* PlaceUseCaseProtocol.swift in Sources */,
 				DFA2CB3D2E27DC8E00C4F32B /* Documentation.docc in Sources */,
 				DF45C1A72E6C0FA10005550F /* KeywordDTO.swift in Sources */,
 				A732BA292E27E2BB009EB6BF /* CategoryCellListView.swift in Sources */,
